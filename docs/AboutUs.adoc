@@ -19,11 +19,11 @@ Role: Project Advisor
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Zhen Hao
+image::zzsmao.jpg[width="150", align="left"]
+{empty}[http://github.com/zzsmao[github]]
 
-Role: Team Lead +
+Role: Developer
 Responsibilities: UI
 
 '''
