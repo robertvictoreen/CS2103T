@@ -16,7 +16,7 @@ image::zackkh95.jpg[width="150", align="left"]
 {empty} [https://github.com/Zackkh95[github]] 
 
 Role: Developer
-Responsibilities: UI
+Responsibilities: UI + Documentation
 
 '''
 
