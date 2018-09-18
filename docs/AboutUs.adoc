@@ -18,9 +18,9 @@ image::robertvictoreen.jpg[width="150", align="left"]
 Role: Developer
 Responsibilities: Integration
 
-=== Zachary
-image::zackkh95.jpg[width="150", align="left"]
-{empty} [https://github.com/Zackkh95[github]] 
+=== Tan Ken Hao Zachary
+image::zackkh95.png[width="150", align="left"]
+{empty}[https://github.com/Zackkh95[github]] [<<zackkh95#,portfolio>>]
 
 Role: Developer
 Responsibilities: UI + Documentation
