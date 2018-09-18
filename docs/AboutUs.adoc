@@ -20,10 +20,10 @@ Role: Project Advisor
 '''
 
 === Zhen Hao
-image::zzsmao.jpg[width="150", align="left"]
+image::zzsmao.png[width="150", align="left"]
 {empty}[http://github.com/zzsmao[github]]
 
-Role: Developer
+Role: Developer +
 Responsibilities: UI
 
 '''
