@@ -25,7 +25,7 @@ Role: Developer +
 Responsibilities: UI + Documentation
 
 === Spencer Tan
-image::spencertan96.jpg[width="150", align="left"]
+image::spencertan96.png[width="150", align="left"]
 {empty}[https://github.com/spencertan96[github]] [<<spencertan96#, portfolio>>]
 
 Role: Developer +

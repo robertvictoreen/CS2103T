@@ -215,7 +215,7 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-== Command Summary <-- 
+== Command Summary
 
 * *Absent* : `absent NAME` 
 * *Add* : `add NAME [s/INDEX p/PHONE_NUMBER e/EMAIL [t/TAG]...` +
