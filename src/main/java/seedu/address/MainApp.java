@@ -5,6 +5,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import java.util.*;
+
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Application;
@@ -34,6 +36,8 @@ import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.XmlAddressBookStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * The main entry point to the application.
@@ -203,6 +207,7 @@ public class MainApp extends Application {
     }
 
     public static void main(String[] args) {
+
         launch(args);
     }
 }
