@@ -32,6 +32,7 @@ Role: Developer +
 Responsibilities: Code Quality
 
 === Zhen Hao
+
 image::zzsmao.png[width="150", align="left"]
 {empty}[http://github.com/zzsmao[github]]
 
