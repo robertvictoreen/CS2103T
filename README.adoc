@@ -19,9 +19,9 @@ endif::[]
 *This addressbook helps NUS tutors to track student's attendance, participation, submissions and grades for their modules.* 
 *It is written in OOP fashion.* 
 *What's good about this project:*
-* A more sophisticated GUI that includes a list  panel and an in-built Browser.*
-* More test cases, including automated GUI testing.*
-* Support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.*
+*A more sophisticated GUI that includes a list  panel and an in-built Browser.*
+*More test cases, including automated GUI testing.*
+*Support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.*
 
 == Site Map
 
