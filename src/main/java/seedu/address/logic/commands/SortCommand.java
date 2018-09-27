@@ -6,7 +6,7 @@ import seedu.address.model.Model;
 /**
  * Sorts all persons in the address book lexicographically.
  */
-public class SortCommand extends Command{
+public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
     public static final String MESSAGE_SUCCESS = "Sorted all persons in the Address Book";
     @Override
