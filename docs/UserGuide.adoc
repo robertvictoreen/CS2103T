@@ -170,6 +170,10 @@ Format: `sort [s/p/a]`
 [TIP]
 Students are sorted according by alphabetical order by default (with no argument).
 
+== Sorting students by name : `sort`
+ Sorts all student in the address book by name. +
+Format: `sort`
+
 === Record a mark for a student: `mark`
 
 Adds a mark entry associated with a student, with the mark obtained and the maximum marks. +
@@ -233,6 +237,7 @@ e.g. `edit 2 James Lee e/jameslee@example.com`
 * *Redo* : `redo`
 * *Results* : `results INDEX`
 * *Sort* : `sort [s/p/a]
+* *Sort* : `sort`
 * *Undo* : `undo`
 * *Unmark* : `unmark INDEX`
 
