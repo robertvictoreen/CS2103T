@@ -93,6 +93,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    /** Sorts the persons in this {@code AddressBook} lexicographically */
+    public void sort() {
+        persons.sort();
+    }
+
     //// util methods
 
     @Override
