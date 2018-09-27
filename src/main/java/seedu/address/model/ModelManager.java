@@ -83,6 +83,13 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public synchronized void sort(){
+        AddressBook.sort();
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateAddressBookChanged();
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
