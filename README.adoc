@@ -16,8 +16,8 @@ endif::[]
 
 *This is a desktop Address Book application for NUS tutors to manage their administrative tasks.*
 *It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).*
-*This addressbook helps NUS tutors to track student's attendance, participation, submissions and grades for their modules.* 
-*It is written in OOP fashion.* 
+*This addressbook helps NUS tutors to track student's attendance, participation, submissions and grades for their modules.*
+*It is written in OOP fashion.*
 *What's good about this project:*
 *A more sophisticated GUI that includes a list  panel and an in-built Browser.*
 *More test cases, including automated GUI testing.*

@@ -900,21 +900,21 @@ Use case ends.
 
 *MSS*
 
-1. Tutor chooses to check for Assignment Submission 
+1. Tutor chooses to check for Assignment Submission
 2. EazyTutors requests for details of which assignment
-3. Tutor enters the requested details. 
-4. EazyTutors displays the list of students who submitted assignment. 
+3. Tutor enters the requested details.
+4. EazyTutors displays the list of students who submitted assignment.
 +
 Use case ends.
 
 *Extensions*
 
 * 3a. EazyTutor detects error in the entered data.
-** 3a1. EazyTutors requests for correct data. 
-** 3a2. User enters new data. 
-* 3b. Tutor doesn’t want to check assignment submissions anymore, he wants to exit. 
+** 3a1. EazyTutors requests for correct data.
+** 3a2. User enters new data.
+* 3b. Tutor doesn’t want to check assignment submissions anymore, he wants to exit.
 ** 3b1. EazyTutors exits the prompt for new data.
-** 3b2. Tutor is back at main menu. 
+** 3b2. Tutor is back at main menu.
 +
 Use case ends.
 
