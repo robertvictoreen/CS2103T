@@ -1,23 +1,33 @@
 package seedu.address.ui;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import seedu.address.MainApp;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -76,6 +86,7 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
     }
+
 
     public Stage getPrimaryStage() {
         return primaryStage;
@@ -187,6 +198,23 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
+    /**
+     * Opens a new window to key in the details of the to-be-added student.
+     */
+    @FXML
+    private void handleAdd() {
+
+        boolean OKClicked = showAddWindow();
+        if (OKClicked){
+            try {
+                CommandResult commandResult = logic.execute(AddStudentWindow.commandText);
+                raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
+            } catch (CommandException | ParseException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -200,4 +228,48 @@ public class MainWindow extends UiPart<Stage> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
     }
+
+    /*private void showAddWindow(Stage stage){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/view/AddStudentWindow.fxml"));
+            AnchorPane pane = (AnchorPane) loader.load();
+            Scene scene = new Scene(pane);
+            // Configure the UI
+            stage.setTitle("Add Student");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(primaryStage);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }*/
+
+    public boolean showAddWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/view/AddStudentWindow.fxml"));
+            AnchorPane pane = (AnchorPane) loader.load();
+            Scene scene = new Scene(pane);
+
+            Stage stage = new Stage();
+            stage.setTitle("Add Student");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(primaryStage);
+            stage.setScene(scene);
+
+            AddStudentWindow controller = loader.getController();
+            controller.setStage(stage);
+            controller.setLogic(logic);
+            stage.showAndWait();
+
+            return controller.isOKClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
 }
