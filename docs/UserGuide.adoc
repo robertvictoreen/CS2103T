@@ -172,18 +172,18 @@ Students are sorted according by alphabetical order by default (with no argument
 
 === Record a mark for a student: `mark`
 
-Adds a mark entry associated with a student, with the mark obtained and the maximum marks. +
-Format: mark s/INDEX o/OBTAINED m/MAX
+Adds a mark entry associated with a student given the percentage value of mark obtained. +
+Format: `mark INDEX m/MARK`
 
 === View a student's marks: `results`
 
 View the mark entries associated with the student at the specified index. +
-Format: results INDEX
+Format: `results INDEX`
 
 === Delete a mark entry: `unmark`
 
 Delete the indexed mark entry in the list associated with the student at the specified index. +
-Format: unmark INDEX
+Format: `unmark INDEX m/MARK`
 
 === Editing a student: `edit`
 
