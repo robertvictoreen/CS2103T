@@ -18,10 +18,10 @@ By: `Team W12-4`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-EazyTutors is an application for tutors or teachers who prefer a virtual way to record students’ attendance. It 
+EazyTutors is an application for tutors or teachers who prefer a virtual way to record students’ attendance. It
 also boasts extra features to check on students’ progress and helps users customise their teaching to students
-with different capabilities. EazyTutors is optimized for those who prefer to work with a Command Line Interface 
-(CLI) while still having the benefits of a Graphical User Interface (GUI). No need to bring around attendance 
+with different capabilities. EazyTutors is optimized for those who prefer to work with a Command Line Interface
+(CLI) while still having the benefits of a Graphical User Interface (GUI). No need to bring around attendance
 sheets anymore with EazyTutors! Interested? Jump to Section 2, “Quick Start” to get started. Enjoy!
 
 == Quick Start
@@ -62,7 +62,7 @@ Format: `help`
 
 === Adding a student: `add`
 
-Adds a student with a compulsory name. The other information (index at list to add him to, 
+Adds a student with a compulsory name. The other information (index at list to add him to,
 phone number, email and tags) is optional. +
 Format: `add NAME [s/INDEX p/PHONE_NUMBER e/EMAIL t/TAG...]`
 
@@ -217,7 +217,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 == Command Summary
 
-* *Absent* : `absent NAME` 
+* *Absent* : `absent NAME`
 * *Add* : `add NAME [s/INDEX p/PHONE_NUMBER e/EMAIL [t/TAG]...` +
 e.g. `add James Ho s/1 p/22224444 e/jamesho@example.com t/friend t/colleague`
 * *Clear* : `clear`
