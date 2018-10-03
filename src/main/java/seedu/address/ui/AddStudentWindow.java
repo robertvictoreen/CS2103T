@@ -18,7 +18,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class AddStudentWindow extends UiPart {
 
-    private final static String MESSAGE_ADD_FAILED = "Add Student Failed!";
+    private static final String MESSAGE_ADD_FAILED = "Add Student Failed!";
 
     @FXML
     private TextField nameField;
