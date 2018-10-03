@@ -33,10 +33,10 @@ import seedu.address.model.UserPrefs;
  */
 public class MainWindow extends UiPart<Stage> {
 
-    protected Logic logic;
-
     private static final String FXML = "MainWindow.fxml";
     private static final String FXMLAddWindow = "/view/AddStudentWindow.fxml";
+
+    protected Logic logic;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 

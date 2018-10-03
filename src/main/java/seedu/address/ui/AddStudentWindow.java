@@ -18,6 +18,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class AddStudentWindow extends UiPart {
 
+    private final static String MESSAGE_ADD_FAILED = "Add Student Failed!";
+
     @FXML
     private TextField nameField;
     @FXML
@@ -39,7 +41,7 @@ public class AddStudentWindow extends UiPart {
     private Stage primaryStage;
     private Logic logic;
 
-    private final static String MESSAGE_ADD_FAILED = "Add Student Failed!";
+
 
     public AddStudentWindow(){
     }
@@ -61,13 +63,13 @@ public class AddStudentWindow extends UiPart {
         String address = addressField.getText();
         String email = emailField.getText();
         String tagsCombined = "";
-        if (!tagOneField.getText().equals("")) {
+        if (isNotNull(tagOneField)) {
             tagsCombined += " t/" + tagOneField.getText();
         }
-        if (!tagTwoField.getText().equals("")) {
+        if (isNotNull(tagTwoField)) {
             tagsCombined += " t/" + tagTwoField.getText();
         }
-        if (!tagThreeField.getText().equals("")) {
+        if (isNotNull(tagThreeField)) {
             tagsCombined += " t/" + tagThreeField.getText();
         }
 
@@ -86,10 +88,7 @@ public class AddStudentWindow extends UiPart {
         } catch (CommandException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle(MESSAGE_ADD_FAILED);
-            alert.setHeaderText(e.getMessage());
-            alert.setContentText(null);
-            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            configAlert(alert, MESSAGE_ADD_FAILED, e.getMessage(), null, Region.USE_PREF_SIZE);
 
             // setting icon on top left of alert window to be same as it's graphic icon
             Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
@@ -99,10 +98,8 @@ public class AddStudentWindow extends UiPart {
         } catch (ParseException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle(MESSAGE_ADD_FAILED);
-            alert.setHeaderText(Messages.MESSAGE_INVALID_COMMAND);
-            alert.setContentText(e.getMessage());
-            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            configAlert(alert, MESSAGE_ADD_FAILED, Messages.MESSAGE_INVALID_COMMAND, e.getMessage(),
+                    Region.USE_PREF_SIZE);
 
             // setting icon on top left of alert window to be same as it's graphic icon
             Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
@@ -126,5 +123,22 @@ public class AddStudentWindow extends UiPart {
 
     public void setStage(Stage stage) {
         this.primaryStage = stage;
+    }
+
+    /**
+     * Checks if field is not empty
+     */
+    private boolean isNotNull(TextField field) {
+        return !field.getText().equals("");
+    }
+
+    /**
+     * Sets alert window size and text
+     */
+    private void configAlert(Alert alert, String m1, String m2, String m3, double height) {
+        alert.setTitle(m1);
+        alert.setHeaderText(m2);
+        alert.setContentText(m3);
+        alert.getDialogPane().setMinHeight(height);
     }
 }
