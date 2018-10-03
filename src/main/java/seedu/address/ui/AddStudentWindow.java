@@ -1,14 +1,19 @@
 package seedu.address.ui;
 
-import java.util.logging.Logger;
-
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
-import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 
-public class AddStudentWindow extends UiPart{
+public class AddStudentWindow extends UiPart {
 
     @FXML
     private TextField nameField;
@@ -25,79 +30,26 @@ public class AddStudentWindow extends UiPart{
     @FXML
     private TextField tagThreeField;
 
-    private static final String FXML = "AddStudentWindow.fxml";
+    // Implement logger in the future
+    // private final Logger logger = LogsCenter.getLogger(getClass());
 
-    private final Logger logger = LogsCenter.getLogger(getClass());
+    private Stage primaryStage;
+    private Logic logic;
 
-    public Stage primaryStage;
-    public Logic logic;
-    public static boolean OKClicked = false;
-    public static String commandText;
+    private static final String MESSAGE_ADD_FAILED = "Add Student Failed!";
 
     public AddStudentWindow(){
     }
 
-    /*public AddStudentWindow(Stage stage, Logic logic){
-        this.logic = logic;
-        this.primaryStage = stage;
-    }*/
-
-    /*public AddStudentWindow(Stage primaryStage, Logic logic) {
-        /*
-        super(FXML, primaryStage);
-
-
-        // Set dependency
-        this.primaryStage = primaryStage;
-        this.logic = logic;
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainApp.class.getResource("/view/AddStudentWindow.fxml"));
-        try {
-            AnchorPane pane = (AnchorPane) loader.load();
-            Scene scene = new Scene(pane);
-            this.primaryStage.setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // Configure the UI
-        primaryStage.setTitle("Add Student");
-        primaryStage.initModality(Modality.WINDOW_MODAL);
-        primaryStage.initOwner(primaryStage);
-    }*/
-
     @FXML
     private void initialize() {
-        /*
-        super(FXML, primaryStage);
-        */
-
-        // Set dependency
-        //this.primaryStage = primaryStage;
-        //this.logic = logic;
-
-        /*try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/view/AddStudentWindow.fxml"));
-            AnchorPane pane = (AnchorPane) loader.load();
-            Scene scene = new Scene(pane);
-            // Configure the UI
-            this.primaryStage.setTitle("Add Student");
-            this.primaryStage.initModality(Modality.WINDOW_MODAL);
-            this.primaryStage.initOwner(primaryStage);
-            this.primaryStage.setScene(scene);
-            Logger.getLogger("works");
-            this.primaryStage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
     }
 
-    void show() {
-        primaryStage.show();
-    }
-
+    // // Test empty tags
+    /**
+     * Adds student with entered details into student list.
+     * Alert shown if invalid details entered.
+     */
     @FXML
     private void handleOK() {
 
@@ -106,55 +58,49 @@ public class AddStudentWindow extends UiPart{
         String address = addressField.getText();
         String email = emailField.getText();
         String tagsCombined = "";
-        if (tagOneField.getText() != ""){
+        if (!tagOneField.getText().equals("")) {
             tagsCombined += " t/" + tagOneField.getText();
         }
-        if (tagTwoField.getText() == ""){
+        if (!tagTwoField.getText().equals("")) {
             tagsCombined += " t/" + tagTwoField.getText();
         }
-        if (tagThreeField.getText() != ""){
+        if (!tagThreeField.getText().equals("")) {
             tagsCombined += " t/" + tagThreeField.getText();
         }
-        OKClicked = true;
-        //String tags = tagOneField.getText() + tagTwoField.getText() + tagThreeField.getText();
 
-        if (tagsCombined == "") {
-            this.commandText = "add n/" + name + " p/" + phoneNumber + " e/" + email + " a/" + address;
-            primaryStage.close();
-
+        String commandText;
+        CommandResult commandResult;
+        if (tagsCombined.equals("")) {
+            commandText = "add n/" + name + " p/" + phoneNumber + " e/" + email + " a/" + address;
         } else {
-            this.commandText = "add n/" + name + " p/" + phoneNumber + " e/" + email + " a/" + address + tagsCombined;
-            primaryStage.close();
-
+            commandText = "add n/" + name + " p/" + phoneNumber + " e/" + email + " a/" + address + tagsCombined;
         }
 
-        // OK clicked
-        // // Test empty tags
-        /*
-        if (tagsCombined == ""){
-            try {
-                logic.execute("add n/" + name + " p/" + phoneNumber + " e/" + email + " a/"
-                        + address);
-            } catch (CommandException | ParseException e) {
-                e.printStackTrace();
-            }
-        } else {
-            try {
-                if (logic == null){
-                    System.out.printf("String = %s\n", tagsCombined);
-                }
-
-                logic.execute("add n/" + name + " p/" + phoneNumber + " e/" + email + " a/"
-                        + address + " t/" + tagsCombined);
-            } catch (CommandException | ParseException e) {
-                e.printStackTrace();
-            }
+        try {
+            commandResult = logic.execute(commandText);
+            raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
+            primaryStage.close();
+        } catch (CommandException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(MESSAGE_ADD_FAILED);
+            alert.setHeaderText(AddCommand.MESSAGE_DUPLICATE_PERSON);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.showAndWait();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(MESSAGE_ADD_FAILED);
+            alert.setHeaderText(Messages.MESSAGE_INVALID_COMMAND);
+            alert.setContentText(AddCommand.MESSAGE_USAGE);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.showAndWait();
         }
-        */
-
-        // OR Straight away use AddCommand
     }
 
+    /**
+     * Closes window when user clicks on the Cancel button.
+     */
     @FXML
     private void handleCancel() {
         primaryStage.close();
@@ -166,9 +112,5 @@ public class AddStudentWindow extends UiPart{
 
     public void setStage(Stage stage){
         this.primaryStage = stage;
-    }
-
-    public boolean isOKClicked() {
-        return OKClicked;
     }
 }

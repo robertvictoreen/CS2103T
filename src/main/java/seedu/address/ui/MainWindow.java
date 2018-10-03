@@ -22,12 +22,8 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
-import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -37,11 +33,12 @@ import seedu.address.model.UserPrefs;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String FXMLAddWindow = "/view/AddStudentWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
-    private Logic logic;
+    protected Logic logic;
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
@@ -67,6 +64,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    /**
+     * Default constructor for MainWindow.
+     */
+    protected MainWindow() {
+    }
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
@@ -204,15 +207,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleAdd() {
 
-        boolean OKClicked = showAddWindow();
-        if (OKClicked){
-            try {
-                CommandResult commandResult = logic.execute(AddStudentWindow.commandText);
-                raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
-            } catch (CommandException | ParseException e) {
-                e.printStackTrace();
-            }
-        }
+        showAddWindowAndWait();
     }
 
     public PersonListPanel getPersonListPanel() {
@@ -229,27 +224,11 @@ public class MainWindow extends UiPart<Stage> {
         handleHelp();
     }
 
-    /*private void showAddWindow(Stage stage){
+    private void showAddWindowAndWait() {
         try {
+            // Change implementation to use UiPart in the future?
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/view/AddStudentWindow.fxml"));
-            AnchorPane pane = (AnchorPane) loader.load();
-            Scene scene = new Scene(pane);
-            // Configure the UI
-            stage.setTitle("Add Student");
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(primaryStage);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
-
-    public boolean showAddWindow() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/view/AddStudentWindow.fxml"));
+            loader.setLocation(MainApp.class.getResource(FXMLAddWindow));
             AnchorPane pane = (AnchorPane) loader.load();
             Scene scene = new Scene(pane);
 
@@ -264,10 +243,8 @@ public class MainWindow extends UiPart<Stage> {
             controller.setLogic(logic);
             stage.showAndWait();
 
-            return controller.isOKClicked();
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
         }
     }
 
