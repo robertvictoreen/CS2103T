@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -237,6 +238,7 @@ public class MainWindow extends UiPart<Stage> {
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(primaryStage);
             stage.setScene(scene);
+            stage.getIcons().add(new Image("/images/address_book_32.png"));
 
             AddStudentWindow controller = loader.getController();
             controller.setStage(stage);

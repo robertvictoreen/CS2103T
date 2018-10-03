@@ -3,12 +3,12 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.logic.Logic;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -84,16 +84,27 @@ public class AddStudentWindow extends UiPart {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle(MESSAGE_ADD_FAILED);
-            alert.setHeaderText(AddCommand.MESSAGE_DUPLICATE_PERSON);
+            alert.setHeaderText(e.getMessage());
+            alert.setContentText(null);
             alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+
+            // setting icon on top left of alert window to be same as it's graphic icon
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("/images/error.png"));
+
             alert.showAndWait();
         } catch (ParseException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle(MESSAGE_ADD_FAILED);
             alert.setHeaderText(Messages.MESSAGE_INVALID_COMMAND);
-            alert.setContentText(AddCommand.MESSAGE_USAGE);
+            alert.setContentText(e.getMessage());
             alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+
+            // setting icon on top left of alert window to be same as it's graphic icon
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("/images/error.png"));
+
             alert.showAndWait();
         }
     }
