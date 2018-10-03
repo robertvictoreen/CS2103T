@@ -13,7 +13,7 @@ AddressBook - Level 4 is a desktop address book application used for teaching So
 
 == Summary of contributions
 
-* *Major enhancement*: 
+* *Major enhancement*:
 
 * *Minor enhancement*:
 
@@ -22,15 +22,15 @@ AddressBook - Level 4 is a desktop address book application used for teaching So
 * *Other contributions*:
 
 ** Project management:
-*** 
+***
 ** Enhancements to existing features:
-*** 
+***
 ** Documentation:
-*** 
+***
 ** Community:
-*** 
+***
 ** Tools:
-*** 
+***
 
 
 _{you can add/remove categories in the list above}_
