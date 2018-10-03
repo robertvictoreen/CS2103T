@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="seedu.address.ui.PersonCardTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2018-10-03T06:16:40" hostname="li320-15i" time="0.384">
-  <properties/>
-  <testcase name="equals" classname="seedu.address.ui.PersonCardTest" time="0.078"/>
-  <testcase name="display" classname="seedu.address.ui.PersonCardTest" time="0.305"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
