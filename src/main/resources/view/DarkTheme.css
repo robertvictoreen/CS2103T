@@ -30,12 +30,13 @@
 }
 
 .tab-pane {
-    -fx-background-color: derive(#1d1d1d, 20%);
-    -fx-padding: 0 0 0 0;
+    -fx-padding: 0 0 0 1;
 }
 
 .tab-pane .tab-header-area {
     -fx-padding: 0 0 0 0;
+    -fx-min-height: 0;
+    -fx-max-height: 0;
 }
 
 .table-view {
@@ -138,7 +139,7 @@
 .pane-with-border {
      -fx-background-color: derive(#1d1d1d, 20%);
      -fx-border-color: derive(#1d1d1d, 10%);
-     -fx-border-top-width: 0px;
+     -fx-border-top-width: 1px;
 }
 
 .status-bar {
@@ -348,4 +349,3 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
-
