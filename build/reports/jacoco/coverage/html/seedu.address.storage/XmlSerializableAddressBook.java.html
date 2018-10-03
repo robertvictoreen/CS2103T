@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>XmlSerializableAddressBook.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">addressbook-level4</a> &gt; <a href="index.source.html" class="el_package">seedu.address.storage</a> &gt; <span class="el_source">XmlSerializableAddressBook.java</span></div><h1>XmlSerializableAddressBook.java</h1><pre class="source lang-java linenums">package seedu.address.storage;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.AddressBook;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.Person;
+
+/**
+ * An Immutable AddressBook that is serializable to XML format
+ */
+@XmlRootElement(name = &quot;addressbook&quot;)
+public class XmlSerializableAddressBook {
+
+    public static final String MESSAGE_DUPLICATE_PERSON = &quot;Persons list contains duplicate person(s).&quot;;
+
+    @XmlElement
+    private List&lt;XmlAdaptedPerson&gt; persons;
+
+    /**
+     * Creates an empty XmlSerializableAddressBook.
+     * This empty constructor is required for marshalling.
+     */
+<span class="fc" id="L30">    public XmlSerializableAddressBook() {</span>
+<span class="fc" id="L31">        persons = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L32">    }</span>
+
+    /**
+     * Conversion
+     */
+    public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
+<span class="fc" id="L38">        this();</span>
+<span class="fc" id="L39">        persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));</span>
+<span class="fc" id="L40">    }</span>
+
+    /**
+     * Converts this addressbook into the model's {@code AddressBook} object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated or duplicates in the
+     * {@code XmlAdaptedPerson}.
+     */
+    public AddressBook toModelType() throws IllegalValueException {
+<span class="fc" id="L49">        AddressBook addressBook = new AddressBook();</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        for (XmlAdaptedPerson p : persons) {</span>
+<span class="fc" id="L51">            Person person = p.toModelType();</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">            if (addressBook.hasPerson(person)) {</span>
+<span class="fc" id="L53">                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);</span>
+            }
+<span class="fc" id="L55">            addressBook.addPerson(person);</span>
+<span class="fc" id="L56">        }</span>
+<span class="fc" id="L57">        return addressBook;</span>
+    }
+
+    @Override
+    public boolean equals(Object other) {
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">        if (other == this) {</span>
+<span class="nc" id="L63">            return true;</span>
+        }
+
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">        if (!(other instanceof XmlSerializableAddressBook)) {</span>
+<span class="nc" id="L67">            return false;</span>
+        }
+<span class="fc" id="L69">        return persons.equals(((XmlSerializableAddressBook) other).persons);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

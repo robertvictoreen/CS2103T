@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FindCommand.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">addressbook-level4</a> &gt; <a href="index.source.html" class="el_package">seedu.address.logic.commands</a> &gt; <span class="el_source">FindCommand.java</span></div><h1>FindCommand.java</h1><pre class="source lang-java linenums">package seedu.address.logic.commands;
+
+import static java.util.Objects.requireNonNull;
+
+import seedu.address.commons.core.Messages;
+import seedu.address.logic.CommandHistory;
+import seedu.address.model.Model;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
+
+/**
+ * Finds and lists all persons in address book whose name contains any of the argument keywords.
+ * Keyword matching is case insensitive.
+ */
+public class FindCommand extends Command {
+
+    public static final String COMMAND_WORD = &quot;find&quot;;
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + &quot;: Finds all persons whose names contain any of &quot;
+            + &quot;the specified keywords (case-insensitive) and displays them as a list with index numbers.\n&quot;
+            + &quot;Parameters: KEYWORD [MORE_KEYWORDS]...\n&quot;
+            + &quot;Example: &quot; + COMMAND_WORD + &quot; alice bob charlie&quot;;
+
+    private final NameContainsKeywordsPredicate predicate;
+
+<span class="fc" id="L25">    public FindCommand(NameContainsKeywordsPredicate predicate) {</span>
+<span class="fc" id="L26">        this.predicate = predicate;</span>
+<span class="fc" id="L27">    }</span>
+
+    @Override
+    public CommandResult execute(Model model, CommandHistory history) {
+<span class="fc" id="L31">        requireNonNull(model);</span>
+<span class="fc" id="L32">        model.updateFilteredPersonList(predicate);</span>
+<span class="fc" id="L33">        return new CommandResult(</span>
+<span class="fc" id="L34">                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));</span>
+    }
+
+    @Override
+    public boolean equals(Object other) {
+<span class="fc bfc" id="L39" title="All 4 branches covered.">        return other == this // short circuit if same object</span>
+                || (other instanceof FindCommand // instanceof handles nulls
+<span class="fc bfc" id="L41" title="All 2 branches covered.">                &amp;&amp; predicate.equals(((FindCommand) other).predicate)); // state check</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

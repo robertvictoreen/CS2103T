@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="seedu.address.ui.PersonListPanelTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2018-10-03T06:16:34" hostname="li320-15i" time="6.38">
+  <properties/>
+  <testcase name="performanceTest" classname="seedu.address.ui.PersonListPanelTest" time="5.424"/>
+  <testcase name="handleJumpToListRequestEvent" classname="seedu.address.ui.PersonListPanelTest" time="0.267"/>
+  <testcase name="display" classname="seedu.address.ui.PersonListPanelTest" time="0.689"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Oct 03, 2018 2:16:40 PM seedu.address.commons.core.EventsCenter post
+INFO: ------[Event Posted] seedu.address.commons.events.ui.JumpToListRequestEvent: JumpToListRequestEvent
+Oct 03, 2018 2:16:40 PM seedu.address.ui.PersonListPanel handleJumpToListRequestEvent
+INFO: ---[Event handled][JumpToListRequestEvent]
+Oct 03, 2018 2:16:40 PM seedu.address.commons.core.EventsCenter post
+INFO: ------[Event Posted] seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent: PersonPanelSelectionChangedEvent
+]]></system-err>
+</testsuite>

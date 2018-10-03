@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="systemtests.HelpCommandSystemTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2018-10-03T06:14:48" hostname="li320-15i" time="15.368">
+  <properties/>
+  <testcase name="help_multipleCommands_onlyOneHelpWindowOpen" classname="systemtests.HelpCommandSystemTest" time="8.014"/>
+  <testcase name="openHelpWindow" classname="systemtests.HelpCommandSystemTest" time="7.353"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Oct 03, 2018 2:14:49 PM seedu.address.MainApp init
+INFO: =============================[ Initializing AddressBook ]===========================
+Oct 03, 2018 2:14:49 PM seedu.address.MainApp initConfig
+INFO: Using config file : config.json
+Oct 03, 2018 2:14:49 PM seedu.address.commons.util.JsonUtil readJsonFile
+INFO: Json file config.json not found
+Oct 03, 2018 2:14:49 PM seedu.address.MainApp initPrefs
+INFO: Using prefs file : src/test/data/sandbox/pref_testing.json
+Oct 03, 2018 2:14:49 PM seedu.address.commons.util.JsonUtil readJsonFile
+INFO: Json file src/test/data/sandbox/pref_testing.json not found
+Oct 03, 2018 2:14:50 PM seedu.address.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Oct 03, 2018 2:14:50 PM seedu.address.ui.UiManager start
+INFO: Starting UI...
+Oct 03, 2018 2:14:53 PM guitests.guihandles.StageHandle focus
+INFO: Focusing onTest App
+Oct 03, 2018 2:14:53 PM guitests.guihandles.StageHandle focus
+INFO: Finishing focus onTest App
+Oct 03, 2018 2:14:55 PM guitests.guihandles.StageHandle focus
+INFO: Focusing onTest App
+Oct 03, 2018 2:14:55 PM guitests.guihandles.StageHandle focus
+INFO: Finishing focus onTest App
+Oct 03, 2018 2:14:55 PM guitests.guihandles.StageHandle focus
+INFO: Focusing onTest App
+Oct 03, 2018 2:14:55 PM guitests.guihandles.StageHandle focus
+INFO: Finishing focus onTest App
+Oct 03, 2018 2:14:56 PM seedu.address.logic.LogicManager execute
+INFO: ----------------[USER COMMAND][help]
+Oct 03, 2018 2:14:56 PM seedu.address.commons.core.EventsCenter post
+INFO: ------[Event Posted] seedu.address.commons.events.ui.ShowHelpRequestEvent: ShowHelpRequestEvent
+Oct 03, 2018 2:14:56 PM seedu.address.ui.MainWindow handleShowHelpEvent
+INFO: ---[Event handled][ShowHelpRequestEvent]
+Oct 03, 2018 2:14:56 PM seedu.address.ui.CommandBox handleCommandEntered
+INFO: Result: Opened help window.
+Oct 03, 2018 2:14:56 PM seedu.address.commons.core.EventsCenter post
+INFO: ------[Event Posted] seedu.address.commons.events.ui.NewResultAvailableEvent: NewResultAvailableEvent
+Oct 03, 2018 2:14:56 PM seedu.address.ui.ResultDisplay handleNewResultAvailableEvent
+INFO: ---[Event handled][NewResultAvailableEvent]
+Oct 03, 2018 2:14:56 PM seedu.address.MainApp init
+INFO: =============================[ Initializing AddressBook ]===========================
+Oct 03, 2018 2:14:56 PM seedu.address.MainApp initConfig
+INFO: Using config file : config.json
+Oct 03, 2018 2:14:56 PM seedu.address.MainApp initPrefs
+INFO: Using prefs file : src/test/data/sandbox/pref_testing.json
+Oct 03, 2018 2:14:56 PM seedu.address.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Oct 03, 2018 2:14:56 PM seedu.address.ui.UiManager start
+INFO: Starting UI...
+Oct 03, 2018 2:14:57 PM guitests.guihandles.StageHandle focus
+INFO: Focusing onTest App
+Oct 03, 2018 2:14:57 PM guitests.guihandles.StageHandle focus
+INFO: Finishing focus onTest App
+Oct 03, 2018 2:14:58 PM guitests.guihandles.StageHandle focus
+INFO: Focusing onTest App
+Oct 03, 2018 2:14:58 PM guitests.guihandles.StageHandle focus
+INFO: Finishing focus onTest App
+Oct 03, 2018 2:14:58 PM guitests.guihandles.StageHandle focus
+INFO: Focusing onTest App
+Oct 03, 2018 2:14:58 PM guitests.guihandles.StageHandle focus
+INFO: Finishing focus onTest App
+Oct 03, 2018 2:14:59 PM seedu.address.commons.core.EventsCenter post
+INFO: ------[Event Posted] seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent: PersonPanelSelectionChangedEvent
+Oct 03, 2018 2:14:59 PM seedu.address.ui.BrowserPanel handlePersonPanelSelectionChangedEvent
+INFO: ---[Event handled][PersonPanelSelectionChangedEvent]
+Oct 03, 2018 2:14:59 PM guitests.guihandles.StageHandle focus
+INFO: Focusing onTest App
+Oct 03, 2018 2:14:59 PM guitests.guihandles.StageHandle focus
+INFO: Finishing focus onTest App
+Oct 03, 2018 2:15:01 PM guitests.guihandles.StageHandle focus
+INFO: Focusing onTest App
+Oct 03, 2018 2:15:01 PM guitests.guihandles.StageHandle focus
+INFO: Finishing focus onTest App
+Oct 03, 2018 2:15:01 PM seedu.address.logic.LogicManager execute
+INFO: ----------------[USER COMMAND][help]
+Oct 03, 2018 2:15:01 PM seedu.address.commons.core.EventsCenter post
+INFO: ------[Event Posted] seedu.address.commons.events.ui.ShowHelpRequestEvent: ShowHelpRequestEvent
+Oct 03, 2018 2:15:01 PM seedu.address.ui.MainWindow handleShowHelpEvent
+INFO: ---[Event handled][ShowHelpRequestEvent]
+Oct 03, 2018 2:15:01 PM seedu.address.ui.CommandBox handleCommandEntered
+INFO: Result: Opened help window.
+Oct 03, 2018 2:15:01 PM seedu.address.commons.core.EventsCenter post
+INFO: ------[Event Posted] seedu.address.commons.events.ui.NewResultAvailableEvent: NewResultAvailableEvent
+Oct 03, 2018 2:15:01 PM seedu.address.ui.ResultDisplay handleNewResultAvailableEvent
+INFO: ---[Event handled][NewResultAvailableEvent]
+Oct 03, 2018 2:15:01 PM guitests.guihandles.StageHandle focus
+INFO: Focusing onTest App
+Oct 03, 2018 2:15:01 PM guitests.guihandles.StageHandle focus
+INFO: Finishing focus onTest App
+Oct 03, 2018 2:15:02 PM seedu.address.logic.LogicManager execute
+INFO: ----------------[USER COMMAND][help]
+Oct 03, 2018 2:15:02 PM seedu.address.commons.core.EventsCenter post
+INFO: ------[Event Posted] seedu.address.commons.events.ui.ShowHelpRequestEvent: ShowHelpRequestEvent
+Oct 03, 2018 2:15:02 PM seedu.address.ui.MainWindow handleShowHelpEvent
+INFO: ---[Event handled][ShowHelpRequestEvent]
+Oct 03, 2018 2:15:02 PM seedu.address.ui.CommandBox handleCommandEntered
+INFO: Result: Opened help window.
+Oct 03, 2018 2:15:02 PM seedu.address.commons.core.EventsCenter post
+INFO: ------[Event Posted] seedu.address.commons.events.ui.NewResultAvailableEvent: NewResultAvailableEvent
+Oct 03, 2018 2:15:02 PM seedu.address.ui.ResultDisplay handleNewResultAvailableEvent
+INFO: ---[Event handled][NewResultAvailableEvent]
+Oct 03, 2018 2:15:02 PM guitests.guihandles.StageHandle focus
+INFO: Focusing onTest App
+Oct 03, 2018 2:15:02 PM guitests.guihandles.StageHandle focus
+INFO: Finishing focus onTest App
+Oct 03, 2018 2:15:02 PM seedu.address.logic.LogicManager execute
+INFO: ----------------[USER COMMAND][select 1]
+Oct 03, 2018 2:15:02 PM seedu.address.commons.core.EventsCenter post
+INFO: ------[Event Posted] seedu.address.commons.events.ui.JumpToListRequestEvent: JumpToListRequestEvent
+Oct 03, 2018 2:15:02 PM seedu.address.ui.PersonListPanel handleJumpToListRequestEvent
+INFO: ---[Event handled][JumpToListRequestEvent]
+Oct 03, 2018 2:15:02 PM seedu.address.ui.CommandBox handleCommandEntered
+INFO: Result: Selected Person: 1
+Oct 03, 2018 2:15:02 PM seedu.address.commons.core.EventsCenter post
+INFO: ------[Event Posted] seedu.address.commons.events.ui.NewResultAvailableEvent: NewResultAvailableEvent
+Oct 03, 2018 2:15:02 PM seedu.address.ui.ResultDisplay handleNewResultAvailableEvent
+INFO: ---[Event handled][NewResultAvailableEvent]
+Oct 03, 2018 2:15:02 PM seedu.address.commons.core.EventsCenter post
+INFO: ------[Event Posted] seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent: PersonPanelSelectionChangedEvent
+Oct 03, 2018 2:15:02 PM seedu.address.ui.BrowserPanel handlePersonPanelSelectionChangedEvent
+INFO: ---[Event handled][PersonPanelSelectionChangedEvent]
+Oct 03, 2018 2:15:03 PM seedu.address.logic.LogicManager execute
+INFO: ----------------[USER COMMAND][delete 1]
+Oct 03, 2018 2:15:03 PM seedu.address.commons.core.EventsCenter post
+INFO: ------[Event Posted] seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent: PersonPanelSelectionChangedEvent
+Oct 03, 2018 2:15:03 PM seedu.address.ui.BrowserPanel handlePersonPanelSelectionChangedEvent
+INFO: ---[Event handled][PersonPanelSelectionChangedEvent]
+Oct 03, 2018 2:15:03 PM seedu.address.commons.core.EventsCenter post
+INFO: ------[Event Posted] seedu.address.commons.events.model.AddressBookChangedEvent: number of persons 6
+Oct 03, 2018 2:15:03 PM seedu.address.storage.StorageManager handleAddressBookChangedEvent
+INFO: ---[Event handled][number of persons 6]Local data changed, saving to file
+Oct 03, 2018 2:15:03 PM seedu.address.ui.StatusBarFooter handleAddressBookChangedEvent
+INFO: ---[Event handled][number of persons 6]Setting last updated status to Wed Oct 03 14:15:03 SRET 2018
+Oct 03, 2018 2:15:03 PM seedu.address.ui.CommandBox handleCommandEntered
+INFO: Result: Deleted Person: Alice Pauline Phone: 94351253 Email: alice@example.com Address: 123, Jurong West Ave 6, #08-111 Tags: [friends]
+Oct 03, 2018 2:15:03 PM seedu.address.commons.core.EventsCenter post
+INFO: ------[Event Posted] seedu.address.commons.events.ui.NewResultAvailableEvent: NewResultAvailableEvent
+Oct 03, 2018 2:15:03 PM seedu.address.ui.ResultDisplay handleNewResultAvailableEvent
+INFO: ---[Event handled][NewResultAvailableEvent]
+]]></system-err>
+</testsuite>

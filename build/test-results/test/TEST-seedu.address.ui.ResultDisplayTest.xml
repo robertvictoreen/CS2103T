@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="seedu.address.ui.ResultDisplayTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-10-03T06:16:32" hostname="li320-15i" time="0.296">
+  <properties/>
+  <testcase name="display" classname="seedu.address.ui.ResultDisplayTest" time="0.296"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Oct 03, 2018 2:16:33 PM seedu.address.commons.core.EventsCenter post
+INFO: ------[Event Posted] seedu.address.commons.events.ui.NewResultAvailableEvent: NewResultAvailableEvent
+Oct 03, 2018 2:16:33 PM seedu.address.ui.ResultDisplay handleNewResultAvailableEvent
+INFO: ---[Event handled][NewResultAvailableEvent]
+]]></system-err>
+</testsuite>

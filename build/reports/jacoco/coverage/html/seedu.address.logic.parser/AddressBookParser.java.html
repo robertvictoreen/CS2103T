@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AddressBookParser.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">addressbook-level4</a> &gt; <a href="index.source.html" class="el_package">seedu.address.logic.parser</a> &gt; <span class="el_source">AddressBookParser.java</span></div><h1>AddressBookParser.java</h1><pre class="source lang-java linenums">package seedu.address.logic.parser;
+
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.MarkCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+
+/**
+ * Parses user input.
+ */
+<span class="fc" id="L29">public class AddressBookParser {</span>
+
+    /**
+     * Used for initial separation of command word and args.
+     */
+<span class="fc" id="L34">    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile(&quot;(?&lt;commandWord&gt;\\S+)(?&lt;arguments&gt;.*)&quot;);</span>
+
+    /**
+     * Parses user input into command for execution.
+     *
+     * @param userInput full user input string
+     * @return the command based on the user input
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public Command parseCommand(String userInput) throws ParseException {
+<span class="fc" id="L44">        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        if (!matcher.matches()) {</span>
+<span class="fc" id="L46">            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));</span>
+        }
+
+<span class="fc" id="L49">        final String commandWord = matcher.group(&quot;commandWord&quot;);</span>
+<span class="fc" id="L50">        final String arguments = matcher.group(&quot;arguments&quot;);</span>
+<span class="pc bpc" id="L51" title="1 of 15 branches missed.">        switch (commandWord) {</span>
+
+        case AddCommand.COMMAND_WORD:
+<span class="fc" id="L54">            return new AddCommandParser().parse(arguments);</span>
+
+        case EditCommand.COMMAND_WORD:
+<span class="fc" id="L57">            return new EditCommandParser().parse(arguments);</span>
+
+        case MarkCommand.COMMAND_WORD:
+<span class="nc" id="L60">            return new MarkCommandParser().parse(arguments);</span>
+
+        case SelectCommand.COMMAND_WORD:
+<span class="fc" id="L63">            return new SelectCommandParser().parse(arguments);</span>
+
+        case DeleteCommand.COMMAND_WORD:
+<span class="fc" id="L66">            return new DeleteCommandParser().parse(arguments);</span>
+
+        case ClearCommand.COMMAND_WORD:
+<span class="fc" id="L69">            return new ClearCommand();</span>
+
+        case FindCommand.COMMAND_WORD:
+<span class="fc" id="L72">            return new FindCommandParser().parse(arguments);</span>
+
+        case SortCommand.COMMAND_WORD:
+<span class="fc" id="L75">            return new SortCommand();</span>
+
+        case ListCommand.COMMAND_WORD:
+<span class="fc" id="L78">            return new ListCommand();</span>
+
+        case HistoryCommand.COMMAND_WORD:
+<span class="fc" id="L81">            return new HistoryCommand();</span>
+
+        case ExitCommand.COMMAND_WORD:
+<span class="fc" id="L84">            return new ExitCommand();</span>
+
+        case HelpCommand.COMMAND_WORD:
+<span class="fc" id="L87">            return new HelpCommand();</span>
+
+        case UndoCommand.COMMAND_WORD:
+<span class="fc" id="L90">            return new UndoCommand();</span>
+
+        case RedoCommand.COMMAND_WORD:
+<span class="fc" id="L93">            return new RedoCommand();</span>
+
+        default:
+<span class="fc" id="L96">            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);</span>
+        }
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

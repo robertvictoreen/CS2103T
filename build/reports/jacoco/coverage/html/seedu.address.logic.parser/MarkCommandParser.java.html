@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MarkCommandParser.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">addressbook-level4</a> &gt; <a href="index.source.html" class="el_package">seedu.address.logic.parser</a> &gt; <span class="el_source">MarkCommandParser.java</span></div><h1>MarkCommandParser.java</h1><pre class="source lang-java linenums">package seedu.address.logic.parser;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MARK;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Optional;
+import java.util.Set;
+
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.MarkCommand;
+import seedu.address.logic.commands.MarkCommand.EditPersonDescriptor;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.tag.Tag;
+
+/**
+ * Parses input arguments and creates a new MarkCommand object
+ */
+<span class="nc bnc" id="L26" title="All 2 branches missed.">public class MarkCommandParser implements Parser&lt;MarkCommand&gt; {</span>
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the MarkCommand
+     * and returns an MarkCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public MarkCommand parse(String args) throws ParseException {
+<span class="nc" id="L34">        requireNonNull(args);</span>
+<span class="nc" id="L35">        ArgumentMultimap argMultimap =</span>
+<span class="nc" id="L36">                ArgumentTokenizer.tokenize(args, PREFIX_MARK);</span>
+
+        Index index;
+
+        try {
+<span class="nc" id="L41">            index = ParserUtil.parseIndex(argMultimap.getPreamble());</span>
+<span class="nc" id="L42">        } catch (ParseException pe) {</span>
+<span class="nc" id="L43">            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE), pe);</span>
+<span class="nc" id="L44">        }</span>
+
+<span class="nc" id="L46">        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();</span>
+<span class="nc" id="L47">        parseTagsForEdit(argMultimap.getAllValues(PREFIX_MARK)).ifPresent(editPersonDescriptor::setTags);</span>
+
+<span class="nc bnc" id="L49" title="All 2 branches missed.">        if (!editPersonDescriptor.isAnyFieldEdited()) {</span>
+<span class="nc" id="L50">            throw new ParseException(MarkCommand.MESSAGE_NOT_MARKED);</span>
+        }
+
+<span class="nc" id="L53">        return new MarkCommand(index, editPersonDescriptor);</span>
+    }
+
+    /**
+     * Parses {@code Collection&lt;String&gt; tags} into a {@code Set&lt;Tag&gt;} if {@code tags} is non-empty.
+     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
+     * {@code Set&lt;Tag&gt;} containing zero tags.
+     */
+    private Optional&lt;Set&lt;Tag&gt;&gt; parseTagsForEdit(Collection&lt;String&gt; tags) throws ParseException {
+<span class="nc bnc" id="L62" title="All 4 branches missed.">        assert tags != null;</span>
+
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        if (tags.isEmpty()) {</span>
+<span class="nc" id="L65">            return Optional.empty();</span>
+        }
+<span class="nc bnc" id="L67" title="All 4 branches missed.">        Collection&lt;String&gt; tagSet = tags.size() == 1 &amp;&amp; tags.contains(&quot;&quot;) ? Collections.emptySet() : tags;</span>
+<span class="nc" id="L68">        return Optional.of(ParserUtil.parseTags(tagSet));</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

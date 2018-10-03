@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="seedu.address.storage.XmlSerializableAddressBookTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2018-10-03T06:16:24" hostname="li320-15i" time="0.012">
+  <properties/>
+  <testcase name="toModelType_invalidPersonFile_throwsIllegalValueException" classname="seedu.address.storage.XmlSerializableAddressBookTest" time="0.003"/>
+  <testcase name="toModelType_typicalPersonsFile_success" classname="seedu.address.storage.XmlSerializableAddressBookTest" time="0.003"/>
+  <testcase name="toModelType_duplicatePersons_throwsIllegalValueException" classname="seedu.address.storage.XmlSerializableAddressBookTest" time="0.006"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

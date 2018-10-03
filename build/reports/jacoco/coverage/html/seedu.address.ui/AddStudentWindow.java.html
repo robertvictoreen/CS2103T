@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AddStudentWindow.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">addressbook-level4</a> &gt; <a href="index.source.html" class="el_package">seedu.address.ui</a> &gt; <span class="el_source">AddStudentWindow.java</span></div><h1>AddStudentWindow.java</h1><pre class="source lang-java linenums">package seedu.address.ui;
+
+import java.io.IOException;
+import java.util.logging.Logger;
+
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import seedu.address.MainApp;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.Logic;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
+
+public class AddStudentWindow extends UiPart{
+
+    @FXML
+    private TextField nameField;
+    @FXML
+    private TextField phoneField;
+    @FXML
+    private TextField addressField;
+    @FXML
+    private TextField emailField;
+    @FXML
+    private TextField tagOneField;
+    @FXML
+    private TextField tagTwoField;
+    @FXML
+    private TextField tagThreeField;
+
+    private static final String FXML = &quot;AddStudentWindow.fxml&quot;;
+
+<span class="nc" id="L38">    private final Logger logger = LogsCenter.getLogger(getClass());</span>
+
+    public Stage primaryStage;
+    public Logic logic;
+<span class="nc" id="L42">    public static boolean OKClicked = false;</span>
+    public static String commandText;
+
+<span class="nc" id="L45">    public AddStudentWindow(){</span>
+<span class="nc" id="L46">    }</span>
+
+    /*public AddStudentWindow(Stage stage, Logic logic){
+        this.logic = logic;
+        this.primaryStage = stage;
+    }*/
+
+    /*public AddStudentWindow(Stage primaryStage, Logic logic) {
+        /*
+        super(FXML, primaryStage);
+
+
+        // Set dependency
+        this.primaryStage = primaryStage;
+        this.logic = logic;
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainApp.class.getResource(&quot;/view/AddStudentWindow.fxml&quot;));
+        try {
+            AnchorPane pane = (AnchorPane) loader.load();
+            Scene scene = new Scene(pane);
+            this.primaryStage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Configure the UI
+        primaryStage.setTitle(&quot;Add Student&quot;);
+        primaryStage.initModality(Modality.WINDOW_MODAL);
+        primaryStage.initOwner(primaryStage);
+    }*/
+
+    @FXML
+    private void initialize() {
+        /*
+        super(FXML, primaryStage);
+        */
+
+        // Set dependency
+        //this.primaryStage = primaryStage;
+        //this.logic = logic;
+
+        /*try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource(&quot;/view/AddStudentWindow.fxml&quot;));
+            AnchorPane pane = (AnchorPane) loader.load();
+            Scene scene = new Scene(pane);
+            // Configure the UI
+            this.primaryStage.setTitle(&quot;Add Student&quot;);
+            this.primaryStage.initModality(Modality.WINDOW_MODAL);
+            this.primaryStage.initOwner(primaryStage);
+            this.primaryStage.setScene(scene);
+            Logger.getLogger(&quot;works&quot;);
+            this.primaryStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+<span class="nc" id="L103">    }</span>
+
+    void show() {
+<span class="nc" id="L106">        primaryStage.show();</span>
+<span class="nc" id="L107">    }</span>
+
+    @FXML
+    private void handleOK() {
+
+<span class="nc" id="L112">        String name = nameField.getText();</span>
+<span class="nc" id="L113">        String phoneNumber = phoneField.getText();</span>
+<span class="nc" id="L114">        String address = addressField.getText();</span>
+<span class="nc" id="L115">        String email = emailField.getText();</span>
+<span class="nc" id="L116">        String tagsCombined = &quot;&quot;;</span>
+<span class="nc bnc" id="L117" title="All 2 branches missed.">        if (tagOneField.getText() != &quot;&quot;){</span>
+<span class="nc" id="L118">            tagsCombined += &quot; t/&quot; + tagOneField.getText();</span>
+        }
+<span class="nc bnc" id="L120" title="All 2 branches missed.">        if (tagTwoField.getText() == &quot;&quot;){</span>
+<span class="nc" id="L121">            tagsCombined += &quot; t/&quot; + tagTwoField.getText();</span>
+        }
+<span class="nc bnc" id="L123" title="All 2 branches missed.">        if (tagThreeField.getText() != &quot;&quot;){</span>
+<span class="nc" id="L124">            tagsCombined += &quot; t/&quot; + tagThreeField.getText();</span>
+        }
+<span class="nc" id="L126">        OKClicked = true;</span>
+        //String tags = tagOneField.getText() + tagTwoField.getText() + tagThreeField.getText();
+
+<span class="nc bnc" id="L129" title="All 2 branches missed.">        if (tagsCombined == &quot;&quot;) {</span>
+<span class="nc" id="L130">            this.commandText = &quot;add n/&quot; + name + &quot; p/&quot; + phoneNumber + &quot; e/&quot; + email + &quot; a/&quot; + address;</span>
+<span class="nc" id="L131">            primaryStage.close();</span>
+
+        } else {
+<span class="nc" id="L134">            this.commandText = &quot;add n/&quot; + name + &quot; p/&quot; + phoneNumber + &quot; e/&quot; + email + &quot; a/&quot; + address + tagsCombined;</span>
+<span class="nc" id="L135">            primaryStage.close();</span>
+
+        }
+
+        // OK clicked
+        // // Test empty tags
+        /*
+        if (tagsCombined == &quot;&quot;){
+            try {
+                logic.execute(&quot;add n/&quot; + name + &quot; p/&quot; + phoneNumber + &quot; e/&quot; + email + &quot; a/&quot;
+                        + address);
+            } catch (CommandException | ParseException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                if (logic == null){
+                    System.out.printf(&quot;String = %s\n&quot;, tagsCombined);
+                }
+
+                logic.execute(&quot;add n/&quot; + name + &quot; p/&quot; + phoneNumber + &quot; e/&quot; + email + &quot; a/&quot;
+                        + address + &quot; t/&quot; + tagsCombined);
+            } catch (CommandException | ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        */
+
+        // OR Straight away use AddCommand
+<span class="nc" id="L164">    }</span>
+
+    @FXML
+    private void handleCancel() {
+<span class="nc" id="L168">        primaryStage.close();</span>
+<span class="nc" id="L169">    }</span>
+
+    public void setLogic(Logic logic){
+<span class="nc" id="L172">        this.logic = logic;</span>
+<span class="nc" id="L173">    }</span>
+
+    public void setStage(Stage stage){
+<span class="nc" id="L176">        this.primaryStage = stage;</span>
+<span class="nc" id="L177">    }</span>
+
+    public boolean isOKClicked() {
+<span class="nc" id="L180">        return OKClicked;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

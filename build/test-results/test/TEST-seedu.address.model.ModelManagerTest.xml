@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="seedu.address.model.ModelManagerTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2018-10-03T06:16:24" hostname="li320-15i" time="0.004">
+  <properties/>
+  <testcase name="hasPerson_nullPerson_throwsNullPointerException" classname="seedu.address.model.ModelManagerTest" time="0.0"/>
+  <testcase name="hasPerson_personInAddressBook_returnsTrue" classname="seedu.address.model.ModelManagerTest" time="0.001"/>
+  <testcase name="equals" classname="seedu.address.model.ModelManagerTest" time="0.001"/>
+  <testcase name="hasPerson_personNotInAddressBook_returnsFalse" classname="seedu.address.model.ModelManagerTest" time="0.0"/>
+  <testcase name="getFilteredPersonList_modifyList_throwsUnsupportedOperationException" classname="seedu.address.model.ModelManagerTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Oct 03, 2018 2:16:24 PM seedu.address.commons.core.EventsCenter post
+INFO: ------[Event Posted] seedu.address.commons.events.model.AddressBookChangedEvent: number of persons 1
+]]></system-err>
+</testsuite>
