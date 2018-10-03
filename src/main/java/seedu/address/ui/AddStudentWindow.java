@@ -13,6 +13,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Window where the user keys in the data of the student to be added.
+ */
 public class AddStudentWindow extends UiPart {
 
     @FXML
@@ -36,7 +39,7 @@ public class AddStudentWindow extends UiPart {
     private Stage primaryStage;
     private Logic logic;
 
-    private static final String MESSAGE_ADD_FAILED = "Add Student Failed!";
+    private final static String MESSAGE_ADD_FAILED = "Add Student Failed!";
 
     public AddStudentWindow(){
     }
@@ -51,7 +54,7 @@ public class AddStudentWindow extends UiPart {
      * Alert shown if invalid details entered.
      */
     @FXML
-    private void handleOK() {
+    private void handleOk() {
 
         String name = nameField.getText();
         String phoneNumber = phoneField.getText();
@@ -117,11 +120,11 @@ public class AddStudentWindow extends UiPart {
         primaryStage.close();
     }
 
-    public void setLogic(Logic logic){
+    public void setLogic(Logic logic) {
         this.logic = logic;
     }
 
-    public void setStage(Stage stage){
+    public void setStage(Stage stage) {
         this.primaryStage = stage;
     }
 }

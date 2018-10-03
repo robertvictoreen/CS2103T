@@ -33,13 +33,14 @@ import seedu.address.model.UserPrefs;
  */
 public class MainWindow extends UiPart<Stage> {
 
+    protected Logic logic;
+
     private static final String FXML = "MainWindow.fxml";
     private static final String FXMLAddWindow = "/view/AddStudentWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
-    protected Logic logic;
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
@@ -225,6 +226,9 @@ public class MainWindow extends UiPart<Stage> {
         handleHelp();
     }
 
+    /**
+     * Creates AddNewWindow and initialises its parameters.
+     */
     private void showAddWindowAndWait() {
         try {
             // Change implementation to use UiPart in the future?
