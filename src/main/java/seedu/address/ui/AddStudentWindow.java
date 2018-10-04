@@ -41,8 +41,6 @@ public class AddStudentWindow extends UiPart {
     private Stage primaryStage;
     private Logic logic;
 
-
-
     public AddStudentWindow(){
     }
 
@@ -86,7 +84,7 @@ public class AddStudentWindow extends UiPart {
             raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
             primaryStage.close();
         } catch (CommandException e) {
-            e.printStackTrace();
+            // Log info here
             Alert alert = new Alert(Alert.AlertType.ERROR);
             configAlert(alert, MESSAGE_ADD_FAILED, e.getMessage(), null, Region.USE_PREF_SIZE);
 
@@ -96,7 +94,7 @@ public class AddStudentWindow extends UiPart {
 
             alert.showAndWait();
         } catch (ParseException e) {
-            e.printStackTrace();
+            // Log info here
             Alert alert = new Alert(Alert.AlertType.ERROR);
             configAlert(alert, MESSAGE_ADD_FAILED, Messages.MESSAGE_INVALID_COMMAND, e.getMessage(),
                     Region.USE_PREF_SIZE);
