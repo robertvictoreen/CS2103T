@@ -14,7 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Window where the user keys in the data of the student to be added.
+ * Window to add students.
  */
 public class AddStudentWindow extends UiPart {
 
@@ -50,7 +50,7 @@ public class AddStudentWindow extends UiPart {
 
     // // Test empty tags
     /**
-     * Adds student with entered details into student list.
+     * Adds student with entered details into student list if valid, closes window after.
      * Alert shown if invalid details entered.
      */
     @FXML
@@ -108,7 +108,7 @@ public class AddStudentWindow extends UiPart {
     }
 
     /**
-     * Closes window when user clicks on the Cancel button.
+     * Closes window.
      */
     @FXML
     private void handleCancel() {
@@ -124,7 +124,7 @@ public class AddStudentWindow extends UiPart {
     }
 
     /**
-     * Checks if field is not empty
+     * Checks if TextField is an empty String.
      */
     private boolean isNotNull(TextField field) {
         return !field.getText().equals("");

@@ -226,9 +226,6 @@ public class MainWindow extends UiPart<Stage> {
         handleHelp();
     }
 
-    /**
-     * Creates AddNewWindow and initialises its parameters.
-     */
     private void showAddWindowAndWait() {
         try {
             // Change implementation to use UiPart in the future?
