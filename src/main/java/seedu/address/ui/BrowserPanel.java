@@ -8,7 +8,12 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Font;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
@@ -29,18 +34,40 @@ public class BrowserPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
-    private WebView browser;
+    private TextArea notesText;
+
+    // Left side holds component name, eg. Participation, right side holds mark attained.
+    @FXML
+    private GridPane components;
 
     public BrowserPanel() {
         super(FXML);
 
+        // if student has no recorded assignments
+        if (true) {//student no assignments){
+            Label noComponents = new Label("<No assignments entered>");
+            noComponents.setFont(new Font("System", (double)25));
+            components.add(noComponents, 0, 0);
+        } else {
+            // add 2 columns, default has 1
+            ColumnConstraints newColumn = new ColumnConstraints();
+            components.getColumnConstraints().add(newColumn);
+
+            // add no. of rows equal to no. of assignments keyed in
+
+
+        }
+
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
+        /*
         loadDefaultPage();
         registerAsAnEventHandler(this);
+        */
     }
 
+    /*
     private void loadPersonPage(Person person) {
         loadPage(SEARCH_PAGE_URL + person.getName().fullName);
     }
@@ -52,21 +79,25 @@ public class BrowserPanel extends UiPart<Region> {
     /**
      * Loads a default HTML file with a background that matches the general theme.
      */
+    /*
     private void loadDefaultPage() {
         URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
         loadPage(defaultPage.toExternalForm());
     }
+    */
 
     /**
      * Frees resources allocated to the browser.
      */
+    /*
     public void freeResources() {
         browser = null;
-    }
-
+    }*/
+    /*
     @Subscribe
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadPersonPage(event.getNewSelection());
     }
+    */
 }
