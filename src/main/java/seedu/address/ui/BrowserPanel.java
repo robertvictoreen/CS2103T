@@ -8,11 +8,14 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
@@ -44,7 +47,8 @@ public class BrowserPanel extends UiPart<Region> {
         super(FXML);
 
         // if student has no recorded assignments
-        if (true) {//student no assignments){
+        if (false) {// student no assignments){
+            // default label
             Label noComponents = new Label("<No assignments entered>");
             noComponents.setFont(new Font("System", (double)25));
             components.add(noComponents, 0, 0);
@@ -52,6 +56,14 @@ public class BrowserPanel extends UiPart<Region> {
             // add 2 columns, default has 1
             ColumnConstraints newColumn = new ColumnConstraints();
             components.getColumnConstraints().add(newColumn);
+
+            RowConstraints newRow = new RowConstraints();
+            components.getRowConstraints().add(newRow);
+
+            // test column addition
+            components.add(new Label("test1"), 0, 0);
+            components.add(new Label("test2"), 1, 0);
+
 
             // add no. of rows equal to no. of assignments keyed in
 
