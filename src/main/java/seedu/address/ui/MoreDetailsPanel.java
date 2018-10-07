@@ -83,43 +83,5 @@ public class MoreDetailsPanel extends UiPart<Region> {
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
-        /*
-        loadDefaultPage();
-        registerAsAnEventHandler(this);
-        */
     }
-
-    /*
-    private void loadPersonPage(Person person) {
-        loadPage(SEARCH_PAGE_URL + person.getName().fullName);
-    }
-
-    public void loadPage(String url) {
-        Platform.runLater(() -> browser.getEngine().load(url));
-    }
-
-    /**
-     * Loads a default HTML file with a background that matches the general theme.
-     */
-    /*
-    private void loadDefaultPage() {
-        URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
-        loadPage(defaultPage.toExternalForm());
-    }
-    */
-
-    /**
-     * Frees resources allocated to the browser.
-     */
-    /*
-    public void freeResources() {
-        browser = null;
-    }*/
-    /*
-    @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadPersonPage(event.getNewSelection());
-    }
-    */
 }
