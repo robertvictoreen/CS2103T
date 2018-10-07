@@ -25,7 +25,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
 
     // Initializing test data
     private AssignmentStub[] assignments = {new AssignmentStub("Finals Exam", 73), new AssignmentStub("Mid-terms", 39),
-            new AssignmentStub("Participation", 7), new AssignmentStub("Assignment 1", 22)};
+        new AssignmentStub("Participation", 7), new AssignmentStub("Assignment 1", 22)};
 
     @FXML
     private TextArea notesText;
