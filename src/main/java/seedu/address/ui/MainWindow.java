@@ -233,7 +233,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Shows AddStudentWindow and waits for user click.
+     * Shows AddStudentWindow and waits for user interaction.
      */
     private void showAddWindowAndWait() {
         try {

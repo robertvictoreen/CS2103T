@@ -1,13 +1,16 @@
 package seedu.address.model.person;
 
 /**
- * Stub class to represent each of a student's assignments.
+ * Assignment stub class for MoreDetailsPanel to test functionality.
  */
 public class AssignmentStub {
-    //private totalNumber;
+
     private String name;
     private float marks;
 
+    /**
+     * Constructor for AssignmentStub.
+     */
     public AssignmentStub(String title, float mark) {
         name = title;
         marks = mark;

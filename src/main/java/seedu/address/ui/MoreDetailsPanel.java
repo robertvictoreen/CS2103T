@@ -20,12 +20,6 @@ import seedu.address.model.person.AssignmentStub;
  */
 public class MoreDetailsPanel extends UiPart<Region> {
 
-    /*
-    public static final String DEFAULT_PAGE = "default.html";
-    public static final String SEARCH_PAGE_URL =
-            "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
-    */
-
     private static final String FXML = "MoreDetailsPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -59,14 +53,18 @@ public class MoreDetailsPanel extends UiPart<Region> {
             components.getRowConstraints().add(newRow);
 
             // add no. of rows equal to no. of assignments keyed in
+            // Labels set to be label-bright
             for (int i = 0; i < Array.getLength(assignments); i++) {
+                // adding assignment label
                 Label toAdd = new Label(assignments[i].getName());
                 toAdd.setStyle("-fx-font-size: 11pt;\n" + "-fx-font-family: \"Segoe UI Semibold\";\n"
-                    + "-fx-text-fill: white;\n" + "-fx-opacity: 1;");
+                        + "-fx-text-fill: white;\n" + "-fx-opacity: 1;");
                 components.add(toAdd, 0, i);
+
+                // adding marks label
                 Label marksLabel = new Label(Float.toString(assignments[i].getMarks()));
                 marksLabel.setStyle("-fx-font-size: 11pt;\n" + "-fx-font-family: \"Segoe UI Semibold\";\n"
-                    + "-fx-text-fill: white;\n" + "-fx-opacity: 1;");
+                        + "-fx-text-fill: white;\n" + "-fx-opacity: 1;");
                 components.add(marksLabel, 1, i);
             }
         }
