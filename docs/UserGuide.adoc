@@ -212,6 +212,7 @@ Adds a mark entry associated with a student given the percentage value of mark o
 Format: `mark INDEX m/MARK`
 
 === View a student's marks: `results`
+_Coming in v2.0_
 
 View the mark entries associated with the student at the specified index. +
 Format: `results INDEX`
