@@ -38,7 +38,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
         super(FXML);
 
         // if student has no recorded assignments
-        if (false) {// student no assignments){
+        if (false) { // student no assignments){
             // default label
             Label noComponents = new Label("<No assignments entered>");
             noComponents.setFont(new Font("System", (double) 25));
