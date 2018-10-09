@@ -1,0 +1,37 @@
+package seedu.address.ui;
+import javafx.fxml.FXML;
+import java.io.File;
+import java.net.MalformedURLException;
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Region;
+import seedu.address.model.person.ReadOnlyPerson;
+public class StudentProfilePicture extends UiPart<Region> {
+    private static final String FXML = "StudentProfilePicture.fxml";
+    @FXML
+    private ImageView profilePic = new ImageView();
+    public StudentProfilePicture(ReadOnlyPerson person) {
+        super(FXML);
+        String imageName = person.getName().toString().replaceAll("\\s+", "");
+        String imagePath = "C:/Users/acer/Desktop/SE/profilepic/" + imageName + ".jpg";
+        File file = new File(imagePath);
+        if (!file.exists()) {
+            file = new File("docs/images/unknown.jpg");
+        }
+        Image image = null;
+        try {
+            image = new Image(file.toURI().toURL().toExternalForm());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        profilePic.setImage(image);
+        profilePic.setFitWidth(300);
+        profilePic.setFitHeight(300);
+        registerAsAnEventHandler(this);
+    }
+    public ImageView getImageView() {
+        return profilePic;
+    }
+}
