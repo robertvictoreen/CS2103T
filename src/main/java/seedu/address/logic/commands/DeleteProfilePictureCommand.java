@@ -1,7 +1,23 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
+import java.util.List;
+
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.ProfilePicture;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
+
 /**
- * Deletes the profile picture of a person identified using it's last displayed index from the address book.
+ * Deletes the profile picture of a person identified using it's last displayed index from the address book and
+ * reset it to the original image.
  */
 public class DeleteProfilePictureCommand extends Command {
     public static final String COMMAND_WORD = "deleteProfilePic";
@@ -15,34 +31,54 @@ public class DeleteProfilePictureCommand extends Command {
 
     public static final String MESSAGE_DELETE_PROFILE_PIC_SUCCESS = "Deleted profile picture of Person: %1$s";
 
-    private final Index targetIndex;
+    private final Index index;
 
-    public DeleteProfilePictureCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+    private Person personToEdit;
+
+    private Person editedPerson;
+
+    public DeleteProfilePictureCommand(Index index) {
+
+        requireNonNull(index);
+
+        this.index = index;
+
     }
 
+
     @Override
-    public CommandResult execute() throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
 
-        List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
+        List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        int personIndex = index.getZeroBased();
+
+        if (personIndex >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        ReadOnlyPerson profilePicToDelete = lastShownList.get(targetIndex.getZeroBased());
+        personToEdit = lastShownList.get(personIndex);
+        editedPerson = new Person(personToEdit);
 
-        UpdateProfilePicCommand updateToDefault = new UpdateProfilePicCommand(targetIndex, new ProfilePic());
-        updateToDefault.setData(model, history, undoRedoStack);
-        updateToDefault.execute();
+        editedPerson.deleteProfilePicture();
 
-        return new CommandResult(String.format(MESSAGE_DELETE_PROFILE_PIC_SUCCESS, profilePicToDelete));
+        try {
+            model.updatePerson(personToEdit, editedPerson);
+        } catch (DuplicatePersonException dpe) {
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        } catch (PersonNotFoundException pnfe) {
+            throw new AssertionError("The target person cannot be missing");
+        }
+
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        return new CommandResult(String.format(MESSAGE_DELETE_PROFILE_PIC_SUCCESS, index.getOneBased()));
     }
+
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteProfilePictureCommand // instanceof handles nulls
-                && this.targetIndex.equals(((DeleteProfilePictureCommand) other).targetIndex)); // state check
+                && this.index.equals(((DeleteProfilePictureCommand) other).index)); // state check
     }
 }
