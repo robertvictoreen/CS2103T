@@ -1,10 +1,10 @@
 package seedu.address.commons.core;
 
-import java.nio.file.Paths;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
+import java.nio.file.Paths;
 
 import org.junit.Rule;
 import org.junit.Test;
