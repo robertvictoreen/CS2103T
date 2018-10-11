@@ -15,7 +15,7 @@ public class Config {
     // Config values customizable through config file
     private String appTitle = "Address App";
     private Level logLevel = Level.INFO;
-    private Path userPrefsFilePath = Paths.get("EzTutor","preferences.json");
+    private Path userPrefsFilePath = Paths.get("EzTutor", "preferences.json");
 
     public String getAppTitle() {
         return appTitle;
