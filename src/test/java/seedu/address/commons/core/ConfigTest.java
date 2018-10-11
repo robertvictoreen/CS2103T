@@ -8,6 +8,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.nio.file.Paths;
+
 public class ConfigTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -16,7 +18,7 @@ public class ConfigTest {
     public void toString_defaultObject_stringReturned() {
         String defaultConfigAsString = "App title : Address App\n"
                 + "Current log level : INFO\n"
-                + "Preference file Location : EzTutor/preferences.json";
+                + "Preference file Location : " + Paths.get("EzTutor", "preferences.json").toAbsolutePath().toString();
 
         assertEquals(defaultConfigAsString, new Config().toString());
     }
