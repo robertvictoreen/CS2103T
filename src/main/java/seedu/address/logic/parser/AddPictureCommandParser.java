@@ -11,7 +11,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILEPATH;
 
-//@@author dezhanglee
+//@@author Zachary Tan
 /**
  * Parses input arguments and creates a new AddPictureCommand object
  */
@@ -44,6 +44,9 @@ public class AddPictureCommandParser implements Parser<AddProfilePictureCommand>
         try {
             path = ParserUtil.parseImageFilename(argMultimap.getValue(PREFIX_FILEPATH).get());
         } catch (Exception e) {
+            System.out.println(e.getClass().getSimpleName());
+            e.printStackTrace();
+            System.out.println("fuck up bug");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddProfilePictureCommand.MESSAGE_USAGE));
         }
 

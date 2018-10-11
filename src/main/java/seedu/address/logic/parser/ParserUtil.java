@@ -135,6 +135,7 @@ public class ParserUtil {
         String file = args.trim();
 
         if (file.isEmpty() || !ProfilePicture.isValidPath(file)) {
+            System.out.println(ProfilePicture.isValidPath(file));
             throw new IllegalValueException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddProfilePictureCommand.MESSAGE_USAGE));
         }
