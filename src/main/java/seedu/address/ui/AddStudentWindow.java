@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
@@ -34,6 +35,8 @@ public class AddStudentWindow extends UiPart {
     private TextField tagTwoField;
     @FXML
     private TextField tagThreeField;
+    @FXML
+    private Button okButton;
 
     // Implement logger in the future
     // private final Logger logger = LogsCenter.getLogger(getClass());
@@ -131,12 +134,42 @@ public class AddStudentWindow extends UiPart {
     }
 
     /**
-     * Sets alert window size and text
+     * Sets alert window style, size and text
      */
     private void configAlert(Alert alert, String m1, String m2, String m3, double height) {
+        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
         alert.setTitle(m1);
         alert.setHeaderText(m2);
         alert.setContentText(m3);
         alert.getDialogPane().setMinHeight(height);
     }
+
+    public void setNameField(String name) {
+        nameField = new TextField(name);
+    }
+
+    public void setPhoneField(String phone) {
+        this.phoneField = new TextField(phone);
+    }
+
+    public void setAddressField(String address) {
+        this.addressField = new TextField(address);
+    }
+
+    public void setEmailField(String email) {
+        this.emailField = new TextField(email);
+    }
+
+    public void setTagOneField(String tagOne) {
+        this.tagOneField = new TextField(tagOne);
+    }
+
+    public void setTagTwoField(String tagTwo) {
+        this.tagTwoField = new TextField(tagTwo);
+    }
+
+    public void setTagThreeField(String tagThree) {
+        this.tagThreeField = new TextField(tagThree);
+    }
+
 }
