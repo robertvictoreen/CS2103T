@@ -1,59 +1,60 @@
 package seedu.address.model.assignment;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import seedu.address.model.common.Validator;
 
 /**
- * Represents a Person's name in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * Represents an assignment's mark in the app.
+ * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  */
-public class Deadline {
+public class Deadline extends Validator implements Comparable<Deadline> {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
-
-    /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
-    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
-
-    public final String fullName;
+    public static final String FORMAT_STRING = "dd/MM/yyyy";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Deadline should be in the format of " + FORMAT_STRING;
+    public static final String VALIDATION_REGEX = "^(\\d{2})(\\/|-|\\.)(\\d{2})(\\/|-|\\.)(\\d{4})";
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code Deadline}.
      *
-     * @param name A valid name.
+     * @param date A valid date string.
      */
-    public Deadline(String name) {
-        requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_NAME_CONSTRAINTS);
-        fullName = name;
+    public Deadline(String date) {
+        super(date);
     }
 
-    /**
-     * Returns true if a given string is a valid name.
-     */
-    public static boolean isValidName(String test) {
-        return test.matches(NAME_VALIDATION_REGEX);
-    }
-
-
-    @Override
-    public String toString() {
-        return fullName;
+    public int compareTo(Deadline other) {
+        return this.getValue().compareTo(other.getValue());
     }
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Deadline // instanceof handles nulls
-                && fullName.equals(((Deadline) other).fullName)); // state check
+    public boolean isValid(String test) {
+        if (!super.isValid(test)) {
+            return false;
+        } else {
+            SimpleDateFormat format = new SimpleDateFormat(FORMAT_STRING);
+            format.setLenient(false);
+            try {
+                Date date = format.parse(test);
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
+        }
     }
 
     @Override
-    public int hashCode() {
-        return fullName.hashCode();
+    public Date getValue() {
+        SimpleDateFormat format = new SimpleDateFormat(FORMAT_STRING);
+        format.setLenient(false);
+        try {
+            Date date = format.parse(internalString);
+            return date;
+        } catch (Exception e) {
+            return new Date(0);
+        }
     }
 
 }

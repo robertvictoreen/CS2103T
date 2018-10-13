@@ -3,34 +3,54 @@ package seedu.address.model.assignment;
 import java.util.Objects;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.commons.util.UniqueIdUtil.createUniqueId;
 
 /**
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Assignment {
+public class Assignment implements Comparable<Assignment> {
 
     // Identity fields
-    private final Name name;
+    private final AssignmentName name;
     private final Deadline deadline;
     private final Weight weight;
+    private final Mark maxMark;
+    private final String uniqueId;
 
     /**
      * Every field must be present and not null.
      */
-    public Assignment(Name name) {
-        requireAllNonNull(name);
+    public Assignment(AssignmentName name, Weight weight, Deadline deadline, Mark maxMark, String uniqueId) {
+        requireAllNonNull(name, weight, deadline, maxMark, uniqueId);
         this.name = name;
+        this.weight = weight;
+        this.deadline = deadline;
+        this.maxMark = maxMark;
+        this.uniqueId = uniqueId;
     }
 
-    public Name getName() {
+    public Assignment(AssignmentName name, Weight weight, Deadline deadline, Mark maxMark) {
+        this(name, weight, deadline, maxMark,
+                createUniqueId(name.hashCode() + weight.hashCode() + deadline.hashCode() + maxMark.hashCode())
+        );
+    }
+
+    public AssignmentName getName() {
         return name;
     }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
+    public Weight getWeight() {
+        return weight;
+    }
+
+    public Deadline getDeadline() {
+        return deadline;
+    }
+
+    public Mark getMaxMark() {
+        return maxMark;
+    }
 
     public boolean isSameAssignment(Assignment otherAssignment) {
         if (otherAssignment == this) {
@@ -40,6 +60,15 @@ public class Assignment {
         return otherAssignment != null
                 && otherAssignment.getName().equals(getName());
     }
+
+    public int compareTo(Assignment other) {
+        int deadlineComparison = this.getDeadline().compareTo(other.getDeadline());
+        if (deadlineComparison != 0) {
+            return deadlineComparison;
+        }
+        return 0;
+    }
+
 
     /**
      * Returns true if both persons have the same identity and data fields.
@@ -56,7 +85,10 @@ public class Assignment {
         }
 
         Assignment otherAssignment = (Assignment) other;
-        return otherAssignment.getName().equals(getName());
+        return otherAssignment.getName().equals(getName())
+                && otherAssignment.getWeight().equals(getWeight())
+                && otherAssignment.getDeadline().equals(getDeadline())
+                && otherAssignment.getMaxMark().equals(getMaxMark());
     }
 
     @Override
@@ -68,7 +100,13 @@ public class Assignment {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName());
+        builder.append(getName())
+                .append(" Weight: ")
+                .append(getWeight())
+                .append(" Deadline: ")
+                .append(getDeadline())
+                .append(" Max Mark: ")
+                .append(getMaxMark());
         return builder.toString();
     }
 

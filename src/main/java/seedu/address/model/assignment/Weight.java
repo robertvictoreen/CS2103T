@@ -1,59 +1,33 @@
 package seedu.address.model.assignment;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import seedu.address.model.common.Validator;
 
 /**
- * Represents a Person's name in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * Represents an assignment's weight in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  */
-public class Weight {
+public class Weight extends Validator implements Comparable<Weight> {
 
     public static final String MESSAGE_WEIGHT_CONSTRAINTS =
-            "Weights should only contain a real number between 0 and 100, and it should not be blank";
-
-    /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
-    public static final String WEIGHT_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
-
-    public final String fullName;
+            "Weights should only contain a real number from 0 and 100, and it should not be blank";
+    public static final String WEIGHT_VALIDATION_REGEX = "^(\\d{0,2}(\\.\\d+)?)|(100)$";
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code Weight}.
      *
-     * @param name A valid name.
+     * @param weight A valid weight string.
      */
-    public Weight(String name) {
-        requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_WEIGHT_CONSTRAINTS);
-        fullName = name;
+    public Weight(String weight) {
+        super(weight);
     }
 
-    /**
-     * Returns true if a given string is a valid name.
-     */
-    public static boolean isValidName(String test) {
-        return test.matches(NAME_VALIDATION_REGEX);
-    }
-
-
-    @Override
-    public String toString() {
-        return fullName;
+    public int compareTo(Weight other) {
+        return this.getValue().compareTo(other.getValue());
     }
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Weight // instanceof handles nulls
-                && fullName.equals(((Weight) other).fullName)); // state check
-    }
-
-    @Override
-    public int hashCode() {
-        return fullName.hashCode();
+    public Float getValue() {
+        return Float.valueOf(this.internalString);
     }
 
 }

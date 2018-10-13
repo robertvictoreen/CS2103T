@@ -2,9 +2,8 @@ package seedu.address.model.assignment;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.assignment.exceptions.DuplicateAssignmentException;
+import seedu.address.model.assignment.exceptions.AssignmentNotFoundException;
 
 import java.util.Iterator;
 import java.util.List;
@@ -42,7 +41,7 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
     public void add(Assignment toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateAssignmentException();
         }
         internalList.add(toAdd);
     }
@@ -57,28 +56,28 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new AssignmentNotFoundException();
         }
 
-        if (!target.isSamePerson(editedPerson) && contains(editedPerson)) {
-            throw new DuplicatePersonException();
+        if (!target.isSameAssignment(editedAssignment) && contains(editedAssignment)) {
+            throw new DuplicateAssignmentException();
         }
 
-        internalList.set(index, editedPerson);
+        internalList.set(index, editedAssignment);
     }
 
     /**
      * Removes the equivalent person from the list.
      * The person must exist in the list.
      */
-    public void remove(Person toRemove) {
+    public void remove(Assignment toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new AssignmentNotFoundException();
         }
     }
 
-    public void setPersons(UniqueAssignmentList replacement) {
+    public void setAssignments(UniqueAssignmentList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -87,19 +86,19 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
      * Replaces the contents of this list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setPersons(List<Person> persons) {
-        requireAllNonNull(persons);
-        if (!personsAreUnique(persons)) {
-            throw new DuplicatePersonException();
+    public void setAssignments(List<Assignment> assignments) {
+        requireAllNonNull(assignments);
+        if (!assignmentsAreUnique(assignments)) {
+            throw new DuplicateAssignmentException();
         }
 
-        internalList.setAll(persons);
+        internalList.setAll(assignments);
     }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Person> asUnmodifiableObservableList() {
+    public ObservableList<Assignment> asUnmodifiableObservableList() {
         return FXCollections.unmodifiableObservableList(internalList);
     }
 
@@ -107,8 +106,9 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
      * Sorts all persons in the list according to lexicographical order.
      */
     public void sort() {
-        internalList.sort((person1, person2) -> (
-                person1.getName().toString().compareToIgnoreCase(person2.getName().toString())));
+        internalList.sort((assignment1, assignment2) -> (
+                assignment1.compareTo(assignment2))
+        );
     }
 
     @Override
