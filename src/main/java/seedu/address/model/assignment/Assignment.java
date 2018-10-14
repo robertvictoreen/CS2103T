@@ -1,10 +1,9 @@
 package seedu.address.model.assignment;
 
-import java.util.Objects;
-
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.commons.util.UniqueIdUtil.createUniqueId;
 
+import java.util.Objects;
 /**
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -52,6 +51,10 @@ public class Assignment implements Comparable<Assignment> {
         return maxMark;
     }
 
+    /**
+     * Returns true if both assignment have the same name.
+     * This defines a weaker notion of equality between two assignment.
+     */
     public boolean isSameAssignment(Assignment otherAssignment) {
         if (otherAssignment == this) {
             return true;
@@ -61,6 +64,7 @@ public class Assignment implements Comparable<Assignment> {
                 && otherAssignment.getName().equals(getName());
     }
 
+    @Override
     public int compareTo(Assignment other) {
         int deadlineComparison = this.getDeadline().compareTo(other.getDeadline());
         if (deadlineComparison != 0) {
@@ -69,10 +73,9 @@ public class Assignment implements Comparable<Assignment> {
         return 0;
     }
 
-
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both assignments have the same name and data fields.
+     * This defines a stronger notion of equality between two assignments.
      */
     @Override
     public boolean equals(Object other) {

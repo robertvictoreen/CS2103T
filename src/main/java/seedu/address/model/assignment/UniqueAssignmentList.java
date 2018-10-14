@@ -1,15 +1,15 @@
 package seedu.address.model.assignment;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.address.model.assignment.exceptions.DuplicateAssignmentException;
-import seedu.address.model.assignment.exceptions.AssignmentNotFoundException;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.address.model.assignment.exceptions.AssignmentNotFoundException;
+import seedu.address.model.assignment.exceptions.DuplicateAssignmentException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
