@@ -3,8 +3,8 @@ package seedu.address.model.common;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-/*
- * Base class for all data field validator
+/**
+ * Base class for all string validator.
  */
 public abstract class Validator {
 
