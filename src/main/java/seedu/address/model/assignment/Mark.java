@@ -21,9 +21,17 @@ public class Mark extends Validator implements Comparable<Mark> {
         super(mark);
     }
 
+    /**
+     * Returns true if a given string matches the class VALIDATION_REGEX.
+     */
+    public static boolean isValid(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
+
     public int compareTo(Mark other) {
         return this.getValue().compareTo(other.getValue());
     }
+
 
     @Override
     public Float getValue() {

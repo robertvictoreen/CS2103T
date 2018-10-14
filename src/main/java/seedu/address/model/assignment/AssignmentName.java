@@ -21,6 +21,13 @@ public class AssignmentName extends Validator implements Comparable<AssignmentNa
         super(name);
     }
 
+    /**
+     * Returns true if a given string matches the class VALIDATION_REGEX.
+     */
+    public static boolean isValid(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
+
     public int compareTo(AssignmentName other) {
         return this.getValue().compareTo(other.getValue());
     }

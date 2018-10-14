@@ -14,7 +14,7 @@ public class Deadline extends Validator implements Comparable<Deadline> {
     public static final String FORMAT_STRING = "dd/MM/yyyy";
     public static final String MESSAGE_CONSTRAINTS =
             "Deadline should be in the format of " + FORMAT_STRING;
-    public static final String VALIDATION_REGEX = "^(\\d{2})(\\/|-|\\.)(\\d{2})(\\/|-|\\.)(\\d{4})";
+    public static final String VALIDATION_REGEX = "^(\\d{2})(\\/)(\\d{2})(\\/)(\\d{4})";
 
     /**
      * Constructs a {@code Deadline}.
@@ -25,24 +25,26 @@ public class Deadline extends Validator implements Comparable<Deadline> {
         super(date);
     }
 
-    public int compareTo(Deadline other) {
-        return this.getValue().compareTo(other.getValue());
-    }
-
-    @Override
-    public boolean isValid(String test) {
-        if (!super.isValid(test)) {
+    /**
+     * Returns true if a given string matches the class VALIDATION_REGEX.
+     */
+    public static boolean isValid(String test) {
+        if (!test.matches(VALIDATION_REGEX)) {
             return false;
         } else {
             SimpleDateFormat format = new SimpleDateFormat(FORMAT_STRING);
             format.setLenient(false);
             try {
-                Date date = format.parse(test);
+                format.parse(test);
                 return true;
             } catch (Exception e) {
                 return false;
             }
         }
+    }
+
+    public int compareTo(Deadline other) {
+        return this.getValue().compareTo(other.getValue());
     }
 
     @Override

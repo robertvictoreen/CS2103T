@@ -8,6 +8,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public abstract class Validator {
 
+    public static final String VALIDATION_REGEX = "";
+
     public final String internalString;
 
     /**
@@ -31,15 +33,10 @@ public abstract class Validator {
     }
 
     /**
-     * Returns true if a given string matches the child class VALIDATION.
+     * Returns true if a given string matches the child class VALIDATION_REGEX.
      */
-    public boolean isValid(String test) {
-        try {
-            return test.matches((String) this.getClass().getField("VALIDATION_REGEX").get(this));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+    public static boolean isValid(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     /**
@@ -55,7 +52,7 @@ public abstract class Validator {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Validator // instanceof handles nulls
+                || (getClass() == other.getClass() // instanceof handles nulls
                 && this.internalString.equals(((Validator) other).internalString)); // state check
     }
 

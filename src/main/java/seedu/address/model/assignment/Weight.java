@@ -8,9 +8,9 @@ import seedu.address.model.common.Validator;
  */
 public class Weight extends Validator implements Comparable<Weight> {
 
-    public static final String MESSAGE_WEIGHT_CONSTRAINTS =
+    public static final String MESSAGE_CONSTRAINTS =
             "Weights should only contain a real number from 0 and 100, and it should not be blank";
-    public static final String WEIGHT_VALIDATION_REGEX = "^(\\d{0,2}(\\.\\d+)?)|(100)$";
+    public static final String VALIDATION_REGEX = "^(\\d{0,2}(\\.\\d+)?)|(100)$";
 
     /**
      * Constructs a {@code Weight}.
@@ -19,6 +19,13 @@ public class Weight extends Validator implements Comparable<Weight> {
      */
     public Weight(String weight) {
         super(weight);
+    }
+
+    /**
+     * Returns true if a given string matches the class VALIDATION_REGEX.
+     */
+    public static boolean isValid(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     public int compareTo(Weight other) {
