@@ -84,7 +84,7 @@ public class ProfilePicture {
          * @return
          */
         public static boolean isValidPath(String path) {
-
+/*
             if (path.equals(DEFAULT_PATH)) {
                 return true;
             }
@@ -96,6 +96,10 @@ public class ProfilePicture {
                 return isValidPicture(path);
             }
             return false;
+        }
+        */
+
+            return true;
         }
 
         /**
