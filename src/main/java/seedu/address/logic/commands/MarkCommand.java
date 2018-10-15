@@ -32,7 +32,7 @@ public class MarkCommand extends EditCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a mark entry for the person identified "
             + "by the index number used in the displayed person list. \n"
             + "Parameters: INDEX (must be a positive integer) "
-             + PREFIX_MARK + "MARK (must be a percentage value) \n"
+             + PREFIX_MARK + "MARK \n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_MARK + "75 ";
 
