@@ -3,6 +3,9 @@ package seedu.address.ui;
 // TODO: Fix ClassCastException caused in setUiPart().
 /*
 
+import org.junit.Before;
+import org.junit.Test;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -11,6 +14,8 @@ import org.junit.Test;
 import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.AddStudentWindowHandle;
+
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import seedu.address.model.AddressBook;
@@ -48,7 +53,7 @@ public class AddStudentWindowTest extends GuiUnitTest {
     private static final String INVALID_EMAIL_DOMAIN_START_AND_END = "test@!gmail.com#";
     private static final String INVALID_EMAIL_DOMAIN_MIDDLE_SPECIAL_CHAR = "test@gmail_com";
 
-    // address,
+    // address, should not be blank, can take any values
 
     // tag, leave blank for now
 
@@ -193,12 +198,14 @@ public class AddStudentWindowTest extends GuiUnitTest {
         handle.click(okButton);
         assertFalse(addressBook.hasPerson(this.person));
     }
-    // test address
-    // test empty address
 
-    // test invalid address
-
-    // test correct (all args)
+    @Test
+    public void testEmptyAddress() {
+        assertFalse(addressBook.hasPerson(this.person));
+        enterAddress(EMPTY_STRING);
+        handle.click(okButton);
+        assertFalse(addressBook.hasPerson(this.person));
+    }
 
     // test tags
     // test empty tags
@@ -210,9 +217,7 @@ public class AddStudentWindowTest extends GuiUnitTest {
 
     // test correct (all args)
 
-
-
-    private void enterName(String name) {
+    private void enterName(String name){
         window.setNameField(name);
     }
 
