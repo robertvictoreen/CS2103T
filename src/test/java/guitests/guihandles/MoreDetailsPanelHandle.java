@@ -11,19 +11,18 @@ import javafx.scene.web.WebView;
 /**
  * A handler for the {@code BrowserPanel} of the UI.
  */
-public class BrowserPanelHandle extends NodeHandle<Node> {
+public class MoreDetailsPanelHandle extends NodeHandle<Node> {
 
-    public static final String BROWSER_ID = "#browser";
+    public static final String DETAILS_PANEL_ID = "#detailsPanel";
+    public static final String DEFAULT = "Select a student to display his/her details.";
 
     private boolean isWebViewLoaded = true;
 
     private URL lastRememberedUrl;
 
-    public BrowserPanelHandle(Node browserPanelNode) {
+    public MoreDetailsPanelHandle(Node browserPanelNode) {
         super(browserPanelNode);
 
-        WebView webView = getChildNode(BROWSER_ID);
-        WebEngine engine = webView.getEngine();
         new GuiRobot().interact(() -> engine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
             if (newState == Worker.State.RUNNING) {
                 isWebViewLoaded = false;
@@ -47,12 +46,13 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
         lastRememberedUrl = getLoadedUrl();
     }
 
-    /**
+    /** FIX COMMENTS
      * Returns true if the current {@code URL} is different from the value remembered by the most recent
      * {@code rememberUrl()} call.
      */
-    public boolean isUrlChanged() {
-        return !lastRememberedUrl.equals(getLoadedUrl());
+    public boolean isDetailsChanged() {
+        //return !lastRememberedDetails.equals(getDetails()); // fix
+        return false;
     }
 
     /**
@@ -60,5 +60,12 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
      */
     public boolean isLoaded() {
         return isWebViewLoaded;
+    }
+
+    public void rememberDetails() {
+    }
+
+    public String getOwner() {
+        return "";
     }
 }
