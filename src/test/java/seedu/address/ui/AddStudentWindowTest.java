@@ -1,26 +1,15 @@
 package seedu.address.ui;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Set;
-
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import guitests.guihandles.AddStudentWindowHandle;
-import guitests.guihandles.NodeHandle;
-import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
 import seedu.address.model.AddressBook;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddStudentWindowTest extends GuiUnitTest {
@@ -54,7 +43,7 @@ public class AddStudentWindowTest extends GuiUnitTest {
     private static final String INVALID_EMAIL_DOMAIN_START_AND_END = "test@!gmail.com#";
     private static final String INVALID_EMAIL_DOMAIN_MIDDLE_SPECIAL_CHAR = "test@gmail_com";
 
-    // address,
+    // address, should not be blank, can take any values
 
     // tag, leave blank for now
 
@@ -193,12 +182,14 @@ public class AddStudentWindowTest extends GuiUnitTest {
         handle.click(okButton);
         assertFalse(addressBook.hasPerson(this.person));
     }
-    // test address
-        // test empty address
 
-        // test invalid address
-
-        // test correct (all args)
+    @Test
+    public void testEmptyAddress() {
+        assertFalse(addressBook.hasPerson(this.person));
+        enterAddress(EMPTY_STRING);
+        handle.click(okButton);
+        assertFalse(addressBook.hasPerson(this.person));
+    }
 
     // test tags
         // test empty tags
@@ -209,8 +200,6 @@ public class AddStudentWindowTest extends GuiUnitTest {
         //                              (2, 2+3), (3)
 
         // test correct (all args)
-
-
 
     private void enterName(String name){
         window.setNameField(name);
