@@ -47,6 +47,9 @@ public class Person {
         this.address = address;
         this.picture = pic;
         this.tags.addAll(tags);
+
+        // assignmentStub initialization
+        this.assignments = new ArrayList<>();
     }
 
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Map<String, Mark> marks) {
@@ -59,6 +62,9 @@ public class Person {
         this.tags.addAll(tags);
         requireNonNull(marks);
         this.marks.putAll(marks);
+
+        // assignmentStub initialization
+        this.assignments = new ArrayList<>();
     }
 
     public Person(Name name, Phone phone, Email email, Address address, ProfilePicture pic, Set<Tag> tags, Map<String,
@@ -72,9 +78,6 @@ public class Person {
     public Person(Person source) {
         this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getProfilePicture(),
             source.getTags());
-
-        // assignmentStub initialization
-        this.assignments = new ArrayList<>();
     }
 
     public Name getName() {
