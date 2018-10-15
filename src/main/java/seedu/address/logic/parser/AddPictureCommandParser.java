@@ -54,6 +54,7 @@ public class AddPictureCommandParser implements Parser<AddProfilePictureCommand>
         return new AddProfilePictureCommand(index, path);
     }
 
+
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }

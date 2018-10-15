@@ -15,6 +15,7 @@ public class SortCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         model.sort();
         return new CommandResult(MESSAGE_SUCCESS);
+
     }
 
 }

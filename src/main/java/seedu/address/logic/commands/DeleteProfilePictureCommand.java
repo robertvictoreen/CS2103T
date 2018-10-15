@@ -80,5 +80,7 @@ public class DeleteProfilePictureCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof DeleteProfilePictureCommand // instanceof handles nulls
                 && this.index.equals(((DeleteProfilePictureCommand) other).index)); // state check
+
     }
+
 }

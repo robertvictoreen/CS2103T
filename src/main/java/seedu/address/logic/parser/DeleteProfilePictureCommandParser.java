@@ -32,6 +32,7 @@ public class DeleteProfilePictureCommandParser implements Parser<DeleteProfilePi
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteProfilePictureCommand.MESSAGE_USAGE));
         }
+
     }
 
 }

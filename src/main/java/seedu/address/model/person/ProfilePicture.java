@@ -221,6 +221,7 @@ public class ProfilePicture {
             return other == this // short circuit if same object
                     || (other instanceof ProfilePicture // instanceof handles nulls
                     && this.path.equals(((ProfilePicture) other).path)); // state check
+
         }
 
 
