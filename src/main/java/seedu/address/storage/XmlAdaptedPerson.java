@@ -18,7 +18,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.ProfilePicture;
 import seedu.address.model.tag.Tag;
 
-import static sun.management.snmp.jvminstr.JvmThreadInstanceEntryImpl.ThreadStateMap.Byte1.other;
+
 
 /**
  * JAXB-friendly version of the Person.
