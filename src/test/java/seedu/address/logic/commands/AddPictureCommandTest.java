@@ -21,7 +21,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 public class AddPictureCommandTest {
 
     private ModelManager model =
-            new ModelManager(getTypicalAddressBook(), getTypicalEventBook(), getTypicalTaskBook(), new UserPrefs());
+            new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Index index = INDEX_FIRST_PERSON;
 
     @Test

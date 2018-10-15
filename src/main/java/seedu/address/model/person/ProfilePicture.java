@@ -18,7 +18,8 @@ public class ProfilePicture {
 
         public static final String DEFAULT_PATH = "images/default.png";
         public static final String MESSAGE_PICTURE_CONSTRAINTS =
-                "Filepath must be valid, point to an image file, and is less than 10MB in size";
+                "Filepath must be valid, point to an image file, and is less than 10MB in size. " +
+                        "Example of a valid file path C:\\Users\\Zackkh95\\Pictures\\zacharytan.jpg";
         public static final String PICTURE_VALIDATION_REGEX_EXT = "([a-zA-Z]:)?(\\\\[a-zA-Z0-9._-]+)+\\\\?";
         public static final String PICTURE_VALIDATION_REGEX_INT = "[^\\s].*";
         public static final String APPDATA_DIR = getDefaultDirectory();
@@ -84,7 +85,7 @@ public class ProfilePicture {
          * @return
          */
         public static boolean isValidPath(String path) {
-/*
+
             if (path.equals(DEFAULT_PATH)) {
                 return true;
             }
@@ -96,10 +97,6 @@ public class ProfilePicture {
                 return isValidPicture(path);
             }
             return false;
-        }
-        */
-
-            return true;
         }
 
         /**
