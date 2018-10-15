@@ -16,5 +16,4 @@ public class SortCommand extends Command {
         model.sort();
         return new CommandResult(MESSAGE_SUCCESS);
     }
-
 }

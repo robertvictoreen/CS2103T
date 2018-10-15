@@ -106,7 +106,7 @@ public class UniquePersonList implements Iterable<Person> {
      * Sorts all persons in the list according to lexicographical order.
      */
     public void sort() {
-        internalList.sort((person1,person2) -> (
+        internalList.sort((person1, person2) -> (
                 person1.getName().toString().compareToIgnoreCase(person2.getName().toString())));
     }
 

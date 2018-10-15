@@ -5,6 +5,8 @@ build/
 .idea/
 lib/*
 *.iml
+*.ipr
+*.iws
 *.log
 *.log.*
 *.csv
