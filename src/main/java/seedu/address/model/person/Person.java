@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -26,18 +27,36 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private ProfilePicture picture;
 
     /**
      * Every field must be present and not null.
      */
+
+    public Person(Name name, Phone phone, Email email, Address address, ProfilePicture pic, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, tags);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.picture = pic;
+        this.tags.addAll(tags);
+    }
+
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.picture = new ProfilePicture();
         this.tags.addAll(tags);
         this.assignments = new ArrayList<>();
+    }
+
+    public Person(Person source) {
+        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getProfilePicture(),
+                source.getTags());
     }
 
     public Name getName() {
@@ -58,6 +77,42 @@ public class Person {
 
     public List<AssignmentStub> getAssignments() {
         return assignments;
+    }
+  
+    public ProfilePicture getProfilePicture() {
+        return picture;
+    }
+
+    /**
+     * Update contact picture to that located in path
+     * @param path
+     */
+    public void updatePicture(String path) {
+        int hash = this.hashCode();
+        String filename = String.valueOf(hash);
+        this.picture = new ProfilePicture(path, filename);
+    }
+
+    /**
+     * Delete the current picture and set up a default picture.
+     */
+    public void deleteProfilePicture() {
+        this.picture = new ProfilePicture();
+    }
+
+    /**
+     * Set profile picture to that in path
+     */
+    public void setProfilePicture(String path) throws IllegalValueException {
+
+        ProfilePicture oldPic = this.picture;
+        try {
+            int fileName = this.hashCode();
+            this.picture = new ProfilePicture(path, String.valueOf(fileName));
+        } catch (Exception e) {
+            this.picture = oldPic; //reset picture back to default
+            throw new IllegalValueException(ProfilePicture.MESSAGE_PICTURE_CONSTRAINTS);
+        }
     }
 
     /**
