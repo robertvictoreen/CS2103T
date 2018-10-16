@@ -4,14 +4,14 @@ import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import org.junit.Before;
 
-import guitests.guihandles.BrowserPanelHandle;
+//import guitests.guihandles.BrowserPanelHandle;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 
 public class BrowserPanelTest extends GuiUnitTest {
     private PersonPanelSelectionChangedEvent selectionChangedEventStub;
 
     private BrowserPanel browserPanel;
-    private BrowserPanelHandle browserPanelHandle;
+    //private BrowserPanelHandle browserPanelHandle;
 
     @Before
     public void setUp() {
@@ -20,7 +20,7 @@ public class BrowserPanelTest extends GuiUnitTest {
         guiRobot.interact(() -> browserPanel = new BrowserPanel());
         uiPartRule.setUiPart(browserPanel);
 
-        browserPanelHandle = new BrowserPanelHandle(browserPanel.getRoot());
+        //browserPanelHandle = new BrowserPanelHandle(browserPanel.getRoot());
     }
 
     /*

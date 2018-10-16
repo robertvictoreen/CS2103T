@@ -1,12 +1,18 @@
 package guitests.guihandles;
 
+import javafx.scene.control.SplitPane;
 import seedu.address.model.person.Person;
 
-public class MoreDetailsPanelHandle {
+public class MoreDetailsPanelHandle extends NodeHandle<SplitPane> {
 
     public static final String DEFAULT = "No student selected.";
+    public static final String DETAILS_PANEL_ID = "$detailsPanel";
 
     private Person lastShownStudent = null;
+
+    public MoreDetailsPanelHandle(SplitPane moreDetailsPanelNode) {
+        super(moreDetailsPanelNode);
+    }
 
     /**
      * Remembers the current details shown.
