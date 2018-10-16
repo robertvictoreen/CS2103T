@@ -3,6 +3,9 @@ package guitests.guihandles;
 import javafx.scene.control.SplitPane;
 import seedu.address.model.person.Person;
 
+/**
+ * Provides a handle for {@code MoreDetailsPanel}.
+ */
 public class MoreDetailsPanelHandle extends NodeHandle<SplitPane> {
 
     public static final String DEFAULT = "No student selected.";
@@ -21,11 +24,17 @@ public class MoreDetailsPanelHandle extends NodeHandle<SplitPane> {
         // remember current student?
     }
 
+    /**
+     * Returns true if the details being shown have not changed since the most recent call.
+     */
     public boolean isDetailsChanged() {
         // check if current student shown = prev
         return false;
     }
 
+    /**
+     * Returns the student whose details are being shown
+     */
     public String getOwner() {
         // return current student shown
         /*
@@ -35,5 +44,12 @@ public class MoreDetailsPanelHandle extends NodeHandle<SplitPane> {
         return currentStudent.getName() + "'s details:";
         */
         return "";
+    }
+
+    /**
+     * Returns the header at top of details panel that states which student's details is being shown.
+     */
+    public String getHeader() {
+        return getOwner() + "'s details:";
     }
 }

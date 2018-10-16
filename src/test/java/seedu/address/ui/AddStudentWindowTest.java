@@ -11,13 +11,15 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
+
 import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.AddStudentWindowHandle;
 
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -217,7 +219,7 @@ public class AddStudentWindowTest extends GuiUnitTest {
 
     // test correct (all args)
 
-    private void enterName(String name){
+    private void enterName(String name) {
         window.setNameField(name);
     }
 
