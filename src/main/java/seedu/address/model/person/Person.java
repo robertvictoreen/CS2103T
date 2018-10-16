@@ -24,7 +24,7 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
-    private  ProfilePicture picture;
+    private ProfilePicture picture;
 
     /**
      * Every field must be present and not null.
@@ -71,7 +71,9 @@ public class Person {
         return address;
     }
 
-    public ProfilePicture getProfilePicture() { return picture; }
+    public ProfilePicture getProfilePicture() {
+        return picture;
+    }
 
     /**
      * Update contact picture to that located in path

@@ -70,7 +70,8 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with an additional Picture parameter
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address, String profilepicture, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedPerson(String name, String phone, String email, String address,
+                            String profilepicture, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -145,11 +146,9 @@ public class XmlAdaptedPerson {
             modelPicture = new ProfilePicture(this.profilepicture);
         }
 
-            final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<Tag> modelTags = new HashSet<>(personTags);
 
-            return new Person(modelName, modelPhone, modelEmail, modelAddress, modelPicture, modelTags);
-
-
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelPicture, modelTags);
 
 
     }

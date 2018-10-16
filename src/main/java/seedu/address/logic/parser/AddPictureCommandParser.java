@@ -12,7 +12,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILEPATH;
 
-//@@author Zachary Tan
+
 /**
  * Parses input arguments and creates a new AddPictureCommand object
  */
@@ -33,7 +33,8 @@ public class AddPictureCommandParser implements Parser<AddProfilePictureCommand>
 
         if (!arePrefixesPresent(argMultimap, PREFIX_FILEPATH)
                 || argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddProfilePictureCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddProfilePictureCommand.MESSAGE_USAGE));
         }
 
         try {
@@ -47,7 +48,8 @@ public class AddPictureCommandParser implements Parser<AddProfilePictureCommand>
         } catch (Exception e) {
             System.out.println(e.getClass().getSimpleName());
             e.printStackTrace();
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddProfilePictureCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddProfilePictureCommand.MESSAGE_USAGE));
         }
 
 
