@@ -17,5 +17,4 @@ public class SortCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
 
     }
-
 }
