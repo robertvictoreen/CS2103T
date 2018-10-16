@@ -13,8 +13,8 @@ import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 /**
- * Records a mark for an existing person in the address book.
- * TODO: Currently MarkCommand records marks as Tags in the storage model,
+ * Deletes a mark for an existing person in the address book.
+ * TODO: Currently DeleteMarkCommand deletes marks as Tags in the storage model,
  * this will be changed to a new Mark storage model.
  */
 public class DeleteMarkCommand extends EditCommand {
