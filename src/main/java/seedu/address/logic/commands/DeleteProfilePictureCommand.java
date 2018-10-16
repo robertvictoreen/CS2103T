@@ -1,3 +1,4 @@
+
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -11,7 +12,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.ProfilePicture;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -80,7 +80,6 @@ public class DeleteProfilePictureCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof DeleteProfilePictureCommand // instanceof handles nulls
                 && this.index.equals(((DeleteProfilePictureCommand) other).index)); // state check
-
     }
 
 }

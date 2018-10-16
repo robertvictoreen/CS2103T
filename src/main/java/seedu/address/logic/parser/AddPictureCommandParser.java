@@ -1,3 +1,4 @@
+
 package seedu.address.logic.parser;
 
 import seedu.address.commons.core.index.Index;
@@ -46,7 +47,6 @@ public class AddPictureCommandParser implements Parser<AddProfilePictureCommand>
         } catch (Exception e) {
             System.out.println(e.getClass().getSimpleName());
             e.printStackTrace();
-            System.out.println("fuck up bug");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddProfilePictureCommand.MESSAGE_USAGE));
         }
 
@@ -57,6 +57,7 @@ public class AddPictureCommandParser implements Parser<AddProfilePictureCommand>
 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+
     }
 
 }

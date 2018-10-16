@@ -1,3 +1,4 @@
+
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -8,7 +9,6 @@ import seedu.address.logic.commands.DeleteProfilePictureCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-
 
 
 /**
@@ -32,7 +32,6 @@ public class DeleteProfilePictureCommandParser implements Parser<DeleteProfilePi
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteProfilePictureCommand.MESSAGE_USAGE));
         }
-
     }
 
 }
