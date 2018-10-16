@@ -34,7 +34,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
     private AssignmentStub assignment2 = new AssignmentStub("Mid-terms", 39);
     private AssignmentStub assignment3 = new AssignmentStub("Participation", 10);
     private AssignmentStub assignment4 = new AssignmentStub("Product Demo", 101);
-    private AssignmentStub assignments[] = {assignment1, assignment2, assignment3, assignment4};
+    private AssignmentStub[] assignments = {assignment1, assignment2, assignment3, assignment4};
 
     // List of students
     private ObservableList<Person> studentList;
