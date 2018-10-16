@@ -5,21 +5,22 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MARK;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.DeleteMarkCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.MarkCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new MarkCommand object
+ * Parses input arguments and creates a new DeleteMarkCommand object
  */
-public class MarkCommandParser extends EditCommandParser {
+public class DeleteMarkCommandParser extends EditCommandParser {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the MarkCommand
+     * Parses the given {@code String} of arguments in the context of the DeleteMarkCommand
      * and returns an MarkCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public MarkCommand parse(String args) throws ParseException {
+    public DeleteMarkCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_MARK);
@@ -36,10 +37,10 @@ public class MarkCommandParser extends EditCommandParser {
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_MARK)).ifPresent(editPersonDescriptor::setTags);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(MarkCommand.MESSAGE_NOT_MARKED);
+            throw new ParseException(DeleteMarkCommand.MESSAGE_MARK_NOT_DELETED);
         }
 
-        return new MarkCommand(index, editPersonDescriptor);
+        return new DeleteMarkCommand(index, editPersonDescriptor);
     }
 
 }
