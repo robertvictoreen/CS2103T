@@ -204,7 +204,9 @@ public class Person {
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getTags().equals(getTags())
-                && otherPerson.getMarks().equals(getMarks());
+                && otherPerson.getMarks().equals(getMarks())
+                && otherPerson.getProfilePicture().equals(getProfilePicture())
+                && otherPerson.getAssignments().equals(getAssignments());
     }
 
     @Override
