@@ -91,4 +91,3 @@ public class AddProfilePictureCommand extends Command {
                 && this.path.equals(((AddProfilePictureCommand) other).path)); // state check
     }
 }
-

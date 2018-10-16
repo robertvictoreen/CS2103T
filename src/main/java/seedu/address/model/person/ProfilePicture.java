@@ -227,4 +227,5 @@ public class ProfilePicture {
                 || (other instanceof ProfilePicture // instanceof handles nulls
                 && this.path.equals(((ProfilePicture) other).path)); // state check
     }
+
 }
