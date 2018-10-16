@@ -219,7 +219,7 @@ public class AddStudentWindowTest extends GuiUnitTest {
     }
 
     private void enterTagOne(String t1) {
-            window.setTagOneField(t1);
+        window.setTagOneField(t1);
     }
 
     private void enterTagTwo(String t2) {
