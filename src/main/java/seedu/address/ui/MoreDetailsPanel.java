@@ -30,10 +30,10 @@ public class MoreDetailsPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     // Initializing test data
-    AssignmentStub assignment1 = new AssignmentStub("Finals", 73);
-    AssignmentStub assignment2 = new AssignmentStub("Mid-terms", 39);
-    AssignmentStub assignment3 = new AssignmentStub("Participation", 10);
-    AssignmentStub assignment4 = new AssignmentStub("Product Demo", 101);
+    private AssignmentStub assignment1 = new AssignmentStub("Finals", 73);
+    private AssignmentStub assignment2 = new AssignmentStub("Mid-terms", 39);
+    private AssignmentStub assignment3 = new AssignmentStub("Participation", 10);
+    private AssignmentStub assignment4 = new AssignmentStub("Product Demo", 101);
     private AssignmentStub assignments[] = {assignment1, assignment2, assignment3, assignment4};
 
     // List of students
@@ -80,7 +80,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
     }
 
     /**
-     * Displays student's details in the More Details panel.
+     * Displays the student's details in the Details Panel on the bottom right.
      */
     public void display(Person student) {
         if (!isSetUp) {
