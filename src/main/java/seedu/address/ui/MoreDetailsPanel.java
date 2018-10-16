@@ -16,7 +16,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.person.AssignmentStub;
 import seedu.address.model.person.Person;
@@ -31,10 +30,10 @@ public class MoreDetailsPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     // Initializing test data
-    AssignmentStub assignment1 = new AssignmentStub("Finals", 73);
-    AssignmentStub assignment2 = new AssignmentStub("Mid-terms", 39);
-    AssignmentStub assignment3 = new AssignmentStub("Participation", 10);
-    AssignmentStub assignment4 = new AssignmentStub("Product Demo", 101);
+    private AssignmentStub assignment1 = new AssignmentStub("Finals", 73);
+    private AssignmentStub assignment2 = new AssignmentStub("Mid-terms", 39);
+    private AssignmentStub assignment3 = new AssignmentStub("Participation", 10);
+    private AssignmentStub assignment4 = new AssignmentStub("Product Demo", 101);
     private AssignmentStub assignments[] = {assignment1, assignment2, assignment3, assignment4};
 
     // List of students
@@ -80,8 +79,11 @@ public class MoreDetailsPanel extends UiPart<Region> {
         display(student); // display student's details in details panel
     }
 
+    /**
+     * Displays the details of the student selected in the Details Panel on the bottom right.
+     */
     public void display(Person student) {
-        if (!isSetUp){
+        if (!isSetUp) {
             // add 2 columns, default has 1
             ColumnConstraints newColumn = new ColumnConstraints();
             components.getColumnConstraints().add(newColumn);

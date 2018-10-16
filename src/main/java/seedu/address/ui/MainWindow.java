@@ -43,7 +43,6 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
 
     // Independent Ui parts residing in this Ui container
-    //private BrowserPanel browserPanel;
     private MoreDetailsPanel detailsPanel;
     private PersonListPanel personListPanel;
     private Config config;
@@ -142,7 +141,7 @@ public class MainWindow extends UiPart<Stage> {
         detailsPanel = new MoreDetailsPanel(logic.getFilteredPersonList());
         detailsPlaceholder.getChildren().add(detailsPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), detailsPanel);
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
