@@ -51,6 +51,10 @@ public class Assignment implements Comparable<Assignment> {
         return maxMark;
     }
 
+    public String getUniqueId() {
+        return uniqueId;
+    }
+
     /**
      * Returns true if both assignment have the same name.
      * This defines a weaker notion of equality between two assignment.
@@ -61,7 +65,8 @@ public class Assignment implements Comparable<Assignment> {
         }
 
         return otherAssignment != null
-                && otherAssignment.getName().equals(getName());
+                && otherAssignment.getName().equals(getName())
+                && otherAssignment.getUniqueId().equals(getUniqueId());
     }
 
     @Override
