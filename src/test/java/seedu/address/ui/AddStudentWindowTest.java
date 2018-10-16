@@ -1,13 +1,14 @@
 package seedu.address.ui;
 
-import org.junit.Before;
-import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
+import org.junit.Test;
+
 import guitests.guihandles.AddStudentWindowHandle;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -192,40 +193,40 @@ public class AddStudentWindowTest extends GuiUnitTest {
     }
 
     // test tags
-        // test empty tags
+    // test empty tags
 
-        // test invalid tags
+    // test invalid tags
 
-        // test alternate tag sequences (1, 1+2, 1+3, 1+2+3)
-        //                              (2, 2+3), (3)
+    // test alternate tag sequences (1, 1+2, 1+3, 1+2+3)
+    //                              (2, 2+3), (3)
 
-        // test correct (all args)
+    // test correct (all args)
 
-    private void enterName(String name){
+    private void enterName(String name) {
         window.setNameField(name);
     }
 
-    private void enterPhone(String phone){
+    private void enterPhone(String phone) {
         window.setPhoneField(phone);
     }
 
-    private void enterEmail(String email){
+    private void enterEmail(String email) {
         window.setEmailField(email);
     }
 
-    private void enterAddress(String address){
+    private void enterAddress(String address) {
         window.setAddressField(address);
     }
 
-    private void enterTagOne(String t1){
-        window.setTagOneField(t1);
+    private void enterTagOne(String t1) {
+            window.setTagOneField(t1);
     }
 
-    private void enterTagTwo(String t2){
+    private void enterTagTwo(String t2) {
         window.setTagTwoField(t2);
     }
 
-    private void enterTagThree(String t3){
+    private void enterTagThree(String t3) {
         window.setTagThreeField(t3);
     }
 }
