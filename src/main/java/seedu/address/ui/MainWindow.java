@@ -38,6 +38,8 @@ public class MainWindow extends UiPart<Stage> {
 
     protected Logic logic;
 
+
+
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
