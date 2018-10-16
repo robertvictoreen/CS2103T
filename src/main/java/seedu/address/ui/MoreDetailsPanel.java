@@ -39,6 +39,9 @@ public class MoreDetailsPanel extends UiPart<Region> {
     // List of students
     private ObservableList<Person> studentList;
 
+    // Current student whose details are being shown
+    private Person currentStudent = null;
+
     private boolean isSetUp = false;
 
     @FXML
@@ -75,8 +78,8 @@ public class MoreDetailsPanel extends UiPart<Region> {
     @Subscribe
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        Person student = event.getNewSelection();
-        display(student); // display student's details in details panel
+        currentStudent = event.getNewSelection();
+        display(currentStudent); // display student's details in details panel
     }
 
     /**
@@ -119,5 +122,9 @@ public class MoreDetailsPanel extends UiPart<Region> {
 
     public ObservableList<Person> getList() {
         return studentList;
+    }
+
+    public Person getCurrentStudent() {
+        return currentStudent;
     }
 }
