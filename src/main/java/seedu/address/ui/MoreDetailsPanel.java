@@ -31,9 +31,11 @@ public class MoreDetailsPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     // Initializing test data
-    private AssignmentStub[] assignments = {new AssignmentStub("Finals Exam", 73), new AssignmentStub("Mid-terms", 39),
-        new AssignmentStub("Participation", 7), new AssignmentStub("Assignment 1", 22),
-        new AssignmentStub("Product Demo", 101)};
+    AssignmentStub assignment1 = new AssignmentStub("Finals", 73);
+    AssignmentStub assignment2 = new AssignmentStub("Mid-terms", 39);
+    AssignmentStub assignment3 = new AssignmentStub("Participation", 10);
+    AssignmentStub assignment4 = new AssignmentStub("Product Demo", 101);
+    private AssignmentStub assignments[] = {assignment1, assignment2, assignment3, assignment4};
 
     // List of students
     private ObservableList<Person> studentList;
@@ -87,26 +89,26 @@ public class MoreDetailsPanel extends UiPart<Region> {
             RowConstraints newRow = new RowConstraints();
             components.getRowConstraints().add(newRow);
             isSetUp = true;
-            // clear default label
         }
 
-        logger.info("Trying to display details!\n");
+        logger.info("Displaying details!\n");
 
         List<AssignmentStub> assignmentList = student.getAssignments();
 
         // remove old labels
+        components.getChildren().clear();
 
         // add no. of rows equal to no. of assignments keyed in
         // Labels set to be label-bright
         for (int i = 0; i < assignmentList.size(); i++) {
             // adding assignment label
-            Label toAdd = new Label(assignments[i].getName());
+            Label toAdd = new Label(assignmentList.get(i).getName());
             toAdd.setStyle("-fx-font-size: 11pt;\n" + "-fx-font-family: \"Segoe UI Semibold\";\n"
                 + "-fx-text-fill: white;\n" + "-fx-opacity: 1;");
             components.add(toAdd, 0, i);
 
             // adding marks label
-            Label marksLabel = new Label(Float.toString(assignments[i].getMarks()));
+            Label marksLabel = new Label(Float.toString(assignmentList.get(i).getMarks()));
             marksLabel.setStyle("-fx-font-size: 11pt;\n" + "-fx-font-family: \"Segoe UI Semibold\";\n"
                 + "-fx-text-fill: white;\n" + "-fx-opacity: 1;");
             components.add(marksLabel, 1, i);
