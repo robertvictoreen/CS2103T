@@ -118,4 +118,5 @@ public class MoreDetailsPanel extends UiPart<Region> {
     public ObservableList<Person> getList() {
         return studentList;
     }
+
 }
