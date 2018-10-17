@@ -43,14 +43,14 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
 
     // Independent Ui parts residing in this Ui container
-    private MoreDetailsPanel detailsPanel;
+    private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
 
     @FXML
-    private StackPane detailsPlaceholder;
+    private StackPane browserPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -135,11 +135,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        /*browserPanel = new BrowserPanel();
+        browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
-        */
-        detailsPanel = new MoreDetailsPanel(logic.getFilteredPersonList());
-        detailsPlaceholder.getChildren().add(detailsPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
@@ -219,11 +216,9 @@ public class MainWindow extends UiPart<Stage> {
         return personListPanel;
     }
 
-    /*
     void releaseResources() {
         browserPanel.freeResources();
     }
-    */
 
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
@@ -232,7 +227,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Shows AddStudentWindow and waits for user interaction.
+     * Creates AddNewWindow and initialises its parameters.
      */
     private void showAddWindowAndWait() {
         try {

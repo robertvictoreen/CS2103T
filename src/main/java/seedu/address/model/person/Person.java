@@ -2,10 +2,8 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -22,7 +20,6 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
-    private final List<AssignmentStub> assignments;
 
     // Data fields
     private final Address address;
@@ -41,7 +38,6 @@ public class Person {
         this.address = address;
         this.picture = pic;
         this.tags.addAll(tags);
-        this.assignments = new ArrayList<>();
     }
 
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
@@ -52,7 +48,6 @@ public class Person {
         this.address = address;
         this.picture = new ProfilePicture();
         this.tags.addAll(tags);
-        this.assignments = new ArrayList<>();
     }
 
     public Person(Person source) {
@@ -74,10 +69,6 @@ public class Person {
 
     public Address getAddress() {
         return address;
-    }
-
-    public List<AssignmentStub> getAssignments() {
-        return assignments;
     }
 
     public ProfilePicture getProfilePicture() {
@@ -139,21 +130,6 @@ public class Person {
     }
 
     /**
-     * Adds assignment to student if student doesn't already have it, returns boolean that indicates if addition
-     * was successful.
-     */
-    public boolean addAssignment(AssignmentStub toAdd) {
-        return this.assignments.add(toAdd);
-    }
-
-    /**
-     * Removes assignment from student if student has it, returns boolean that indicates if removal was successful.
-     */
-    public boolean removeAssignment(AssignmentStub toRemove) {
-        return this.assignments.remove(toRemove);
-    }
-
-    /**
      * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
      */
@@ -172,9 +148,7 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags())
-                && otherPerson.getProfilePicture().equals(getProfilePicture())
-                && otherPerson.getAssignments().equals(getAssignments());
+                && otherPerson.getTags().equals(getTags());
     }
 
     @Override

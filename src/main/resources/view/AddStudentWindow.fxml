@@ -54,7 +54,7 @@
             <URL value="@Extensions.css" />
          </stylesheets>
       </GridPane>
-      <Button fx:id="okButton" layoutX="379.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="33.0" prefWidth="92.0" text="OK" />
+      <Button layoutX="379.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="33.0" prefWidth="92.0" text="OK" />
       <Button layoutX="483.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="33.0" prefWidth="92.0" text="Cancel" />
    </children>
    <stylesheets>
