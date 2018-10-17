@@ -73,7 +73,6 @@ public class AddressBookParser {
         case DeleteProfilePictureCommand.COMMAND_WORD:
             return new DeleteProfilePictureCommandParser().parse(arguments);
 
-
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
