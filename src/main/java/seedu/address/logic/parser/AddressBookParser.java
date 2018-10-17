@@ -60,7 +60,7 @@ public class AddressBookParser {
 
         case AttendanceCommand.COMMAND_WORD:
                 return new AttendanceCommandParser().parse(arguments);
-            
+
         case AddProfilePictureCommand.COMMAND_WORD:
             return new AddPictureCommandParser().parse(arguments);
 
