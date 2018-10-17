@@ -1,11 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ATTENDANCE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -27,42 +23,32 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
-/**
- * Edits the details of an existing person in the address book.
- */
-public class EditCommand extends Command {
+public class AttendanceCommand extends Command{
+    public static final String COMMAND_WORD = "attend";
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Creates an attendance entry for the person identified by the index number used in the displayed person list.\n"
+            + "Parameters: attend INDEX (must be a positive integer)"
+            + PREFIX_ATTENDANCE + "CLASSNAME: (a string)\n"
+            + "Example: " + COMMAND_WORD + " 1" + PREFIX_ATTENDANCE + "Tutorial1";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+    public static final String MESSAGE_ATTENDANCE_PRESENT = "Recorded present for person: %1$s";
+    public static final String MESSAGE_ATTENDANCE_ABSENT = "Recorded absent for person: %1$s";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_ATTENDANCE_NOT_MARKED = "Invalid attendance provided.";
 
-    protected final Index index;
-    protected final EditPersonDescriptor editPersonDescriptor;
+    private final Index targetIndex;
+    private final EditPersonDescriptor editPersonDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
+     * @param targetIndex of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
-        requireNonNull(index);
+    public AttendanceCommand(Index targetIndex, EditPersonDescriptor editPersonDescriptor) {
+        requireNonNull(targetIndex);
         requireNonNull(editPersonDescriptor);
 
-        this.index = index;
+        this.targetIndex = targetIndex;
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
     }
 
@@ -71,35 +57,33 @@ public class EditCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
+        Person personToEdit = lastShownList.get(targetIndex.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
-
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        }
 
         model.updatePerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        return new CommandResult(String.format(MESSAGE_ATTENDANCE_PRESENT , editedPerson));
     }
 
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    protected Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
+    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Name updatedName = personToEdit.getName();
+        Phone updatedPhone = personToEdit.getPhone();
+        Email updatedEmail = personToEdit.getEmail();
+        Address updatedAddress = personToEdit.getAddress();
+        Set<Tag> updatedTags = new HashSet<>();
+        updatedTags.addAll(personToEdit.getTags());
+        editPersonDescriptor.getTags().ifPresent(updatedTags::addAll);
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
@@ -112,13 +96,13 @@ public class EditCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof AttendanceCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
-        return index.equals(e.index)
+        AttendanceCommand e = (AttendanceCommand) other;
+        return targetIndex.equals(e.targetIndex)
                 && editPersonDescriptor.equals(e.editPersonDescriptor);
     }
 
@@ -139,7 +123,7 @@ public class EditCommand extends Command {
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditPersonDescriptor(AttendanceCommand.EditPersonDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
@@ -151,6 +135,10 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
+            boolean result = true;
+            if (CollectionUtil.isAnyNonNull(tags)) {
+                result = false;
+            }
             return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
         }
 
@@ -211,12 +199,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof AttendanceCommand.EditPersonDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            AttendanceCommand.EditPersonDescriptor e = (AttendanceCommand.EditPersonDescriptor) other;
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
@@ -226,3 +214,4 @@ public class EditCommand extends Command {
         }
     }
 }
+
