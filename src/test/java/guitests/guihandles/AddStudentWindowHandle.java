@@ -2,7 +2,6 @@ package guitests.guihandles;
 
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.control.Button;
 
 
 /**
