@@ -1,11 +1,7 @@
 package seedu.address.ui;
 
-import java.net.URL;
 import java.util.logging.Logger;
 
-import com.google.common.eventbus.Subscribe;
-
-import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -14,11 +10,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
-import javafx.scene.web.WebView;
-import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
-import seedu.address.model.person.Person;
 
 /**
  * The Browser Panel of the App.
@@ -44,9 +36,9 @@ public class BrowserPanel extends UiPart<Region> {
         super(FXML);
 
         // if student has no recorded assignments
-        if (true) {//student no assignments){
+        if (true) { //student no assignments){
             Label noComponents = new Label("<No assignments entered>");
-            noComponents.setFont(new Font("System", (double)25));
+            noComponents.setFont(new Font("System", (double) 25));
             components.add(noComponents, 0, 0);
         } else {
             // add 2 columns, default has 1
