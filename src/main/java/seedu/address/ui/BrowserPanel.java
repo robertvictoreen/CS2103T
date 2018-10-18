@@ -4,9 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -39,12 +37,8 @@ public class BrowserPanel extends UiPart<Region> {
         super(FXML);
 
         // if student has no recorded assignments
-<<<<<<< HEAD
         if (true) { //student no assignments){
-=======
-        if (false) {// student no assignments){
             // default label
->>>>>>> cd17cc92... add rows/columns to BrowserPanel
             Label noComponents = new Label("<No assignments entered>");
             noComponents.setFont(new Font("System", (double) 25));
             components.add(noComponents, 0, 0);
