@@ -226,6 +226,9 @@ public class MainWindow extends UiPart<Stage> {
         handleHelp();
     }
 
+    /**
+     * Shows AddStudentWindow and waits for user click.
+     */
     private void showAddWindowAndWait() {
         try {
             // Change implementation to use UiPart in the future?
