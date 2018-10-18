@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import guitests.guihandles.AddStudentWindowHandle;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -55,10 +54,10 @@ public class AddStudentWindowTest extends GuiUnitTest {
     private Person person;
 
     @Before
-    private void setUp() {
+    public void setUp() {
         this.addressBook = new AddressBook();
         this.window = new AddStudentWindow();
-        this.handle = new AddStudentWindowHandle((AnchorPane) window.getRoot());
+        this.handle = new AddStudentWindowHandle(window.getRootPane());
         PersonBuilder personBuilder = new PersonBuilder();
         personBuilder.withTags(ARRAY_EXAMPLE_TAGS);
         this.person = personBuilder.build();
