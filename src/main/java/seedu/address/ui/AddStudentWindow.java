@@ -64,7 +64,7 @@ public class AddStudentWindow extends UiPart {
     public void initialize() {
         this.rootPane = anchorPane;
 
-        Scene scene = new Scene(rootPane);
+        Scene scene = new Scene(rootPane, 600, 400);
         Stage stage = new Stage();
         stage.setTitle("Add Student");
         stage.initModality(Modality.WINDOW_MODAL);
