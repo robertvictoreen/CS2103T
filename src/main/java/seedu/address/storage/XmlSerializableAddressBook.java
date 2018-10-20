@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.assignment.Assignment;
 import seedu.address.model.person.Person;
 
 /**
@@ -19,9 +20,12 @@ import seedu.address.model.person.Person;
 public class XmlSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "Assignment list contains duplicate assignment(s).";
 
     @XmlElement
     private List<XmlAdaptedPerson> persons;
+    @XmlElement
+    private List<XmlAdaptedAssignment> assignments;
 
     /**
      * Creates an empty XmlSerializableAddressBook.
@@ -29,6 +33,7 @@ public class XmlSerializableAddressBook {
      */
     public XmlSerializableAddressBook() {
         persons = new ArrayList<>();
+        assignments = new ArrayList<>();
     }
 
     /**
@@ -37,6 +42,10 @@ public class XmlSerializableAddressBook {
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        assignments.addAll(src.getAssignmentList().stream().map(XmlAdaptedAssignment::new).collect(Collectors.toList()));
+        for (XmlAdaptedAssignment a : assignments) {
+            System.out.println(a.uniqueId);
+        }
     }
 
     /**
@@ -53,6 +62,13 @@ public class XmlSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             addressBook.addPerson(person);
+        }
+        for (XmlAdaptedAssignment a : assignments) {
+            Assignment assignment = a.toModelType();
+            if (addressBook.hasAssignment(assignment)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_ASSIGNMENT);
+            }
+            addressBook.addAssignment(assignment);
         }
         return addressBook;
     }

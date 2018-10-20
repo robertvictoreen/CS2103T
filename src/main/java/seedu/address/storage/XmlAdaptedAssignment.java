@@ -16,7 +16,7 @@ public class XmlAdaptedAssignment {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Assignment's %s field is missing!";
 
     @XmlElement(required = true)
-    private String name;
+    public String name;
     @XmlElement(required = true)
     private String deadline;
     @XmlElement(required = true)
@@ -24,7 +24,7 @@ public class XmlAdaptedAssignment {
     @XmlElement(required = true)
     private String maxMark;
     @XmlElement(required = true)
-    private String uniqueId;
+    public String uniqueId;
 
     /**
      * Constructs an XmlAdaptedPerson.

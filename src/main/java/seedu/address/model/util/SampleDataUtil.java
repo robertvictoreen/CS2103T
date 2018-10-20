@@ -62,7 +62,6 @@ public class SampleDataUtil {
 
     public static Map<String, Mark> getMarks() {
         Map<String, Mark> a = new HashMap<>();
-        a.put("asdf", new Mark("92"));
         return a;
     }
 

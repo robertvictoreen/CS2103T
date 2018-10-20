@@ -16,7 +16,9 @@ public class UniqueIdUtil {
         byte[] byteArray = new byte[100];
         long millis = System.currentTimeMillis();
         Random generator = new Random(millis + seed);
-        generator.nextBytes(byteArray);
+        for (int i=0; i<byteArray.length; i++) {
+            byteArray[i] = (byte)(generator.nextInt(94) + 33);
+        }
         return new String(byteArray);
     }
 

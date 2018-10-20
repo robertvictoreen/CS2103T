@@ -9,6 +9,10 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.assignment.AssignmentName;
+import seedu.address.model.assignment.Deadline;
+import seedu.address.model.assignment.Mark;
+import seedu.address.model.assignment.Weight;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -120,5 +124,41 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    public static AssignmentName parseAssignmentName(String assignmentName) throws ParseException {
+        requireNonNull(assignmentName);
+        String trimmedName = assignmentName.trim();
+        if (!AssignmentName.isValid(trimmedName)) {
+            throw new ParseException(AssignmentName.MESSAGE_CONSTRAINTS);
+        }
+        return new AssignmentName(trimmedName);
+    }
+
+    public static Weight parseWeight(String weight) throws ParseException {
+        requireNonNull(weight);
+        String trimmedWeight = weight.trim();
+        if (!Weight.isValid(trimmedWeight)) {
+            throw new ParseException(Weight.MESSAGE_CONSTRAINTS);
+        }
+        return new Weight(trimmedWeight);
+    }
+
+    public static Deadline parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!Deadline.isValid(date)) {
+            throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
+        }
+        return new Deadline(trimmedDate);
+    }
+
+    public static Mark parseMark(String mark) throws ParseException {
+        requireNonNull(mark);
+        String trimmedMark = mark.trim();
+        if (!Mark.isValid(trimmedMark)) {
+            throw new ParseException(Mark.MESSAGE_CONSTRAINTS);
+        }
+        return new Mark(trimmedMark);
     }
 }
