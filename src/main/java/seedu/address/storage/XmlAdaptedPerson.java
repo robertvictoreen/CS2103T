@@ -44,13 +44,16 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged, List<XmlAdaptedMark> marks) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
+        }
+        if (marks != null) {
+            this.marks = new ArrayList<>(marks);
         }
     }
 
@@ -67,6 +70,9 @@ public class XmlAdaptedPerson {
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
+        for (Map.Entry<String, Mark> entry : source.getMarks().entrySet()) {
+            marks.add(new XmlAdaptedMark(entry.getKey(), entry.getValue().internalString));
+        }
     }
 
     /**
@@ -75,10 +81,7 @@ public class XmlAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Person toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
-        for (XmlAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
-        }
+
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -112,9 +115,16 @@ public class XmlAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
-        final Map<String, Mark> modelMarks = new HashMap<>();
+        final Set<Tag> modelTags = new HashSet<>();
+        for (XmlAdaptedTag tag : tagged) {
+            modelTags.add(tag.toModelType());
+        }
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Map<String, Mark> modelMarks = new HashMap<>();
+        for (XmlAdaptedMark mark : marks) {
+            modelMarks.put(mark.getKey(), mark.toModelType());
+        }
+
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelMarks);
     }
 

@@ -46,10 +46,14 @@ public class XmlAdaptedMark {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Mark toModelType() throws IllegalValueException {
-        if (!Tag.isValidTagName(tagName)) {
-            throw new IllegalValueException(Tag.MESSAGE_TAG_CONSTRAINTS);
+        if (!Mark.isValid(value)) {
+            throw new IllegalValueException(Mark.MESSAGE_CONSTRAINTS);
         }
-        return new Tag(tagName);
+        return new Mark(value);
+    }
+
+    public String getKey() {
+        return key;
     }
 
     @Override
@@ -62,6 +66,7 @@ public class XmlAdaptedMark {
             return false;
         }
 
-        return tagName.equals(((XmlAdaptedMark) other).tagName);
+        return value.equals(((XmlAdaptedMark) other).value)
+                && key.equals(((XmlAdaptedMark) other).key);
     }
 }
