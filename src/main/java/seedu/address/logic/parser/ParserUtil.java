@@ -126,6 +126,12 @@ public class ParserUtil {
         return tagSet;
     }
 
+    /**
+     * Parses a {@code String assignmentName} into an {@code AssignmentName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code assignmentName} is invalid.
+     */
     public static AssignmentName parseAssignmentName(String assignmentName) throws ParseException {
         requireNonNull(assignmentName);
         String trimmedName = assignmentName.trim();
@@ -135,6 +141,12 @@ public class ParserUtil {
         return new AssignmentName(trimmedName);
     }
 
+    /**
+     * Parses a {@code String weight} into an {@code Weight}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code weight} is invalid.
+     */
     public static Weight parseWeight(String weight) throws ParseException {
         requireNonNull(weight);
         String trimmedWeight = weight.trim();
@@ -144,6 +156,12 @@ public class ParserUtil {
         return new Weight(trimmedWeight);
     }
 
+    /**
+     * Parses a {@code String date} into an {@code Date}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
     public static Deadline parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
@@ -153,6 +171,12 @@ public class ParserUtil {
         return new Deadline(trimmedDate);
     }
 
+    /**
+     * Parses a {@code String mark} into an {@code Mark}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code mark} is invalid.
+     */
     public static Mark parseMark(String mark) throws ParseException {
         requireNonNull(mark);
         String trimmedMark = mark.trim();

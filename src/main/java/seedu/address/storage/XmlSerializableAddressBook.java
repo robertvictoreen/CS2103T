@@ -42,9 +42,10 @@ public class XmlSerializableAddressBook {
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
-        assignments.addAll(src.getAssignmentList().stream().map(XmlAdaptedAssignment::new).collect(Collectors.toList()));
+        assignments.addAll(
+                src.getAssignmentList().stream().map(XmlAdaptedAssignment::new).collect(Collectors.toList())
+        );
         for (XmlAdaptedAssignment a : assignments) {
-            System.out.println(a.uniqueId);
         }
     }
 

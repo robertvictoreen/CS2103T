@@ -1,6 +1,12 @@
 package seedu.address.storage;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -44,7 +50,8 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged, List<XmlAdaptedMark> marks) {
+    public XmlAdaptedPerson(String name, String phone, String email, String address,
+                            List<XmlAdaptedTag> tagged, List<XmlAdaptedMark> marks) {
         this.name = name;
         this.phone = phone;
         this.email = email;

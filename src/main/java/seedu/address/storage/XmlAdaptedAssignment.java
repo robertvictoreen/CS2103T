@@ -1,12 +1,15 @@
 package seedu.address.storage;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.assignment.*;
-import seedu.address.model.person.*;
-import seedu.address.model.tag.Tag;
+import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlElement;
-import java.util.*;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.assignment.Assignment;
+import seedu.address.model.assignment.AssignmentName;
+import seedu.address.model.assignment.Deadline;
+import seedu.address.model.assignment.Mark;
+import seedu.address.model.assignment.Weight;
 
 /**
  * JAXB-friendly version of the Person.
@@ -16,7 +19,7 @@ public class XmlAdaptedAssignment {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Assignment's %s field is missing!";
 
     @XmlElement(required = true)
-    public String name;
+    private String name;
     @XmlElement(required = true)
     private String deadline;
     @XmlElement(required = true)
@@ -24,7 +27,7 @@ public class XmlAdaptedAssignment {
     @XmlElement(required = true)
     private String maxMark;
     @XmlElement(required = true)
-    public String uniqueId;
+    private String uniqueId;
 
     /**
      * Constructs an XmlAdaptedPerson.
@@ -63,7 +66,9 @@ public class XmlAdaptedAssignment {
      */
     public Assignment toModelType() throws IllegalValueException {
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, AssignmentName.class.getSimpleName()));
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, AssignmentName.class.getSimpleName())
+            );
         }
         if (!AssignmentName.isValid(name)) {
             throw new IllegalValueException(AssignmentName.MESSAGE_CONSTRAINTS);
@@ -71,7 +76,9 @@ public class XmlAdaptedAssignment {
         final AssignmentName modelName = new AssignmentName(name);
 
         if (deadline == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Deadline.class.getSimpleName()));
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Deadline.class.getSimpleName())
+            );
         }
         if (!Deadline.isValid(deadline)) {
             throw new IllegalValueException(Deadline.MESSAGE_CONSTRAINTS);
