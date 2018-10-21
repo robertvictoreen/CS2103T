@@ -65,8 +65,7 @@ public class Assignment implements Comparable<Assignment> {
         }
 
         return otherAssignment != null
-                && otherAssignment.getName().equals(getName())
-                && otherAssignment.getUniqueId().equals(getUniqueId());
+                && otherAssignment.getName().equals(getName());
     }
 
     @Override
