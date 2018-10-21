@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes an assignment identified using it's displayed index from the address book.
  */
 public class DeleteAssignmentCommand extends Command {
 

@@ -25,7 +25,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Mark a person grade for an assignment in the address book.
  */
 public class MarkAssignmentCommand extends Command {
 
@@ -87,8 +87,7 @@ public class MarkAssignmentCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Person} with added mark for {@code assignmentUid}, {@code assignmentMark}
      */
     private static Person createMarkedPerson(Person personToMarkAssignment, String assignmentUid, Mark assignmentMark) {
         assert personToMarkAssignment != null;

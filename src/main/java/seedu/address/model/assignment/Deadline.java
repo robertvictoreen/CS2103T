@@ -6,7 +6,7 @@ import java.util.Date;
 import seedu.address.model.common.Validator;
 
 /**
- * Represents an assignment's mark in the app.
+ * Represents an assignment's deadline in the app.
  * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  */
 public class Deadline extends Validator implements Comparable<Deadline> {

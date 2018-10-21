@@ -12,7 +12,7 @@ import seedu.address.model.assignment.Mark;
 import seedu.address.model.assignment.Weight;
 
 /**
- * JAXB-friendly version of the Person.
+ * JAXB-friendly version of the Assignment.
  */
 public class XmlAdaptedAssignment {
 
@@ -30,13 +30,13 @@ public class XmlAdaptedAssignment {
     private String uniqueId;
 
     /**
-     * Constructs an XmlAdaptedPerson.
+     * Constructs an XmlAdaptedAssignment.
      * This is the no-arg constructor that is required by JAXB.
      */
     public XmlAdaptedAssignment() {}
 
     /**
-     * Constructs an {@code XmlAdaptedPerson} with the given person details.
+     * Constructs an {@code XmlAdaptedAssignment} with the given assignment details.
      */
     public XmlAdaptedAssignment(String name, String deadline, String weight, String maxMark, String uniqueId) {
         this.name = name;
@@ -47,9 +47,9 @@ public class XmlAdaptedAssignment {
     }
 
     /**
-     * Converts a given Person into this class for JAXB use.
+     * Converts a given Assignment into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedPerson
+     * @param source future changes to this will not affect the created XmlAdaptedAssignment
      */
     public XmlAdaptedAssignment(Assignment source) {
         name = source.getName().internalString;
@@ -60,9 +60,9 @@ public class XmlAdaptedAssignment {
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the model's Person object.
+     * Converts this jaxb-friendly adapted assignment object into the model's Assignment object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted assignment
      */
     public Assignment toModelType() throws IllegalValueException {
         if (name == null) {

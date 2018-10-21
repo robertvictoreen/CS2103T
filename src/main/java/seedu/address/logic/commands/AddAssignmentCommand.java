@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
 
 /**
- * Adds a person to the address book.
+ * Adds an assignment to the address book.
  */
 public class AddAssignmentCommand extends Command {
 
@@ -36,7 +36,7 @@ public class AddAssignmentCommand extends Command {
     private final Assignment toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddAssignmentCommand to add the specified {@code Assignment}
      */
     public AddAssignmentCommand(Assignment assignment) {
         requireNonNull(assignment);
