@@ -67,6 +67,9 @@ public interface Model {
      */
     void updateAssignment(Assignment target, Assignment editedassignment);
 
+    /** Returns an unmodifiable view of the assignment list */
+    ObservableList<Assignment> getFilteredAssignmentList();
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 

@@ -41,11 +41,13 @@ public class XmlSerializableAddressBook {
      */
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         this();
-        persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
-        assignments.addAll(
-                src.getAssignmentList().stream().map(XmlAdaptedAssignment::new).collect(Collectors.toList())
-        );
-        for (XmlAdaptedAssignment a : assignments) {
+        List<String> uidList = new ArrayList<>();
+        for (Assignment a: src.getAssignmentList()) {
+            assignments.add(new XmlAdaptedAssignment(a));
+            uidList.add(a.getUniqueId());
+        }
+        for (Person p: src.getPersonList()) {
+            persons.add(new XmlAdaptedPerson(p, uidList));
         }
     }
 
