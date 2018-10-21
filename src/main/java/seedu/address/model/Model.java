@@ -65,7 +65,7 @@ public interface Model {
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
-    void updateAssignment(Assignment target, Assignment editedassignment);
+    void updateAssignment(Assignment target, Assignment editedAssignment);
 
     /** Returns an unmodifiable view of the assignment list */
     ObservableList<Assignment> getFilteredAssignmentList();
