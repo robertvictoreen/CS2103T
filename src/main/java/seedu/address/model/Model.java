@@ -44,26 +44,27 @@ public interface Model {
     void updatePerson(Person target, Person editedPerson);
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if an assignment with the same identity as {@code assignment} exists in the address book.
      */
     boolean hasAssignment(Assignment assignment);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given assignment.
+     * The assignment must exist in the address book.
      */
     void deleteAssignment(Assignment target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given assignment.
+     * {@code assignment} must not already exist in the address book.
      */
     void addAssignment(Assignment assignment);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given assignment {@code target} with {@code editedAssignment}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The assignment identity of {@code editedAssignment} must not be the same as another existing assignment in the
+     * address book.
      */
     void updateAssignment(Assignment target, Assignment editedAssignment);
 

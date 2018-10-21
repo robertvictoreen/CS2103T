@@ -12,11 +12,12 @@ import seedu.address.model.assignment.exceptions.AssignmentNotFoundException;
 import seedu.address.model.assignment.exceptions.DuplicateAssignmentException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A person is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
- * persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so
- * as to ensure that the person with exactly the same fields will be removed.
+ * A list of assignments that enforces uniqueness between its elements and does not allow nulls.
+ * An assignment is considered unique by comparing using {@code Assignment#isSameAssignment(Assignment)}. As such,
+ * adding and updating of assignments uses Assignment#isSameAssignment(Assignment) for equality so as to ensure that the
+ * assignment being added or updated is unique in terms of identity in the UniqueAssignmentList. However, the removal of
+ * an assignment uses Assignment#equals(Object) so as to ensure that the assignment with exactly the same fields will be
+ * removed.
  *
  * Supports a minimal set of list operations.
  *
@@ -27,7 +28,7 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
     private final ObservableList<Assignment> internalList = FXCollections.observableArrayList();
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent assignment as the given argument.
      */
     public boolean contains(Assignment toCheck) {
         requireNonNull(toCheck);
@@ -35,8 +36,8 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds an assignment to the list.
+     * The assignment must not already exist in the list.
      */
     public void add(Assignment toAdd) {
         requireNonNull(toAdd);
@@ -47,9 +48,10 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the person {@code target} in the list with {@code editedAssignment}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     * The assignment identity of {@code editedAssignment} must not be the same as another existing assignment in the
+     * list.
      */
     public void setAssignment(Assignment target, Assignment editedAssignment) {
         requireAllNonNull(target, editedAssignment);
@@ -67,8 +69,8 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent assignment from the list.
+     * The assignment must exist in the list.
      */
     public void remove(Assignment toRemove) {
         requireNonNull(toRemove);
@@ -83,8 +85,8 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code assignments}.
+     * {@code assignments} must not contain duplicate assignments.
      */
     public void setAssignments(List<Assignment> assignments) {
         requireAllNonNull(assignments);
@@ -103,7 +105,7 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
     }
 
     /**
-     * Sorts all persons in the list according to lexicographical order.
+     * Sorts all assignments in the list according to lexicographical order.
      */
     public void sort() {
         internalList.sort((assignment1, assignment2) -> (
@@ -129,7 +131,7 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
     }
 
     /**
-     * Returns true if {@code persons} contains only unique persons.
+     * Returns true if {@code assignments} contains only unique assignments.
      */
     private boolean assignmentsAreUnique(List<Assignment> assignments) {
         for (int i = 0; i < assignments.size() - 1; i++) {
