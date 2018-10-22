@@ -9,6 +9,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -103,7 +104,11 @@ public class PersonListPanelTest extends GuiUnitTest {
         }
         builder.append("</addressbook>\n");
 
+<<<<<<< HEAD
         Path manyPersonsFile = TEST_DATA_FOLDER.resolve("manyPersons.xml");
+=======
+        Path manyPersonsFile = Paths.get(TEST_DATA_FOLDER + File.separator + "manyPersons.xml");
+>>>>>>> cd72c1623cbfcb70c8fbb03e6e3f5ace2ad4b12b
         FileUtil.createFile(manyPersonsFile);
         FileUtil.writeToFile(manyPersonsFile, builder.toString());
         manyPersonsFile.toFile().deleteOnExit();
