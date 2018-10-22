@@ -1,13 +1,10 @@
 package seedu.address.model.person;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -26,7 +23,6 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
-    private final List<AssignmentStub> assignments;
 
     // Data fields
     private final Address address;
@@ -45,7 +41,6 @@ public class Person {
         this.address = address;
         this.picture = new ProfilePicture();
         this.tags.addAll(tags);
-        this.assignments = new ArrayList<>();
     }
 
     public Person(Person source) {
@@ -53,7 +48,8 @@ public class Person {
                 source.getTags(), source.getMarks());
     }
 
-    public Person(Name name, Phone phone, Email email, Address address, ProfilePicture pic, Set<Tag> tags, Map<String, Mark> marks) {
+    public Person(Name name, Phone phone, Email email, Address address, ProfilePicture pic, Set<Tag> tags,
+                  Map<String, Mark> marks) {
         this(name, phone, email, address, tags);
         requireAllNonNull(pic, marks);
         this.picture = pic;
