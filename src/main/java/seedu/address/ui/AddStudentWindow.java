@@ -20,7 +20,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Window to add students.
  */
-public class AddStudentWindow extends UiPart {
+public class AddStudentWindow extends UiPart<Region> {
 
     private static final String FXML = "AddStudentWindow.fxml";
     private static final String MESSAGE_ADD_FAILED = "Add Student Failed!";

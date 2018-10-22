@@ -59,12 +59,17 @@ public class AddStudentWindowTest extends GuiUnitTest {
     public void setUp() throws Exception {
         this.addressBook = new AddressBook();
         guiRobot.interact(() -> window = new AddStudentWindow());
+        uiPartRule.setUiPart(window);
         FxToolkit.registerStage(() -> new Stage());
         this.handle = new AddStudentWindowHandle(window.getRootPane());
         PersonBuilder personBuilder = new PersonBuilder();
         personBuilder.withTags(ARRAY_EXAMPLE_TAGS);
         this.person = personBuilder.build();
         okButton = getChildNode(handle.getRoot(), handle.getButtonId());
+        // setting button bounds
+        // okButton.setLayoutX(okButton.getBoundsInParent().getWidth());
+        // okButton.setLayoutY(okButton.getBoundsInParent().getHeight());
+
 
         // set up default inputs with 3 tags (MAX)
         enterName(EXAMPLE_NAME);
