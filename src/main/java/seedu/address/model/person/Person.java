@@ -37,18 +37,6 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-
-    public Person(Name name, Phone phone, Email email, Address address, ProfilePicture pic, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.picture = pic;
-        this.tags.addAll(tags);
-        this.assignments = new ArrayList<>();
-    }
-
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
@@ -62,12 +50,13 @@ public class Person {
 
     public Person(Person source) {
         this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getProfilePicture(),
-                source.getTags());
+                source.getTags(), source.getMarks());
     }
 
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Map<String, Mark> marks) {
+    public Person(Name name, Phone phone, Email email, Address address, ProfilePicture pic, Set<Tag> tags, Map<String, Mark> marks) {
         this(name, phone, email, address, tags);
-        requireNonNull(marks);
+        requireAllNonNull(pic, marks);
+        this.picture = pic;
         this.marks.putAll(marks);
     }
 
@@ -151,21 +140,6 @@ public class Person {
         return otherPerson != null
                 && otherPerson.getName().equals(getName())
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
-    }
-
-    /**
-     * Adds assignment to student if student doesn't already have it, returns boolean that indicates if addition
-     * was successful.
-     */
-    public boolean addAssignment(AssignmentStub toAdd) {
-        return this.assignments.add(toAdd);
-    }
-
-    /**
-     * Removes assignment from student if student has it, returns boolean that indicates if removal was successful.
-     */
-    public boolean removeAssignment(AssignmentStub toRemove) {
-        return this.assignments.remove(toRemove);
     }
 
     /**

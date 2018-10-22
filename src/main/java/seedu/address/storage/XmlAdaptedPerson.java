@@ -67,25 +67,13 @@ public class XmlAdaptedPerson {
         this.profilepicture = null;
     }
 
-    //@@author Zachary Tan
     /**
-     * Constructs an {@code XmlAdaptedPerson} with an additional Picture parameter
+     * Constructs an {@code XmlAdaptedPerson} with an additional Picture parameter and marks parameter
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address,
-                            String profilepicture, List<XmlAdaptedTag> tagged) {
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        if (tagged != null) {
-            this.tagged = new ArrayList<>(tagged);
-        }
-        this.profilepicture = profilepicture;
-    }
-
-    public XmlAdaptedPerson(String name, String phone, String email, String address,
+    public XmlAdaptedPerson(String name, String phone, String email, String address, String profilepicture,
                             List<XmlAdaptedTag> tagged, List<XmlAdaptedMark> marks) {
         this(name, phone, email, address, tagged);
+        this.profilepicture = profilepicture;
         if (marks != null) {
             this.marks = new ArrayList<>(marks);
         }
@@ -96,25 +84,12 @@ public class XmlAdaptedPerson {
      *
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
-    public XmlAdaptedPerson(Person source) {
-        name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
-        profilepicture = source.getProfilePicture().getPath();
-        tagged = source.getTags().stream()
-                .map(XmlAdaptedTag::new)
-                .collect(Collectors.toList());
-        for (Map.Entry<String, Mark> entry : source.getMarks().entrySet()) {
-            marks.add(new XmlAdaptedMark(entry.getKey(), entry.getValue().internalString));
-        }
-    }
-
     public XmlAdaptedPerson(Person source, List<String> allowedAssignmentUid) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        profilepicture = source.getProfilePicture().getPath();
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
@@ -181,7 +156,7 @@ public class XmlAdaptedPerson {
             modelMarks.put(mark.getKey(), mark.toModelType());
         }
 
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelMarks);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelPicture, modelTags, modelMarks);
     }
 
     @Override

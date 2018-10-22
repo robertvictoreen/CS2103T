@@ -78,6 +78,10 @@ public class MoreDetailsPanel extends UiPart<Region> {
      * Displays the details of the student selected in the Details Panel on the bottom right.
      */
     public void display(Person student) {
+        if (student == null) {
+            return;
+        }
+
         if (!isSetUp) {
             // add 2 columns, default has 1
             ColumnConstraints newColumn = new ColumnConstraints();

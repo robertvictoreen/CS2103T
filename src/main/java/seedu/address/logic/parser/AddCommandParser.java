@@ -50,7 +50,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         ProfilePicture pic = new ProfilePicture();
         Map<String, Mark> markMap = new HashMap<>();
 
-        Person person = new Person(name, phone, email, address, tagList, markMap);
+        Person person = new Person(name, phone, email, address, pic, tagList, markMap);
 
         return new AddCommand(person);
     }
