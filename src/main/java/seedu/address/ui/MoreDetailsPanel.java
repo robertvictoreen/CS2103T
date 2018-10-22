@@ -16,6 +16,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.person.AssignmentStub;
@@ -69,6 +70,12 @@ public class MoreDetailsPanel extends UiPart<Region> {
         display(currentStudent); // display student's details in details panel
     }
 
+    @Subscribe
+    private void handleAddressbookChangedEvent(AddressBookChangedEvent event) {
+        currentStudent = getCurrentStudent();
+        display(currentStudent); // display student's details in details panel
+    }
+
     /**
      * Displays the details of the student selected in the Details Panel on the bottom right.
      */
@@ -99,7 +106,12 @@ public class MoreDetailsPanel extends UiPart<Region> {
 
             // adding marks label
             String assignmentId = assignmentList.get(i).getUniqueId();
-            Label marksLabel = new Label(Float.toString(student.getMarks().get(assignmentId).getValue()));
+            Label marksLabel;
+            try {
+                marksLabel = new Label(Float.toString(student.getMarks().get(assignmentId).getValue()));
+            } catch (Exception e) {
+                marksLabel = new Label("");
+            }
             marksLabel.setStyle("-fx-font-size: 11pt;\n" + "-fx-font-family: \"Segoe UI Semibold\";\n"
                 + "-fx-text-fill: white;\n" + "-fx-opacity: 1;");
             components.add(marksLabel, 1, i);
