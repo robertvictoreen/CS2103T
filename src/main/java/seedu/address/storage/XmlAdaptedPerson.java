@@ -168,6 +168,7 @@ public class XmlAdaptedPerson {
         if (this.profilepicture != null) {
             modelPicture = new ProfilePicture(this.profilepicture);
         }
+
         final Set<Tag> modelTags = new HashSet<>();
         for (XmlAdaptedTag tag : tagged) {
             modelTags.add(tag.toModelType());

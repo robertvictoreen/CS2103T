@@ -46,7 +46,7 @@ public class Person {
         this.tags.addAll(tags);
     }
 
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Map<String, Mark> marks) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -54,17 +54,21 @@ public class Person {
         this.address = address;
         this.picture = new ProfilePicture();
         this.tags.addAll(tags);
+        requireNonNull(marks);
+        this.marks.putAll(marks);
+    }
+
+    public Person(Name name, Phone phone, Email email, Address address, ProfilePicture pic, Set<Tag> tags, Map<String,
+        Mark> marks) {
+
+        this(name, phone, email, address, pic, tags);
+        requireNonNull(marks);
+        this.marks.putAll(marks);
     }
 
     public Person(Person source) {
         this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getProfilePicture(),
             source.getTags());
-    }
-
-    public Person(Name name, Phone phone, Email email, Address address, ProfilePicture pic, Set<Tag> tags, Map<String, Mark> marks) {
-        this(name, phone, email, address, pic, tags);
-        requireNonNull(marks);
-        this.marks.putAll(marks);
     }
 
     public Name getName() {

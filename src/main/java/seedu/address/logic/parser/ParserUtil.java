@@ -131,7 +131,6 @@ public class ParserUtil {
     }
 
     /**
-<<<<<<< HEAD
      * Checks if (@code String args) is a valid image filename or directory leading to a image file
      */
 
@@ -146,7 +145,10 @@ public class ParserUtil {
         }
 
         return file;
-=======
+    }
+
+    /**
+>>>>>>> e4d0b8fc75656f08bdac1d803b3e163269dc1692
      * Parses a {@code String assignmentName} into an {@code AssignmentName}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -204,6 +206,5 @@ public class ParserUtil {
             throw new ParseException(Mark.MESSAGE_CONSTRAINTS);
         }
         return new Mark(trimmedMark);
->>>>>>> cd72c1623cbfcb70c8fbb03e6e3f5ace2ad4b12b
     }
 }
