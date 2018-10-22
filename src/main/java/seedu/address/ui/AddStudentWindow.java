@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
@@ -14,7 +15,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Window where the user keys in the data of the student to be added.
+ * Window to add students.
  */
 public class AddStudentWindow extends UiPart {
 
@@ -34,14 +35,14 @@ public class AddStudentWindow extends UiPart {
     private TextField tagTwoField;
     @FXML
     private TextField tagThreeField;
+    @FXML
+    private Button okButton;
 
     // Implement logger in the future
     // private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
     private Logic logic;
-
-
 
     public AddStudentWindow(){
     }
@@ -52,7 +53,7 @@ public class AddStudentWindow extends UiPart {
 
     // // Test empty tags
     /**
-     * Adds student with entered details into student list.
+     * Adds student with entered details into student list if valid, closes window after.
      * Alert shown if invalid details entered.
      */
     @FXML
@@ -86,7 +87,7 @@ public class AddStudentWindow extends UiPart {
             raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
             primaryStage.close();
         } catch (CommandException e) {
-            e.printStackTrace();
+            // Log info here
             Alert alert = new Alert(Alert.AlertType.ERROR);
             configAlert(alert, MESSAGE_ADD_FAILED, e.getMessage(), null, Region.USE_PREF_SIZE);
 
@@ -96,7 +97,7 @@ public class AddStudentWindow extends UiPart {
 
             alert.showAndWait();
         } catch (ParseException e) {
-            e.printStackTrace();
+            // Log info here
             Alert alert = new Alert(Alert.AlertType.ERROR);
             configAlert(alert, MESSAGE_ADD_FAILED, Messages.MESSAGE_INVALID_COMMAND, e.getMessage(),
                     Region.USE_PREF_SIZE);
@@ -110,7 +111,7 @@ public class AddStudentWindow extends UiPart {
     }
 
     /**
-     * Closes window when user clicks on the Cancel button.
+     * Closes window.
      */
     @FXML
     private void handleCancel() {
@@ -126,19 +127,49 @@ public class AddStudentWindow extends UiPart {
     }
 
     /**
-     * Checks if field is not empty
+     * Checks if TextField is an empty String.
      */
     private boolean isNotNull(TextField field) {
         return !field.getText().equals("");
     }
 
     /**
-     * Sets alert window size and text
+     * Sets alert window style, size and text
      */
     private void configAlert(Alert alert, String m1, String m2, String m3, double height) {
+        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
         alert.setTitle(m1);
         alert.setHeaderText(m2);
         alert.setContentText(m3);
         alert.getDialogPane().setMinHeight(height);
     }
+
+    public void setNameField(String name) {
+        nameField = new TextField(name);
+    }
+
+    public void setPhoneField(String phone) {
+        this.phoneField = new TextField(phone);
+    }
+
+    public void setAddressField(String address) {
+        this.addressField = new TextField(address);
+    }
+
+    public void setEmailField(String email) {
+        this.emailField = new TextField(email);
+    }
+
+    public void setTagOneField(String tagOne) {
+        this.tagOneField = new TextField(tagOne);
+    }
+
+    public void setTagTwoField(String tagTwo) {
+        this.tagTwoField = new TextField(tagTwo);
+    }
+
+    public void setTagThreeField(String tagThree) {
+        this.tagThreeField = new TextField(tagThree);
+    }
+
 }

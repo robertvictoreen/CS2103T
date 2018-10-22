@@ -209,7 +209,6 @@ asciidoctor {
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
         'site-name': 'AddressBook-Level4',
         'site-githuburl': 'https://github.com/se-edu/addressbook-level4',
-        'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 
     options['template_dirs'].each {
@@ -234,11 +233,6 @@ task deployOfflineDocs(type: Copy) {
         include 'images/*'
         include 'HelpWindow.html'
     }
-}
-
-task copyDummySearchPage(type: Copy) {
-    from 'docs/DummySearchPage.html'
-    into "${buildDir}/docs/html5"
 }
 
 deployOfflineDocs.dependsOn asciidoctor

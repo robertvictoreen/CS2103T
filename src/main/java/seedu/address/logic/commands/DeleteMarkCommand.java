@@ -13,36 +13,36 @@ import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 /**
- * Records a mark for an existing person in the address book.
- * TODO: Currently MarkCommand records marks as Tags in the storage model,
+ * Deletes a mark for an existing person in the address book.
+ * TODO: Currently DeleteMarkCommand deletes marks as Tags in the storage model,
  * this will be changed to a new Mark storage model.
  */
-public class MarkCommand extends EditCommand {
+public class DeleteMarkCommand extends EditCommand {
 
-    public static final String COMMAND_WORD = "mark";
+    public static final String COMMAND_WORD = "unmark";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a mark entry for the person identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a mark entry for the person identified "
             + "by the index number used in the displayed person list. \n"
             + "Parameters: INDEX (must be a positive integer) "
              + PREFIX_MARK + "MARK \n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_MARK + "75 ";
 
-    public static final String MESSAGE_MARK_SUCCESS = "Recorded mark.";
-    public static final String MESSAGE_NOT_MARKED = "Invalid mark provided.";
+    public static final String MESSAGE_MARK_DELETE_SUCCESS = "Deleted mark.";
+    public static final String MESSAGE_MARK_NOT_DELETED = "Invalid mark provided.";
 
     /**
      * @param index of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
      */
-    public MarkCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public DeleteMarkCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
         super(index, editPersonDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         super.execute(model, history);
-        return new CommandResult(MESSAGE_MARK_SUCCESS);
+        return new CommandResult(MESSAGE_MARK_DELETE_SUCCESS);
     }
 
     /**
@@ -54,7 +54,7 @@ public class MarkCommand extends EditCommand {
         assert personToEdit != null;
         Set<Tag> updatedTags = new HashSet<>();
         updatedTags.addAll(personToEdit.getTags());
-        editPersonDescriptor.getTags().ifPresent(updatedTags::addAll);
+        editPersonDescriptor.getTags().ifPresent(updatedTags::removeAll);
         editPersonDescriptor.setTags(updatedTags);
 
         return super.createEditedPerson(personToEdit, editPersonDescriptor);
