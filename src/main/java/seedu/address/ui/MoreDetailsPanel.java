@@ -44,6 +44,11 @@ public class MoreDetailsPanel extends UiPart<Region> {
 
     private boolean isSetUp = false;
 
+    // List of students
+    private ObservableList<Person> studentList;
+
+    private boolean isSetUp = false;
+
     @FXML
     private TextArea notesText;
 
