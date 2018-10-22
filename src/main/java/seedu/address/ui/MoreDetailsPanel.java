@@ -16,7 +16,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.person.AssignmentStub;
 import seedu.address.model.person.Person;
@@ -31,8 +30,19 @@ public class MoreDetailsPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     // Initializing test data
-    private AssignmentStub[] assignments = {new AssignmentStub("Finals Exam", 73), new AssignmentStub("Mid-terms", 39),
-        new AssignmentStub("Participation", 7), new AssignmentStub("Assignment 1", 22)};
+    private AssignmentStub assignment1 = new AssignmentStub("Finals", 73);
+    private AssignmentStub assignment2 = new AssignmentStub("Mid-terms", 39);
+    private AssignmentStub assignment3 = new AssignmentStub("Participation", 10);
+    private AssignmentStub assignment4 = new AssignmentStub("Product Demo", 101);
+    private AssignmentStub[] assignments = {assignment1, assignment2, assignment3, assignment4};
+
+    // List of students
+    private ObservableList<Person> studentList;
+
+    // Current student whose details are being shown
+    private Person currentStudent = null;
+
+    private boolean isSetUp = false;
 
     // List of students
     private ObservableList<Person> studentList;
@@ -48,16 +58,17 @@ public class MoreDetailsPanel extends UiPart<Region> {
 
     public MoreDetailsPanel(ObservableList<Person> listOfStudents) {
         super(FXML);
+        registerAsAnEventHandler(this);
         this.studentList = listOfStudents;
 
         // add dummy assignments to students
-        //Person student = new Person(new Name("Dummy"), new Phone("999"), new Email("JustTestingDummy@test"),
-        //    new Address("Random Street 1"), new HashSet<>());
-        Person student = studentList.get(1);
+        Person student = studentList.get(0);
+        student.addAssignment(assignments[0]);
         student.addAssignment(assignments[1]);
-        student.addAssignment(assignments[2]);
-        Person student2 = studentList.get(2);
-        student2.addAssignment(assignments[0]);
+        Person student2 = studentList.get(1);
+        student2.addAssignment(assignments[2]);
+        Person student3 = studentList.get(2);
+        student3.addAssignment(assignments[3]);
 
         // default label
         Label noComponents = new Label("<No assignments entered>");
@@ -70,14 +81,17 @@ public class MoreDetailsPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        Person student = studentList.get(event.targetIndex);
-        display(student); // display student's details in details panel
+        currentStudent = event.getNewSelection();
+        display(currentStudent); // display student's details in details panel
     }
 
+    /**
+     * Displays the details of the student selected in the Details Panel on the bottom right.
+     */
     public void display(Person student) {
-        if (!isSetUp){
+        if (!isSetUp) {
             // add 2 columns, default has 1
             ColumnConstraints newColumn = new ColumnConstraints();
             components.getColumnConstraints().add(newColumn);
@@ -87,22 +101,24 @@ public class MoreDetailsPanel extends UiPart<Region> {
             isSetUp = true;
         }
 
-        logger.info("Trying to display details!\n");
-        System.out.println("Trying to display details\n");
+        logger.info("Displaying details!\n");
 
         List<AssignmentStub> assignmentList = student.getAssignments();
+
+        // remove old labels
+        components.getChildren().clear();
 
         // add no. of rows equal to no. of assignments keyed in
         // Labels set to be label-bright
         for (int i = 0; i < assignmentList.size(); i++) {
             // adding assignment label
-            Label toAdd = new Label(assignments[i].getName());
+            Label toAdd = new Label(assignmentList.get(i).getName());
             toAdd.setStyle("-fx-font-size: 11pt;\n" + "-fx-font-family: \"Segoe UI Semibold\";\n"
                 + "-fx-text-fill: white;\n" + "-fx-opacity: 1;");
             components.add(toAdd, 0, i);
 
             // adding marks label
-            Label marksLabel = new Label(Float.toString(assignments[i].getMarks()));
+            Label marksLabel = new Label(Float.toString(assignmentList.get(i).getMarks()));
             marksLabel.setStyle("-fx-font-size: 11pt;\n" + "-fx-font-family: \"Segoe UI Semibold\";\n"
                 + "-fx-text-fill: white;\n" + "-fx-opacity: 1;");
             components.add(marksLabel, 1, i);
@@ -111,5 +127,9 @@ public class MoreDetailsPanel extends UiPart<Region> {
 
     public ObservableList<Person> getList() {
         return studentList;
+    }
+
+    public Person getCurrentStudent() {
+        return currentStudent;
     }
 }

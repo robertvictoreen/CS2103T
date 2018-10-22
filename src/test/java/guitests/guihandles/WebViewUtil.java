@@ -3,7 +3,6 @@ package guitests.guihandles;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import guitests.GuiRobot;
 import javafx.scene.web.WebView;
 
 /**
@@ -12,7 +11,7 @@ import javafx.scene.web.WebView;
 public class WebViewUtil {
 
     /**
-     * Returns the {@code URL} of the currently loaded page in the {@code webView}.
+     * Returns the {@code URL} of the currently loaded page in the {@code WebView}.
      */
     public static URL getLoadedUrl(WebView webView) {
         try {

@@ -1,71 +1,55 @@
 package guitests.guihandles;
 
-import java.net.URL;
-
-import guitests.GuiRobot;
-import javafx.concurrent.Worker;
-import javafx.scene.Node;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
+import javafx.scene.control.SplitPane;
+import seedu.address.model.person.Person;
 
 /**
- * A handler for the {@code BrowserPanel} of the UI.
+ * Provides a handle for {@code MoreDetailsPanel}.
  */
-public class MoreDetailsPanelHandle extends NodeHandle<Node> {
+public class MoreDetailsPanelHandle extends NodeHandle<SplitPane> {
 
-    public static final String DETAILS_PANEL_ID = "#detailsPanel";
-    public static final String DEFAULT = "Select a student to display his/her details.";
+    public static final String DEFAULT = "No student selected.";
+    public static final String DETAILS_PANEL_ID = "$detailsPanel";
 
-    private boolean isWebViewLoaded = true;
+    private Person lastShownStudent = null;
 
-    private URL lastRememberedUrl;
-
-    public MoreDetailsPanelHandle(Node browserPanelNode) {
-        super(browserPanelNode);
-
-        new GuiRobot().interact(() -> engine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
-            if (newState == Worker.State.RUNNING) {
-                isWebViewLoaded = false;
-            } else if (newState == Worker.State.SUCCEEDED) {
-                isWebViewLoaded = true;
-            }
-        }));
+    public MoreDetailsPanelHandle(SplitPane moreDetailsPanelNode) {
+        super(moreDetailsPanelNode);
     }
 
     /**
-     * Returns the {@code URL} of the currently loaded page.
+     * Remembers the current details shown.
      */
-    public URL getLoadedUrl() {
-        return WebViewUtil.getLoadedUrl(getChildNode(BROWSER_ID));
+    public void rememberDetails() {
+        // remember current student?
     }
 
     /**
-     * Remembers the {@code URL} of the currently loaded page.
-     */
-    public void rememberUrl() {
-        lastRememberedUrl = getLoadedUrl();
-    }
-
-    /** FIX COMMENTS
-     * Returns true if the current {@code URL} is different from the value remembered by the most recent
-     * {@code rememberUrl()} call.
+     * Returns true if the details being shown have not changed since the most recent call.
      */
     public boolean isDetailsChanged() {
-        //return !lastRememberedDetails.equals(getDetails()); // fix
+        // check if current student shown = prev
         return false;
     }
 
     /**
-     * Returns true if the browser is done loading a page, or if this browser has yet to load any page.
+     * Returns the student whose details are being shown
      */
-    public boolean isLoaded() {
-        return isWebViewLoaded;
-    }
-
-    public void rememberDetails() {
-    }
-
     public String getOwner() {
+        // return current student shown
+        /*
+        if (currentStudent == null) {
+            return "No student selected.";
+        }
+        return currentStudent.getName() + "'s details:";
+        */
         return "";
+    }
+
+    /**
+     * Returns the header at top of details panel that states which student's details is being shown.
+     */
+    public String getHeader() {
+        return getOwner() + "'s details:";
     }
 }
