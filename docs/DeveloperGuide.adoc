@@ -883,8 +883,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |tutor |calculate the average, median, and 25/75 percentile marks |know how the cohort performed
 |=======================================================================
 
-_{More to be added}_
-
 [appendix]
 == Use Cases
 
@@ -909,11 +907,7 @@ Use case ends.
 * 3a. EazyTutor detects error in the entered data.
 ** 3a1. EazyTutors requests for correct data.
 ** 3a2. User enters new data.
-* 3b. Tutor doesn’t want to check attendance anymore, he wants to exit.
-** 3b1. EazyTutors exits the prompt for new data.
-** 3b2. Tutor is back at main menu.
-+
-Use case ends.
+** 3a3. Goes to step 4 with new details.
 
 [discrete]
 === Use case: Assignment Submission
@@ -929,14 +923,14 @@ Use case ends.
 
 *Extensions*
 
-* 3a. EazyTutor detects error in the entered data.
-** 3a1. EazyTutors requests for correct data.
-** 3a2. User enters new data.
-* 3b. Tutor doesn’t want to check assignment submissions anymore, he wants to exit.
-** 3b1. EazyTutors exits the prompt for new data.
-** 3b2. Tutor is back at main menu.
+* 1a. No assignment has been registered in EazyTutors yet.
+** 1a1. EazyTutors shows an error window informing user that there are no assignments to view.
 +
 Use case ends.
+* 3a. EazyTutors detects error in the entered data.
+** 3a1. EazyTutors requests for correct data.
+** 3a2. User enters new data.
+** 3a3. Goes to step 4 with new details.
 
 [discrete]
 === Use case: Assignment Grading
@@ -964,6 +958,7 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Users should be able to use basic functions of the application with the UI without referring to the user guide.
 
 _{More to be added}_
 
@@ -981,23 +976,6 @@ Small group lessons in which there is more interaction between tutors and studen
 
 Participation::
 Marks that students get based on how much they participate during tutorials
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing

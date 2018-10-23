@@ -1,13 +1,16 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.AddProfilePictureCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.AssignmentName;
 import seedu.address.model.assignment.Deadline;
@@ -17,6 +20,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.ProfilePicture;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -127,6 +131,24 @@ public class ParserUtil {
     }
 
     /**
+     * Checks if (@code String args) is a valid image filename or directory leading to a image file
+     */
+
+    public static String parseImageFilename(String args) throws IllegalValueException {
+        requireNonNull(args);
+        String file = args.trim();
+
+        if (file.isEmpty() || !ProfilePicture.isValidPath(file)) {
+            System.out.println(ProfilePicture.isValidPath(file));
+            throw new IllegalValueException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddProfilePictureCommand.MESSAGE_USAGE));
+        }
+
+        return file;
+    }
+
+    /**
+>>>>>>> e4d0b8fc75656f08bdac1d803b3e163269dc1692
      * Parses a {@code String assignmentName} into an {@code AssignmentName}.
      * Leading and trailing whitespaces will be trimmed.
      *
