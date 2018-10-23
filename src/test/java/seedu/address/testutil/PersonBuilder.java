@@ -1,8 +1,11 @@
 package seedu.address.testutil;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
+import seedu.address.model.assignment.Mark;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -26,6 +29,7 @@ public class PersonBuilder {
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private Map<String, Mark> marks;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -33,6 +37,7 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        marks = new HashMap<>();
     }
 
     /**
@@ -44,6 +49,7 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
+        marks = new HashMap<>(personToCopy.getMarks());
     }
 
     /**
@@ -86,8 +92,10 @@ public class PersonBuilder {
         return this;
     }
 
+    // TODO: Create a withMarks() function to set the marks of the (@code Person) that we are building.
+
     public Person build() {
-        return new Person(name, phone, email, address, tags);
+        return new Person(name, phone, email, address, tags, marks);
     }
 
 }
