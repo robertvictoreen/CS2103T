@@ -7,6 +7,10 @@
         <address>Blk 30 Geylang Street 29, #06-40</address>
         <profilepicture>images/default.png</profilepicture>
         <tagged>friends</tagged>
+        <marks>
+            <key>tPTuxXhpfkVEmuvpRjZxdHzNoZrZyTcRrSBbboBtzMTUDeAlGcgaPXPrGZerZKhNbCgOSLQfyCiyrJpZHIHgtBQyjGRXWQOexArh</key>
+            <value>99</value>
+        </marks>
     </persons>
     <persons>
         <name>Bernice Yu</name>
@@ -16,6 +20,10 @@
         <profilepicture>images/default.png</profilepicture>
         <tagged>colleagues</tagged>
         <tagged>friends</tagged>
+        <marks>
+            <key>dvpEqxYIRLiNPSLwpnDHCiCrBVVIQTxYUbJGWHzVClBVtdyOraazMuEaGrhTJnwiitvQerQteForoHPlIkmaxgHcWYvQLIsSUtKl</key>
+            <value>101</value>
+        </marks>
     </persons>
     <persons>
         <name>Charlotte Oliveiro</name>
