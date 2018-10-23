@@ -350,6 +350,63 @@ The 'indicateAddressBookChanged' event is raised by 'Model' after the sorting is
 **Cons:** Harder to implement and constant updating of code is required every time a new field in the `Person` class is introduced.
 // end::sort[]
 
+// tag::addphoto[]
+
+=== Add Profile Photo feature
+
+==== Design Considerations
+
+**Aspect:** Storage of images of profile pictures +
+
+**Chosen Implementation:** +
+Store the images in a local folder. For Windows, it will be in the AppData folder, for Mac/Linux, in the home folder. +
+**Pros:** +
+After a profile picture is set, it will continue showing even if the image source is deleted +
+**Cons:** +
+Extra space to store the pictures, some images may be too large and use a lot of memory. +
+
+**Alternative:** +
+Not store the images +
+**Pros:** +
+No space requirement to store the images locally +
+**Cons:** +
+Need to ensure that the image is not deleted, or it won't display. +
+
+**Aspect:** Putting a limit on profile picture size +
+
+**Chosen Implementation:** +
+Set a limit of 5MB for each picture. +
+**Pros:** +
+Prevents a  user from crashing the app by putting an image that's too large in size.
+**Cons:** +
+Some pictures may be larger than 5mb. They can use image compression services to compress it in order to fulfill the limit.
+
+**Alternative:** +
+Not put a specified limit to the profile photo +
+**Pros:** +
+User can upload any image. +
+**Cons:** +
+Performance of the app might be unstable if it contains too many large images.
+
+// end::addphoto[]
+
+// tag::deletephoto[]
+=== Delete Profile Photo feature
+
+==== Current Implementation
+We implemented a feature which allows a user to delete the profile photo and change back to default.
+
+==== Design Considerations
+
+**Chosen Implementation:** +
+Create a new ProfilePhoto object. +
+**Pros:** +
+Easier if developer decides to change the path of the default photo, or the properties of the ProfilePhotoclass +
+**Cons:** +
+Creating a new object each time may incur some overhead, but probably insignificant on a modern PC. +
+
+// end::deletephoto[]
+
 
 === Logging
 
