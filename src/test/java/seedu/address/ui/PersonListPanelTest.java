@@ -9,7 +9,6 @@ import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
-import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
