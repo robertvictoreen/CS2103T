@@ -1,9 +1,17 @@
 package seedu.address.ui;
+/*
+import java.util.List;
 
+import javafx.collections.ObservableList;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.AssignmentStub;
+*/
 public class MoreDetailsPanelTest {
     // test if details shown on selection
-    // add dummy assignments to students
+    // List of students
     /*
+    private ObservableList<Person> studentList;
+    // add dummy assignments to students
     Person student = studentList.get(0);
         student.addAssignment(assignments[0]);
         student.addAssignment(assignments[1]);
