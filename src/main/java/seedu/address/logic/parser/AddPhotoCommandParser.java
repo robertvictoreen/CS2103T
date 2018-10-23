@@ -7,14 +7,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FILEPATH;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddProfilePictureCommand;
+import seedu.address.logic.commands.AddProfilePhotoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.ProfilePicture;
+import seedu.address.model.person.ProfilePhoto;
 
 /**
  * Parses input arguments and creates a new AddPictureCommand object
  */
-public class AddPictureCommandParser implements Parser<AddProfilePictureCommand> {
+public class AddPhotoCommandParser implements Parser<AddProfilePhotoCommand> {
 
     private String path;
     private Index index;
@@ -23,7 +23,7 @@ public class AddPictureCommandParser implements Parser<AddProfilePictureCommand>
      * and returns an AddPictureCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddProfilePictureCommand parse(String args) throws ParseException {
+    public AddProfilePhotoCommand parse(String args) throws ParseException {
 
         requireNonNull(args);
         ArgumentMultimap argMultimap =
@@ -32,13 +32,13 @@ public class AddPictureCommandParser implements Parser<AddProfilePictureCommand>
         if (!arePrefixesPresent(argMultimap, PREFIX_FILEPATH)
                 || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddProfilePictureCommand.MESSAGE_USAGE));
+                    AddProfilePhotoCommand.MESSAGE_USAGE));
         }
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (Exception e) {
-            throw new ParseException(ProfilePicture.MESSAGE_PICTURE_CONSTRAINTS);
+            throw new ParseException(ProfilePhoto.MESSAGE_PHOTO_CONSTRAINTS);
         }
 
         try {
@@ -47,11 +47,11 @@ public class AddPictureCommandParser implements Parser<AddProfilePictureCommand>
             System.out.println(e.getClass().getSimpleName());
             e.printStackTrace();
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddProfilePictureCommand.MESSAGE_USAGE));
+                    AddProfilePhotoCommand.MESSAGE_USAGE));
         }
 
 
-        return new AddProfilePictureCommand(index, path);
+        return new AddProfilePhotoCommand(index, path);
     }
 
 

@@ -15,7 +15,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.ProfilePicture;
+import seedu.address.model.person.ProfilePhoto;
 import seedu.address.model.tag.Tag;
 
 
@@ -36,7 +36,7 @@ public class XmlAdaptedPerson {
     @XmlElement(required = true)
     private String address;
     @XmlElement(required = true)
-    private String profilepicture;
+    private String profilephoto;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -63,7 +63,7 @@ public class XmlAdaptedPerson {
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
-        this.profilepicture = null;
+        this.profilephoto = null;
     }
 
     //@@author Zachary Tan
@@ -71,7 +71,7 @@ public class XmlAdaptedPerson {
      * Constructs an {@code XmlAdaptedPerson} with an additional Picture parameter
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address,
-                            String profilepicture, List<XmlAdaptedTag> tagged) {
+                            String profilephoto, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -79,7 +79,7 @@ public class XmlAdaptedPerson {
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
-        this.profilepicture = profilepicture;
+        this.profilephoto = profilephoto;
     }
 
     /**
@@ -92,7 +92,7 @@ public class XmlAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
-        profilepicture = source.getProfilePicture().getPath();
+        profilephoto = source.getProfilePhoto().getPath();
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
@@ -141,9 +141,9 @@ public class XmlAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
-        ProfilePicture modelPicture = new ProfilePicture();
-        if (this.profilepicture != null) {
-            modelPicture = new ProfilePicture(this.profilepicture);
+        ProfilePhoto modelPicture = new ProfilePhoto();
+        if (this.profilephoto != null) {
+            modelPicture = new ProfilePhoto(this.profilephoto);
         }
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
@@ -169,7 +169,7 @@ public class XmlAdaptedPerson {
                 && Objects.equals(phone, otherPerson.phone)
                 && Objects.equals(email, otherPerson.email)
                 && Objects.equals(address, otherPerson.address)
-                && Objects.equals(profilepicture, otherPerson.profilepicture)
+                && Objects.equals(profilephoto, otherPerson.profilephoto)
                 && tagged.equals(otherPerson.tagged);
     }
 }

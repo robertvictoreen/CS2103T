@@ -14,17 +14,17 @@ import javax.imageio.ImageIO;
  * Represents a Person's profile picture in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class ProfilePicture {
+public class ProfilePhoto {
 
 
     public static final String DEFAULT_PATH = "images/default.png";
-    public static final String MESSAGE_PICTURE_CONSTRAINTS =
+    public static final String MESSAGE_PHOTO_CONSTRAINTS =
             "Filepath must be valid, point to an image file, and is less than 10MB in size. "
                     + "Example of a valid file path C:\\Users\\Zackkh95\\Pictures\\zacharytan.jpg";
-    public static final String PICTURE_VALIDATION_REGEX_EXT = "([a-zA-Z]:)?(\\\\[a-zA-Z0-9._-]+)+\\\\?";
-    public static final String PICTURE_VALIDATION_REGEX_INT = "[^\\s].*";
-    public static final String APPDATA_DIR = getDefaultDirectory();
-    public static final String FOLDER = APPDATA_DIR + "/AddressBook";
+    public static final String PHOTO_VALIDATION_REGEX_EXT = "([a-zA-Z]:)?(\\\\[a-zA-Z0-9._-]+)+\\\\?";
+    public static final String PHOTO_VALIDATION_REGEX_INT = "[^\\s].*";
+    public static final String APPDATA_DIRECTORY = getDefaultDirectory();
+    public static final String FOLDER = APPDATA_DIRECTORY + "/AddressBook";
     private static final String URL_PREFIX = "file:/";
 
     private static final int FIVE_MB_IN_BYTES = 5242880;
@@ -34,7 +34,7 @@ public class ProfilePicture {
     /**
      * Default initializer, uses default picture
      */
-    public ProfilePicture() {
+    public ProfilePhoto() {
 
         this.path = DEFAULT_PATH;
     }
@@ -46,7 +46,7 @@ public class ProfilePicture {
      *
      * @param path
      */
-    public ProfilePicture(String path) {
+    public ProfilePhoto(String path) {
 
         requireNonNull(path);
         String p = truncateFilePrefix(path);
@@ -64,10 +64,10 @@ public class ProfilePicture {
      * @param path
      * @param newProfilePictureName
      */
-    public ProfilePicture(String path, String newProfilePictureName) {
+    public ProfilePhoto(String path, String newProfilePictureName) {
 
         requireNonNull(path);
-        checkArgument(isValidPath(path), MESSAGE_PICTURE_CONSTRAINTS);
+        checkArgument(isValidPath(path), MESSAGE_PHOTO_CONSTRAINTS);
         String extension = "";
 
         int i = path.lastIndexOf('.');
@@ -76,12 +76,12 @@ public class ProfilePicture {
         }
         this.path = FOLDER + "//" + newProfilePictureName + "." + extension;
 
-        createNewPicture(path, newProfilePictureName + "." + extension);
+        createNewPhoto(path, newProfilePictureName + "." + extension);
 
     }
 
     /**
-     * Check if path is valid
+     * Check if path to the profile photo is valid
      *
      * @param path
      * @return
@@ -92,22 +92,22 @@ public class ProfilePicture {
             return true;
         }
 
-        boolean isValidExternalPath = path.matches(PICTURE_VALIDATION_REGEX_EXT);
-        boolean isValidInternalPath = path.matches(PICTURE_VALIDATION_REGEX_INT);
+        boolean isValidExternalPath = path.matches(PHOTO_VALIDATION_REGEX_EXT);
+        boolean isValidInternalPath = path.matches(PHOTO_VALIDATION_REGEX_INT);
 
         if (isValidExternalPath || isValidInternalPath) {
-            return isValidPicture(path);
+            return isValidPhoto(path);
         }
         return false;
     }
 
     /**
-     * Checks if the image pointed to by the path is indeed a valid image
+     * Checks if the image pointed to by the path is indeed a valid image of a file less than 5 MB
      *
      * @param path
      * @return
      */
-    public static boolean isValidPicture(String path) {
+    public static boolean isValidPhoto(String path) {
 
         File f = new File(path);
 
@@ -123,7 +123,7 @@ public class ProfilePicture {
     }
 
     /**
-     * Check if image is greater than allowed size
+     * Check if image is greater than allowed size of 5 MB
      *
      * @param path
      * @return
@@ -144,7 +144,7 @@ public class ProfilePicture {
      * @param source
      * @param dstFilename
      */
-    public void createNewPicture(String source, String dstFilename) {
+    public void createNewPhoto(String source, String dstFilename) {
 
         File folder = new File(FOLDER);
 
@@ -224,8 +224,8 @@ public class ProfilePicture {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ProfilePicture // instanceof handles nulls
-                && this.path.equals(((ProfilePicture) other).path)); // state check
+                || (other instanceof ProfilePhoto // instanceof handles nulls
+                && this.path.equals(((ProfilePhoto) other).path)); // state check
     }
 
 }

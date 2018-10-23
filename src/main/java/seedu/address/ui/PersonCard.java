@@ -66,7 +66,7 @@ public class PersonCard extends UiPart<Region> {
      */
     public void initProfilePic(Person person) {
 
-        String url = person.getProfilePicture().getPath();
+        String url = person.getProfilePhoto().getPath();
         try {
             imageView.setImage(new Image(url, 128, 128, true, false));
         } catch (Exception e) {

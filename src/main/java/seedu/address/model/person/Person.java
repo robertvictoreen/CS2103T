@@ -27,19 +27,19 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
-    private ProfilePicture picture;
+    private ProfilePhoto photo;
 
     /**
      * Every field must be present and not null.
      */
 
-    public Person(Name name, Phone phone, Email email, Address address, ProfilePicture pic, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, ProfilePhoto pic, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.picture = pic;
+        this.photo = pic;
         this.tags.addAll(tags);
         this.assignments = new ArrayList<>();
     }
@@ -50,13 +50,13 @@ public class Person {
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.picture = new ProfilePicture();
+        this.photo = new ProfilePhoto();
         this.tags.addAll(tags);
         this.assignments = new ArrayList<>();
     }
 
     public Person(Person source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getProfilePicture(),
+        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getProfilePhoto(),
                 source.getTags());
     }
 
@@ -80,39 +80,30 @@ public class Person {
         return assignments;
     }
 
-    public ProfilePicture getProfilePicture() {
-        return picture;
+    public ProfilePhoto getProfilePhoto() {
+        return photo;
     }
 
-    /**
-     * Update contact picture to that located in path
-     * @param path
-     */
-    public void updatePicture(String path) {
-        int hash = this.hashCode();
-        String filename = String.valueOf(hash);
-        this.picture = new ProfilePicture(path, filename);
-    }
 
     /**
      * Delete the current picture and set up a default picture.
      */
-    public void deleteProfilePicture() {
-        this.picture = new ProfilePicture();
+    public void deleteProfilePhoto() {
+        this.photo = new ProfilePhoto();
     }
 
     /**
      * Set profile picture to that in path
      */
-    public void setProfilePicture(String path) throws IllegalValueException {
+    public void setProfilePhoto(String path) throws IllegalValueException {
 
-        ProfilePicture oldPic = this.picture;
+        ProfilePhoto oldPhoto = this.photo;
         try {
             int fileName = this.hashCode();
-            this.picture = new ProfilePicture(path, String.valueOf(fileName));
+            this.photo = new ProfilePhoto(path, String.valueOf(fileName));
         } catch (Exception e) {
-            this.picture = oldPic; //reset picture back to default
-            throw new IllegalValueException(ProfilePicture.MESSAGE_PICTURE_CONSTRAINTS);
+            this.photo = oldPhoto; //changes picture back to default
+            throw new IllegalValueException(ProfilePhoto.MESSAGE_PHOTO_CONSTRAINTS);
         }
     }
 
@@ -173,7 +164,7 @@ public class Person {
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getTags().equals(getTags())
-                && otherPerson.getProfilePicture().equals(getProfilePicture())
+                && otherPerson.getProfilePhoto().equals(getProfilePhoto())
                 && otherPerson.getAssignments().equals(getAssignments());
     }
 
