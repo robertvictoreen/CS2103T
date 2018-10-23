@@ -172,7 +172,7 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `MoreDetailsPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -370,6 +370,15 @@ UniqueAssignmentList to know which score belongs to which assignment.
 edit assignment information in every single student.
 //end:assignment[]
 
+=== UI-Model binding of student details
+
+==== Current Implementation
+The data `MoreDetailsPanel` binds itself to are `filteredPersons` and `filteredAssignments` in the `Model` class.
+
+* `filteredPersons` -- Current students stored in the database.
+* `filteredAssignments` -- The names of all the assignments that the students have in the database.
+
+`MoreDetailsPanel` will be notified by any changes in the data when a related event is raised, such as `PersonPanelSelectionChangedEvent`. It will then retrieve the new student's marks using `filteredPersons` and display them with reference to their names in `filteredAssignments`.
 
 === Logging
 
