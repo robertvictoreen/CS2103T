@@ -148,7 +148,6 @@ public class ParserUtil {
     }
 
     /**
->>>>>>> e4d0b8fc75656f08bdac1d803b3e163269dc1692
      * Parses a {@code String assignmentName} into an {@code AssignmentName}.
      * Leading and trailing whitespaces will be trimmed.
      *

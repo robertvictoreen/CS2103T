@@ -3,7 +3,6 @@ package guitests.guihandles;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 
-
 /**
  * A handle to the {@code AddStudentWindow} in the GUI.
  */

@@ -22,6 +22,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.ProfilePicture;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -96,11 +97,14 @@ public class MarkAssignmentCommand extends Command {
         Phone updatedPhone = personToMarkAssignment.getPhone();
         Email updatedEmail = personToMarkAssignment.getEmail();
         Address updatedAddress = personToMarkAssignment.getAddress();
+        ProfilePicture updatedPicture = personToMarkAssignment.getProfilePicture();
         Set<Tag> updatedTags = personToMarkAssignment.getTags();
         Map<String, Mark> updatedMarks = new HashMap<>(personToMarkAssignment.getMarks());
         updatedMarks.put(assignmentUid, assignmentMark);
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedMarks);
+        return new Person(
+                updatedName, updatedPhone, updatedEmail, updatedAddress, updatedPicture, updatedTags, updatedMarks
+        );
     }
 
     @Override

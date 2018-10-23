@@ -55,7 +55,8 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedPerson(String name, String phone, String email, String address,
+                            List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -66,27 +67,37 @@ public class XmlAdaptedPerson {
         this.profilepicture = null;
     }
 
-    //@@author Zachary Tan
     /**
-     * Constructs an {@code XmlAdaptedPerson} with an additional Picture parameter
+     * Constructs an {@code XmlAdaptedPerson} with an additional Picture parameter and marks parameter
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address,
-                            String profilepicture, List<XmlAdaptedTag> tagged) {
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        if (tagged != null) {
-            this.tagged = new ArrayList<>(tagged);
-        }
-        this.profilepicture = profilepicture;
-    }
-
-    public XmlAdaptedPerson(String name, String phone, String email, String address,
+    public XmlAdaptedPerson(String name, String phone, String email, String address, String profilepicture,
                             List<XmlAdaptedTag> tagged, List<XmlAdaptedMark> marks) {
         this(name, phone, email, address, tagged);
+        this.profilepicture = profilepicture;
         if (marks != null) {
             this.marks = new ArrayList<>(marks);
+        }
+    }
+
+    /**
+     * Converts a given Person into this class for JAXB use.
+     *
+     * @param source future changes to this will not affect the created XmlAdaptedPerson
+     */
+    public XmlAdaptedPerson(Person source, List<String> allowedAssignmentUid) {
+        name = source.getName().fullName;
+        phone = source.getPhone().value;
+        email = source.getEmail().value;
+        address = source.getAddress().value;
+        profilepicture = source.getProfilePicture().getPath();
+        tagged = source.getTags().stream()
+                .map(XmlAdaptedTag::new)
+                .collect(Collectors.toList());
+        for (String key: allowedAssignmentUid) {
+            Mark mark = source.getMarks().get(key);
+            if (mark != null) {
+                marks.add(new XmlAdaptedMark(key, mark.internalString));
+            }
         }
     }
 
@@ -106,22 +117,6 @@ public class XmlAdaptedPerson {
                 .collect(Collectors.toList());
         for (Map.Entry<String, Mark> entry : source.getMarks().entrySet()) {
             marks.add(new XmlAdaptedMark(entry.getKey(), entry.getValue().internalString));
-        }
-    }
-
-    public XmlAdaptedPerson(Person source, List<String> allowedAssignmentUid) {
-        name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
-        tagged = source.getTags().stream()
-                .map(XmlAdaptedTag::new)
-                .collect(Collectors.toList());
-        for (String key: allowedAssignmentUid) {
-            Mark mark = source.getMarks().get(key);
-            if (mark != null) {
-                marks.add(new XmlAdaptedMark(key, mark.internalString));
-            }
         }
     }
 
@@ -164,6 +159,7 @@ public class XmlAdaptedPerson {
             throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
         }
         final Address modelAddress = new Address(address);
+
         ProfilePicture modelPicture = new ProfilePicture();
         if (this.profilepicture != null) {
             modelPicture = new ProfilePicture(this.profilepicture);
