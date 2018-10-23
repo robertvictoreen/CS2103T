@@ -65,6 +65,7 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         assertCommandBoxShowsDefaultStyle();
         assertNotEquals(HelpCommand.SHOWING_HELP_MESSAGE, getResultDisplay().getText());
         //assertNotEquals(MoreDetailsPanelHandle.DEFAULT, getDetailsPanel().getOwner());
+        //assertEquals(MoreDetailsPanelHandle.DEFAULT, getDetailsPanel().getOwner()); // proposed fix
         assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
 
         // assert that the status bar too is updated correctly while the help window is open

@@ -168,7 +168,7 @@ public abstract class AddressBookSystemTest {
      * and the person list panel displays the persons in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
-            Model expectedModel) {
+                                                     Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
@@ -208,7 +208,7 @@ public abstract class AddressBookSystemTest {
         getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
         String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
 
-        //String expectedOwner = ""; // Implement in MoreDetailsPanel
+        //String expectedOwner = "No student selected."; // Implement in MoreDetailsPanel
         //assertEquals(expectedOwner, getDetailsPanel().getOwner());
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());

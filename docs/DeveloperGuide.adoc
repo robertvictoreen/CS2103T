@@ -1,4 +1,4 @@
-﻿= EazyTutors - Developer Guide
+= EazyTutors - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -339,9 +339,9 @@ The primary sorting algorithm is contained in the 'UniquePersonList' class. It i
 
 The 'indicateAddressBookChanged' event is raised by 'Model' after the sorting is done to show that the Address Book has been modified.
 
- ==== Design Considerations
+==== Design Considerations
 
-**Aspect:** Implementation of `SortCommand`
+===== Aspect:** Implementation of `SortCommand`
 * **Alternative 1 (current choice):** Only sorts by names of students in the Address Book.
 **Pros:** Easy to implement and more intuitive for the user.
 **Cons:** Functionality is limited and may not improve user satisfaction.
@@ -349,6 +349,26 @@ The 'indicateAddressBookChanged' event is raised by 'Model' after the sorting is
 **Pros:** Improved flexibility for users since they have the option to sort by any field that they want.
 **Cons:** Harder to implement and requires constant updating of code every time a new field in the 'Person' class is introduced.
 //end:sort[]
+
+// tag::assignment[]
+=== Assignment data structure
+
+Global information about assignment is stored in addressbook level and
+each assignment have a uniqueId that will not change when the assignment is edited.
+Also every student store a map with assignment uniqueId as key and mark obtained as value.
+
+==== Design Considerations
+
+===== Aspect: Data Structure to support assignment operations
+* **Alternative 1 (current choice):** Use a hashmap of uniqueId to mark to store assignment score of each student.
+** Pros: Flexibility to edit assignment without having to do any operation on each student.
+** Cons: Any functionality that needs to iterate through all assignment score for a student must first iterate through
+UniqueAssignmentList to know which score belongs to which assignment.
+* **Alternative 2:** Store all assignment information on each student.
+** Pros: Easy to implement. All method that wants to read a student assignment information including score only need to read 1 student.
+** Cons: Requires more memory since every assignment is stored in every student. Harder to edit assignment since we must
+edit assignment information in every single student.
+//end:assignment[]
 
 
 === Logging
