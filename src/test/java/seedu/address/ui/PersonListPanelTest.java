@@ -11,6 +11,7 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import org.junit.Test;
 
@@ -21,12 +22,19 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
+import seedu.address.model.assignment.Assignment;
 import seedu.address.model.person.Person;
 import seedu.address.storage.XmlSerializableAddressBook;
 
 public class PersonListPanelTest extends GuiUnitTest {
     private static final ObservableList<Person> TYPICAL_PERSONS =
             FXCollections.observableList(getTypicalPersons());
+
+    private static final ObservableList<Assignment> TYPICAL_ASSIGNMENT =
+            FXCollections.observableList(new ArrayList<>());
+
+    private static final MoreDetailsPanel MORE_DETAILS_PANEL =
+            new MoreDetailsPanel(TYPICAL_PERSONS, TYPICAL_ASSIGNMENT);
 
     private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PERSON);
 
@@ -38,7 +46,7 @@ public class PersonListPanelTest extends GuiUnitTest {
 
     @Test
     public void display() {
-        initUi(TYPICAL_PERSONS);
+        initUi(TYPICAL_PERSONS, MORE_DETAILS_PANEL);
 
         for (int i = 0; i < TYPICAL_PERSONS.size(); i++) {
             personListPanelHandle.navigateToCard(TYPICAL_PERSONS.get(i));
@@ -52,7 +60,7 @@ public class PersonListPanelTest extends GuiUnitTest {
 
     @Test
     public void handleJumpToListRequestEvent() {
-        initUi(TYPICAL_PERSONS);
+        initUi(TYPICAL_PERSONS, MORE_DETAILS_PANEL);
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
@@ -70,7 +78,7 @@ public class PersonListPanelTest extends GuiUnitTest {
         ObservableList<Person> backingList = createBackingList(10000);
 
         assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
-            initUi(backingList);
+            initUi(backingList, MORE_DETAILS_PANEL);
             guiRobot.interact(backingList::clear);
         }, "Creation and deletion of person cards exceeded time limit");
     }
@@ -104,7 +112,6 @@ public class PersonListPanelTest extends GuiUnitTest {
         builder.append("</addressbook>\n");
 
         Path manyPersonsFile = TEST_DATA_FOLDER.resolve("manyPersons.xml");
-
         FileUtil.createFile(manyPersonsFile);
         FileUtil.writeToFile(manyPersonsFile, builder.toString());
         manyPersonsFile.toFile().deleteOnExit();
@@ -115,8 +122,8 @@ public class PersonListPanelTest extends GuiUnitTest {
      * Initializes {@code personListPanelHandle} with a {@code PersonListPanel} backed by {@code backingList}.
      * Also shows the {@code Stage} that displays only {@code PersonListPanel}.
      */
-    private void initUi(ObservableList<Person> backingList) {
-        PersonListPanel personListPanel = new PersonListPanel(backingList);
+    private void initUi(ObservableList<Person> backingList, MoreDetailsPanel moreDetailsPanel) {
+        PersonListPanel personListPanel = new PersonListPanel(backingList, moreDetailsPanel);
         uiPartRule.setUiPart(personListPanel);
 
         personListPanelHandle = new PersonListPanelHandle(getChildNode(personListPanel.getRoot(),

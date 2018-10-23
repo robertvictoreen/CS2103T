@@ -1,6 +1,5 @@
 package seedu.address.model.person;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
@@ -27,26 +26,14 @@ public class Person {
 
     // Data fields
     private final Address address;
-    private final Set<Tag> tags = new HashSet<>();
-
     private ProfilePicture picture;
+    private final Set<Tag> tags = new HashSet<>();
     private final Map<String, Mark> marks = new HashMap<>();
 
     /**
      * Every field must be present and not null.
      */
-
-    public Person(Name name, Phone phone, Email email, Address address, ProfilePicture pic, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.picture = pic;
-        this.tags.addAll(tags);
-    }
-
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Map<String, Mark> marks) {
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -54,21 +41,19 @@ public class Person {
         this.address = address;
         this.picture = new ProfilePicture();
         this.tags.addAll(tags);
-        requireNonNull(marks);
-        this.marks.putAll(marks);
-    }
-
-    public Person(Name name, Phone phone, Email email, Address address, ProfilePicture pic, Set<Tag> tags, Map<String,
-        Mark> marks) {
-
-        this(name, phone, email, address, pic, tags);
-        requireNonNull(marks);
-        this.marks.putAll(marks);
     }
 
     public Person(Person source) {
         this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getProfilePicture(),
-            source.getTags());
+                source.getTags(), source.getMarks());
+    }
+
+    public Person(Name name, Phone phone, Email email, Address address, ProfilePicture pic, Set<Tag> tags,
+                  Map<String, Mark> marks) {
+        this(name, phone, email, address, tags);
+        requireAllNonNull(pic, marks);
+        this.picture = pic;
+        this.marks.putAll(marks);
     }
 
     public Name getName() {
@@ -173,6 +158,7 @@ public class Person {
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getTags().equals(getTags())
+                && otherPerson.getProfilePicture().equals(getProfilePicture())
                 && otherPerson.getMarks().equals(getMarks());
     }
 

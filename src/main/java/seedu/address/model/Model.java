@@ -77,6 +77,9 @@ public interface Model {
     /** Sorts the persons in the AddressBook lexicographically */
     void sort();
 
+    /** Sorts the assignments in the AddressBook by deadline */
+    void sortAssignment();
+
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
