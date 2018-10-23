@@ -36,7 +36,7 @@ public class MoreDetailsPanelHandle extends NodeHandle<SplitPane> {
      * Returns the student whose details are being shown
      */
     public String getOwner() {
-        // return current student shown
+        // return last shown student shown
         if (lastShownStudent == null) {
             return "No student selected.";
         }

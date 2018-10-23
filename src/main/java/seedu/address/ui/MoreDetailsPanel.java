@@ -18,6 +18,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.person.AssignmentStub;
 import seedu.address.model.person.Person;
 
 /**
@@ -28,6 +29,10 @@ public class MoreDetailsPanel extends UiPart<Region> {
     private static final String FXML = "MoreDetailsPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
+
+    // Initializing test data
+    private AssignmentStub[] assignments = {new AssignmentStub("Finals", 73), new AssignmentStub("Mid-terms", 39),
+        new AssignmentStub("Participation", 10), new AssignmentStub("Product Demo", 101)};
 
     // List of students
     private ObservableList<Person> studentList;
@@ -75,13 +80,12 @@ public class MoreDetailsPanel extends UiPart<Region> {
     }
 
     /**
-     * Displays the details of the student selected in the Details Panel on the bottom right.
+     * Displays the student's details in the Details Panel on the bottom right.
      */
     public void display(Person student) {
         if (student == null) {
             return;
         }
-
         if (!isSetUp) {
             // add 2 columns, default has 1
             ColumnConstraints newColumn = new ColumnConstraints();
