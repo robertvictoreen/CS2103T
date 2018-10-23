@@ -102,6 +102,25 @@ public class XmlAdaptedPerson {
     }
 
     /**
+     * Converts a given Person into this class for JAXB use.
+     *
+     * @param source future changes to this will not affect the created XmlAdaptedPerson
+     */
+    public XmlAdaptedPerson(Person source) {
+        name = source.getName().fullName;
+        phone = source.getPhone().value;
+        email = source.getEmail().value;
+        address = source.getAddress().value;
+        profilepicture = source.getProfilePicture().getPath();
+        tagged = source.getTags().stream()
+                .map(XmlAdaptedTag::new)
+                .collect(Collectors.toList());
+        for (Map.Entry<String, Mark> entry : source.getMarks().entrySet()) {
+            marks.add(new XmlAdaptedMark(entry.getKey(), entry.getValue().internalString));
+        }
+    }
+
+    /**
      * Converts this jaxb-friendly adapted person object into the model's Person object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person

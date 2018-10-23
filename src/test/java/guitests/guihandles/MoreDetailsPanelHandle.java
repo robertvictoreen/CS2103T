@@ -9,7 +9,7 @@ import seedu.address.model.person.Person;
 public class MoreDetailsPanelHandle extends NodeHandle<SplitPane> {
 
     public static final String DEFAULT = "No student selected.";
-    public static final String DETAILS_PANEL_ID = "$detailsPanel";
+    public static final String DETAILS_PANEL_ID = "#detailsPanel";
 
     private Person lastShownStudent = null;
 
@@ -37,13 +37,10 @@ public class MoreDetailsPanelHandle extends NodeHandle<SplitPane> {
      */
     public String getOwner() {
         // return current student shown
-        /*
-        if (currentStudent == null) {
+        if (lastShownStudent == null) {
             return "No student selected.";
         }
-        return currentStudent.getName() + "'s details:";
-        */
-        return "";
+        return lastShownStudent.getName() + "'s details:";
     }
 
     /**

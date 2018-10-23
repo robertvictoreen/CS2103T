@@ -205,7 +205,7 @@ public abstract class AddressBookSystemTest {
         getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
         String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
 
-        String expectedOwner = ""; // Implement in MoreDetailsPanel
+        String expectedOwner = "No student selected."; // Implement in MoreDetailsPanel
         assertEquals(expectedOwner, getDetailsPanel().getOwner());
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
