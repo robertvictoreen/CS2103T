@@ -277,20 +277,26 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 * *Absent* : `absent NAME`
 * *Add* : `add NAME [s/INDEX p/PHONE_NUMBER e/EMAIL [t/TAG]...` +
 e.g. `add James Ho s/1 p/22224444 e/jamesho@example.com t/friend t/colleague`
+* *AddAssignment* : `addAssignment n/NAME w/WEIGHT d/DEADLINE m/MAX_MARK` +
+e.g. `addAssignment n/Assignment 1 w/15 d/14/10/2019 m/100`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
+* *DeleteAssignment* : `deleteAssignment INDEX` +
+e.g. `deleteAssignment 3`
 * *Edit* : `edit INDEX [NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]...` +
 e.g. `edit 2 James Lee e/jameslee@example.com`
 * *Exit* : `exit`
 * *Help* : `help`
 * *History* : `history`
 * *Mark* : `mark m/MARK s/INDEX o/OBTAINED m/MAX`
+* *MarkAssignment* : `markAssignment INDEX id/ASSIGNMENT_INDEX m/MARK`
 * *Present* : `present NAME`
 * *Redo* : `redo`
 * *Results* : `results INDEX`
 * *Sort* : `sort [s/p/a]
 * *Sort* : `sort`
+* *SortAssignment* : `sortAssignment`
 * *Undo* : `undo`
 * *Unmark* : `unmark INDEX`
 
