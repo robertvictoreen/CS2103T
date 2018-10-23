@@ -16,4 +16,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_WEIGHT = new Prefix("w/");
     public static final Prefix PREFIX_DATE = new Prefix("d/");
     public static final Prefix PREFIX_ID = new Prefix("id/");
+    public static final Prefix PREFIX_ATTENDANCE = new Prefix("at/");
 }
