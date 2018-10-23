@@ -22,7 +22,7 @@ public class AssignmentStatsCommand extends Command {
     public static final String COMMAND_WORD = "assignmentStats";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Displayes the statistics for an assignment identified by the index number used in the displayed assignment list.\n"
+            + ": Displays the statistics for an assignment identified by the index number used in the displayed assignment list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -59,30 +59,28 @@ public class AssignmentStatsCommand extends Command {
             double[] marks = markStream.sorted().toArray();
 
             double[] quartiles = {0.25, 0.50, 0.75};
-            double percentile;
-            double position;
-            double floor;
-            double higher;
-            int index = 0;
 
             if (marks.length == 1) {
                 quartiles[0] = quartiles[1] = quartiles[2] = marks[0];
             } else {
+                double percentile;
+                double position;
+                int index;
+
                 for (int i = 0; i < 3; i++) {
                     position = quartiles[i] * marks.length;
-                    floor = position - (int)position;
                     index = (int)position;
                     percentile = marks[index];
 
-                    if (floor == 0) {
-                        percentile = (percentile + marks[index-1])/2; 
+                    if (position - index == 0) {
+                        percentile = (percentile + marks[index-1])/2;
                     }
 
                     quartiles[i] = percentile;
                 }
             }
-            summary.append(String.format("\nHighest: %.1f, Lowest: %.1f\n25th: %.1f, 75th: %.1f\nAverage: %.1f, Median: %.1f\n", 
-                summaryStatistics.getMax(), summaryStatistics.getMin(), quartiles[0], quartiles[1], quartiles[2], summaryStatistics.getAverage()));
+            summary.append(String.format("\nHighest: %.1f, Lowest: %.1f\n25th: %.1f, 75th: %.1f\nAverage: %.1f, Median: %.1f\n",
+                summaryStatistics.getMax(), summaryStatistics.getMin(), quartiles[0], quartiles[2], summaryStatistics.getAverage(), quartiles[1]));
         }
 
         return new CommandResult(summary.toString());
