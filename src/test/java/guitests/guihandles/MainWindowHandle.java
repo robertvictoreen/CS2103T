@@ -1,8 +1,5 @@
 package guitests.guihandles;
 
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.stage.Stage;
 
 /**
