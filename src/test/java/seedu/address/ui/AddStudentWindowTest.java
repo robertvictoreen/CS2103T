@@ -1,21 +1,30 @@
 package seedu.address.ui;
+
+// TODO: Fix ClassCastException caused in setUiPart().
 /*
+
+import org.junit.Before;
+import org.junit.Test;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import org.testfx.api.FxToolkit;
+
 import guitests.guihandles.AddStudentWindowHandle;
+
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
-*/
 
 public class AddStudentWindowTest extends GuiUnitTest {
-    /*
 
     // test for buttons implicitly tested in all tests
 
@@ -57,14 +66,20 @@ public class AddStudentWindowTest extends GuiUnitTest {
     private Person person;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         this.addressBook = new AddressBook();
-        this.window = new AddStudentWindow();
-        this.handle = new AddStudentWindowHandle((AnchorPane) window.getRoot());
+        guiRobot.interact(() -> window = new AddStudentWindow());
+        uiPartRule.setUiPart(window);
+        FxToolkit.registerStage(() -> new Stage());
+        this.handle = new AddStudentWindowHandle(window.getRootPane());
         PersonBuilder personBuilder = new PersonBuilder();
         personBuilder.withTags(ARRAY_EXAMPLE_TAGS);
         this.person = personBuilder.build();
         okButton = getChildNode(handle.getRoot(), handle.getButtonId());
+        // setting button bounds
+        // okButton.setLayoutX(okButton.getBoundsInParent().getWidth());
+        // okButton.setLayoutY(okButton.getBoundsInParent().getHeight());
+
 
         // set up default inputs with 3 tags (MAX)
         enterName(EXAMPLE_NAME);
@@ -231,5 +246,5 @@ public class AddStudentWindowTest extends GuiUnitTest {
     private void enterTagThree(String t3) {
         window.setTagThreeField(t3);
     }
-    */
 }
+*/

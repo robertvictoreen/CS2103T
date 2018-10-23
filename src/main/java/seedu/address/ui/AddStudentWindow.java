@@ -1,11 +1,14 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
@@ -17,8 +20,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Window to add students.
  */
-public class AddStudentWindow extends UiPart {
+public class AddStudentWindow extends UiPart<Region> {
 
+    private static final String FXML = "AddStudentWindow.fxml";
     private static final String MESSAGE_ADD_FAILED = "Add Student Failed!";
 
     @FXML
@@ -37,18 +41,38 @@ public class AddStudentWindow extends UiPart {
     private TextField tagThreeField;
     @FXML
     private Button okButton;
+    @FXML
+    private AnchorPane anchorPane;
 
     // Implement logger in the future
     // private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
     private Logic logic;
+    private AnchorPane rootPane;
 
-    public AddStudentWindow(){
+    public AddStudentWindow() {
+        super(FXML);
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
     }
 
+    /**
+     * Configures window to be shown.
+     */
     @FXML
-    private void initialize() {
+    public void initialize() {
+        this.rootPane = anchorPane;
+
+        Scene scene = new Scene(rootPane, 600, 400);
+        Stage stage = new Stage();
+        stage.setTitle("Add Student");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(primaryStage);
+        stage.setScene(scene);
+        stage.getIcons().add(new Image("/images/address_book_32.png"));
+
+        this.primaryStage = stage;
     }
 
     // // Test empty tags
@@ -172,4 +196,11 @@ public class AddStudentWindow extends UiPart {
         this.tagThreeField = new TextField(tagThree);
     }
 
+    public AnchorPane getRootPane() {
+        return rootPane;
+    }
+
+    public void show() {
+        primaryStage.showAndWait();
+    }
 }

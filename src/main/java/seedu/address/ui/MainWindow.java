@@ -1,24 +1,17 @@
 package seedu.address.ui;
 
-import java.io.IOException;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import seedu.address.MainApp;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -34,9 +27,10 @@ import seedu.address.model.UserPrefs;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
-    private static final String FXMLAddWindow = "/view/AddStudentWindow.fxml";
 
     protected Logic logic;
+
+
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -138,10 +132,10 @@ public class MainWindow extends UiPart<Stage> {
         /*browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
         */
-        detailsPanel = new MoreDetailsPanel(logic.getFilteredPersonList());
+        detailsPanel = new MoreDetailsPanel(logic.getFilteredPersonList(), logic.getFilteredAssignmentList());
         detailsPlaceholder.getChildren().add(detailsPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), detailsPanel);
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
@@ -235,28 +229,9 @@ public class MainWindow extends UiPart<Stage> {
      * Shows AddStudentWindow and waits for user interaction.
      */
     private void showAddWindowAndWait() {
-        try {
-            // Change implementation to use UiPart in the future?
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(FXMLAddWindow));
-            AnchorPane pane = (AnchorPane) loader.load();
-            Scene scene = new Scene(pane);
-
-            Stage stage = new Stage();
-            stage.setTitle("Add Student");
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(primaryStage);
-            stage.setScene(scene);
-            stage.getIcons().add(new Image("/images/address_book_32.png"));
-
-            AddStudentWindow controller = loader.getController();
-            controller.setStage(stage);
-            controller.setLogic(logic);
-            stage.showAndWait();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        AddStudentWindow addWindow = new AddStudentWindow();
+        addWindow.setLogic(logic);
+        addWindow.show();
     }
 
 

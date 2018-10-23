@@ -1,15 +1,19 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.assignment.Mark;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -26,13 +30,13 @@ public class Person {
 
     // Data fields
     private final Address address;
-    private final Set<Tag> tags = new HashSet<>();
     private ProfilePicture picture;
+    private final Set<Tag> tags = new HashSet<>();
+    private final Map<String, Mark> marks = new HashMap<>();
 
     /**
      * Every field must be present and not null.
      */
-
     public Person(Name name, Phone phone, Email email, Address address, ProfilePicture pic, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
@@ -41,6 +45,8 @@ public class Person {
         this.address = address;
         this.picture = pic;
         this.tags.addAll(tags);
+
+        // assignmentStub initialization
         this.assignments = new ArrayList<>();
     }
 
@@ -52,12 +58,28 @@ public class Person {
         this.address = address;
         this.picture = new ProfilePicture();
         this.tags.addAll(tags);
+
+        // assignmentStub initialization
         this.assignments = new ArrayList<>();
     }
 
     public Person(Person source) {
         this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getProfilePicture(),
-                source.getTags());
+                source.getTags(), source.getMarks());
+    }
+
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Map<String, Mark> marks) {
+        this(name, phone, email, address, tags);
+        requireNonNull(marks);
+        this.marks.putAll(marks);
+    }
+
+    public Person(Name name, Phone phone, Email email, Address address, ProfilePicture pic, Set<Tag> tags,
+                  Map<String, Mark> marks) {
+        this(name, phone, email, address, tags);
+        requireAllNonNull(pic, marks);
+        this.picture = pic;
+        this.marks.putAll(marks);
     }
 
     public Name getName() {
@@ -74,10 +96,6 @@ public class Person {
 
     public Address getAddress() {
         return address;
-    }
-
-    public List<AssignmentStub> getAssignments() {
-        return assignments;
     }
 
     public ProfilePicture getProfilePicture() {
@@ -117,11 +135,26 @@ public class Person {
     }
 
     /**
+     * Getter for AssignmentStub class
+     */
+    public List<AssignmentStub> getAssignments() {
+        return assignments;
+    }
+
+    /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns an immutable mark map, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Map<String, Mark> getMarks() {
+        return Collections.unmodifiableMap(marks);
     }
 
     /**
@@ -173,6 +206,7 @@ public class Person {
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getTags().equals(getTags())
+                && otherPerson.getMarks().equals(getMarks())
                 && otherPerson.getProfilePicture().equals(getProfilePicture())
                 && otherPerson.getAssignments().equals(getAssignments());
     }
@@ -180,7 +214,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, tags, marks);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -16,7 +15,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.model.assignment.Assignment;
 import seedu.address.model.person.AssignmentStub;
 import seedu.address.model.person.Person;
 
@@ -30,14 +31,12 @@ public class MoreDetailsPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     // Initializing test data
-    private AssignmentStub assignment1 = new AssignmentStub("Finals", 73);
-    private AssignmentStub assignment2 = new AssignmentStub("Mid-terms", 39);
-    private AssignmentStub assignment3 = new AssignmentStub("Participation", 10);
-    private AssignmentStub assignment4 = new AssignmentStub("Product Demo", 101);
-    private AssignmentStub[] assignments = {assignment1, assignment2, assignment3, assignment4};
+    private AssignmentStub[] assignments = {new AssignmentStub("Finals", 73), new AssignmentStub("Mid-terms", 39),
+        new AssignmentStub("Participation", 10), new AssignmentStub("Product Demo", 101)};
 
     // List of students
     private ObservableList<Person> studentList;
+    private ObservableList<Assignment> assignmentList;
 
     // Current student whose details are being shown
     private Person currentStudent = null;
@@ -51,19 +50,11 @@ public class MoreDetailsPanel extends UiPart<Region> {
     @FXML
     private GridPane components;
 
-    public MoreDetailsPanel(ObservableList<Person> listOfStudents) {
+    public MoreDetailsPanel(ObservableList<Person> listOfStudents, ObservableList<Assignment> listOfAssignments) {
         super(FXML);
         registerAsAnEventHandler(this);
         this.studentList = listOfStudents;
-
-        // add dummy assignments to students
-        Person student = studentList.get(0);
-        student.addAssignment(assignments[0]);
-        student.addAssignment(assignments[1]);
-        Person student2 = studentList.get(1);
-        student2.addAssignment(assignments[2]);
-        Person student3 = studentList.get(2);
-        student3.addAssignment(assignments[3]);
+        this.assignmentList = listOfAssignments;
 
         // default label
         Label noComponents = new Label("<No assignments entered>");
@@ -82,10 +73,19 @@ public class MoreDetailsPanel extends UiPart<Region> {
         display(currentStudent); // display student's details in details panel
     }
 
+    @Subscribe
+    private void handleAddressbookChangedEvent(AddressBookChangedEvent event) {
+        currentStudent = getCurrentStudent();
+        display(currentStudent); // display student's details in details panel
+    }
+
     /**
-     * Displays the details of the student selected in the Details Panel on the bottom right.
+     * Displays the student's details in the Details Panel on the bottom right.
      */
     public void display(Person student) {
+        if (student == null) {
+            return;
+        }
         if (!isSetUp) {
             // add 2 columns, default has 1
             ColumnConstraints newColumn = new ColumnConstraints();
@@ -98,8 +98,6 @@ public class MoreDetailsPanel extends UiPart<Region> {
 
         logger.info("Displaying details!\n");
 
-        List<AssignmentStub> assignmentList = student.getAssignments();
-
         // remove old labels
         components.getChildren().clear();
 
@@ -107,15 +105,21 @@ public class MoreDetailsPanel extends UiPart<Region> {
         // Labels set to be label-bright
         for (int i = 0; i < assignmentList.size(); i++) {
             // adding assignment label
-            Label toAdd = new Label(assignmentList.get(i).getName());
+            Label toAdd = new Label(assignmentList.get(i).getName().getValue());
             toAdd.setStyle("-fx-font-size: 11pt;\n" + "-fx-font-family: \"Segoe UI Semibold\";\n"
-                + "-fx-text-fill: white;\n" + "-fx-opacity: 1;");
+                    + "-fx-text-fill: white;\n" + "-fx-opacity: 1;");
             components.add(toAdd, 0, i);
 
             // adding marks label
-            Label marksLabel = new Label(Float.toString(assignmentList.get(i).getMarks()));
+            String assignmentId = assignmentList.get(i).getUniqueId();
+            Label marksLabel;
+            try {
+                marksLabel = new Label(Float.toString(student.getMarks().get(assignmentId).getValue()));
+            } catch (Exception e) {
+                marksLabel = new Label("");
+            }
             marksLabel.setStyle("-fx-font-size: 11pt;\n" + "-fx-font-family: \"Segoe UI Semibold\";\n"
-                + "-fx-text-fill: white;\n" + "-fx-opacity: 1;");
+                    + "-fx-text-fill: white;\n" + "-fx-opacity: 1;");
             components.add(marksLabel, 1, i);
         }
     }

@@ -24,7 +24,7 @@ public class ProfilePicture {
     public static final String PICTURE_VALIDATION_REGEX_EXT = "([a-zA-Z]:)?(\\\\[a-zA-Z0-9._-]+)+\\\\?";
     public static final String PICTURE_VALIDATION_REGEX_INT = "[^\\s].*";
     public static final String APPDATA_DIR = getDefaultDirectory();
-    public static final String FOLDER = APPDATA_DIR + "/AddressBook";
+    public static final String FOLDER = APPDATA_DIR + File.separator + "EzTutor" + File.separator + "data";
     private static final String URL_PREFIX = "file:/";
 
     private static final int FIVE_MB_IN_BYTES = 5242880;
