@@ -202,9 +202,24 @@ Format: `sort [s/p/a]`
 [TIP]
 Students are sorted according by alphabetical order by default (with no argument).
 
-== Sorting students by name : `sort`
+=== Sorting students by name : `sort`
  Sorts all student in the address book by name. +
 Format: `sort`
+
+=== Add an assignment: `addAssignment`
+
+Adds an assignment with given assignment name, weight, deadline, maximum mark. +
+Format: `addAssignment n/NAME w/WEIGHT d/DEADLINE m/MAX_MARK`
+
+=== Delete an assignment: `deleteAssignment`
+
+Delete an assignment with given assignment index. +
+Format: `deleteAssignment INDEX`
+
+=== Sort all assignment: `sortAssignment`
+
+Sort all assignment by deadline. +
+Format: `sortAssignment`
 
 === Record a mark for a student: `mark`
 
@@ -221,6 +236,11 @@ Format: `results INDEX`
 
 Delete the indexed mark entry in the list associated with the student at the specified index. +
 Format: `unmark INDEX m/MARK`
+
+=== Record a mark for a student: `markAssignment`
+
+Adds a mark for an assignment associated with a student given the mark obtained. +
+Format: `mark INDEX id/ASSIGNMENT_INDEX m/MARK`
 
 === Editing a student: `edit`
 
