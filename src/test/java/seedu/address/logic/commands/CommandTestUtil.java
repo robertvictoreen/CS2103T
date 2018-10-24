@@ -1,17 +1,5 @@
 package seedu.address.logic.commands;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -20,6 +8,21 @@ import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILEPATH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
+
 
 /**
  * Contains helper methods for testing commands.
@@ -64,6 +67,15 @@ public class CommandTestUtil {
             "src/test/resources/ProfilePhotoTest/nonImageFileWithJpgPrefix.jpg";
     public static final String VALID_LOCAL_IMAGE_BIGGER_THAN_5MB =
             "src/test/resources/ProfilePhotoTest/GreaterThan5MBTestJPG.jpg";
+
+    public static final String PHOTO_DESC_LOCAL_IMAGE = " " + PREFIX_FILEPATH + VALID_LOCAL_IMAGE_JPG;
+    public static final String PHOTO_DESC_LOCAL_IMAGE_5MB = " " + PREFIX_FILEPATH + VALID_LOCAL_IMAGE_5MB;
+
+    public static final String INVALID_PHOTO_DESC_NONIMAGE = " " + PREFIX_FILEPATH + INVALID_LOCAL_FILE_NONIMAGE;
+    public static final String INVALID_PHOTO_DESC_NONIMAGE_WITH_IMAGE_FILETYPE = " " + PREFIX_FILEPATH
+            + INVALID_LOCAL_FILE_NONIMAGE_WITH_IMAGE_FILETYPE;
+    public static final String INVALID_PHOTO_DESC_IMAGE_GREATER_THAN_5MB = " " + PREFIX_FILEPATH
+            + VALID_LOCAL_IMAGE_BIGGER_THAN_5MB;
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
