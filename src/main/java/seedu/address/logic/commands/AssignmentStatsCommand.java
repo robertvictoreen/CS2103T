@@ -22,7 +22,7 @@ public class AssignmentStatsCommand extends Command {
     public static final String COMMAND_WORD = "assignmentStats";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Displays the statistics for an assignment identified by the"
+            + ": Display the statistics for an assignment identified by the"
             + " index number used in the displayed assignment list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
@@ -90,7 +90,7 @@ public class AssignmentStatsCommand extends Command {
                 summaryStatistics.getMax(), summaryStatistics.getMin()));
             summary.append(String.format("\n25th: %.1f, 75th: %.1f",
                 quartiles[0], quartiles[2]));
-            summary.append(String.format("\nAverage: %.1f, Median: %.1f\n",
+            summary.append(String.format("\nAverage: %.1f, Median: %.1f",
                 summaryStatistics.getAverage(), quartiles[1]));
         }
 
