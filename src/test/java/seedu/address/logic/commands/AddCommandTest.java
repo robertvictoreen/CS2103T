@@ -160,6 +160,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void sortAssignment() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean canUndoAddressBook() {
             throw new AssertionError("This method should not be called.");
         }

@@ -3,7 +3,7 @@ package seedu.address.model.person;
 /**
  * Assignment stub class for MoreDetailsPanel to test functionality.
  */
-public class AssignmentStub {
+public class AssignmentStub implements Comparable<AssignmentStub> {
 
     private String name;
     private float marks;
@@ -22,5 +22,10 @@ public class AssignmentStub {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public int compareTo(AssignmentStub assignment2) {
+        return this.name.compareTo(assignment2.name);
     }
 }

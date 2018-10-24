@@ -148,6 +148,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         assignments.remove(key);
     }
 
+    /** Sorts the assignments in this {@code AddressBook} by deadline */
+    public void sortAssignment() {
+        assignments.sort();
+    }
 
     //// util methods
 
