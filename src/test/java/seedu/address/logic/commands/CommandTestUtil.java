@@ -54,6 +54,17 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
+    public static final String VALID_LOCAL_IMAGE_JPG = "src/test/resources/ProfilePhotoTest/zacharytan.jpg";
+    public static final String VALID_LOCAL_IMAGE_5MB = "src/test/resources/ProfilePhotoTest/5mbTestJpg.jpg";
+    public static final String VALID_LOCAL_IMAGE_PNG = "src/main/resources/images/help_icon.png";
+
+    public static final String INVALID_LOCAL_FILE_NONIMAGE =
+            "src/test/resources/ProfilePhotoTest/nonImageFile.txt";
+    public static final String INVALID_LOCAL_FILE_NONIMAGE_WITH_IMAGE_FILETYPE =
+            "src/test/resources/ProfilePhotoTest/nonImageFileWithJpgPrefix.jpg";
+    public static final String VALID_LOCAL_IMAGE_BIGGER_THAN_5MB =
+            "src/test/resources/ProfilePhotoTest/GreaterThan5MBTestJPG.jpg";
+
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
