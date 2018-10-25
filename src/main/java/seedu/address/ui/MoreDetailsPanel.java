@@ -57,7 +57,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
         this.assignmentList = listOfAssignments;
 
         // default label
-        Label noComponents = new Label("<No assignments entered>");
+        Label noComponents = new Label("<No student selected>");
         noComponents.setFont(new Font("System", (double) 25));
         components.add(noComponents, 0, 0);
 
@@ -89,7 +89,11 @@ public class MoreDetailsPanel extends UiPart<Region> {
         if (!isSetUp) {
             // add 2 columns, default has 1
             ColumnConstraints newColumn = new ColumnConstraints();
+            newColumn.setPercentWidth(40);
             components.getColumnConstraints().add(newColumn);
+            newColumn = new ColumnConstraints();
+            newColumn.setPercentWidth(20);
+            components.getColumnConstraints().addAll(newColumn, newColumn, newColumn);
 
             RowConstraints newRow = new RowConstraints();
             components.getRowConstraints().add(newRow);
@@ -103,25 +107,81 @@ public class MoreDetailsPanel extends UiPart<Region> {
 
         // add no. of rows equal to no. of assignments keyed in
         // Labels set to be label-bright
+        Label label;
+        String style = "-fx-font-size: 11pt;\n" + "-fx-font-family: \"Segoe UI Semibold\";\n"
+                    + "-fx-text-fill: white;\n" + "-fx-opacity: 1;";
+
+        label = new Label("Assignment");
+        label.setStyle(style);
+        components.add(label, 0, 0);
+
+        label = new Label("Deadline");
+        label.setStyle(style);
+        components.add(label, 1, 0);
+
+        label = new Label("Weight");
+        label.setStyle(style);
+        components.add(label, 2, 0);
+
+        label = new Label("Grade");
+        label.setStyle(style);
+        components.add(label, 3, 0);
+
+        float assignmentWeight;
+        float assignmentMark;
+        float assignmentMaxMark;
+        float totalWeight = 0;
+        float weightedMarks = 0;
+
+        int row = 1;
+        Assignment assignment;
         for (int i = 0; i < assignmentList.size(); i++) {
+            assignment = assignmentList.get(i);
             // adding assignment label
-            Label toAdd = new Label(assignmentList.get(i).getName().getValue());
-            toAdd.setStyle("-fx-font-size: 11pt;\n" + "-fx-font-family: \"Segoe UI Semibold\";\n"
-                    + "-fx-text-fill: white;\n" + "-fx-opacity: 1;");
-            components.add(toAdd, 0, i);
+            row = i + 1;
+
+            label = new Label(String.format("%d. %s", row, assignment.getName()));
+            label.setStyle(style);
+            components.add(label, 0, row);
+
+            label = new Label(String.valueOf(assignment.getDeadline()));
+            label.setStyle(style);
+            components.add(label, 1, row);
+
+            assignmentWeight = assignment.getWeight().getValue();
+            totalWeight += assignmentWeight;
+            label = new Label(String.valueOf(assignment.getWeight()));
+            label.setStyle(style);
+            components.add(label, 2, row);
 
             // adding marks label
-            String assignmentId = assignmentList.get(i).getUniqueId();
-            Label marksLabel;
             try {
-                marksLabel = new Label(Float.toString(student.getMarks().get(assignmentId).getValue()));
+                assignmentMark = student.getMarks().get(assignment.getUniqueId()).getValue();
+                assignmentMaxMark = assignment.getMaxMark().getValue();
+
+                label = new Label(String.format("%s/%s",
+                    String.valueOf(assignmentMark),
+                    String.valueOf(assignmentMaxMark)));
+
+                assignmentMark /= assignmentMaxMark;
+                weightedMarks += assignmentMark * assignmentWeight;
             } catch (Exception e) {
-                marksLabel = new Label("");
+                label = new Label("");
             }
-            marksLabel.setStyle("-fx-font-size: 11pt;\n" + "-fx-font-family: \"Segoe UI Semibold\";\n"
-                    + "-fx-text-fill: white;\n" + "-fx-opacity: 1;");
-            components.add(marksLabel, 1, i);
+            label.setStyle(style);
+            components.add(label, 3, row);
         }
+
+        row++;
+        label = new Label("Total");
+        label.setStyle(style);
+        components.add(label, 0, row);
+
+        label = new Label(String.format("%s/%s",
+                    String.valueOf(weightedMarks),
+                    String.valueOf(totalWeight)));
+        label.setStyle(style);
+        components.add(label, 3, row);
     }
 
     public ObservableList<Person> getList() {
