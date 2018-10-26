@@ -1,54 +1,37 @@
-package seedu.address.model.assignment;
+package seedu.address.model.attendance;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.commons.util.UniqueIdUtil.createUniqueId;
 
 import java.util.Objects;
+
+import seedu.address.model.assignment.Deadline;
+import seedu.address.model.assignment.Mark;
 /**
- * Represents an Assignment in the address book.
+ * Represents an Attendance in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Assignment implements Comparable<Assignment> {
+public class Attendance implements Comparable<Attendance> {
 
     // Identity fields
-    private final AssignmentName name;
-    private final Deadline deadline;
-    private final Weight weight;
-    private final Mark maxMark;
+    private final Deadline session;
     private final String uniqueId;
 
     /**
      * Every field must be present and not null.
      */
-    public Assignment(AssignmentName name, Weight weight, Deadline deadline, Mark maxMark, String uniqueId) {
-        requireAllNonNull(name, weight, deadline, maxMark, uniqueId);
-        this.name = name;
-        this.weight = weight;
-        this.deadline = deadline;
-        this.maxMark = maxMark;
+    public Attendance(Deadline session, String uniqueId) {
+        requireAllNonNull(session, uniqueId);
+        this.session = session;
         this.uniqueId = uniqueId;
     }
 
-    public Assignment(AssignmentName name, Weight weight, Deadline deadline, Mark maxMark) {
-        this(name, weight, deadline, maxMark,
-                createUniqueId(name.hashCode() + weight.hashCode() + deadline.hashCode() + maxMark.hashCode())
-        );
+    public Attendance(Deadline session) {
+        this(session, createUniqueId(session.hashCode()));
     }
 
-    public AssignmentName getName() {
-        return name;
-    }
-
-    public Weight getWeight() {
-        return weight;
-    }
-
-    public Deadline getDeadline() {
-        return deadline;
-    }
-
-    public Mark getMaxMark() {
-        return maxMark;
+    public Deadline getSession() {
+        return session;
     }
 
     public String getUniqueId() {
@@ -56,30 +39,30 @@ public class Assignment implements Comparable<Assignment> {
     }
 
     /**
-     * Returns true if both assignment have the same name.
-     * This defines a weaker notion of equality between two assignment.
+     * Returns true if both attendance have the same name.
+     * This defines a weaker notion of equality between two attendance.
      */
-    public boolean isSameAssignment(Assignment otherAssignment) {
-        if (otherAssignment == this) {
+    public boolean isSameAttendance(Attendance otherAttendance) {
+        if (otherAttendance == this) {
             return true;
         }
 
-        return otherAssignment != null
-                && otherAssignment.getName().equals(getName());
+        return otherAttendance != null
+                && otherAttendance.getSession().equals(getSession());
     }
 
     @Override
-    public int compareTo(Assignment other) {
-        int deadlineComparison = this.getDeadline().compareTo(other.getDeadline());
-        if (deadlineComparison != 0) {
-            return deadlineComparison;
+    public int compareTo(Attendance other) {
+        int sessionComparison = this.getSession().compareTo(other.getSession());
+        if (sessionComparison != 0) {
+            return sessionComparison;
         }
         return 0;
     }
 
     /**
-     * Returns true if both assignments have the same name and data fields.
-     * This defines a stronger notion of equality between two assignments.
+     * Returns true if both attendance have the same name and data fields.
+     * This defines a stronger notion of equality between two attendance.
      */
     @Override
     public boolean equals(Object other) {
@@ -87,33 +70,26 @@ public class Assignment implements Comparable<Assignment> {
             return true;
         }
 
-        if (!(other instanceof Assignment)) {
+        if (!(other instanceof Attendance)) {
             return false;
         }
 
-        Assignment otherAssignment = (Assignment) other;
-        return otherAssignment.getName().equals(getName())
-                && otherAssignment.getWeight().equals(getWeight())
-                && otherAssignment.getDeadline().equals(getDeadline())
-                && otherAssignment.getMaxMark().equals(getMaxMark());
+        Attendance otherAttendance = (Attendance) other;
+        return otherAttendance.getSession().equals(getSession());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name);
+        return Objects.hash(uniqueId);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Weight: ")
-                .append(getWeight())
-                .append(" Deadline: ")
-                .append(getDeadline())
-                .append(" Max Mark: ")
-                .append(getMaxMark());
+                .append(" Session: ")
+                .append(getSession());
         return builder.toString();
     }
 
