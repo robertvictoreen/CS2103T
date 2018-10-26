@@ -129,9 +129,6 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        /*browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
-        */
         detailsPanel = new MoreDetailsPanel(logic.getFilteredPersonList(), logic.getFilteredAssignmentList());
         detailsPlaceholder.getChildren().add(detailsPanel.getRoot());
 
@@ -200,39 +197,13 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    /**
-     * Opens a new window to key in the details of the to-be-added student.
-     */
-    @FXML
-    private void handleAdd() {
-
-        showAddWindowAndWait();
-    }
-
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
-
-    /*
-    void releaseResources() {
-        browserPanel.freeResources();
-    }
-    */
 
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
     }
-
-    /**
-     * Shows AddStudentWindow and waits for user interaction.
-     */
-    private void showAddWindowAndWait() {
-        AddStudentWindow addWindow = new AddStudentWindow();
-        addWindow.setLogic(logic);
-        addWindow.show();
-    }
-
-
 }
