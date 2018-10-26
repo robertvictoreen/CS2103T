@@ -13,6 +13,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.attendance.Attendance;
 import seedu.address.model.assignment.Mark;
 import seedu.address.model.tag.Tag;
 
@@ -33,6 +34,7 @@ public class Person {
     private ProfilePicture picture;
     private final Set<Tag> tags = new HashSet<>();
     private final Map<String, Mark> marks = new HashMap<>();
+    private final Map<String, Attendance> attendance = new HashMap<>();
 
     /**
      * Every field must be present and not null.
@@ -68,18 +70,21 @@ public class Person {
                 source.getTags(), source.getMarks());
     }
 
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Map<String, Mark> marks) {
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                  Map<String, Mark> marks, Map<String, Attendance> attendance) {
         this(name, phone, email, address, tags);
-        requireNonNull(marks);
+        requireAllNonNull(marks, attendance);
         this.marks.putAll(marks);
+        this.attendance.putAll(attendance);
     }
 
     public Person(Name name, Phone phone, Email email, Address address, ProfilePicture pic, Set<Tag> tags,
-                  Map<String, Mark> marks) {
+                  Map<String, Mark> marks, Map<String, Attendance> attendance) {
         this(name, phone, email, address, tags);
-        requireAllNonNull(pic, marks);
+        requireAllNonNull(pic, marks, attendance);
         this.picture = pic;
         this.marks.putAll(marks);
+        this.attendance.putAll(attendance);
     }
 
     public Name getName() {
@@ -158,6 +163,14 @@ public class Person {
     }
 
     /**
+     * Returns an immutable attendance map, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Map<String, Attendance> getAttendance() {
+        return Collections.unmodifiableMap(attendance);
+    }
+
+    /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
@@ -214,7 +227,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, marks);
+        return Objects.hash(name, phone, email, address, tags, marks, attendance);
     }
 
     @Override
