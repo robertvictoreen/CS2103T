@@ -16,6 +16,7 @@ import seedu.address.model.assignment.AssignmentName;
 import seedu.address.model.assignment.Deadline;
 import seedu.address.model.assignment.Mark;
 import seedu.address.model.assignment.Weight;
+import seedu.address.model.attendance.AttendanceMark;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -205,5 +206,20 @@ public class ParserUtil {
             throw new ParseException(Mark.MESSAGE_CONSTRAINTS);
         }
         return new Mark(trimmedMark);
+    }
+
+    /**
+     * Parses a {@code String mark} into an {@code AttendanceMark}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code mark} is invalid.
+     */
+    public static AttendanceMark parseAttendanceMark (String mark) throws ParseException {
+        requireNonNull(mark);
+        String trimmedMark = mark.trim();
+        if (!AttendanceMark.isValid(trimmedMark)) {
+            throw new ParseException(AttendanceMark.MESSAGE_CONSTRAINTS);
+        }
+        return new AttendanceMark(trimmedMark);
     }
 }
