@@ -191,7 +191,7 @@ public class XmlAdaptedPerson {
         }
 
         final Map<String, Mark> modelAttendance = new HashMap<>();
-        for (XmlAdaptedMark mark : marks) {
+        for (XmlAdaptedMark mark : attendance) {
             modelAttendance.put(mark.getKey(), mark.toModelType());
         }
 
