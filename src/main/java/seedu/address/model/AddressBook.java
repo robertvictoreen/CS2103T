@@ -7,6 +7,8 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.UniqueAssignmentList;
+import seedu.address.model.attendance.Attendance;
+import seedu.address.model.attendance.UniqueAttendanceList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -18,6 +20,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueAssignmentList assignments;
+    private final UniqueAttendanceList attendance;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -29,6 +32,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         assignments = new UniqueAssignmentList();
+        attendance = new UniqueAttendanceList();
     }
 
     public AddressBook() {}
@@ -168,6 +172,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Assignment> getAssignmentList() {
         return assignments.asUnmodifiableObservableList();
+    }
+    @Override
+    public ObservableList<Attendance> getAttendanceList() {
+        return attendance.asUnmodifiableObservableList();
     }
 
     @Override

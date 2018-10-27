@@ -6,7 +6,6 @@ import static seedu.address.commons.util.UniqueIdUtil.createUniqueId;
 import java.util.Objects;
 
 import seedu.address.model.assignment.Deadline;
-import seedu.address.model.assignment.Mark;
 /**
  * Represents an Attendance in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -87,8 +86,7 @@ public class Attendance implements Comparable<Attendance> {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Session: ")
+        builder.append("Attendance Session: ")
                 .append(getSession());
         return builder.toString();
     }

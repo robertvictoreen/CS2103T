@@ -32,6 +32,7 @@ public class PersonBuilder {
     private ProfilePicture picture;
     private Set<Tag> tags;
     private Map<String, Mark> marks;
+    private Map<String, Mark> attendance;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -41,6 +42,7 @@ public class PersonBuilder {
         picture = new ProfilePicture();
         tags = new HashSet<>();
         marks = new HashMap<>();
+        attendance = new HashMap<>();
     }
 
     /**
@@ -99,7 +101,7 @@ public class PersonBuilder {
     // TODO: Create a withMarks() function to set the marks of the (@code Person) that we are building.
 
     public Person build() {
-        return new Person(name, phone, email, address, picture, tags, marks);
+        return new Person(name, phone, email, address, picture, tags, marks, attendance);
     }
 
 }

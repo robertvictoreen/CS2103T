@@ -45,6 +45,8 @@ public class XmlAdaptedPerson {
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
     @XmlElement
     private List<XmlAdaptedMark> marks = new ArrayList<>();
+    @XmlElement
+    private List<XmlAdaptedMark> attendance = new ArrayList<>();
 
     /**
      * Constructs an XmlAdaptedPerson.
@@ -68,14 +70,18 @@ public class XmlAdaptedPerson {
     }
 
     /**
-     * Constructs an {@code XmlAdaptedPerson} with an additional Picture parameter and marks parameter
+     * Constructs an {@code XmlAdaptedPerson} with an additional Picture parameter,
+     * marks parameter, and attendance parameter
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address, String profilepicture,
-                            List<XmlAdaptedTag> tagged, List<XmlAdaptedMark> marks) {
+                            List<XmlAdaptedTag> tagged, List<XmlAdaptedMark> marks, List<XmlAdaptedMark> attendance) {
         this(name, phone, email, address, tagged);
         this.profilepicture = profilepicture;
         if (marks != null) {
             this.marks = new ArrayList<>(marks);
+        }
+        if (attendance != null) {
+            this.attendance = new ArrayList<>(attendance);
         }
     }
 
@@ -84,7 +90,7 @@ public class XmlAdaptedPerson {
      *
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
-    public XmlAdaptedPerson(Person source, List<String> allowedAssignmentUid) {
+    public XmlAdaptedPerson(Person source, List<String> allowedAssignmentUid, List<String> allowedAttendanceUid) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
@@ -97,6 +103,12 @@ public class XmlAdaptedPerson {
             Mark mark = source.getMarks().get(key);
             if (mark != null) {
                 marks.add(new XmlAdaptedMark(key, mark.internalString));
+            }
+        }
+        for (String key: allowedAttendanceUid) {
+            Mark mark = source.getAttendance().get(key);
+            if (mark != null) {
+                attendance.add(new XmlAdaptedMark(key, mark.internalString));
             }
         }
     }
@@ -117,6 +129,9 @@ public class XmlAdaptedPerson {
                 .collect(Collectors.toList());
         for (Map.Entry<String, Mark> entry : source.getMarks().entrySet()) {
             marks.add(new XmlAdaptedMark(entry.getKey(), entry.getValue().internalString));
+        }
+        for (Map.Entry<String, Mark> entry : source.getAttendance().entrySet()) {
+            attendance.add(new XmlAdaptedMark(entry.getKey(), entry.getValue().internalString));
         }
     }
 
@@ -175,7 +190,13 @@ public class XmlAdaptedPerson {
             modelMarks.put(mark.getKey(), mark.toModelType());
         }
 
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelPicture, modelTags, modelMarks);
+        final Map<String, Mark> modelAttendance = new HashMap<>();
+        for (XmlAdaptedMark mark : marks) {
+            modelAttendance.put(mark.getKey(), mark.toModelType());
+        }
+
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelPicture, modelTags,
+          modelMarks, modelAttendance);
     }
 
     @Override

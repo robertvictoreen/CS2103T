@@ -49,8 +49,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         ProfilePicture pic = new ProfilePicture();
         Map<String, Mark> markMap = new HashMap<>();
+        Map<String, Mark> attendanceMap = new HashMap<>();
 
-        Person person = new Person(name, phone, email, address, pic, tagList, markMap);
+        Person person = new Person(name, phone, email, address, pic, tagList, markMap, attendanceMap);
 
         return new AddCommand(person);
     }

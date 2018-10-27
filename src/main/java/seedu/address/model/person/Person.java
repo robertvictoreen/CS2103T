@@ -1,6 +1,5 @@
 package seedu.address.model.person;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.attendance.Attendance;
 import seedu.address.model.assignment.Mark;
 import seedu.address.model.tag.Tag;
 
@@ -34,7 +32,7 @@ public class Person {
     private ProfilePicture picture;
     private final Set<Tag> tags = new HashSet<>();
     private final Map<String, Mark> marks = new HashMap<>();
-    private final Map<String, Attendance> attendance = new HashMap<>();
+    private final Map<String, Mark> attendance = new HashMap<>();
 
     /**
      * Every field must be present and not null.
@@ -67,11 +65,11 @@ public class Person {
 
     public Person(Person source) {
         this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getProfilePicture(),
-                source.getTags(), source.getMarks());
+                source.getTags(), source.getMarks(), source.getAttendance());
     }
 
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-                  Map<String, Mark> marks, Map<String, Attendance> attendance) {
+                  Map<String, Mark> marks, Map<String, Mark> attendance) {
         this(name, phone, email, address, tags);
         requireAllNonNull(marks, attendance);
         this.marks.putAll(marks);
@@ -79,7 +77,7 @@ public class Person {
     }
 
     public Person(Name name, Phone phone, Email email, Address address, ProfilePicture pic, Set<Tag> tags,
-                  Map<String, Mark> marks, Map<String, Attendance> attendance) {
+                  Map<String, Mark> marks, Map<String, Mark> attendance) {
         this(name, phone, email, address, tags);
         requireAllNonNull(pic, marks, attendance);
         this.picture = pic;
@@ -166,7 +164,7 @@ public class Person {
      * Returns an immutable attendance map, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Map<String, Attendance> getAttendance() {
+    public Map<String, Mark> getAttendance() {
         return Collections.unmodifiableMap(attendance);
     }
 

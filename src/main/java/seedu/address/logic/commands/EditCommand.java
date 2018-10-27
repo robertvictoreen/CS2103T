@@ -106,9 +106,11 @@ public class EditCommand extends Command {
         ProfilePicture updatedPicture = personToEdit.getProfilePicture();
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Map<String, Mark> updatedMarks = personToEdit.getMarks();
+        Map<String, Mark> updatedAttendanceMarks = personToEdit.getAttendance();
 
         return new Person(
-                updatedName, updatedPhone, updatedEmail, updatedAddress, updatedPicture, updatedTags, updatedMarks
+                updatedName, updatedPhone, updatedEmail, updatedAddress, updatedPicture, updatedTags,
+          updatedMarks, updatedAttendanceMarks
         );
     }
 

@@ -101,9 +101,11 @@ public class MarkAssignmentCommand extends Command {
         Set<Tag> updatedTags = personToMarkAssignment.getTags();
         Map<String, Mark> updatedMarks = new HashMap<>(personToMarkAssignment.getMarks());
         updatedMarks.put(assignmentUid, assignmentMark);
+        Map<String, Mark> updatedAttendance = personToMarkAssignment.getAttendance();
 
         return new Person(
-                updatedName, updatedPhone, updatedEmail, updatedAddress, updatedPicture, updatedTags, updatedMarks
+                updatedName, updatedPhone, updatedEmail, updatedAddress, updatedPicture, updatedTags,
+          updatedMarks, updatedAttendance
         );
     }
 
