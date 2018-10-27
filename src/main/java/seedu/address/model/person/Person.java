@@ -33,6 +33,7 @@ public class Person {
     private ProfilePicture picture;
     private final Set<Tag> tags = new HashSet<>();
     private final Map<String, Mark> marks = new HashMap<>();
+    private String note;
 
     /**
      * Every field must be present and not null.
@@ -45,6 +46,7 @@ public class Person {
         this.address = address;
         this.picture = pic;
         this.tags.addAll(tags);
+        this.note = "";
 
         // assignmentStub initialization
         this.assignments = new ArrayList<>();
@@ -58,6 +60,7 @@ public class Person {
         this.address = address;
         this.picture = new ProfilePicture();
         this.tags.addAll(tags);
+        this.note = "";
 
         // assignmentStub initialization
         this.assignments = new ArrayList<>();
@@ -100,6 +103,10 @@ public class Person {
 
     public ProfilePicture getProfilePicture() {
         return picture;
+    }
+
+    public String getNote() {
+        return note;
     }
 
     /**
@@ -232,4 +239,11 @@ public class Person {
         return builder.toString();
     }
 
+    public boolean hasNote() {
+        return !note.equals("");
+    }
+
+    public void addNote(String text) {
+        note += text;
+    }
 }

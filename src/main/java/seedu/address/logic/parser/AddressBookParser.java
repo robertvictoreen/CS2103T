@@ -23,6 +23,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.MarkAssignmentCommand;
+import seedu.address.logic.commands.NoteCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SortAssignmentCommand;
@@ -95,6 +96,9 @@ public class AddressBookParser {
 
         case MarkAssignmentCommand.COMMAND_WORD:
             return new MarkAssignmentCommandParser().parse(arguments);
+
+        case NoteCommand.COMMAND_WORD:
+            return new NoteCommandParser().parse(arguments);
 
         case SortAssignmentCommand.COMMAND_WORD:
             return new SortAssignmentCommand();
