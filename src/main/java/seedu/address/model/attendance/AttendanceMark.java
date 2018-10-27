@@ -21,7 +21,7 @@ public class AttendanceMark extends Mark {
     }
 
     /**
-     * Returns true if a given string matches the class VALIDATION_REGEX.
+     * Returns true if a given string has an int value of 0 or 1.
      */
     public static boolean isValid(String test) {
         int value = Integer.parseInt(test);

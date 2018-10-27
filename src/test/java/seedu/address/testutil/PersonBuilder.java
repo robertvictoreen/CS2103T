@@ -56,6 +56,7 @@ public class PersonBuilder {
         picture = personToCopy.getProfilePicture();
         tags = new HashSet<>(personToCopy.getTags());
         marks = new HashMap<>(personToCopy.getMarks());
+        attendance = new HashMap<>(personToCopy.getAttendance());
     }
 
     /**
