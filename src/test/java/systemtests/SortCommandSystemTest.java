@@ -1,11 +1,11 @@
 package systemtests;
 
+import org.junit.Test;
+
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-
-import org.junit.Test;
 
 public class SortCommandSystemTest extends AddressBookSystemTest {
 

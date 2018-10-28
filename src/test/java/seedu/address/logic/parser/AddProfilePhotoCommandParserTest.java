@@ -1,10 +1,5 @@
 package seedu.address.logic.parser;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddProfilePhotoCommand;
-
-import org.junit.Test;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHOTO_DESC_IMAGE_GREATER_THAN_5MB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHOTO_DESC_NONIMAGE;
@@ -16,6 +11,10 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import org.junit.Test;
+
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.AddProfilePhotoCommand;
 
 public class AddProfilePhotoCommandParserTest {
 
