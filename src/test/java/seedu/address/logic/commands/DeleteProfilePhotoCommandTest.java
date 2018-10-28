@@ -9,8 +9,6 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-
-
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
@@ -38,7 +36,8 @@ public class DeleteProfilePhotoCommandTest {
 
         updatedPerson.deleteProfilePhoto();
         DeleteProfilePhotoCommand deleteProfilePhotoCommand = prepareCommand(index);
-        String expectedMessage = String.format(DeleteProfilePhotoCommand.MESSAGE_DELETE_PROFILE_PIC_SUCCESS, index.getOneBased());
+        String expectedMessage = String.format(DeleteProfilePhotoCommand.MESSAGE_DELETE_PROFILE_PIC_SUCCESS,
+                index.getOneBased());
         Model expectedModel =
                 new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.updatePerson(model.getFilteredPersonList().get(0), updatedPerson);
@@ -57,7 +56,8 @@ public class DeleteProfilePhotoCommandTest {
 
         updatedPerson.deleteProfilePhoto();
         DeleteProfilePhotoCommand deleteProfilePhotoCommand = prepareCommand(index);
-        String expectedMessage = String.format(DeleteProfilePhotoCommand.MESSAGE_DELETE_PROFILE_PIC_SUCCESS, index.getOneBased());
+        String expectedMessage = String.format(DeleteProfilePhotoCommand.MESSAGE_DELETE_PROFILE_PIC_SUCCESS,
+                index.getOneBased());
         Model expectedModel =
                 new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.updatePerson(model.getFilteredPersonList().get(0), updatedPerson);
@@ -71,7 +71,8 @@ public class DeleteProfilePhotoCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         DeleteProfilePhotoCommand deleteProfilePhotoCommand = prepareCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteProfilePhotoCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteProfilePhotoCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test

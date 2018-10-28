@@ -1,17 +1,15 @@
-//@@author yuheng222
-
 package seedu.address.logic.commands;
+
+import static junit.framework.TestCase.assertEquals;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import org.junit.Before;
+import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import static junit.framework.TestCase.assertEquals;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for SortCommand.

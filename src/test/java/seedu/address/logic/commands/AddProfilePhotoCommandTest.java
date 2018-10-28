@@ -7,10 +7,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_LOCAL_IMAGE_PNG
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Test;
 
@@ -71,36 +70,37 @@ public class AddProfilePhotoCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         AddProfilePhotoCommand addProfilePhotoCommand = prepareCommand(outOfBoundIndex, VALID_LOCAL_IMAGE_JPG);
 
-        assertCommandFailure(addProfilePhotoCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(addProfilePhotoCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() throws Exception {
-        AddProfilePhotoCommand addPicCommandFirst = prepareCommand(INDEX_FIRST_PERSON, VALID_LOCAL_IMAGE_JPG);
-        AddProfilePhotoCommand addPicCommandSecond = prepareCommand(INDEX_SECOND_PERSON, VALID_LOCAL_IMAGE_PNG);
+        AddProfilePhotoCommand addPhotoCommandFirst = prepareCommand(INDEX_FIRST_PERSON, VALID_LOCAL_IMAGE_JPG);
+        AddProfilePhotoCommand addPhotoCommandSecond = prepareCommand(INDEX_SECOND_PERSON, VALID_LOCAL_IMAGE_PNG);
 
         // same object -> returns true
-        assertTrue(addPicCommandFirst.equals(addPicCommandFirst));
+        assertTrue(addPhotoCommandFirst.equals(addPhotoCommandFirst));
 
         // same values -> returns true
-        AddProfilePhotoCommand addPicCommandFirstCopy = prepareCommand(INDEX_FIRST_PERSON, VALID_LOCAL_IMAGE_JPG);
-        assertTrue(addPicCommandFirstCopy.equals(addPicCommandFirst));
+        AddProfilePhotoCommand addPhotoCommandFirstCopy = prepareCommand(INDEX_FIRST_PERSON, VALID_LOCAL_IMAGE_JPG);
+        assertTrue(addPhotoCommandFirstCopy.equals(addPhotoCommandFirst));
 
         // different types -> returns false
-        assertFalse(addPicCommandFirst.equals(1));
+        assertFalse(addPhotoCommandFirst.equals(1));
 
         // null -> returns false
-        assertFalse(addPicCommandFirst.equals(null));
+        assertFalse(addPhotoCommandFirst.equals(null));
 
         // different indexes -> returns false
         AddProfilePhotoCommand apc = prepareCommand(INDEX_SECOND_PERSON, VALID_LOCAL_IMAGE_JPG);
-        assertFalse(apc.equals(addPicCommandFirst));
+        assertFalse(apc.equals(addPhotoCommandFirst));
 
         // same indexes, different files -> returns false
-        assertFalse(apc.equals(addPicCommandSecond));
+        assertFalse(apc.equals(addPhotoCommandSecond));
 
         // both index and files different -> returns false
-        assertFalse(addPicCommandSecond.equals(addPicCommandFirst));
+        assertFalse(addPhotoCommandSecond.equals(addPhotoCommandFirst));
 
     }
 
@@ -109,7 +109,7 @@ public class AddProfilePhotoCommandTest {
      * Returns an {@code AddPictureCommand} with parameters {@code index} and {@code path}
      */
     private AddProfilePhotoCommand prepareCommand(Index index, String path) {
-        AddProfilePhotoCommand addPictureCommand = new AddProfilePhotoCommand(index, path);
-        return addPictureCommand;
+        AddProfilePhotoCommand addPhotoCommand = new AddProfilePhotoCommand(index, path);
+        return addPhotoCommand;
     }
 }
