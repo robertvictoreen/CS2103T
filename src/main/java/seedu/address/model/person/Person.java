@@ -44,7 +44,7 @@ public class Person {
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.photo = pic;
+        this.photo = photo;
         this.tags.addAll(tags);
 
         // assignmentStub initialization
@@ -78,7 +78,7 @@ public class Person {
     public Person(Name name, Phone phone, Email email, Address address, ProfilePhoto photo, Set<Tag> tags,
                   Map<String, Mark> marks) {
         this(name, phone, email, address, tags);
-        requireAllNonNull(pic, marks);
+        requireAllNonNull(photo, marks);
         this.photo = photo;
         this.marks.putAll(marks);
     }
