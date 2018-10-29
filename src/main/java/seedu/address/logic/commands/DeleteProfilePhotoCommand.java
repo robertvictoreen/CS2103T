@@ -20,7 +20,7 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  * reset it to the original image.
  */
 public class DeleteProfilePhotoCommand extends Command {
-    public static final String COMMAND_WORD = "deleteProfilePic";
+    public static final String COMMAND_WORD = "deleteProfilePhoto";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the profile picture of the person identified by the index number used in "
