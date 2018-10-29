@@ -15,7 +15,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Adds a note to the specified student if there is none, adds to end with prefixed whitespace if it already exists.
+ * Adds a note about the specified student if there is none, adds to end with whitespace-prefix if it already exists.
  */
 public class NoteCommand extends Command {
 
