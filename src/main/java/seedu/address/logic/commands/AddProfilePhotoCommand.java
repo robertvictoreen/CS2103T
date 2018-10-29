@@ -31,7 +31,7 @@ public class AddProfilePhotoCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) " + PREFIX_FILEPATH
             + "FILEPATH (path to a valid image file)\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_FILEPATH + "C://Pictures/johnPicture.jpg";
+            + PREFIX_FILEPATH + "C:\\Users\\Zackkh95\\Pictures\\defaultpicture.jpg";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
     private final Index index;
