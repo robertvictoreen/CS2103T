@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.person.Note.MESSAGE_NOTE_CONSTRAINTS;
+import static seedu.address.model.person.Note.NOTE_VALIDATION_REGEX;
 
 import java.util.List;
 
@@ -23,7 +25,7 @@ public class NoteCommand extends Command {
         + ": Adds a note about the student specified by the given index. "
         + "Parameters: "
         + "INDEX TEXT\n"
-        + "Example:" + COMMAND_WORD + " 1 " + "Hardworking student.";
+        + "Example:" + COMMAND_WORD + " 1" + " hardworking student";
 
     public static final String MESSAGE_SUCCESS = "New note added to %1$s";
 
@@ -48,6 +50,11 @@ public class NoteCommand extends Command {
         int zeroBasedIndex = studentIndex.getZeroBased();
         if (zeroBasedIndex >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        // Checks if text is valid
+        if (!textToAdd.matches(NOTE_VALIDATION_REGEX)) {
+            throw new CommandException(MESSAGE_NOTE_CONSTRAINTS);
         }
 
         Person student = lastShownList.get(zeroBasedIndex);

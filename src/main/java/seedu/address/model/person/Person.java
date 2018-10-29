@@ -26,14 +26,14 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
-    private final List<AssignmentStub> assignments;
 
     // Data fields
     private final Address address;
-    private ProfilePicture picture;
     private final Set<Tag> tags = new HashSet<>();
     private final Map<String, Mark> marks = new HashMap<>();
-    private String note;
+    private final List<AssignmentStub> assignments;
+    private ProfilePicture picture;
+    private Note note;
 
     /**
      * Every field must be present and not null.
@@ -46,7 +46,7 @@ public class Person {
         this.address = address;
         this.picture = pic;
         this.tags.addAll(tags);
-        this.note = "";
+        this.note = new Note();
 
         // assignmentStub initialization
         this.assignments = new ArrayList<>();
@@ -60,7 +60,7 @@ public class Person {
         this.address = address;
         this.picture = new ProfilePicture();
         this.tags.addAll(tags);
-        this.note = "";
+        this.note = new Note();
 
         // assignmentStub initialization
         this.assignments = new ArrayList<>();
@@ -105,7 +105,7 @@ public class Person {
         return picture;
     }
 
-    public String getNote() {
+    public Note getNote() {
         return note;
     }
 
@@ -142,7 +142,7 @@ public class Person {
     }
 
     /**
-     * Getter for AssignmentStub class
+     * Getter for stub assignments
      */
     public List<AssignmentStub> getAssignments() {
         return assignments;
@@ -215,7 +215,8 @@ public class Person {
                 && otherPerson.getTags().equals(getTags())
                 && otherPerson.getMarks().equals(getMarks())
                 && otherPerson.getProfilePicture().equals(getProfilePicture())
-                && otherPerson.getAssignments().equals(getAssignments());
+                && otherPerson.getAssignments().equals(getAssignments())
+                && otherPerson.getNote().equals(getNote());
     }
 
     @Override
@@ -240,10 +241,21 @@ public class Person {
     }
 
     public boolean hasNote() {
-        return !note.equals("");
+        return !(note.isDefault());
     }
 
+    /**
+     * Adds a note to this student.
+     * @param text in the note
+     */
     public void addNote(String text) {
-        note += text;
+        note.add(text);
+    }
+
+    /**
+     * Deletes added notes of student.
+     */
+    public void deleteNote() {
+        note.reset();
     }
 }

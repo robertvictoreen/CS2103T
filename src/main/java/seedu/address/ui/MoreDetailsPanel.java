@@ -193,7 +193,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
 
         // show student's notes
         notesText.clear();
-        notesText.setText(student.getNote());
+        notesText.setText(student.getNote().toString());
     }
 
     public ObservableList<Person> getList() {
