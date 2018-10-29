@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -16,7 +15,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.model.assignment.Assignment;
 import seedu.address.model.person.AssignmentStub;
 import seedu.address.model.person.Person;
 
@@ -30,14 +31,12 @@ public class MoreDetailsPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     // Initializing test data
-    private AssignmentStub assignment1 = new AssignmentStub("Finals", 73);
-    private AssignmentStub assignment2 = new AssignmentStub("Mid-terms", 39);
-    private AssignmentStub assignment3 = new AssignmentStub("Participation", 10);
-    private AssignmentStub assignment4 = new AssignmentStub("Product Demo", 101);
-    private AssignmentStub[] assignments = {assignment1, assignment2, assignment3, assignment4};
+    private AssignmentStub[] assignments = {new AssignmentStub("Finals", 73), new AssignmentStub("Mid-terms", 39),
+        new AssignmentStub("Participation", 10), new AssignmentStub("Product Demo", 101)};
 
     // List of students
     private ObservableList<Person> studentList;
+    private ObservableList<Assignment> assignmentList;
 
     // Current student whose details are being shown
     private Person currentStudent = null;
@@ -51,22 +50,14 @@ public class MoreDetailsPanel extends UiPart<Region> {
     @FXML
     private GridPane components;
 
-    public MoreDetailsPanel(ObservableList<Person> listOfStudents) {
+    public MoreDetailsPanel(ObservableList<Person> listOfStudents, ObservableList<Assignment> listOfAssignments) {
         super(FXML);
         registerAsAnEventHandler(this);
         this.studentList = listOfStudents;
-
-        // add dummy assignments to students
-        Person student = studentList.get(0);
-        student.addAssignment(assignments[0]);
-        student.addAssignment(assignments[1]);
-        Person student2 = studentList.get(1);
-        student2.addAssignment(assignments[2]);
-        Person student3 = studentList.get(2);
-        student3.addAssignment(assignments[3]);
+        this.assignmentList = listOfAssignments;
 
         // default label
-        Label noComponents = new Label("<No assignments entered>");
+        Label noComponents = new Label("<No student selected>");
         noComponents.setFont(new Font("System", (double) 25));
         components.add(noComponents, 0, 0);
 
@@ -82,14 +73,27 @@ public class MoreDetailsPanel extends UiPart<Region> {
         display(currentStudent); // display student's details in details panel
     }
 
+    @Subscribe
+    private void handleAddressbookChangedEvent(AddressBookChangedEvent event) {
+        currentStudent = getCurrentStudent();
+        display(currentStudent); // display student's details in details panel
+    }
+
     /**
-     * Displays the details of the student selected in the Details Panel on the bottom right.
+     * Displays the student's details in the Details Panel on the bottom right.
      */
     public void display(Person student) {
+        if (student == null) {
+            return;
+        }
         if (!isSetUp) {
             // add 2 columns, default has 1
             ColumnConstraints newColumn = new ColumnConstraints();
+            newColumn.setPercentWidth(40);
             components.getColumnConstraints().add(newColumn);
+            newColumn = new ColumnConstraints();
+            newColumn.setPercentWidth(20);
+            components.getColumnConstraints().addAll(newColumn, newColumn, newColumn);
 
             RowConstraints newRow = new RowConstraints();
             components.getRowConstraints().add(newRow);
@@ -98,26 +102,86 @@ public class MoreDetailsPanel extends UiPart<Region> {
 
         logger.info("Displaying details!\n");
 
-        List<AssignmentStub> assignmentList = student.getAssignments();
-
         // remove old labels
         components.getChildren().clear();
 
         // add no. of rows equal to no. of assignments keyed in
         // Labels set to be label-bright
+        Label label;
+        String style = "-fx-font-size: 11pt;\n" + "-fx-font-family: \"Segoe UI Semibold\";\n"
+                    + "-fx-text-fill: white;\n" + "-fx-opacity: 1;";
+
+        label = new Label("Assignment");
+        label.setStyle(style);
+        components.add(label, 0, 0);
+
+        label = new Label("Deadline");
+        label.setStyle(style);
+        components.add(label, 1, 0);
+
+        label = new Label("Weight");
+        label.setStyle(style);
+        components.add(label, 2, 0);
+
+        label = new Label("Grade");
+        label.setStyle(style);
+        components.add(label, 3, 0);
+
+        float assignmentWeight;
+        float assignmentMark;
+        float assignmentMaxMark;
+        float totalWeight = 0;
+        float weightedMarks = 0;
+
+        int row = 1;
+        Assignment assignment;
         for (int i = 0; i < assignmentList.size(); i++) {
+            assignment = assignmentList.get(i);
             // adding assignment label
-            Label toAdd = new Label(assignmentList.get(i).getName());
-            toAdd.setStyle("-fx-font-size: 11pt;\n" + "-fx-font-family: \"Segoe UI Semibold\";\n"
-                + "-fx-text-fill: white;\n" + "-fx-opacity: 1;");
-            components.add(toAdd, 0, i);
+            row = i + 1;
+
+            label = new Label(String.format("%d. %s", row, assignment.getName()));
+            label.setStyle(style);
+            components.add(label, 0, row);
+
+            label = new Label(String.valueOf(assignment.getDeadline()));
+            label.setStyle(style);
+            components.add(label, 1, row);
+
+            assignmentWeight = assignment.getWeight().getValue();
+            totalWeight += assignmentWeight;
+            label = new Label(String.valueOf(assignment.getWeight()));
+            label.setStyle(style);
+            components.add(label, 2, row);
 
             // adding marks label
-            Label marksLabel = new Label(Float.toString(assignmentList.get(i).getMarks()));
-            marksLabel.setStyle("-fx-font-size: 11pt;\n" + "-fx-font-family: \"Segoe UI Semibold\";\n"
-                + "-fx-text-fill: white;\n" + "-fx-opacity: 1;");
-            components.add(marksLabel, 1, i);
+            try {
+                assignmentMark = student.getMarks().get(assignment.getUniqueId()).getValue();
+                assignmentMaxMark = assignment.getMaxMark().getValue();
+
+                label = new Label(String.format("%s/%s",
+                    String.valueOf(assignmentMark),
+                    String.valueOf(assignmentMaxMark)));
+
+                assignmentMark /= assignmentMaxMark;
+                weightedMarks += assignmentMark * assignmentWeight;
+            } catch (Exception e) {
+                label = new Label("");
+            }
+            label.setStyle(style);
+            components.add(label, 3, row);
         }
+
+        row++;
+        label = new Label("Total");
+        label.setStyle(style);
+        components.add(label, 0, row);
+
+        label = new Label(String.format("%s/%s",
+                    String.valueOf(weightedMarks),
+                    String.valueOf(totalWeight)));
+        label.setStyle(style);
+        components.add(label, 3, row);
     }
 
     public ObservableList<Person> getList() {

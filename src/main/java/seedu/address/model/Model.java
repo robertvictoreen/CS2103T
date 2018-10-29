@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.assignment.Assignment;
 import seedu.address.model.person.Person;
 
 /**
@@ -42,11 +43,42 @@ public interface Model {
      */
     void updatePerson(Person target, Person editedPerson);
 
+    /**
+     * Returns true if an assignment with the same identity as {@code assignment} exists in the address book.
+     */
+    boolean hasAssignment(Assignment assignment);
+
+    /**
+     * Deletes the given assignment.
+     * The assignment must exist in the address book.
+     */
+    void deleteAssignment(Assignment target);
+
+    /**
+     * Adds the given assignment.
+     * {@code assignment} must not already exist in the address book.
+     */
+    void addAssignment(Assignment assignment);
+
+    /**
+     * Replaces the given assignment {@code target} with {@code editedAssignment}.
+     * {@code target} must exist in the address book.
+     * The assignment identity of {@code editedAssignment} must not be the same as another existing assignment in the
+     * address book.
+     */
+    void updateAssignment(Assignment target, Assignment editedAssignment);
+
+    /** Returns an unmodifiable view of the assignment list */
+    ObservableList<Assignment> getFilteredAssignmentList();
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
     /** Sorts the persons in the AddressBook lexicographically */
     void sort();
+
+    /** Sorts the assignments in the AddressBook by deadline */
+    void sortAssignment();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.

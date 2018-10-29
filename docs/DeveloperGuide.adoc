@@ -172,7 +172,7 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `MoreDetailsPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -409,6 +409,35 @@ Creating a new object each time might be highly memory-consuming, but probably i
 
 // end::deletephoto[]
 
+// tag::assignment[]
+=== Assignment data structure
+
+Global information about assignment is stored in addressbook level and
+each assignment have a uniqueId that will not change when the assignment is edited.
+Also every student store a map with assignment uniqueId as key and mark obtained as value.
+
+==== Design Considerations
+
+===== Aspect: Data Structure to support assignment operations
+* **Alternative 1 (current choice):** Use a hashmap of uniqueId to mark to store assignment score of each student.
+** Pros: Flexibility to edit assignment without having to do any operation on each student.
+** Cons: Any functionality that needs to iterate through all assignment score for a student must first iterate through
+UniqueAssignmentList to know which score belongs to which assignment.
+* **Alternative 2:** Store all assignment information on each student.
+** Pros: Easy to implement. All method that wants to read a student assignment information including score only need to read 1 student.
+** Cons: Requires more memory since every assignment is stored in every student. Harder to edit assignment since we must
+edit assignment information in every single student.
+//end:assignment[]
+
+=== UI-Model binding of student details
+
+==== Current Implementation
+The data `MoreDetailsPanel` binds itself to are `filteredPersons` and `filteredAssignments` in the `Model` class.
+
+* `filteredPersons` -- Current students stored in the database.
+* `filteredAssignments` -- The names of all the assignments that the students have in the database.
+
+`MoreDetailsPanel` will be notified by any changes in the data when a related event is raised, such as `PersonPanelSelectionChangedEvent`. It will then retrieve the new student's marks using `filteredPersons` and display them with reference to their names in `filteredAssignments`.
 
 === Logging
 

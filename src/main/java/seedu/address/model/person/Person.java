@@ -1,15 +1,19 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.assignment.Mark;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -26,14 +30,15 @@ public class Person {
 
     // Data fields
     private final Address address;
-    private final Set<Tag> tags = new HashSet<>();
     private ProfilePhoto photo;
+    private final Set<Tag> tags = new HashSet<>();
+    private final Map<String, Mark> marks = new HashMap<>();
 
     /**
      * Every field must be present and not null.
      */
 
-    public Person(Name name, Phone phone, Email email, Address address, ProfilePhoto pic, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, ProfilePhoto photo, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -41,6 +46,8 @@ public class Person {
         this.address = address;
         this.photo = pic;
         this.tags.addAll(tags);
+
+        // assignmentStub initialization
         this.assignments = new ArrayList<>();
     }
 
@@ -52,12 +59,28 @@ public class Person {
         this.address = address;
         this.photo = new ProfilePhoto();
         this.tags.addAll(tags);
+
+        // assignmentStub initialization
         this.assignments = new ArrayList<>();
     }
 
     public Person(Person source) {
         this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getProfilePhoto(),
-                source.getTags());
+                source.getTags(), source.getMarks());
+    }
+
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Map<String, Mark> marks) {
+        this(name, phone, email, address, tags);
+        requireNonNull(marks);
+        this.marks.putAll(marks);
+    }
+
+    public Person(Name name, Phone phone, Email email, Address address, ProfilePhoto photo, Set<Tag> tags,
+                  Map<String, Mark> marks) {
+        this(name, phone, email, address, tags);
+        requireAllNonNull(pic, marks);
+        this.photo = photo;
+        this.marks.putAll(marks);
     }
 
     public Name getName() {
@@ -76,24 +99,20 @@ public class Person {
         return address;
     }
 
-    public List<AssignmentStub> getAssignments() {
-        return assignments;
-    }
-
     public ProfilePhoto getProfilePhoto() {
         return photo;
     }
 
 
     /**
-     * Delete the current picture and set up a default picture.
+     * Delete the current photo and set up a default photo.
      */
     public void deleteProfilePhoto() {
         this.photo = new ProfilePhoto();
     }
 
     /**
-     * Set profile picture to that in path
+     * Set profile photo to that in path
      */
     public void setProfilePhoto(String path) throws IllegalValueException {
 
@@ -102,9 +121,16 @@ public class Person {
             int fileName = this.hashCode();
             this.photo = new ProfilePhoto(path, String.valueOf(fileName));
         } catch (Exception e) {
-            this.photo = oldPhoto; //changes picture back to default
+            this.photo = oldPhoto; //changes photo back to default
             throw new IllegalValueException(ProfilePhoto.MESSAGE_PHOTO_CONSTRAINTS);
         }
+    }
+
+    /**
+     * Getter for AssignmentStub class
+     */
+    public List<AssignmentStub> getAssignments() {
+        return assignments;
     }
 
     /**
@@ -113,6 +139,14 @@ public class Person {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns an immutable mark map, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Map<String, Mark> getMarks() {
+        return Collections.unmodifiableMap(marks);
     }
 
     /**
@@ -165,13 +199,14 @@ public class Person {
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getTags().equals(getTags())
                 && otherPerson.getProfilePhoto().equals(getProfilePhoto())
+                && otherPerson.getMarks().equals(getMarks())
                 && otherPerson.getAssignments().equals(getAssignments());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, tags, marks);
     }
 
     @Override

@@ -35,8 +35,8 @@ public class AttendanceCommandParser implements Parser<AttendanceCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AttendanceCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AttendanceCommand.MESSAGE_USAGE),
+                pe);
         }
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();

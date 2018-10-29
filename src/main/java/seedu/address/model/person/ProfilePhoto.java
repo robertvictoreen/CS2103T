@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 
 
 /**
- * Represents a Person's profile picture in the address book.
+ * Represents a Student's profile photo in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class ProfilePhoto {
@@ -21,10 +21,10 @@ public class ProfilePhoto {
     public static final String MESSAGE_PHOTO_CONSTRAINTS =
             "Filepath must be valid, point to an image file, and is less than 10MB in size. "
                     + "Example of a valid file path C:\\Users\\Zackkh95\\Pictures\\zacharytan.jpg";
-    public static final String PHOTO_VALIDATION_REGEX_EXT = "([a-zA-Z]:)?(\\\\[a-zA-Z0-9._-]+)+\\\\?";
-    public static final String PHOTO_VALIDATION_REGEX_INT = "[^\\s].*";
-    public static final String APPDATA_DIRECTORY = getDefaultDirectory();
-    public static final String FOLDER = APPDATA_DIRECTORY + "/AddressBook";
+    public static final String PICTURE_VALIDATION_REGEX_EXT = "([a-zA-Z]:)?(\\\\[a-zA-Z0-9._-]+)+\\\\?";
+    public static final String PICTURE_VALIDATION_REGEX_INT = "[^\\s].*";
+    public static final String APPDATA_DIR = getDefaultDirectory();
+    public static final String FOLDER = APPDATA_DIR + File.separator + "EzTutor" + File.separator + "data";
     private static final String URL_PREFIX = "file:/";
 
     private static final int FIVE_MB_IN_BYTES = 5242880;
@@ -32,7 +32,7 @@ public class ProfilePhoto {
     private String path;
 
     /**
-     * Default initializer, uses default picture
+     * Default initializer, uses default photo
      */
     public ProfilePhoto() {
 

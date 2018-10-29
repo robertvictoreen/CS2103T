@@ -2,7 +2,7 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/CS2103-AY1819S1-W12-4/main[image:https://travis-ci.org/CS2103-AY1819S1-W12-4/main.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/damithc/addressbook-level4[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
+https://ci.appveyor.com/project/spencertan96/main[image:https://ci.appveyor.com/api/projects/status/16rotceog2iv3617?svg=true[Build Status]]
 https://coveralls.io/github/CS2103-AY1819S1-W12-4/main?branch=master[image:https://coveralls.io/repos/github/CS2103-AY1819S1-W12-4/main/badge.svg?branch=master[Coverage Status]]
 
 ifdef::env-github[]
@@ -13,12 +13,12 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-*This is a desktop Address Book application for NUS tutors to manage their administrative tasks.*
+*This is a desktop Student Management application for NUS tutors to manage their administrative tasks.*
 *It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).*
-*This addressbook helps NUS tutors to track student's attendance, participation, submissions and grades for their modules.*
+*This application helps NUS tutors to track student's attendance, participation, submissions and grades for their modules.*
 *It is written in OOP fashion.*
 *What's good about this project:*
-*A more sophisticated GUI that includes a list  panel and an in-built Browser.*
+*A more sophisticated GUI that includes a list  panel and an in-built statistics calculator.*
 *More test cases, including automated GUI testing.*
 *Support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.*
 

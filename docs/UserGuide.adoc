@@ -137,7 +137,7 @@ Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the student list's content (`add`, `delete`, `edit`, `mark`, `unmark`, `sort`, `present`, `absent` and `clear`).
+Undoable commands: those commands that modify the student list's content (`add`, `delete`, `edit`, `markAssignment`, `markAttendance`, `sort` and `clear`).
 ====
 
 Examples:
@@ -184,15 +184,10 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Exits the program. +
 Format: `exit`
 
-=== Mark a student's attendance as present: `present`
+=== Mark a student's attendance as present or absent: `markAttendance`
 
-Adds an entry to the attendance specifying the student at the specified index as present. +
-Format: `present INDEX`
-
-=== Mark a student's attendance as absent: `absent`
-
-Adds an entry to the attendance specifying the student at the specified index as absent. +
-Format: `absent INDEX`
+Records the attendance of a student as present or absent for a specified date. +
+Format: `markAttendance INDEX a/BOOLEAN d/DATE`
 
 === Sort the student list: `sort`
 
@@ -202,25 +197,30 @@ Format: `sort [s/p/a]`
 [TIP]
 Students are sorted according by alphabetical order by default (with no argument).
 
-== Sorting students by name : `sort`
- Sorts all student in the address book by name. +
-Format: `sort`
+=== Add an assignment: `addAssignment`
 
-=== Record a mark for a student: `mark`
+Adds an assignment with given assignment name, weight, deadline, maximum mark. +
+Format: `addAssignment n/NAME w/WEIGHT d/DEADLINE m/MAX_MARK`
 
-Adds a mark entry associated with a student given the percentage value of mark obtained. +
-Format: `mark INDEX m/MARK`
+=== Delete an assignment: `deleteAssignment`
 
-=== View a student's marks: `results`
-_Coming in v2.0_
+Delete an assignment with given assignment index. +
+Format: `deleteAssignment INDEX`
 
-View the mark entries associated with the student at the specified index. +
-Format: `results INDEX`
+=== Record a mark for a student: `markAssignment`
 
-=== Delete a mark entry: `unmark`
+Adds a mark for an assignment associated with a student given the mark obtained. +
+Format: `markAssignment INDEX id/ASSIGNMENT_INDEX m/MARK`
 
-Delete the indexed mark entry in the list associated with the student at the specified index. +
-Format: `unmark INDEX m/MARK`
+=== Display the statistics for an assignment: `assignmentStats`
+
+Display the statistics for the specified assignment. +
+Format: `assignmentStats INDEX`
+
+=== Sort all assignment: `sortAssignment`
+
+Sort all assignment by deadline. +
+Format: `sortAssignment`
 
 === Editing a student: `edit`
 
@@ -257,20 +257,29 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 * *Absent* : `absent NAME`
 * *Add* : `add NAME [s/INDEX p/PHONE_NUMBER e/EMAIL [t/TAG]...` +
 e.g. `add James Ho s/1 p/22224444 e/jamesho@example.com t/friend t/colleague`
+* *AddAssignment* : `addAssignment n/NAME w/WEIGHT d/DEADLINE m/MAX_MARK` +
+e.g. `addAssignment n/Assignment 1 w/15 d/14/10/2019 m/100`
+* *AssignmentStats* : `assignmentStats INDEX` +
+e.g. `assignmentStats 1`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
+* *DeleteAssignment* : `deleteAssignment INDEX` +
+e.g. `deleteAssignment 3`
 * *Edit* : `edit INDEX [NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]...` +
 e.g. `edit 2 James Lee e/jameslee@example.com`
 * *Exit* : `exit`
 * *Help* : `help`
 * *History* : `history`
-* *Mark* : `mark m/MARK s/INDEX o/OBTAINED m/MAX`
+* *MarkAssignment* : `markAssignment INDEX id/ASSIGNMENT_INDEX m/MARK`
+e.g. `markAssignment 1 id/1 m/53`
+* *MarkAttendance* : `markAttendance INDEX a/BOOLEAN d/DATE`
+e.g. `markAttendance 1 a/true d/14/10/2019`
 * *Present* : `present NAME`
 * *Redo* : `redo`
 * *Results* : `results INDEX`
-* *Sort* : `sort [s/p/a]
+* *Sort* : `sort [s/p/a]`
 * *Sort* : `sort`
+* *SortAssignment* : `sortAssignment`
 * *Undo* : `undo`
-* *Unmark* : `unmark INDEX`
 
