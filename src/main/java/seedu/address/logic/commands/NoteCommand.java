@@ -13,18 +13,19 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Adds a note to the specified student if there is none, adds to the end if it already exists.
+ * Adds a note to the specified student if there is none, adds to end with prefixed whitespace if it already exists.
  */
 public class NoteCommand extends Command {
 
     public static final String COMMAND_WORD = "note";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a note to a specified student. "
-            + "Parameters: "
-            + "INDEX TEXT";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+        + ": Adds a note about the student specified by the given index. "
+        + "Parameters: "
+        + "INDEX TEXT\n"
+        + "Example:" + COMMAND_WORD + " 1 " + "Hardworking student.";
 
     public static final String MESSAGE_SUCCESS = "New note added to %1$s";
-    // public static final String MESSAGE_ALREADY_ADDED = "The student already has a note.";
 
     private final Index studentIndex;
     private String textToAdd;
@@ -43,6 +44,7 @@ public class NoteCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
+        // Checks if index is valid
         int zeroBasedIndex = studentIndex.getZeroBased();
         if (zeroBasedIndex >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -50,15 +52,12 @@ public class NoteCommand extends Command {
 
         Person student = lastShownList.get(zeroBasedIndex);
 
-        // TODO: shift to Person class instead?
         if (student.hasNote()) {
-            // add note to back of current note
-            textToAdd = student.getNote() + textToAdd;
+            textToAdd = " " + textToAdd;
         }
-
         student.addNote(textToAdd);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, studentIndex));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, student));
     }
 
     /**

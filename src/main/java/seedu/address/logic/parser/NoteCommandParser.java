@@ -25,18 +25,17 @@ public class NoteCommandParser implements Parser<NoteCommand> {
         String regex = "(\\s)(\\d+)(\\s)(.*)";
         Pattern formatter = Pattern.compile(regex);
         Matcher matcher = formatter.matcher(args);
-        // TODO: try catch if matcher.matches() = false, parse error?
-        matcher.matches();
-        System.out.println(args);
-        System.out.println("Group count = " + matcher.groupCount());
 
-        Index index;
-        try {
-            // Takes care of nulls
-            index = Index.fromOneBased(Integer.parseInt(matcher.group(2)));
-        } catch (NumberFormatException e) {
+        // has to be "note %d " followed by anything
+        boolean inputMatches = matcher.matches();
+        if (!inputMatches) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteCommand.MESSAGE_USAGE));
         }
+
+        // TODO: Add tests (test: invalid command word? index not int, out of range)
+
+        // Takes care of nulls
+        Index index = Index.fromOneBased(Integer.parseInt(matcher.group(2)));
         String text = matcher.group(4);
 
         return new NoteCommand(index, text);

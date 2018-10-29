@@ -16,6 +16,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.person.AssignmentStub;
@@ -76,6 +77,13 @@ public class MoreDetailsPanel extends UiPart<Region> {
     @Subscribe
     private void handleAddressbookChangedEvent(AddressBookChangedEvent event) {
         currentStudent = getCurrentStudent();
+        display(currentStudent); // display student's details in details panel
+    }
+
+    @Subscribe
+    private void handleSelectedStudentNoteChangeEvent(NewResultAvailableEvent event) {
+        // displays student again even if note added was to other students
+        // prevents further knowledge of event by parsing event message to check for which student changed
         display(currentStudent); // display student's details in details panel
     }
 
@@ -182,6 +190,10 @@ public class MoreDetailsPanel extends UiPart<Region> {
                     String.valueOf(totalWeight)));
         label.setStyle(style);
         components.add(label, 3, row);
+
+        // show student's notes
+        notesText.clear();
+        notesText.setText(student.getNote());
     }
 
     public ObservableList<Person> getList() {
