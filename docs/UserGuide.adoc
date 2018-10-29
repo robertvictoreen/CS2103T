@@ -52,7 +52,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order if all the parameters have prefixes e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
@@ -247,6 +247,47 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears all existing ta
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
 
+=== Add a note about a student : `note`
+
+Attaches a note with `TEXT` to a student in the student list specified by his/her `INDEX`. +
+Format: `note INDEX TEXT`
+
+****
+* Any added note is automatically ended with a full stop even if the input text does not have one.
+* If a note is added to a student who already has a previous note, the previous note is changed to end with a comma before the new text is appended to the back.
+****
+
+Examples:
+
+* `note 1 hardworking student` +
+(Adds the text `hardworking student.` to the student at index 1) +
+`note 1 motivated too` +
+(Note for student at index 1 is now `hardworking student, motivated too.`)
+
+=== Delete a student's note : `delnote`
+
+Deletes the corresponding note of the student at the specified `INDEX`. +
+Format: `delnote 1`
+
+=== Edits the note of a student : `editnote`
+
+Edits the corresponding note of the student at the specified `INDEX` to `TEXT`. +
+Format: `editnote 1 update tutorial attendance week 10`
+
+[TIP]
+Editing a note of a student who currently has none is the same as adding a note to him/her.
+
+Examples:
+
+* `editnote 1 check finals mark addition`
+(Even if the student at index 1 did not have a note, it would be added and the resulting note would be `check finals mark addition.` +
+`note 1 check midterms also`
+(Note is now: `check finals mark addition, check midterms also.`) +
+`editnote marks checked` +
+(Note is now: `marks checked.`) +
+`delnote 1`
+(Note deleted)
+
 [NOTE]
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
@@ -266,15 +307,21 @@ e.g. `assignmentStats 1`
 e.g. `delete 3`
 * *DeleteAssignment* : `deleteAssignment INDEX` +
 e.g. `deleteAssignment 3`
+* *Delnote* : `delnote INDEX` +
+e.g. `delnote 2`
 * *Edit* : `edit INDEX [NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]...` +
 e.g. `edit 2 James Lee e/jameslee@example.com`
+* *Editnote* : `editnote INDEX TEXT` +
+e.g. `editnote 1 Consult changed to 3pm`
 * *Exit* : `exit`
 * *Help* : `help`
 * *History* : `history`
-* *MarkAssignment* : `markAssignment INDEX id/ASSIGNMENT_INDEX m/MARK`
+* *MarkAssignment* : `markAssignment INDEX id/ASSIGNMENT_INDEX m/MARK` +
 e.g. `markAssignment 1 id/1 m/53`
-* *MarkAttendance* : `markAttendance INDEX a/BOOLEAN d/DATE`
+* *MarkAttendance* : `markAttendance INDEX a/BOOLEAN d/DATE` +
 e.g. `markAttendance 1 a/true d/14/10/2019`
+* *Note* : `note INDEX TEXT` +
+e.g. `note 4 Good student`
 * *Present* : `present NAME`
 * *Redo* : `redo`
 * *Results* : `results INDEX`
