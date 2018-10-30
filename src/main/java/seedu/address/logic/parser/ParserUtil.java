@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.commands.AddProfilePictureCommand;
+import seedu.address.logic.commands.AddProfilePhotoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.AssignmentName;
 import seedu.address.model.assignment.Deadline;
@@ -20,7 +20,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.ProfilePicture;
+import seedu.address.model.person.ProfilePhoto;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -138,10 +138,10 @@ public class ParserUtil {
         requireNonNull(args);
         String file = args.trim();
 
-        if (file.isEmpty() || !ProfilePicture.isValidPath(file)) {
-            System.out.println(ProfilePicture.isValidPath(file));
+        if (file.isEmpty() || !ProfilePhoto.isValidPath(file)) {
+            System.out.println(ProfilePhoto.isValidPath(file));
             throw new IllegalValueException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddProfilePictureCommand.MESSAGE_USAGE));
+                    AddProfilePhotoCommand.MESSAGE_USAGE));
         }
 
         return file;

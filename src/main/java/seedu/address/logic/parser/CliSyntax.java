@@ -18,3 +18,4 @@ public class CliSyntax {
     public static final Prefix PREFIX_ID = new Prefix("id/");
     public static final Prefix PREFIX_ATTENDANCE = new Prefix("at/");
 }
+

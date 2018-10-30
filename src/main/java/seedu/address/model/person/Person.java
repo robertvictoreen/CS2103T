@@ -29,10 +29,10 @@ public class Person {
 
     // Data fields
     private final Address address;
+    private ProfilePhoto photo;
     private final Set<Tag> tags = new HashSet<>();
     private final Map<String, Mark> marks = new HashMap<>();
     private final List<AssignmentStub> assignments = new ArrayList<>();
-    private ProfilePicture picture;
     private Note note = new Note();
 
     /**
@@ -44,7 +44,7 @@ public class Person {
         this.marks.putAll(marks);
 
         // default initialization
-        this.picture = new ProfilePicture();
+        this.photo = new ProfilePhoto();
     }
 
     /**
@@ -60,21 +60,21 @@ public class Person {
     /**
      * No note, has pic, calls default constructor for setting defaults.
      */
-    public Person(Name name, Phone phone, Email email, Address address, ProfilePicture pic, Set<Tag> tags,
+    public Person(Name name, Phone phone, Email email, Address address, ProfilePhoto photo, Set<Tag> tags,
                   Map<String, Mark> marks) {
         this(name, phone, email, address, tags, marks);
-        requireNonNull(pic);
-        this.picture = pic;
+        requireNonNull(photo);
+        this.photo = photo;
     }
 
     /**
      * Has both note and pic, calls default constructor for setting defaults before overwriting.
      */
-    public Person(Name name, Phone phone, Email email, Address address, ProfilePicture pic, Set<Tag> tags,
+    public Person(Name name, Phone phone, Email email, Address address, ProfilePhoto photo, Set<Tag> tags,
                   Map<String, Mark> marks, Note note) {
         this(name, phone, email, address, tags, marks);
-        requireAllNonNull(pic, note);
-        this.picture = pic;
+        requireAllNonNull(photo, note);
+        this.photo = photo;
         this.note = note;
     }
 
@@ -90,14 +90,14 @@ public class Person {
         this.tags.addAll(tags);
 
         // default initialization
-        this.picture = new ProfilePicture();
+        this.photo = new ProfilePhoto();
     }
 
     /**
      * Copy constructor.
      */
     public Person(Person source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getProfilePicture(),
+        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getProfilePhoto(),
             source.getTags(), source.getMarks(), source.getNote());
     }
 
@@ -117,8 +117,8 @@ public class Person {
         return address;
     }
 
-    public ProfilePicture getProfilePicture() {
-        return picture;
+    public ProfilePhoto getProfilePhoto() {
+        return photo;
     }
 
     public Note getNote() {
@@ -126,34 +126,24 @@ public class Person {
     }
 
     /**
-     * Update contact picture to that located in path
-     * @param path
+     * Delete the current photo and set up a default photo.
      */
-    public void updatePicture(String path) {
-        int hash = this.hashCode();
-        String filename = String.valueOf(hash);
-        this.picture = new ProfilePicture(path, filename);
+    public void deleteProfilePhoto() {
+        this.photo = new ProfilePhoto();
     }
 
     /**
-     * Delete the current picture and set up a default picture.
+     * Set profile photo to that in path
      */
-    public void deleteProfilePicture() {
-        this.picture = new ProfilePicture();
-    }
+    public void setProfilePhoto(String path) throws IllegalValueException {
 
-    /**
-     * Set profile picture to that in path
-     */
-    public void setProfilePicture(String path) throws IllegalValueException {
-
-        ProfilePicture oldPic = this.picture;
+        ProfilePhoto oldPhoto = this.photo;
         try {
             int fileName = this.hashCode();
-            this.picture = new ProfilePicture(path, String.valueOf(fileName));
+            this.photo = new ProfilePhoto(path, String.valueOf(fileName));
         } catch (Exception e) {
-            this.picture = oldPic; //reset picture back to default
-            throw new IllegalValueException(ProfilePicture.MESSAGE_PICTURE_CONSTRAINTS);
+            this.photo = oldPhoto; //changes photo back to default
+            throw new IllegalValueException(ProfilePhoto.MESSAGE_PHOTO_CONSTRAINTS);
         }
     }
 
@@ -229,8 +219,9 @@ public class Person {
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getTags().equals(getTags())
+                && otherPerson.getProfilePhoto().equals(getProfilePhoto())
                 && otherPerson.getMarks().equals(getMarks())
-                && otherPerson.getProfilePicture().equals(getProfilePicture())
+                && otherPerson.getProfilePhoto().equals(getProfilePhoto())
                 && otherPerson.getAssignments().equals(getAssignments())
                 && otherPerson.getNote().equals(getNote());
     }
