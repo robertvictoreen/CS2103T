@@ -221,7 +221,6 @@ public class Person {
                 && otherPerson.getTags().equals(getTags())
                 && otherPerson.getProfilePhoto().equals(getProfilePhoto())
                 && otherPerson.getMarks().equals(getMarks())
-                && otherPerson.getProfilePhoto().equals(getProfilePhoto())
                 && otherPerson.getAssignments().equals(getAssignments())
                 && otherPerson.getNote().equals(getNote());
     }
