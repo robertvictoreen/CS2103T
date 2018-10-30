@@ -31,58 +31,74 @@ public class Person {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
     private final Map<String, Mark> marks = new HashMap<>();
-    private final List<AssignmentStub> assignments;
+    private final List<AssignmentStub> assignments = new ArrayList<>();
     private ProfilePicture picture;
-    private Note note;
+    private Note note = new Note();
 
     /**
-     * Every field must be present and not null.
+     * Default constructor, sets default pic and note, every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, ProfilePicture pic, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.picture = pic;
-        this.tags.addAll(tags);
-        this.note = new Note();
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Map<String, Mark> marks) {
+        this(name, phone, email, address, tags);
+        requireNonNull(marks);
+        this.marks.putAll(marks);
 
-        // assignmentStub initialization
-        this.assignments = new ArrayList<>();
+        // default initialization
+        this.picture = new ProfilePicture();
     }
 
+    /**
+     * Has note, no pic, calls default constructor for setting defaults.
+     */
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Map<String, Mark> marks,
+                  Note note) {
+        this(name, phone, email, address, tags, marks);
+        requireNonNull(note);
+        this.note = note;
+    }
+
+    /**
+     * No note, has pic, calls default constructor for setting defaults.
+     */
+    public Person(Name name, Phone phone, Email email, Address address, ProfilePicture pic, Set<Tag> tags,
+                  Map<String, Mark> marks) {
+        this(name, phone, email, address, tags, marks);
+        requireNonNull(pic);
+        this.picture = pic;
+    }
+
+    /**
+     * Has both note and pic, calls default constructor for setting defaults before overwriting.
+     */
+    public Person(Name name, Phone phone, Email email, Address address, ProfilePicture pic, Set<Tag> tags,
+                  Map<String, Mark> marks, Note note) {
+        this(name, phone, email, address, tags, marks);
+        requireAllNonNull(pic, note);
+        this.picture = pic;
+        this.note = note;
+    }
+
+    /**
+     * Constructor for when there are no marks given.
+     */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.picture = new ProfilePicture();
         this.tags.addAll(tags);
-        this.note = new Note();
 
-        // assignmentStub initialization
-        this.assignments = new ArrayList<>();
+        // default initialization
+        this.picture = new ProfilePicture();
     }
 
+    /**
+     * Copy constructor.
+     */
     public Person(Person source) {
         this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getProfilePicture(),
-                source.getTags(), source.getMarks());
-    }
-
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Map<String, Mark> marks) {
-        this(name, phone, email, address, tags);
-        requireNonNull(marks);
-        this.marks.putAll(marks);
-    }
-
-    public Person(Name name, Phone phone, Email email, Address address, ProfilePicture pic, Set<Tag> tags,
-                  Map<String, Mark> marks) {
-        this(name, phone, email, address, tags);
-        requireAllNonNull(pic, marks);
-        this.picture = pic;
-        this.marks.putAll(marks);
+            source.getTags(), source.getMarks(), source.getNote());
     }
 
     public Name getName() {
@@ -245,20 +261,5 @@ public class Person {
      */
     public boolean hasNote() {
         return !(note.isDefault());
-    }
-
-    /**
-     * Adds a note to this student.
-     * @param text in the note
-     */
-    public void addNote(String text) {
-        note.add(text);
-    }
-
-    /**
-     * Deletes added notes of student.
-     */
-    public void deleteNote() {
-        note.delete();
     }
 }

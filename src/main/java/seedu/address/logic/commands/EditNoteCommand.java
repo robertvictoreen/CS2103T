@@ -2,13 +2,17 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.person.Note.MESSAGE_NOTE_EMPTY;
 
 import java.util.List;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.common.EditPersonDescriptor;
+import seedu.address.model.person.Note;
 import seedu.address.model.person.Person;
 
 /**
@@ -20,9 +24,9 @@ public class EditNoteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Edits the note of the student specified by the given index. "
-        + "Parameters: "
-        + "INDEX TEXT\n"
-        + "Example:" + COMMAND_WORD + " 1" + " motivated student";
+        + "Parameters: INDEX (must be a positive integer) "
+        + "TEXT\n"
+        + "Example: " + COMMAND_WORD + " 1" + " motivated student";
 
     public static final String MESSAGE_SUCCESS = "Edited note of %1$s";
 
@@ -42,15 +46,28 @@ public class EditNoteCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        new DeleteNoteCommand(studentIndex).execute(model, history);
-        new NoteCommand(studentIndex, textToAdd).execute(model, history);
-
         List<Person> lastShownList = model.getFilteredPersonList();
-
         int zeroBasedIndex = studentIndex.getZeroBased();
+
+        if (zeroBasedIndex >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        Person studentToReplace = lastShownList.get(zeroBasedIndex);
+        EditPersonDescriptor descriptor = new EditPersonDescriptor();
+        Note note = studentToReplace.getNote();
+        // check if note is default
+        if (note.isDefault()) {
+            throw new CommandException(MESSAGE_NOTE_EMPTY);
+        }
+        Note updatedNote = note.delete();
+        descriptor.setNote(updatedNote);
+        Person newStudent = descriptor.createEditedPerson(studentToReplace);
+        model.updatePerson(studentToReplace, newStudent);
+
+        new NoteCommand(studentIndex, textToAdd).execute(model, history);
         Person student = lastShownList.get(zeroBasedIndex);
 
-        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, student));
     }
 

@@ -5,7 +5,9 @@ package seedu.address.model.person;
  */
 public class Note {
 
-    public static final String MESSAGE_NOTE_CONSTRAINTS = "Note should not be blank";
+    public static final String MESSAGE_NOTE_CONSTRAINTS = "Note should not be blank"
+        + " and have only one whitespace between it and the index.";
+    public static final String MESSAGE_NOTE_EMPTY = "Note is empty!";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -30,7 +32,14 @@ public class Note {
      * Constructs a {@code Note} with default text.
      */
     public Note() {
-        text = DEFAULT_NOTE;
+        this.text = DEFAULT_NOTE;
+    }
+
+    /**
+     * Constructs a {@code Note} with input text.
+     */
+    public Note(String text) {
+        this.text = text;
     }
 
     @Override
@@ -51,18 +60,18 @@ public class Note {
     }
 
     /**
-     * Adds text to this note.
+     * Returns a new Note object with added text in its text.
      * @param text to be added
      */
-    void add(String text) {
+    public Note add(String text) {
         // Clear default text if default
+        String editedText = this.text;
         if (this.isDefault()) {
-            this.text = "";
-        }
+            editedText = "";
         // if current text ends with one of the characters in {@code END_OF_SENTENCE_REGEX}, change to comma
-        if (this.text.matches(NOTE_PUNCTUATION_REGEX)) {
-            this.text = this.text.split(END_OF_SENTENCE_REGEX)[0];
-            this.text += ",";
+        } else if (this.text.matches(NOTE_PUNCTUATION_REGEX)) {
+            editedText = this.text.split(END_OF_SENTENCE_REGEX)[0];
+            editedText += ",";
         }
         /*
          * If added text does not end with one of the characters in {@code END_OF_SENTENCE_REGEX},
@@ -71,20 +80,21 @@ public class Note {
         if (!text.matches(NOTE_PUNCTUATION_REGEX)) {
             text += ".";
         }
-        this.text += text;
+        editedText += text;
+        return new Note(editedText);
     }
 
     /**
-     * Resets text to {@code DEFAULT_NOTE}.
+     * Returns a Note object with text reset to {@code DEFAULT_NOTE}.
      */
-    void delete() {
-        this.text = DEFAULT_NOTE;
+    public Note delete() {
+        return new Note(DEFAULT_NOTE);
     }
 
     /**
      * Checks if this note has the default text.
      */
-    boolean isDefault() {
+    public boolean isDefault() {
         return this.text.equals(DEFAULT_NOTE);
     }
 }

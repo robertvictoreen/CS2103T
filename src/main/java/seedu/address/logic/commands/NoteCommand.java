@@ -12,6 +12,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.common.EditPersonDescriptor;
+import seedu.address.model.person.Note;
 import seedu.address.model.person.Person;
 
 /**
@@ -23,9 +25,9 @@ public class NoteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Adds a note about the student specified by the given index. "
-        + "Parameters: "
-        + "INDEX TEXT\n"
-        + "Example:" + COMMAND_WORD + " 1" + " hardworking student";
+        + "Parameters: INDEX (must be a positive integer) "
+        + "TEXT\n"
+        + "Example: " + COMMAND_WORD + " 1" + " hardworking student";
 
     public static final String MESSAGE_SUCCESS = "New note added to %1$s";
 
@@ -57,14 +59,21 @@ public class NoteCommand extends Command {
             throw new CommandException(MESSAGE_NOTE_CONSTRAINTS);
         }
 
-        Person student = lastShownList.get(zeroBasedIndex);
+        Person studentToReplace = lastShownList.get(zeroBasedIndex);
+        EditPersonDescriptor descriptor = new EditPersonDescriptor();
 
-        if (student.hasNote()) {
+        // add whitespace in front of text if appending to existing text
+        if (studentToReplace.hasNote()) {
             textToAdd = " " + textToAdd;
         }
-        student.addNote(textToAdd);
+
+        Note note = studentToReplace.getNote();
+        Note updatedNote = note.add(textToAdd);
+        descriptor.setNote(updatedNote);
+        Person newStudent = descriptor.createEditedPerson(studentToReplace);
+        model.updatePerson(studentToReplace, newStudent);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, student));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, newStudent));
     }
 
     /**
