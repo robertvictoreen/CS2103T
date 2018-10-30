@@ -497,6 +497,7 @@ image::EditNoteFeatureClassDiagram.png[width="800"]
 *** Some overhead accrued due to `NoteCommand` object creation.
 *** Dependency between `EditNoteCommand` and `NoteCommand`.
 
+//
 * **Alternative 2:** Implement a separate edit note command.
 ** Pros: +
 *** Command will be able to work on its own.

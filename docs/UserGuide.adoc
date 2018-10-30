@@ -287,14 +287,14 @@ An empty note cannot be edited!
 
 Examples:
 
-* `editnote 1 check finals mark addition`
-(Even if the student at index 1 did not have a note, it would be added and the resulting note would be `check finals mark addition.` +
+* `note 1 check finals mark addition`
+(Note is now: `check finals mark addition.` +
 `note 1 check midterms also`
 (Note is now: `check finals mark addition, check midterms also.`) +
 `editnote marks checked` +
 (Note is now: `marks checked.`) +
 `delnote 1`
-(Note deleted)
+(Note deleted and reset to default `<No note added>`)
 
 [NOTE]
 ====
