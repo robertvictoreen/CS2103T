@@ -35,7 +35,13 @@ public class EditNoteCommandParser implements Parser<EditNoteCommand> {
         // TODO: Add tests (test: invalid command word? index not int, out of range)
 
         // Takes care of nulls
-        Index index = Index.fromOneBased(Integer.parseInt(matcher.group(2)));
+        Index index;
+        try {
+            index = ParserUtil.parseIndex(matcher.group(2));
+        } catch (ParseException e) {
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditNoteCommand.MESSAGE_USAGE));
+        }
         String text = matcher.group(4);
 
         return new EditNoteCommand(index, text);
