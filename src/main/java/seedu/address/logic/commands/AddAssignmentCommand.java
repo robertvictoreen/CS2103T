@@ -25,7 +25,7 @@ public class AddAssignmentCommand extends Command {
             + PREFIX_DATE + "DEADLINE "
             + PREFIX_MARK + "MAX_MARK \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "Assignment 1 "
+            + PREFIX_NAME + "Assignment1 "
             + PREFIX_WEIGHT + "15 "
             + PREFIX_DATE + "14/10/2019 "
             + PREFIX_MARK + "100 ";

@@ -37,7 +37,7 @@ public class MarkAssignmentCommand extends Command {
             + "Parameters: INDEX " + PREFIX_ID + "ASSIGNMENT_INDEX " + PREFIX_MARK + "MARK\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_ID + "1 " + PREFIX_MARK + "53";
 
-    public static final String MESSAGE_MARK_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_MARK_PERSON_SUCCESS = "Marked Person: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
     private final Index index;
