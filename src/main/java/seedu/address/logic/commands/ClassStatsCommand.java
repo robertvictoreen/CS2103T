@@ -2,12 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
 import java.util.DoubleSummaryStatistics;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.DoubleStream;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -35,15 +34,16 @@ public class ClassStatsCommand extends Command {
             .mapToDouble(assignment -> assignment.getWeight().getValue()).sum();
         Map<String, Assignment> assignmentMap = filteredAssignmentList.stream()
                                                     .collect(Collectors.toMap(
-                                                        assignment -> assignment.getUniqueId(),
+                                                        Assignment::getUniqueId,
                                                         assignment -> assignment));
 
 
+        int studentsCount = filteredPersonList.size();
+        double[] marks = new double[studentsCount];
         double overallMark;
         DoubleSummaryStatistics summaryStatistics = new DoubleSummaryStatistics();
-        List<Double> overallMarkList = new LinkedList<>();
         Person person;
-        for (int i = 0; i < filteredPersonList.size(); i++) {
+        for (int i = 0; i < studentsCount; i++) {
             person = filteredPersonList.get(i);
             overallMark = person.getMarks().entrySet().stream()
                                             .filter(entry -> assignmentMap.containsKey(entry.getKey()))
@@ -56,19 +56,16 @@ public class ClassStatsCommand extends Command {
                                             })
                                             .sum();
             summaryStatistics.accept(overallMark);
-            overallMarkList.add(overallMark);
+            marks[i] = overallMark;
         }
 
-        DoubleStream markStream;
-
         StringBuilder summary = new StringBuilder("Class Statistics\nStudents: ");
-        summary.append(summaryStatistics.getCount());
-        summary.append(", Maximum Grade: ").append(totalWeight);
+        summary.append(studentsCount);
 
-        if (summaryStatistics.getCount() > 0) {
+        if (studentsCount > 0) {
+            summary.append(", Maximum Grade: ").append(totalWeight);
 
-            markStream = overallMarkList.stream().mapToDouble(Double::doubleValue);
-            double[] marks = markStream.sorted().toArray();
+            Arrays.sort(marks);
 
             double[] quartiles = {0.25, 0.50, 0.75};
 
