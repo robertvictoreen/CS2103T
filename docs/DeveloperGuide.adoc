@@ -428,6 +428,26 @@ UniqueAssignmentList to know which score belongs to which assignment.
 edit assignment information in every single student.
 //end:assignment[]
 
+// tag::attendance[]
+=== Attendance data structure
+
+Provides a representation of an attendance session for a particular date.
+This enables a mapping between each student and multiple attendance sessions
+with a record of attendance/absense for that session.
+
+==== Design Considerations
+
+===== Aspect: Data Structure to support assignment operations
+* **Alternative 1 (current choice):** Adaptation of Assignment model, using a hashmap for each student to record the attendance/absense
+with the uniqueId of the Attendance session. AttendanceMark is a subclass of the Mark class from the Assignment model, limited to a value of 1 or 0.
+The Attendance session date is represented with the Deadline class from the Assignment model.
+** Pros: Limited code duplication, consistent model implementation, prevents inconsistent attendance records across the class.
+** Cons: Calculating attendance requires iterating and mapping.
+* **Alternative 2:** Store a list of attendance marks for each student.
+** Pros: Higher cohesion with attendance data represented together with student.
+** Cons: Attendance session data is distributed across all students which increases complexity of operations affecting all students.
+//end:attendance[]
+
 // tag::studentDetails[]
 === UI-Model binding of student details
 

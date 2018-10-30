@@ -184,7 +184,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Exits the program. +
 Format: `exit`
 
-=== Mark a student's attendance as present or absent: `markAttendance`
+=== Mark a student's attendance as present or absent: `attend`
 
 Records the attendance of a student as present or absent for a specified date. +
 Format: `markAttendance INDEX a/BOOLEAN d/DATE`
@@ -216,6 +216,11 @@ Format: `markAssignment INDEX id/ASSIGNMENT_INDEX m/MARK`
 
 Display the statistics for the specified assignment. +
 Format: `assignmentStats INDEX`
+
+=== Display the statistics for an assignment: `classStats`
+
+Display the statistics for the overall grades of students. +
+Format: `classStats`
 
 === Sort all assignment: `sortAssignment`
 
@@ -305,6 +310,7 @@ e.g. `add James Ho s/1 p/22224444 e/jamesho@example.com t/friend t/colleague`
 e.g. `addAssignment n/Assignment 1 w/15 d/14/10/2019 m/100`
 * *AssignmentStats* : `assignmentStats INDEX` +
 e.g. `assignmentStats 1`
+* *ClassStats* : `classStats`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
