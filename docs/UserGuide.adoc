@@ -75,21 +75,21 @@ Examples:
 * `add John Doe p/98765432 e/johnd@example.com t/CS2103`
 * `add Betsy Crowe s/1 e/betsycrowe@example.com t/CS2103T`
 
-=== Adding a profile picture : 'addpicture'
+=== Adding a profile photo : `addphoto`
 
-Adds a profile picture to a student +
+Adds a profile photo to a student +
 
-Format: `addpicture INDEX f/FILENAME`
+Format: `addphoto INDEX f/FILENAME`
 
 ****
-* Adds a picture at location `FILENAME` to person at the specified `INDEX`. The index refers to the index number shown in the last person listing. The index *must be a positive integer* 1, 2, 3, ...
+* Adds a photo at location `FILENAME` to person at the specified `INDEX`. The index refers to the index number shown in the last person listing. The index *must be a positive integer* 1, 2, 3, ...
 * `FILENAME` must point to a valid image file.
 ****
 
 Examples:
 
-* `addpicture 1 f/C://Users/Zackk95/Pictures/zacharytan.jpg` +
-Edits the profile picture of the 1st person to be the picture at C://Users//Zackk95//Pictures//zacharytan.jpg
+* `addphoto 1 f/C://Users/Zackk95/Pictures/zacharytan.jpg` +
+Edits the profile photo of the 1st person to be the picture at C://Users//Zackk95//Pictures//zacharytan.jpg
 
 
 === Clearing all entries : `clear`
@@ -114,20 +114,20 @@ Examples:
 `delete 2` +
 Deletes the 2nd person in the student list.
 
-=== Deleting a student's photo: `deleteProfilePicture INDEX`
+=== Deleting a student's photo: `deleteProfilePhoto`
 
-Delete a student's photo and sets it to the default picture. +
-Format: `deleteProfilePicture INDEX`
+Delete a student's photo and sets it to the default photo. +
+Format: `deleteProfilePhoto INDEX`
 
 ****
-* Will delete a student's picture and set it to the default picture.
+* Will delete a student's photo and set it to the default photo.
 * This command is irreversible!
 ****
 
 Examples:
 
-* `deleteProfilePicture 1` +
-Delete the picture of the person at index 1 and set it to the default picture.
+* `deleteProfilePhoto 1` +
+Delete the photo of the person at index 1 and set it to the default photo.
 
 // tag::undoredo[]
 === Undoing previous command : `undo`

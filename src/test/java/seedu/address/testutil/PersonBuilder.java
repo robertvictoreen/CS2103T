@@ -11,7 +11,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.ProfilePicture;
+import seedu.address.model.person.ProfilePhoto;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -29,7 +29,7 @@ public class PersonBuilder {
     private Phone phone;
     private Email email;
     private Address address;
-    private ProfilePicture picture;
+    private ProfilePhoto photo;
     private Set<Tag> tags;
     private Map<String, Mark> marks;
 
@@ -38,7 +38,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
-        picture = new ProfilePicture();
+        photo = new ProfilePhoto();
         tags = new HashSet<>();
         marks = new HashMap<>();
     }
@@ -51,7 +51,7 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
-        picture = personToCopy.getProfilePicture();
+        photo = personToCopy.getProfilePhoto();
         tags = new HashSet<>(personToCopy.getTags());
         marks = new HashMap<>(personToCopy.getMarks());
     }
@@ -99,7 +99,7 @@ public class PersonBuilder {
     // TODO: Create a withMarks() function to set the marks of the (@code Person) that we are building.
 
     public Person build() {
-        return new Person(name, phone, email, address, picture, tags, marks);
+        return new Person(name, phone, email, address, photo, tags, marks);
     }
 
 }
