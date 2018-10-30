@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <SplitPane fx:id="detailsPanel" dividerPositions="0.5757575757575758" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" stylesheets="@DarkTheme.css">
         <items>
@@ -20,7 +20,7 @@
             <VBox prefHeight="139.0" prefWidth="158.0">
                <children>
                   <Label styleClass="label-bright" text="Notes:" />
-                  <TextArea fx:id="notesText" prefHeight="200.0" prefWidth="200.0" promptText="&lt;Insert Notes Here&gt;" />
+                  <TextArea fx:id="notesText" editable="false" prefHeight="200.0" prefWidth="200.0" promptText="&lt;No note found&gt;" />
                </children>
             </VBox>
         </items>

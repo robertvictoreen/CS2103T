@@ -16,6 +16,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.person.AssignmentStub;
@@ -27,6 +28,9 @@ import seedu.address.model.person.Person;
 public class MoreDetailsPanel extends UiPart<Region> {
 
     private static final String FXML = "MoreDetailsPanel.fxml";
+
+    // Value that indicates that no student has been selected yet.
+    private static final int NONE = -1;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -40,6 +44,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
 
     // Current student whose details are being shown
     private Person currentStudent = null;
+    private int currentStudentIndex = NONE;
 
     private boolean isSetUp = false;
 
@@ -67,32 +72,57 @@ public class MoreDetailsPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
+    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) throws Exception {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         currentStudent = event.getNewSelection();
-        display(currentStudent); // display student's details in details panel
+        currentStudentIndex = studentList.indexOf(currentStudent);
+        // find student index
+        display(currentStudentIndex); // display student's details in details panel
     }
 
     @Subscribe
-    private void handleAddressbookChangedEvent(AddressBookChangedEvent event) {
-        currentStudent = getCurrentStudent();
-        display(currentStudent); // display student's details in details panel
+    private void handleAddressbookChangedEvent(AddressBookChangedEvent event) throws Exception {
+        // No student selected yet, don't need to display.
+        if (currentStudentIndex == NONE) {
+            return;
+        }
+        display(currentStudentIndex); // display student's details in details panel
+    }
+
+    @Subscribe
+    private void handleSelectedStudentNoteChangeEvent(NewResultAvailableEvent event) throws Exception {
+        // displays student again even if note added was to other students
+        // prevents further knowledge of event by parsing event message to check for which student changed
+        // No student selected yet, don't need to display.
+        if (currentStudentIndex == NONE) {
+            return;
+        }
+        display(currentStudentIndex); // display student's details in details panel
     }
 
     /**
      * Displays the student's details in the Details Panel on the bottom right.
+     * Student obtained using his/her index to avoid displaying the wrong student when undo/redo executed.
      */
-    public void display(Person student) {
+    public void display(int studentIndex) throws Exception {
+        Person student;
+        try {
+            student = studentList.get(studentIndex);
+            // Keep track of who was just displayed
+            currentStudent = student;
+        } catch (IndexOutOfBoundsException e) {
+            throw new IndexOutOfBoundsException("Student was not selected yet.");
+        }
         if (student == null) {
             return;
         }
         if (!isSetUp) {
             // add 2 columns, default has 1
             ColumnConstraints newColumn = new ColumnConstraints();
-            newColumn.setPercentWidth(40);
+            newColumn.setPercentWidth(25);
             components.getColumnConstraints().add(newColumn);
             newColumn = new ColumnConstraints();
-            newColumn.setPercentWidth(20);
+            newColumn.setPercentWidth(25);
             components.getColumnConstraints().addAll(newColumn, newColumn, newColumn);
 
             RowConstraints newRow = new RowConstraints();
@@ -109,7 +139,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
         // Labels set to be label-bright
         Label label;
         String style = "-fx-font-size: 11pt;\n" + "-fx-font-family: \"Segoe UI Semibold\";\n"
-                    + "-fx-text-fill: white;\n" + "-fx-opacity: 1;";
+            + "-fx-text-fill: white;\n" + "-fx-opacity: 1;";
 
         label = new Label("Assignment");
         label.setStyle(style);
@@ -178,10 +208,14 @@ public class MoreDetailsPanel extends UiPart<Region> {
         components.add(label, 0, row);
 
         label = new Label(String.format("%s/%s",
-                    String.valueOf(weightedMarks),
-                    String.valueOf(totalWeight)));
+            String.valueOf(weightedMarks),
+            String.valueOf(totalWeight)));
         label.setStyle(style);
         components.add(label, 3, row);
+
+        // show student's notes
+        notesText.clear();
+        notesText.setText(student.getNote().toString());
     }
 
     public ObservableList<Person> getList() {

@@ -16,15 +16,18 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteAssignmentCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteNoteCommand;
 import seedu.address.logic.commands.DeleteProfilePhotoCommand;
 import seedu.address.logic.commands.EditAssignmentCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditNoteCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.MarkAssignmentCommand;
+import seedu.address.logic.commands.NoteCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SortAssignmentCommand;
@@ -77,6 +80,9 @@ public class AddressBookParser {
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
+        case EditNoteCommand.COMMAND_WORD:
+            return new EditNoteCommandParser().parse(arguments);
+
         case EditAssignmentCommand.COMMAND_WORD:
             return new EditAssignmentCommandParser().parse(arguments);
 
@@ -88,6 +94,9 @@ public class AddressBookParser {
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
+
+        case DeleteNoteCommand.COMMAND_WORD:
+            return new DeleteNoteCommandParser().parse(arguments);
 
         case DeleteProfilePhotoCommand.COMMAND_WORD:
             return new DeleteProfilePhotoCommandParser().parse(arguments);
@@ -103,6 +112,9 @@ public class AddressBookParser {
 
         case MarkAssignmentCommand.COMMAND_WORD:
             return new MarkAssignmentCommandParser().parse(arguments);
+
+        case NoteCommand.COMMAND_WORD:
+            return new NoteCommandParser().parse(arguments);
 
         case SortAssignmentCommand.COMMAND_WORD:
             return new SortAssignmentCommand();
