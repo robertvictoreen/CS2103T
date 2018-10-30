@@ -20,7 +20,7 @@
             <VBox prefHeight="139.0" prefWidth="158.0">
                <children>
                   <Label styleClass="label-bright" text="Notes:" />
-                  <TextArea fx:id="notesText" editable="false" prefHeight="200.0" prefWidth="200.0" promptText="&lt;Insert Notes Here&gt;" />
+                  <TextArea fx:id="notesText" editable="false" prefHeight="200.0" prefWidth="200.0" promptText="&lt;No note found&gt;" />
                </children>
             </VBox>
         </items>
