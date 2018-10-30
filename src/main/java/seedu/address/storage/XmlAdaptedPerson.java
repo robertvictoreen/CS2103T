@@ -1,8 +1,10 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -10,12 +12,16 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.assignment.Mark;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.ProfilePhoto;
 import seedu.address.model.tag.Tag;
+
+
 
 /**
  * JAXB-friendly version of the Person.
@@ -32,9 +38,13 @@ public class XmlAdaptedPerson {
     private String email;
     @XmlElement(required = true)
     private String address;
+    @XmlElement(required = true)
+    private String profilephoto;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
+    @XmlElement
+    private List<XmlAdaptedMark> marks = new ArrayList<>();
 
     /**
      * Constructs an XmlAdaptedPerson.
@@ -45,13 +55,50 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedPerson(String name, String phone, String email, String address,
+                            List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
+        }
+        this.profilephoto = null;
+    }
+
+    /**
+     * Constructs an {@code XmlAdaptedPerson} with an additional Picture parameter and marks parameter
+     */
+
+    public XmlAdaptedPerson(String name, String phone, String email, String address, String profilephoto,
+                            List<XmlAdaptedTag> tagged, List<XmlAdaptedMark> marks) {
+        this(name, phone, email, address, tagged);
+        this.profilephoto = profilephoto;
+        if (marks != null) {
+            this.marks = new ArrayList<>(marks);
+        }
+    }
+
+    /**
+     * Converts a given Person into this class for JAXB use.
+     *
+     * @param source future changes to this will not affect the created XmlAdaptedPerson
+     */
+    public XmlAdaptedPerson(Person source, List<String> allowedAssignmentUid) {
+        name = source.getName().fullName;
+        phone = source.getPhone().value;
+        email = source.getEmail().value;
+        address = source.getAddress().value;
+        profilephoto = source.getProfilePhoto().getPath();
+        tagged = source.getTags().stream()
+                .map(XmlAdaptedTag::new)
+                .collect(Collectors.toList());
+        for (String key: allowedAssignmentUid) {
+            Mark mark = source.getMarks().get(key);
+            if (mark != null) {
+                marks.add(new XmlAdaptedMark(key, mark.internalString));
+            }
         }
     }
 
@@ -65,9 +112,13 @@ public class XmlAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        profilephoto = source.getProfilePhoto().getPath();
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
+        for (Map.Entry<String, Mark> entry : source.getMarks().entrySet()) {
+            marks.add(new XmlAdaptedMark(entry.getKey(), entry.getValue().internalString));
+        }
     }
 
     /**
@@ -76,10 +127,7 @@ public class XmlAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Person toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
-        for (XmlAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
-        }
+
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -113,8 +161,22 @@ public class XmlAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        ProfilePhoto modelPhoto = new ProfilePhoto();
+        if (this.profilephoto != null) {
+            modelPhoto = new ProfilePhoto(this.profilephoto);
+        }
+
+        final Set<Tag> modelTags = new HashSet<>();
+        for (XmlAdaptedTag tag : tagged) {
+            modelTags.add(tag.toModelType());
+        }
+
+        final Map<String, Mark> modelMarks = new HashMap<>();
+        for (XmlAdaptedMark mark : marks) {
+            modelMarks.put(mark.getKey(), mark.toModelType());
+        }
+
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelPhoto, modelTags, modelMarks);
     }
 
     @Override
@@ -128,10 +190,12 @@ public class XmlAdaptedPerson {
         }
 
         XmlAdaptedPerson otherPerson = (XmlAdaptedPerson) other;
+
         return Objects.equals(name, otherPerson.name)
                 && Objects.equals(phone, otherPerson.phone)
                 && Objects.equals(email, otherPerson.email)
                 && Objects.equals(address, otherPerson.address)
+                && Objects.equals(profilephoto, otherPerson.profilephoto)
                 && tagged.equals(otherPerson.tagged);
     }
 }

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILEPATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -17,6 +18,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.common.EditPersonDescriptor;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -54,11 +56,31 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
+    public static final String VALID_LOCAL_IMAGE_JPG = "src/test/resources/ProfilePhotoTest/zacharytan.jpg";
+    public static final String VALID_LOCAL_IMAGE_5MB = "src/test/resources/ProfilePhotoTest/5mbTestJpg.jpg";
+    public static final String VALID_LOCAL_IMAGE_PNG = "src/main/resources/images/help_icon.png";
+
+    public static final String INVALID_LOCAL_FILE_NONIMAGE =
+            "src/test/resources/ProfilePhotoTest/nonImageFile.txt";
+    public static final String INVALID_LOCAL_FILE_NONIMAGE_WITH_IMAGE_FILETYPE =
+            "src/test/resources/ProfilePhotoTest/nonImageFileWithJpgPrefix.jpg";
+    public static final String VALID_LOCAL_IMAGE_BIGGER_THAN_5MB =
+            "src/test/resources/ProfilePhotoTest/GreaterThan5MBTestJPG.jpg";
+
+    public static final String PHOTO_DESC_LOCAL_IMAGE = " " + PREFIX_FILEPATH + VALID_LOCAL_IMAGE_JPG;
+    public static final String PHOTO_DESC_LOCAL_IMAGE_5MB = " " + PREFIX_FILEPATH + VALID_LOCAL_IMAGE_5MB;
+
+    public static final String INVALID_PHOTO_DESC_NONIMAGE = " " + PREFIX_FILEPATH + INVALID_LOCAL_FILE_NONIMAGE;
+    public static final String INVALID_PHOTO_DESC_NONIMAGE_WITH_IMAGE_FILETYPE = " " + PREFIX_FILEPATH
+            + INVALID_LOCAL_FILE_NONIMAGE_WITH_IMAGE_FILETYPE;
+    public static final String INVALID_PHOTO_DESC_IMAGE_GREATER_THAN_5MB = " " + PREFIX_FILEPATH
+            + VALID_LOCAL_IMAGE_BIGGER_THAN_5MB;
+
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditPersonDescriptor DESC_AMY;
+    public static final EditPersonDescriptor DESC_BOB;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)

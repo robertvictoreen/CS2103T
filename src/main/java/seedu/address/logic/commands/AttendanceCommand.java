@@ -7,6 +7,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -16,6 +17,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.assignment.Mark;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -23,14 +25,18 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
-public class AttendanceCommand extends Command{
+/**
+ * Marks a student as present.
+ */
+public class AttendanceCommand extends Command {
     public static final String COMMAND_WORD = "attend";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Creates an attendance entry for the person identified by the index number used in the displayed person list.\n"
-            + "Parameters: attend INDEX (must be a positive integer)"
-            + PREFIX_ATTENDANCE + "CLASSNAME: (a string)\n"
-            + "Example: " + COMMAND_WORD + " 1" + PREFIX_ATTENDANCE + "Tutorial1";
+        + ": Creates an attendance entry for the person identified by the index number used in the displayed"
+        + " person list.\n"
+        + "Parameters: attend INDEX (must be a positive integer)"
+        + PREFIX_ATTENDANCE + "CLASSNAME: (a string)\n"
+        + "Example: " + COMMAND_WORD + " 1" + PREFIX_ATTENDANCE + "Tutorial1";
 
     public static final String MESSAGE_ATTENDANCE_PRESENT = "Recorded present for person: %1$s";
     public static final String MESSAGE_ATTENDANCE_ABSENT = "Recorded absent for person: %1$s";
@@ -82,10 +88,11 @@ public class AttendanceCommand extends Command{
         Email updatedEmail = personToEdit.getEmail();
         Address updatedAddress = personToEdit.getAddress();
         Set<Tag> updatedTags = new HashSet<>();
+        Map<String, Mark> updatedMarks = personToEdit.getMarks();
         updatedTags.addAll(personToEdit.getTags());
         editPersonDescriptor.getTags().ifPresent(updatedTags::addAll);
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedMarks);
     }
 
     @Override

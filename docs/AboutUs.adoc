@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Victoreen Robert Elliot
-image::robertvictoreen.jpg[width="150", align="left"]
+image::robertvictoreen.png[width="150", align="left"]
 {empty}[https://github.com/robertvictoreen[github]] [<<robertvictoreen#, portfolio>>]
 
 Role: Developer +
@@ -29,7 +29,7 @@ image::spencertan96.png[width="150", align="left"]
 {empty}[https://github.com/spencertan96[github]] [<<spencertan96#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Code Quality
+Responsibilities: UI + Deliverables and deadlines
 
 === Zhen Hao
 
@@ -38,6 +38,14 @@ image::zzsmao.png[width="150", align="left"]
 
 Role: Developer +
 Responsibilities: UI
+
+=== Henry Jayakusuma
+
+image::<insert>.png[width="150", align="left"]
+{empty}[http://github.com/<insert>[github]]
+
+Role: <insert> +
+Responsibilities: <insert>
 
 
 
