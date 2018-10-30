@@ -119,10 +119,10 @@ public class MoreDetailsPanel extends UiPart<Region> {
         if (!isSetUp) {
             // add 2 columns, default has 1
             ColumnConstraints newColumn = new ColumnConstraints();
-            newColumn.setPercentWidth(40);
+            newColumn.setPercentWidth(25);
             components.getColumnConstraints().add(newColumn);
             newColumn = new ColumnConstraints();
-            newColumn.setPercentWidth(20);
+            newColumn.setPercentWidth(25);
             components.getColumnConstraints().addAll(newColumn, newColumn, newColumn);
 
             RowConstraints newRow = new RowConstraints();
