@@ -15,7 +15,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Note;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.ProfilePicture;
+import seedu.address.model.person.ProfilePhoto;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -58,7 +58,7 @@ public class EditPersonDescriptor {
         Phone updatedPhone = this.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = this.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = this.getAddress().orElse(personToEdit.getAddress());
-        ProfilePicture updatedPicture = personToEdit.getProfilePicture();
+        ProfilePhoto updatedPicture = personToEdit.getProfilePhoto();
         Set<Tag> updatedTags = this.getTags().orElse(personToEdit.getTags());
         Map<String, Mark> updatedMarks = this.getMarks().orElse(personToEdit.getMarks());
         Note updatedNote = this.getNote().orElse(personToEdit.getNote());
