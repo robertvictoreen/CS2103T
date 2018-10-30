@@ -13,7 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/W12-4/main
+:repoURL: https://github.com/CS2103-AY1819S1-W12-4/main
 
 By: `Team W12-4`      Since: `September 2018`      Licence: `MIT`
 
@@ -370,6 +370,7 @@ UniqueAssignmentList to know which score belongs to which assignment.
 edit assignment information in every single student.
 //end:assignment[]
 
+// tag::studentDetails[]
 === UI-Model binding of student details
 
 ==== Current Implementation
@@ -379,6 +380,42 @@ The data `MoreDetailsPanel` binds itself to are `filteredPersons` and `filteredA
 * `filteredAssignments` -- The names of all the assignments that the students have in the database.
 
 `MoreDetailsPanel` will be notified by any changes in the data when a related event is raised, such as `PersonPanelSelectionChangedEvent`. It will then retrieve the new student's marks using `filteredPersons` and display them with reference to their names in `filteredAssignments`.
+//end:studentDetails[]
+
+// tag::note[]
+=== Note data structure
+A `Note` stores a String `text` (content of the note) and methods to manipulate the text in a note.
+
+==== Current Implementation
+* `Note` texts are automatically ended with a full stop (`.`) if it is not added by the user, unless the user ends the text with `!` or `?`. When text is added to a `Note` that already has text, the current `text` is changed to end with a comma (`,`) instead, before the new text is appended to the end.
+** Pros: +
+*** `Note` text is standardized without the user having to bother about doing so in their input.
+** Cons: +
+*** If the user wishes to end their notes with other punctuation such as `!` or `?`, the user has to add it into their input.
+*** Other special characters used to end sentences will not be detected and a full stop will be added to them.
+*** Developers have to manually add special characters to be checked for.
+
+* **Alternative 1:** No editing of `Note` text, `text` will be whatever the user inputs.
+** Pros: +
+*** Easy to implement, there is no need to check text input.
+*** User flexibility in what they want their text to end with.
+** Cons: +
+*** User has to take more care in adding `Note` text in their input.
+
+==== Edit Note Feature
+* `editnote` command currently uses the `note` and `delnote` commands to execute.
+
+.Structure of Note commands (only classes closely related to EditNoteCommand shown)
+image::EditNoteFeatureClassDiagram.png[width="800"]
+
+** Pros: +
+*** Easy to implement.
+*** Adapts with any changes to the `NoteCommand` and `DeleteCommand` without needing to update.
+*** Reduces amount of repeated code.
+** Cons: +
+*** Some overhead accrued due to `NoteCommand` and `DeleteNoteCommand` object creation.
+*** Dependencies between `EditNoteCommand` and both `NoteCommand` and `DeleteNoteCommand`.
+//end:note[]
 
 === Logging
 
