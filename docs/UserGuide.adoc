@@ -137,7 +137,7 @@ Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the student list's content (`add`, `delete`, `edit`, `markAssignment`, `markAttendance`, `sort` and `clear`).
+Undoable commands: those commands that modify the student list's content (`add`, `delete`, `edit`, `markAssignment`, `markAttendance`, `note`, `delnote`, `editnote`, `sort` and `clear`).
 ====
 
 Examples:
