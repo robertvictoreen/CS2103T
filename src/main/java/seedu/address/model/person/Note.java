@@ -13,12 +13,15 @@ public class Note {
      */
     public static final String NOTE_VALIDATION_REGEX = "[\\p{Alnum}](.*)";
 
-    /*
-     * Checks if note ends with full-stop.
-     */
-    private static final String NOTE_PUNCTUATION_REGEX = "(.*)[.]";
+    // Edit this to change what a text checks for before deciding to add a full stop.
+    private static final String END_OF_SENTENCE_REGEX = "[.!?]";
 
-    // Text in an unedited or resetted note
+    /**
+     * Checks if note ends with a character from {@code END_OF_SENTENCE_REGEX}.
+     */
+    private static final String NOTE_PUNCTUATION_REGEX = "(.*)" + END_OF_SENTENCE_REGEX;
+
+    // Text in an unedited or reset note
     private static final String DEFAULT_NOTE = "<No note added>";
 
     private String text;
@@ -56,10 +59,15 @@ public class Note {
         if (this.isDefault()) {
             this.text = "";
         }
+        // if current text ends with one of the characters in {@code END_OF_SENTENCE_REGEX}, change to comma
         if (this.text.matches(NOTE_PUNCTUATION_REGEX)) {
-            this.text = this.text.split("[.]")[0];
+            this.text = this.text.split(END_OF_SENTENCE_REGEX)[0];
             this.text += ",";
         }
+        /*
+         * If added text does not end with one of the characters in {@code END_OF_SENTENCE_REGEX},
+         * add a full stop to end.
+         */
         if (!text.matches(NOTE_PUNCTUATION_REGEX)) {
             text += ".";
         }
@@ -69,14 +77,14 @@ public class Note {
     /**
      * Resets text to {@code DEFAULT_NOTE}.
      */
-    void reset() {
+    void delete() {
         this.text = DEFAULT_NOTE;
     }
 
     /**
      * Checks if this note has the default text.
      */
-    public boolean isDefault() {
+    boolean isDefault() {
         return this.text.equals(DEFAULT_NOTE);
     }
 }

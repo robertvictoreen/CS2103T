@@ -240,6 +240,9 @@ public class Person {
         return builder.toString();
     }
 
+    /**
+     * Returns true if current note has been edited, false if is default.
+     */
     public boolean hasNote() {
         return !(note.isDefault());
     }
@@ -256,6 +259,6 @@ public class Person {
      * Deletes added notes of student.
      */
     public void deleteNote() {
-        note.reset();
+        note.delete();
     }
 }

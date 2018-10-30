@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Edits a note about the specified student, uses {@code DeleteNoteCommand} and {@code NoteCommand} functionalities.
+ * Edits a note about the specified student, uses {@code DeleteNoteCommand} and {@code NoteCommand} functionality.
  */
 public class EditNoteCommand extends Command {
 
