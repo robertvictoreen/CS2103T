@@ -341,12 +341,12 @@ The 'indicateAddressBookChanged' event is raised by 'Model' after the sorting is
 
 ==== Design Considerations
 
-===== Aspect:** Implementation of `SortCommand`
-* **Alternative 1 (current choice):** Only sorts by names of students in the Address Book.
-**Pros:** Easy to implement and more intuitive for the user.
+===== Aspect: Implementation of `SortCommand`
+* **Alternative 1 (current choice):** Only sorts by names of students in the Address Book. +
+**Pros:** Easy to implement and more intuitive for the user. +
 **Cons:** Functionality is limited and may not improve user satisfaction.
-* **Alternative 2:** Sorts persons in the Address Book by any field (sorting by email or tag for example), which is given as an input by the user.
-**Pros:** Improved flexibility for users since they have the option to sort by any field that they want.
+* **Alternative 2:** Sorts persons in the Address Book by any field (sorting by email or tag for example), which is given as an input by the user. +
+**Pros:** Improved flexibility for users since they have the option to sort by any field that they want. +
 **Cons:** Harder to implement and requires constant updating of code every time a new field in the 'Person' class is introduced.
 //end:sort[]
 
@@ -384,10 +384,14 @@ The data `MoreDetailsPanel` binds itself to are `filteredPersons` and `filteredA
 
 // tag::note[]
 === Note data structure
-A `Note` stores a String `text` (content of the note) and methods to manipulate the text in a note.
 
 ==== Current Implementation
-* `Note` texts are automatically ended with a full stop (`.`) if it is not added by the user, unless the user ends the text with `!` or `?`. When text is added to a `Note` that already has text, the current `text` is changed to end with a comma (`,`) instead, before the new text is appended to the end.
+A `Note` stores a String `text` (content of the note) and methods to manipulate the text in a note.
+
+==== Design considerations
+
+===== Aspect: Note auto-punctuation
+* **Alternative 1(current choice):** `Note` texts are automatically ended with a full stop (`.`) if it is not added by the user, unless the user ends the text with `!` or `?`. When text is added to a `Note` that already has text, the current `text` is changed to end with a comma (`,`) instead, before the new text is appended to the end.
 ** Pros: +
 *** `Note` text is standardized without the user having to bother about doing so in their input.
 ** Cons: +
@@ -395,26 +399,31 @@ A `Note` stores a String `text` (content of the note) and methods to manipulate 
 *** Other special characters used to end sentences will not be detected and a full stop will be added to them.
 *** Developers have to manually add special characters to be checked for.
 
-* **Alternative 1:** No editing of `Note` text, `text` will be whatever the user inputs.
+* **Alternative 2:** No editing of `Note` text, `text` will be whatever the user inputs.
 ** Pros: +
 *** Easy to implement, there is no need to check text input.
 *** User flexibility in what they want their text to end with.
 ** Cons: +
 *** User has to take more care in adding `Note` text in their input.
 
-==== Edit Note Feature
-* `editnote` command currently uses the `note` and `delnote` commands to execute.
+===== Aspect: Edit note implementation
+* **Alternative 1 (current choice):** Use `note` command in implementation.
 
 .Structure of Note commands (only classes closely related to EditNoteCommand shown)
 image::EditNoteFeatureClassDiagram.png[width="800"]
 
 ** Pros: +
-*** Easy to implement.
-*** Adapts with any changes to the `NoteCommand` and `DeleteCommand` without needing to update.
-*** Reduces amount of repeated code.
+*** Easier to implement.
+*** Adapts with any changes to the `NoteCommand` without needing to update.
 ** Cons: +
-*** Some overhead accrued due to `NoteCommand` and `DeleteNoteCommand` object creation.
-*** Dependencies between `EditNoteCommand` and both `NoteCommand` and `DeleteNoteCommand`.
+*** Some overhead accrued due to `NoteCommand` object creation.
+*** Dependency between `EditNoteCommand` and `NoteCommand`.
+
+* **Alternative 2:** Implement a separate edit note command.
+** Pros: +
+*** Command will be able to work on its own.
+** Cons: +
+*** Some repeated code with `NoteCommand`.
 //end:note[]
 
 === Logging

@@ -269,13 +269,16 @@ Examples:
 Deletes the corresponding note of the student at the specified `INDEX`. +
 Format: `delnote 1`
 
+[NOTE]
+An empty note cannot be deleted!
+
 === Edits the note of a student : `editnote`
 
 Edits the corresponding note of the student at the specified `INDEX` to `TEXT`. +
 Format: `editnote 1 update tutorial attendance week 10`
 
-[TIP]
-Editing a note of a student who currently has none is the same as adding a note to him/her.
+[NOTE]
+An empty note cannot be edited!
 
 Examples:
 
