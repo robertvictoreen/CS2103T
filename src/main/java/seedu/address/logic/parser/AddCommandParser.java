@@ -20,7 +20,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.ProfilePicture;
+import seedu.address.model.person.ProfilePhoto;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -47,11 +47,11 @@ public class AddCommandParser implements Parser<AddCommand> {
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        ProfilePicture pic = new ProfilePicture();
+        ProfilePhoto photo = new ProfilePhoto();
         Map<String, Mark> markMap = new HashMap<>();
         Map<String, Mark> attendanceMap = new HashMap<>();
 
-        Person person = new Person(name, phone, email, address, pic, tagList, markMap, attendanceMap);
+        Person person = new Person(name, phone, email, address, photo, tagList, markMap, attendanceMap);
 
         return new AddCommand(person);
     }

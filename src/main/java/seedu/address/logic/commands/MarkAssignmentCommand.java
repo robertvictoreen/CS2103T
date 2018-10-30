@@ -22,7 +22,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.ProfilePicture;
+import seedu.address.model.person.ProfilePhoto;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -97,14 +97,14 @@ public class MarkAssignmentCommand extends Command {
         Phone updatedPhone = personToMarkAssignment.getPhone();
         Email updatedEmail = personToMarkAssignment.getEmail();
         Address updatedAddress = personToMarkAssignment.getAddress();
-        ProfilePicture updatedPicture = personToMarkAssignment.getProfilePicture();
+        ProfilePhoto updatedPhoto = personToMarkAssignment.getProfilePhoto();
         Set<Tag> updatedTags = personToMarkAssignment.getTags();
         Map<String, Mark> updatedMarks = new HashMap<>(personToMarkAssignment.getMarks());
         updatedMarks.put(assignmentUid, assignmentMark);
         Map<String, Mark> updatedAttendance = personToMarkAssignment.getAttendance();
 
         return new Person(
-                updatedName, updatedPhone, updatedEmail, updatedAddress, updatedPicture, updatedTags,
+                updatedName, updatedPhone, updatedEmail, updatedAddress, updatedPhoto, updatedTags,
           updatedMarks, updatedAttendance
         );
     }
