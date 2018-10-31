@@ -51,7 +51,7 @@ public class XmlSerializableAddressBook {
         List<String> attendanceUidList = new ArrayList<>();
         for (Attendance a: src.getAttendanceList()) {
             attendance.add(new XmlAdaptedAttendance(a));
-            uidList.add(a.getUniqueId());
+            attendanceUidList.add(a.getUniqueId());
         }
         for (Person p: src.getPersonList()) {
             persons.add(new XmlAdaptedPerson(p, uidList, attendanceUidList));
