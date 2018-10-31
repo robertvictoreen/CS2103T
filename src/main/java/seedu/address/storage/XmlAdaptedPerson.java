@@ -16,6 +16,7 @@ import seedu.address.model.assignment.Mark;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Note;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.ProfilePhoto;
@@ -40,6 +41,8 @@ public class XmlAdaptedPerson {
     private String address;
     @XmlElement(required = true)
     private String profilephoto;
+    @XmlElement(required = true)
+    private String note;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -70,13 +73,15 @@ public class XmlAdaptedPerson {
     }
 
     /**
-     * Constructs an {@code XmlAdaptedPerson} with an additional Picture parameter,
-     * marks parameter, and attendance parameter
+     * Constructs an {@code XmlAdaptedPerson} with an additional Picture parameter
+     * marks parameter, attendance parameter and note parameter.
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address, String profilephoto,
-                            List<XmlAdaptedTag> tagged, List<XmlAdaptedMark> marks, List<XmlAdaptedMark> attendance) {
+                            List<XmlAdaptedTag> tagged, List<XmlAdaptedMark> marks,
+                            List<XmlAdaptedMark> attendance, String note) {
         this(name, phone, email, address, tagged);
         this.profilephoto = profilephoto;
+        this.note = note;
         if (marks != null) {
             this.marks = new ArrayList<>(marks);
         }
@@ -96,6 +101,7 @@ public class XmlAdaptedPerson {
         email = source.getEmail().value;
         address = source.getAddress().value;
         profilephoto = source.getProfilePhoto().getPath();
+        note = source.getNote().toString();
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
@@ -124,6 +130,7 @@ public class XmlAdaptedPerson {
         email = source.getEmail().value;
         address = source.getAddress().value;
         profilephoto = source.getProfilePhoto().getPath();
+        note = source.getNote().toString();
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
@@ -180,6 +187,11 @@ public class XmlAdaptedPerson {
             modelPhoto = new ProfilePhoto(this.profilephoto);
         }
 
+        Note modelNote = new Note();
+        if (this.note != null) {
+            modelNote = new Note(this.note);
+        }
+
         final Set<Tag> modelTags = new HashSet<>();
         for (XmlAdaptedTag tag : tagged) {
             modelTags.add(tag.toModelType());
@@ -196,7 +208,7 @@ public class XmlAdaptedPerson {
         }
 
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelPhoto, modelTags,
-          modelMarks, modelAttendance);
+          modelMarks, modelAttendance, modelNote);
     }
 
     @Override
@@ -216,6 +228,9 @@ public class XmlAdaptedPerson {
                 && Objects.equals(email, otherPerson.email)
                 && Objects.equals(address, otherPerson.address)
                 && Objects.equals(profilephoto, otherPerson.profilephoto)
-                && tagged.equals(otherPerson.tagged);
+                && tagged.equals(otherPerson.tagged)
+                && marks.equals(otherPerson.marks)
+                && attendance.equals(otherPerson.attendance)
+                && Objects.equals(note, otherPerson.note);
     }
 }
