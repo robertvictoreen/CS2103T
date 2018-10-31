@@ -1,41 +1,36 @@
 package seedu.address.model.attendance;
 
-import seedu.address.model.assignment.AssignmentName;
-import seedu.address.model.assignment.Deadline;
-import seedu.address.model.assignment.Mark;
-import seedu.address.model.assignment.Weight;
-
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.commons.util.UniqueIdUtil.createUniqueId;
 
 import java.util.Objects;
+
+import seedu.address.model.assignment.Deadline;
 /**
- * Represents an Assignment in the address book.
+ * Represents an Attendance in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Attendance  {
+public class Attendance implements Comparable<Attendance> {
 
     // Identity fields
-    private final LessonName name;
-    private final AttendanceMark mark;
+    private final Deadline session;
     private final String uniqueId;
 
     /**
      * Every field must be present and not null.
      */
-    public Attendance(LessonName name, AttendanceMark mark, String uniqueId) {
-        requireAllNonNull(name, mark, uniqueId);
-        this.name = name;
-        this.mark = mark;
+    public Attendance(Deadline session, String uniqueId) {
+        requireAllNonNull(session, uniqueId);
+        this.session = session;
         this.uniqueId = uniqueId;
     }
 
-    public LessonName getName() {
-        return name;
+    public Attendance(Deadline session) {
+        this(session, createUniqueId(session.hashCode()));
     }
 
-    public AttendanceMark getMark() {
-        return mark;
+    public Deadline getSession() {
+        return session;
     }
 
     public String getUniqueId() {
@@ -43,30 +38,30 @@ public class Attendance  {
     }
 
     /**
-     * Returns true if both assignment have the same name.
-     * This defines a weaker notion of equality between two assignment.
+     * Returns true if both attendance have the same name.
+     * This defines a weaker notion of equality between two attendance.
      */
-    public boolean isSameAssignment(seedu.address.model.assignment.Assignment otherAssignment) {
-        if (otherAssignment == this) {
+    public boolean isSameAttendance(Attendance otherAttendance) {
+        if (otherAttendance == this) {
             return true;
         }
 
-        return otherAssignment != null
-                && otherAssignment.getName().equals(getName());
+        return otherAttendance != null
+                && otherAttendance.getSession().equals(getSession());
     }
 
     @Override
-    public int compareTo(seedu.address.model.assignment.Assignment other) {
-        int deadlineComparison = this.getDeadline().compareTo(other.getDeadline());
-        if (deadlineComparison != 0) {
-            return deadlineComparison;
+    public int compareTo(Attendance other) {
+        int sessionComparison = this.getSession().compareTo(other.getSession());
+        if (sessionComparison != 0) {
+            return sessionComparison;
         }
         return 0;
     }
 
     /**
-     * Returns true if both assignments have the same name and data fields.
-     * This defines a stronger notion of equality between two assignments.
+     * Returns true if both attendance have the same name and data fields.
+     * This defines a stronger notion of equality between two attendance.
      */
     @Override
     public boolean equals(Object other) {
@@ -74,33 +69,25 @@ public class Attendance  {
             return true;
         }
 
-        if (!(other instanceof seedu.address.model.assignment.Assignment)) {
+        if (!(other instanceof Attendance)) {
             return false;
         }
 
-        seedu.address.model.assignment.Assignment otherAssignment = (seedu.address.model.assignment.Assignment) other;
-        return otherAssignment.getName().equals(getName())
-                && otherAssignment.getWeight().equals(getWeight())
-                && otherAssignment.getDeadline().equals(getDeadline())
-                && otherAssignment.getMaxMark().equals(getMaxMark());
+        Attendance otherAttendance = (Attendance) other;
+        return otherAttendance.getSession().equals(getSession());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name);
+        return Objects.hash(uniqueId);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Weight: ")
-                .append(getWeight())
-                .append(" Deadline: ")
-                .append(getDeadline())
-                .append(" Max Mark: ")
-                .append(getMaxMark());
+        builder.append("Attendance Session: ")
+                .append(getSession());
         return builder.toString();
     }
 
