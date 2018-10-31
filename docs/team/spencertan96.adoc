@@ -76,6 +76,12 @@ include::../UserGuide.adoc[tag=intro]
 
 include::../UserGuide.adoc[tag=note]
 
+---
+
+=== Proposed Enhancement for v2.0
+* Add a section to show users how to use the new and improved GUI that we intend to add in v2.0
+* Show step-by-step examples on how to use the application features using the GUI, using screenshots of the application and text.
+
 == Contributions to the Developer Guide
 
 |===
@@ -85,3 +91,7 @@ include::../UserGuide.adoc[tag=note]
 include::../DeveloperGuide.adoc[tag=studentDetails]
 
 include::../DeveloperGuide.adoc[tag=note]
+
+=== Proposed Enhancement for v2.0
+* Adding more UML diagrams as an aid to show readers exactly how the application is built
+* Add more features to the `Implementation` section to tell readers how our features were implemented and what alternative designs we considered
