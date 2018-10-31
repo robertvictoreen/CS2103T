@@ -31,6 +31,9 @@ public class NoteCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New note added to %1$s";
 
+    /**
+     * Guaranteed to be a positive integer, {@code NoteCommandParser}.
+     */
     private final Index studentIndex;
     private String textToAdd;
 
@@ -48,7 +51,7 @@ public class NoteCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        // Checks if index is valid
+        // Checks if index is valid, not more than list size
         int zeroBasedIndex = studentIndex.getZeroBased();
         if (zeroBasedIndex >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
