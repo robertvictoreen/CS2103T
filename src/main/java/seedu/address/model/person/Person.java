@@ -69,6 +69,7 @@ public class Person {
     }
 
     /**
+     * Constructor for EditPersonDescriptor
      * Has both note and pic, calls default constructor for setting defaults before overwriting.
      */
     public Person(Name name, Phone phone, Email email, Address address, ProfilePhoto photo, Set<Tag> tags,
