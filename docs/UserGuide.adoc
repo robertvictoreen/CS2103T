@@ -16,13 +16,15 @@ endif::[]
 
 By: `Team W12-4`      Since: `Aug 2018`      Licence: `MIT`
 
+// tag::intro[]
 == Introduction
 
 EazyTutors is an application for tutors or teachers who prefer a virtual way to record students’ attendance. It
 also boasts extra features to check on students’ progress and helps users customise their teaching to students
 with different capabilities. EazyTutors is optimized for those who prefer to work with a Command Line Interface
-(CLI) while still having the benefits of a Graphical User Interface (GUI). No need to bring around attendance
+(CLI) while still having the benefits of a Graphical User Interface (GUI). Won't need to bring around attendance
 sheets anymore with EazyTutors! Interested? Jump to Section 2, “Quick Start” to get started. Enjoy!
+// end::intro[]
 
 == Quick Start
 
@@ -137,7 +139,7 @@ Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the student list's content (`add`, `delete`, `edit`, `markAssignment`, `markAttendance`, `note`, `delnote`, `editnote`, `sort` and `clear`).
+Undoable commands: those commands that modify the student list's content (`add`, `delete`, `edit`, `markAssignment`, `attend`, `note`, `delnote`, `editnote`, `sort` and `clear`).
 ====
 
 Examples:
@@ -252,6 +254,7 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears all existing ta
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
 
+// tag::note[]
 === Add a note about a student : `note`
 
 Attaches a note with `TEXT` to a student in the student list specified by his/her `INDEX`. +
@@ -295,6 +298,7 @@ Examples:
 (Note is now: `marks checked.`) +
 `delnote 1`
 (Note deleted and reset to default `<No note added>`)
+// end::note[]
 
 [NOTE]
 ====

@@ -1,0 +1,67 @@
+= Spencer Tan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: EazyTutors
+
+---
+
+== Overview
+
+EazyTutors is a desktop statistics recording application used for managing classes of students. It was created with NUS tutors in mind, but can be extended to tutors or teachers from other organizations as well. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to add/delete/edit a student's note*
+** What it does: allows the user to add, delete or edit notes specific to each student.
+** Justification: This feature will help tutors remember their students better and customise their teaching towards each student to be more effective. This would be especially helpful for tutors with large classes where it is very hard to remember each and every student and their respective personalities.
+** Highlights: Added notes are auto-punctuated. Each note added will have a full stop appended to its end if it does not already end with either `!`,`?` or `.`. When more text is added to the note, the current text's full stop will be changed to a `,` before the new text is added.
+** Credits:
+
+* *Minor enhancement*: added a panel in the GUI for displaying a student's details such as their respective note.
+
+* *Minor enhancement*: added a stub for Assignment class to test the details panel in the GUI.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` and `v1.3` (2 releases) on GitHub
+** Enhancements to existing features:
+*** Updated .. (Pull requests https://github.com[#33], https://github.com[#34])
+** Documentation:
+*** Did administrative tweaks to Travis generated documentation: https://github.com[#14]
+*** Updated introduction in User Guide
+*** Created first draft of User Guide
+*** Added implementation details of `Note` and `MoreDetailsPanel` to Developer Guide
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+** Tools:
+*** Set up Travis auto-documentation for the team repo (https://github.com[#42])
+*** Set up AppVeyor as a secondary integration tool for the team repo
+*** Set up Coveralls to monitor the test coverage of our project for the team repo
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=intro]
+
+== Features
+
+include::../UserGuide.adoc[tag=note]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=studentDetails]
+
+include::../DeveloperGuide.adoc[tag=note]
