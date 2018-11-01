@@ -64,9 +64,9 @@ public class Note {
      * @param text to be added
      */
     public Note add(String text) {
-        // Clear default text if default
+        // Empty text if default
         String editedText = this.text;
-        if (this.isDefault()) {
+        if (!this.hasChanged()) {
             editedText = "";
         // if current text ends with one of the characters in {@code END_OF_SENTENCE_REGEX}, change to comma
         } else if (this.text.matches(NOTE_PUNCTUATION_REGEX)) {
@@ -85,16 +85,16 @@ public class Note {
     }
 
     /**
-     * Returns a Note object with text reset to {@code DEFAULT_NOTE}.
+     * Returns a Note object with text reset to {@code DEFAULT_NOTE}. Method name keeps internals hidden from users.
      */
     public Note delete() {
         return new Note(DEFAULT_NOTE);
     }
 
     /**
-     * Checks if this note has the default text.
+     * Checks if this note has the default text. Method name keeps internals hidden from users.
      */
-    public boolean isDefault() {
+    public boolean hasChanged() {
         return this.text.equals(DEFAULT_NOTE);
     }
 }

@@ -19,6 +19,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.Mark;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.EmptyAddress;
+import seedu.address.model.person.EmptyEmail;
+import seedu.address.model.person.EmptyPhone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -40,22 +43,23 @@ public class AddCommandParser implements Parser<AddCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_INDEX, PREFIX_PHONE, PREFIX_EMAIL,
                                            PREFIX_ADDRESS, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
+        String value;
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Index index;
-        String value = argMultimap.getValue(PREFIX_INDEX).orElse("");
-        if (value.isEmpty()) {
-            index = null;
-        } else {
-            index = ParserUtil.parseIndex(value);
-        }
+
+        // Optional argument handling, assigns null if not present
+        value = argMultimap.getValue(PREFIX_PHONE).orElse("");
+        Phone phone = value.isEmpty() ? new EmptyPhone() : ParserUtil.parsePhone(value);
+        value = argMultimap.getValue(PREFIX_EMAIL).orElse("");
+        Email email = value.isEmpty() ? new EmptyEmail() : ParserUtil.parseEmail(value);
+        value = argMultimap.getValue(PREFIX_ADDRESS).orElse("");
+        Address address = value.isEmpty() ? new EmptyAddress() : ParserUtil.parseAddress(value);
+        value = argMultimap.getValue(PREFIX_INDEX).orElse("");
+        Index index = value.isEmpty() ? null : ParserUtil.parseIndex(value);
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         ProfilePhoto photo = new ProfilePhoto();
         Map<String, Mark> markMap = new HashMap<>();
@@ -72,5 +76,4 @@ public class AddCommandParser implements Parser<AddCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
-
 }

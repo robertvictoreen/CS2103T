@@ -15,6 +15,9 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.assignment.Mark;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.EmptyAddress;
+import seedu.address.model.person.EmptyEmail;
+import seedu.address.model.person.EmptyPhone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -140,26 +143,32 @@ public class XmlAdaptedPerson {
         if (phone == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
+        if (!EmptyPhone.isValidPhone(phone)) {
             throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
+        // phone is guaranteed to be legal, it can only be saved as data if it was created and unedited
+        // unless data was tampered with
+        final Phone modelPhone = phone.equals("") ? new EmptyPhone() : new Phone(phone);
 
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(email)) {
+        if (!EmptyEmail.isValidEmail(email)) {
             throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
+        // email is guaranteed to be legal, it can only be saved as data if it was created and unedited
+        // unless data was tampered with
+        final Email modelEmail = email.equals("") ? new EmptyEmail() : new Email(email);
 
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address)) {
+        if (!EmptyAddress.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        // address is guaranteed to be legal, it can only be saved as data if it was created and unedited
+        // unless data was tampered with
+        final Address modelAddress = address.equals("") ? new EmptyAddress() : new Address(address);
 
         ProfilePhoto modelPhoto = new ProfilePhoto();
         if (this.profilephoto != null) {
