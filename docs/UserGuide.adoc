@@ -22,7 +22,7 @@ By: `Team W12-4`      Since: `Aug 2018`      Licence: `MIT`
 EazyTutors is an application for tutors or teachers who prefer a virtual way to record students’ attendance. It
 also boasts extra features to check on students’ progress and helps users customise their teaching to students
 with different capabilities. EazyTutors is optimized for those who prefer to work with a Command Line Interface
-(CLI) while still having the benefits of a Graphical User Interface (GUI). Won't need to bring around attendance
+(CLI) while still having the benefits of a Graphical User Interface (GUI). You won't need to bring around attendance
 sheets anymore with EazyTutors! Interested? Jump to Section 2, “Quick Start” to get started. Enjoy!
 // end::intro[]
 
