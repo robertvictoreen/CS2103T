@@ -199,6 +199,7 @@ Format: `sort [s/p/a]`
 [TIP]
 Students are sorted according by alphabetical order by default (with no argument).
 
+// tag::assignment[]
 === Add an assignment: `addAssignment`
 
 Adds an assignment with given assignment name, weight, deadline, maximum mark. +
@@ -213,6 +214,7 @@ Format: `deleteAssignment INDEX`
 
 Adds a mark for an assignment associated with a student given the mark obtained. +
 Format: `markAssignment INDEX id/ASSIGNMENT_INDEX m/MARK`
+// end::assignment[]
 
 === Display the statistics for an assignment: `assignmentStats`
 
