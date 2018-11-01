@@ -52,6 +52,15 @@ public class AddCommand extends Command {
         this.index = index;
     }
 
+    /**
+     * Creates an AddCommand with an index of listSize to add the specified {@code Person}
+     */
+    public AddCommand(Person person) {
+        requireNonNull(person);
+        toAdd = person;
+        this.index = null;
+    }
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
