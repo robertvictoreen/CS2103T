@@ -64,18 +64,19 @@ Format: `help`
 
 === Adding a student: `add`
 
-Adds a student with a compulsory name. The other information (index at list to add him to,
+Adds a student at INDEX with a compulsory name. The other information (index at list to add him to,
 phone number, email and tags) is optional. +
-Format: `add NAME [s/INDEX p/PHONE_NUMBER e/EMAIL t/TAG...]`
+Format: `add n/NAME [p/PHONE_NUMBER e/EMAIL a/ADDRESS s/INDEX t/TAG...]`
 
 [TIP]
 Students are added to the bottom of the student list by default.
 A student can have multiple tags (or none).
+Whitespace between different parameters do not affect the result, such as between `s/1` and `n/John Doe`.
 
 Examples:
 
-* `add John Doe p/98765432 e/johnd@example.com t/CS2103`
-* `add Betsy Crowe s/1 e/betsycrowe@example.com t/CS2103T`
+* `add n/John Doe p/98765432 e/johnd@example.com t/CS2103` (Added to the bottom of the student list as index not specified)
+* `add n/Betsy Crowe s/1 e/betsycrowe@example.com t/CS2103T` (The order of the parameters can be swapped around as all parameters have prefixes)
 
 === Adding a profile photo : `addphoto`
 
@@ -139,7 +140,7 @@ Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the student list's content (`add`, `delete`, `edit`, `markAssignment`, `attend`, `note`, `delnote`, `editnote`, `sort` and `clear`).
+Undoable commands: those commands that modify the student list's content (`add`, `delete`, `edit`, `addAssignment`, `deleteAssignment`, `markAssignment`, `attend`, `note`, `delnote`, `editnote` and `clear`).
 ====
 
 Examples:
@@ -186,10 +187,15 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Exits the program. +
 Format: `exit`
 
-=== Mark a student's attendance as present or absent: `attend`
+=== Mark a student's attendance as present: `attend`
 
-Records the attendance of a student as present or absent for a specified date. +
-Format: `markAttendance INDEX a/BOOLEAN d/DATE`
+Records the attendance of a student as present for a specified class. +
+Format: `attend INDEX at/CLASSNAME`
+
+=== Mark a student's attendance as absent: `unattend` {Coming in v1.4}
+
+Records the attendance of a student as absent for a specified class. +
+Format: `unattend INDEX at/CLASSNAME`
 
 === Sort the student list: `sort`
 
@@ -316,6 +322,8 @@ e.g. `add James Ho s/1 p/22224444 e/jamesho@example.com t/friend t/colleague`
 e.g. `addAssignment n/Assignment 1 w/15 d/14/10/2019 m/100`
 * *AssignmentStats* : `assignmentStats INDEX` +
 e.g. `assignmentStats 1`
+* *Attend* : `attend INDEX at/CLASSNAME` +
+e.g. `attend 1 at/Tutorial 1`
 * *ClassStats* : `classStats`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
@@ -333,8 +341,6 @@ e.g. `editnote 1 Consult changed to 3pm`
 * *History* : `history`
 * *MarkAssignment* : `markAssignment INDEX id/ASSIGNMENT_INDEX m/MARK` +
 e.g. `markAssignment 1 id/1 m/53`
-* *MarkAttendance* : `markAttendance INDEX a/BOOLEAN d/DATE` +
-e.g. `markAttendance 1 a/true d/14/10/2019`
 * *Note* : `note INDEX TEXT` +
 e.g. `note 4 Good student`
 * *Present* : `present NAME`
@@ -343,5 +349,6 @@ e.g. `note 4 Good student`
 * *Sort* : `sort [s/p/a]`
 * *Sort* : `sort`
 * *SortAssignment* : `sortAssignment`
+* *Unattend* : `unattend INDEX at/CLASSNAME` {Coming in v1.4}
 * *Undo* : `undo`
 
