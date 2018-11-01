@@ -43,8 +43,6 @@ This section serves to inform you of the improvements I made to the project, inc
 
 * *Minor enhancement*: added a stub for Assignment class to test the details panel in the GUI.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
-
 * *Other contributions*:
 
 ** Project management:
