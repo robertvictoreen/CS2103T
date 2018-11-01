@@ -16,9 +16,13 @@ public class EmptyAddress extends Address {
     }
 
     /**
-     * Returns false.
+     * Returns true so that storage won't see EmptyAddress objects as errors.
      */
     public static boolean isValidAddress(String test) {
-        return false;
+        if (test.equals("")) {
+            return true;
+        } else {
+            return Address.isValidAddress(test);
+        }
     }
 }

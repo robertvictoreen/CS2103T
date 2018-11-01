@@ -16,9 +16,13 @@ public class EmptyPhone extends Phone {
     }
 
     /**
-     * Returns false.
+     * Returns true so that storage won't see EmptyPhone objects as errors.
      */
     public static boolean isValidPhone(String test) {
-        return false;
+        if (test.equals("")) {
+            return true;
+        } else {
+            return Phone.isValidPhone(test);
+        }
     }
 }

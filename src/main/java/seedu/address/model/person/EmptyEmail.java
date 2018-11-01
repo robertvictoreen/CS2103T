@@ -16,9 +16,13 @@ public class EmptyEmail extends Email {
     }
 
     /**
-     * Returns false.
+     * Returns true so that storage won't see EmptyEmail objects as errors.
      */
     public static boolean isValidEmail(String test) {
-        return false;
+        if (test.equals("")) {
+            return true;
+        } else {
+            return Email.isValidEmail(test);
+        }
     }
 }
