@@ -92,9 +92,9 @@ public class Note {
     }
 
     /**
-     * Checks if this note has the default text. Method name keeps internals hidden from users.
+     * Returns false if this note has the default text. Method name keeps internals hidden from users.
      */
     public boolean hasChanged() {
-        return this.text.equals(DEFAULT_NOTE);
+        return !this.text.equals(DEFAULT_NOTE);
     }
 }

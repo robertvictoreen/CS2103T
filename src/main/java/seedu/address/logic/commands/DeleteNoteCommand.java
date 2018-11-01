@@ -52,8 +52,8 @@ public class DeleteNoteCommand extends Command {
         EditPersonDescriptor descriptor = new EditPersonDescriptor();
 
         Note note = studentToReplace.getNote();
-        // check if note is default
-        if (note.isDefault()) {
+        // check if note is unchanged
+        if (!note.hasChanged()) {
             throw new CommandException(MESSAGE_NOTE_EMPTY);
         }
         Note updatedNote = note.delete();
