@@ -13,22 +13,31 @@ EazyTutors
 
 == Summary of contributions
 
-* *Major enhancement*:
+* *Major enhancement*: Grade Statistics
+** What it does: Calculates the statistics for the grades of an individual assignment or the overall class.
+** Justification: This feature enables tutors to analyse the grades of students to provide relative feedback based on the performance of the class.
+** Highlights: Provides high, low, 25th/75th percentiles, average, and median of the grades.
 ** Credits:
 
-* *Minor enhancement*:
-**
+* *Major enhancement*: Attendance Model
+** What it does: Provides a representation of an attendance session for a particular date.
+** Justification: This enhancement provides the model for the attendance feature.
+** Highlights: This enables a mapping between each student and multiple attendance sessions
+               with a record of attendance/absense for that session.
+** Credits:
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Minor enhancement*: Calculate and display the assignment grades when a student is selected.
+
+* *Code contributed*: [https://github.com/CS2103-AY1819S1-W12-4/main/commits/master?author=robertvictoreen] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Review pull requests:
 ** Enhancements to existing features:
 ***
 ** Documentation:
-***
+*** UserGuide / DeveloperGuide
 ** Community:
 ***
 ** Tools:
@@ -43,9 +52,9 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=assignmentstats]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=classstats]
 
 == Contributions to the Developer Guide
 
@@ -53,9 +62,7 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=attendance]
 
 
 == PROJECT:

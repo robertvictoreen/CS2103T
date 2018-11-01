@@ -446,7 +446,7 @@ The Attendance session date is represented with the Deadline class from the Assi
 * **Alternative 2:** Store a list of attendance marks for each student.
 ** Pros: Higher cohesion with attendance data represented together with student.
 ** Cons: Attendance session data is distributed across all students which increases complexity of operations affecting all students.
-//end:attendance[]
+// end:attendance[]
 
 // tag::studentDetails[]
 === UI-Model binding of student details
