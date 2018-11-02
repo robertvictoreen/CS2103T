@@ -46,8 +46,6 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private ImageView imageView;
 
-
-
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
         this.person = person;
@@ -73,6 +71,7 @@ public class PersonCard extends UiPart<Region> {
             imageView.setImage(new Image(DEFAULT_IMAGE_URL, 128, 128, true, false));
         }
     }
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
