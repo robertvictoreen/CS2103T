@@ -64,25 +64,24 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        ObservableList<Person> lastShownList = model.getFilteredPersonList();
 
         if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        // Checks if index is valid, not more than list size
-        int listSize = lastShownList.size();
-        int studentIndex;
-        if (index == null) {
-            studentIndex = listSize;
+        if (index != null) {
+            //Last shown list may cause inconsistencies in tests after "find" command
+            ObservableList<Person> lastShownList = model.getFilteredPersonList();
+            // Checks if index is valid, not more than list size
+            int studentIndex = index.getZeroBased();
+            if (studentIndex > lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+            model.addPersonAt(toAdd, studentIndex);
         } else {
-            studentIndex = index.getZeroBased();
-        }
-        if (studentIndex > listSize) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            model.addPerson(toAdd);
         }
 
-        model.addPersonAt(toAdd, studentIndex);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

@@ -1,5 +1,12 @@
 package seedu.address.model.common;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,9 +15,15 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.Mark;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.EmptyAddress;
+import seedu.address.model.person.EmptyEmail;
+import seedu.address.model.person.EmptyPhone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Note;
 import seedu.address.model.person.Person;
@@ -47,6 +60,39 @@ public class EditPersonDescriptor {
         setMarks(toCopy.marks);
         setAttendance(toCopy.attendance);
         setNote(toCopy.note);
+    }
+
+    /**
+     * Parse constructor.
+     * A defensive copy of {@code tags} is used internally.
+     */
+    public EditPersonDescriptor(ArgumentMultimap argMultimap) throws ParseException {
+        assert argMultimap.getValue(PREFIX_NAME).isPresent();
+        setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
+            setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
+        } else {
+            setPhone(new EmptyPhone());
+        }
+        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
+            setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
+        } else {
+            setEmail(new EmptyEmail());
+        }
+        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+            setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        } else {
+            setAddress(new EmptyAddress());
+        }
+        setTags(parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).orElseGet(HashSet::new));
+    }
+
+    /**
+     * Creates and returns a {@code Person} with the details
+     * edited with {@code editPersonDescriptor}.
+     */
+    public Person createNewPerson() {
+        return new Person(name, phone, email, address, tags);
     }
 
     /**
@@ -174,5 +220,20 @@ public class EditPersonDescriptor {
             && getMarks().equals(e.getMarks())
             && getAttendance().equals(e.getAttendance())
             && getNote().equals(e.getNote());
+    }
+
+    /**
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
+     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
+     * {@code Set<Tag>} containing zero tags.
+     */
+    private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
+        assert tags != null;
+
+        if (tags.isEmpty()) {
+            return Optional.empty();
+        }
+        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
+        return Optional.of(ParserUtil.parseTags(tagSet));
     }
 }

@@ -8,25 +8,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.assignment.Mark;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.EmptyAddress;
-import seedu.address.model.person.EmptyEmail;
-import seedu.address.model.person.EmptyPhone;
-import seedu.address.model.person.Name;
+import seedu.address.model.common.EditPersonDescriptor;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.ProfilePhoto;
-import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -48,23 +36,14 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        String value;
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor(argMultimap);
 
-        // Optional argument handling, assigns null if not present
-        value = argMultimap.getValue(PREFIX_PHONE).orElse("");
-        Phone phone = value.isEmpty() ? new EmptyPhone() : ParserUtil.parsePhone(value);
-        value = argMultimap.getValue(PREFIX_EMAIL).orElse("");
-        Email email = value.isEmpty() ? new EmptyEmail() : ParserUtil.parseEmail(value);
-        value = argMultimap.getValue(PREFIX_ADDRESS).orElse("");
-        Address address = value.isEmpty() ? new EmptyAddress() : ParserUtil.parseAddress(value);
-        value = argMultimap.getValue(PREFIX_INDEX).orElse("");
-        Index index = value.isEmpty() ? null : ParserUtil.parseIndex(value);
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        ProfilePhoto photo = new ProfilePhoto();
-        Map<String, Mark> markMap = new HashMap<>();
+        Person person = editPersonDescriptor.createNewPerson();
 
-        Person person = new Person(name, phone, email, address, photo, tagList, markMap);
+        Index index = null;
+        if (argMultimap.getValue(PREFIX_INDEX).isPresent()) {
+            index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
+        }
 
         return new AddCommand(person, index);
     }
