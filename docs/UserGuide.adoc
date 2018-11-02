@@ -16,13 +16,15 @@ endif::[]
 
 By: `Team W12-4`      Since: `Aug 2018`      Licence: `MIT`
 
+// tag::intro[]
 == Introduction
 
 EazyTutors is an application for tutors or teachers who prefer a virtual way to record students’ attendance. It
 also boasts extra features to check on students’ progress and helps users customise their teaching to students
 with different capabilities. EazyTutors is optimized for those who prefer to work with a Command Line Interface
-(CLI) while still having the benefits of a Graphical User Interface (GUI). No need to bring around attendance
+(CLI) while still having the benefits of a Graphical User Interface (GUI). You won't need to bring around attendance
 sheets anymore with EazyTutors! Interested? Jump to Section 2, “Quick Start” to get started. Enjoy!
+// end::intro[]
 
 == Quick Start
 
@@ -62,18 +64,19 @@ Format: `help`
 
 === Adding a student: `add`
 
-Adds a student with a compulsory name. The other information (index at list to add him to,
+Adds a student at INDEX with a compulsory name. The other information (index at list to add him to,
 phone number, email and tags) is optional. +
-Format: `add NAME [s/INDEX p/PHONE_NUMBER e/EMAIL t/TAG...]`
+Format: `add n/NAME [p/PHONE_NUMBER e/EMAIL a/ADDRESS s/INDEX t/TAG...]`
 
 [TIP]
 Students are added to the bottom of the student list by default.
 A student can have multiple tags (or none).
+Whitespace between different parameters do not affect the result, such as between `s/1` and `n/John Doe`.
 
 Examples:
 
-* `add John Doe p/98765432 e/johnd@example.com t/CS2103`
-* `add Betsy Crowe s/1 e/betsycrowe@example.com t/CS2103T`
+* `add n/John Doe p/98765432 e/johnd@example.com t/CS2103` (Added to the bottom of the student list as index not specified)
+* `add n/Betsy Crowe s/1 e/betsycrowe@example.com t/CS2103T` (The order of the parameters can be swapped around as all parameters have prefixes)
 
 === Adding a profile photo : `addphoto`
 
@@ -137,7 +140,7 @@ Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the student list's content (`add`, `delete`, `edit`, `markAssignment`, `markAttendance`, `note`, `delnote`, `editnote`, `sort` and `clear`).
+Undoable commands: those commands that modify the student list's content (`add`, `delete`, `edit`, `addAssignment`, `deleteAssignment`, `markAssignment`, `attend`, `note`, `delnote`, `editnote` and `clear`).
 ====
 
 Examples:
@@ -184,19 +187,25 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Exits the program. +
 Format: `exit`
 
-=== Mark a student's attendance as present or absent: `attend`
+=== Mark a student's attendance as present: `attend`
 
-Records the attendance of a student as present or absent for a specified date. +
-Format: `markAttendance INDEX a/BOOLEAN d/DATE`
+Records the attendance of a student as present for a specified class. +
+Format: `attend INDEX at/CLASSNAME`
+
+=== Mark a student's attendance as absent: `unattend` {Coming in v1.4}
+
+Records the attendance of a student as absent for a specified class. +
+Format: `unattend INDEX at/CLASSNAME`
 
 === Sort the student list: `sort`
 
-Sort the student list by alphabetical order, score, participation or attendance depending on the presence of an argument. +
-Format: `sort [s/p/a]`
+Sort the student list by alphabetical order. +
+Format: `sort`
 
-[TIP]
-Students are sorted according by alphabetical order by default (with no argument).
+//[TIP]
+//Students are sorted according by alphabetical order by default (with no argument).
 
+// tag::assignment[]
 === Add an assignment: `addAssignment`
 
 Adds an assignment with given assignment name, weight, deadline, maximum mark. +
@@ -211,6 +220,7 @@ Format: `deleteAssignment INDEX`
 
 Adds a mark for an assignment associated with a student given the mark obtained. +
 Format: `markAssignment INDEX id/ASSIGNMENT_INDEX m/MARK`
+// end::assignment[]
 
 === Display the statistics for an assignment: `assignmentStats`
 
@@ -252,6 +262,7 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears all existing ta
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
 
+// tag::note[]
 === Add a note about a student : `note`
 
 Attaches a note with `TEXT` to a student in the student list specified by his/her `INDEX`. +
@@ -295,6 +306,7 @@ Examples:
 (Note is now: `marks checked.`) +
 `delnote 1`
 (Note deleted and reset to default `<No note added>`)
+// end::note[]
 
 [NOTE]
 ====
@@ -303,13 +315,14 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 == Command Summary
 
-* *Absent* : `absent NAME`
-* *Add* : `add NAME [s/INDEX p/PHONE_NUMBER e/EMAIL [t/TAG]...` +
-e.g. `add James Ho s/1 p/22224444 e/jamesho@example.com t/friend t/colleague`
+* *Add* : `add n/NAME [s/INDEX p/PHONE_NUMBER e/EMAIL t/TAG]...` +
+e.g. `add n/James Ho s/1 p/22224444 e/jamesho@example.com t/friend t/colleague`
 * *AddAssignment* : `addAssignment n/NAME w/WEIGHT d/DEADLINE m/MAX_MARK` +
 e.g. `addAssignment n/Assignment 1 w/15 d/14/10/2019 m/100`
 * *AssignmentStats* : `assignmentStats INDEX` +
 e.g. `assignmentStats 1`
+* *Attend* : `attend INDEX at/CLASSNAME` +
+e.g. `attend 1 at/Tutorial 1`
 * *ClassStats* : `classStats`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
@@ -327,15 +340,11 @@ e.g. `editnote 1 Consult changed to 3pm`
 * *History* : `history`
 * *MarkAssignment* : `markAssignment INDEX id/ASSIGNMENT_INDEX m/MARK` +
 e.g. `markAssignment 1 id/1 m/53`
-* *MarkAttendance* : `markAttendance INDEX a/BOOLEAN d/DATE` +
-e.g. `markAttendance 1 a/true d/14/10/2019`
 * *Note* : `note INDEX TEXT` +
 e.g. `note 4 Good student`
-* *Present* : `present NAME`
 * *Redo* : `redo`
-* *Results* : `results INDEX`
-* *Sort* : `sort [s/p/a]`
 * *Sort* : `sort`
 * *SortAssignment* : `sortAssignment`
+* *Unattend* : `unattend INDEX at/CLASSNAME` {Coming in v1.4}
 * *Undo* : `undo`
 

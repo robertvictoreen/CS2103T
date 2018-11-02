@@ -28,6 +28,9 @@ public class DeleteNoteCommand extends Command {
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Note of Student: %1$s";
 
+    /**
+     * Guaranteed to be a positive integer, {@code DeleteNoteCommandParser}.
+     */
     private final Index targetIndex;
 
     public DeleteNoteCommand(Index targetIndex) {
@@ -40,7 +43,8 @@ public class DeleteNoteCommand extends Command {
         List<Person> lastShownList = model.getFilteredPersonList();
 
         int index = targetIndex.getZeroBased();
-        if (index >= lastShownList.size() || index < 0) {
+        // check if index is valid, not more than list size
+        if (index >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
@@ -48,8 +52,8 @@ public class DeleteNoteCommand extends Command {
         EditPersonDescriptor descriptor = new EditPersonDescriptor();
 
         Note note = studentToReplace.getNote();
-        // check if note is default
-        if (note.isDefault()) {
+        // check if note is unchanged
+        if (!note.hasChanged()) {
             throw new CommandException(MESSAGE_NOTE_EMPTY);
         }
         Note updatedNote = note.delete();

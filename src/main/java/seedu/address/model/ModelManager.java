@@ -79,6 +79,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void addPersonAt(Person p, int index) {
+        versionedAddressBook.addPersonAt(p, index);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateAddressBookChanged();
+    }
+
+    @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 

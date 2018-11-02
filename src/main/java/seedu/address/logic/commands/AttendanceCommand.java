@@ -34,9 +34,9 @@ public class AttendanceCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Creates an attendance entry for the person identified by the index number used in the displayed"
         + " person list.\n"
-        + "Parameters: attend INDEX (must be a positive integer)"
+        + "Parameters: attend INDEX (must be a positive integer) "
         + PREFIX_ATTENDANCE + "CLASSNAME: (a string)\n"
-        + "Example: " + COMMAND_WORD + " 1" + PREFIX_ATTENDANCE + "Tutorial1";
+        + "Example: " + COMMAND_WORD + " 1 " + PREFIX_ATTENDANCE + "Tutorial1";
 
     public static final String MESSAGE_ATTENDANCE_PRESENT = "Recorded present for person: %1$s";
     public static final String MESSAGE_ATTENDANCE_ABSENT = "Recorded absent for person: %1$s";
