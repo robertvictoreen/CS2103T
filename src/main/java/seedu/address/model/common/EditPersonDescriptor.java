@@ -67,24 +67,19 @@ public class EditPersonDescriptor {
      * A defensive copy of {@code tags} is used internally.
      */
     public EditPersonDescriptor(ArgumentMultimap argMultimap) throws ParseException {
-        assert argMultimap.getValue(PREFIX_NAME).isPresent();
-        setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        }
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
             setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
-        } else {
-            setPhone(new EmptyPhone());
         }
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
             setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
-        } else {
-            setEmail(new EmptyEmail());
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
-        } else {
-            setAddress(new EmptyAddress());
         }
-        setTags(parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).orElseGet(HashSet::new));
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(this::setTags);
     }
 
     /**
@@ -92,7 +87,9 @@ public class EditPersonDescriptor {
      * edited with {@code editPersonDescriptor}.
      */
     public Person createNewPerson() {
-        return new Person(name, phone, email, address, tags);
+        assert name != null;
+        return new Person(name, getPhone().orElseGet(EmptyPhone::new), getEmail().orElseGet(EmptyEmail::new),
+          getAddress().orElseGet(EmptyAddress::new), getTags().orElseGet(HashSet::new));
     }
 
     /**
