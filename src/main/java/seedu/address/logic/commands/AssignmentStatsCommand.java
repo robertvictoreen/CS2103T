@@ -15,7 +15,7 @@ import seedu.address.model.assignment.Assignment;
 import seedu.address.model.person.Person;
 
 /**
- * Deletes an assignment identified using it's displayed index from the address book.
+ * Display the statistics for an assignment identified by the index number in the assignment list.
  */
 public class AssignmentStatsCommand extends Command {
 
@@ -23,7 +23,7 @@ public class AssignmentStatsCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Display the statistics for an assignment identified by the"
-            + " index number used in the displayed assignment list.\n"
+            + " index number in the assignment list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 

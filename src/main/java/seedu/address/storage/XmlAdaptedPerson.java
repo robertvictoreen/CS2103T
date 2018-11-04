@@ -19,6 +19,7 @@ import seedu.address.model.person.EmptyAddress;
 import seedu.address.model.person.EmptyEmail;
 import seedu.address.model.person.EmptyPhone;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Note;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.ProfilePhoto;
@@ -43,11 +44,15 @@ public class XmlAdaptedPerson {
     private String address;
     @XmlElement(required = true)
     private String profilephoto;
+    @XmlElement(required = true)
+    private String note;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
     @XmlElement
     private List<XmlAdaptedMark> marks = new ArrayList<>();
+    @XmlElement
+    private List<XmlAdaptedMark> attendance = new ArrayList<>();
 
     /**
      * Constructs an XmlAdaptedPerson.
@@ -71,15 +76,20 @@ public class XmlAdaptedPerson {
     }
 
     /**
-     * Constructs an {@code XmlAdaptedPerson} with an additional Picture parameter and marks parameter
+     * Constructs an {@code XmlAdaptedPerson} with an additional Picture parameter
+     * marks parameter, attendance parameter and note parameter.
      */
-
     public XmlAdaptedPerson(String name, String phone, String email, String address, String profilephoto,
-                            List<XmlAdaptedTag> tagged, List<XmlAdaptedMark> marks) {
+                            List<XmlAdaptedTag> tagged, List<XmlAdaptedMark> marks,
+                            List<XmlAdaptedMark> attendance, String note) {
         this(name, phone, email, address, tagged);
         this.profilephoto = profilephoto;
+        this.note = note;
         if (marks != null) {
             this.marks = new ArrayList<>(marks);
+        }
+        if (attendance != null) {
+            this.attendance = new ArrayList<>(attendance);
         }
     }
 
@@ -88,12 +98,13 @@ public class XmlAdaptedPerson {
      *
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
-    public XmlAdaptedPerson(Person source, List<String> allowedAssignmentUid) {
+    public XmlAdaptedPerson(Person source, List<String> allowedAssignmentUid, List<String> allowedAttendanceUid) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
         profilephoto = source.getProfilePhoto().getPath();
+        note = source.getNote().toString();
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
@@ -101,6 +112,12 @@ public class XmlAdaptedPerson {
             Mark mark = source.getMarks().get(key);
             if (mark != null) {
                 marks.add(new XmlAdaptedMark(key, mark.internalString));
+            }
+        }
+        for (String key: allowedAttendanceUid) {
+            Mark mark = source.getAttendance().get(key);
+            if (mark != null) {
+                attendance.add(new XmlAdaptedMark(key, mark.internalString));
             }
         }
     }
@@ -116,11 +133,15 @@ public class XmlAdaptedPerson {
         email = source.getEmail().value;
         address = source.getAddress().value;
         profilephoto = source.getProfilePhoto().getPath();
+        note = source.getNote().toString();
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
         for (Map.Entry<String, Mark> entry : source.getMarks().entrySet()) {
             marks.add(new XmlAdaptedMark(entry.getKey(), entry.getValue().internalString));
+        }
+        for (Map.Entry<String, Mark> entry : source.getAttendance().entrySet()) {
+            attendance.add(new XmlAdaptedMark(entry.getKey(), entry.getValue().internalString));
         }
     }
 
@@ -175,6 +196,11 @@ public class XmlAdaptedPerson {
             modelPhoto = new ProfilePhoto(this.profilephoto);
         }
 
+        Note modelNote = new Note();
+        if (this.note != null) {
+            modelNote = new Note(this.note);
+        }
+
         final Set<Tag> modelTags = new HashSet<>();
         for (XmlAdaptedTag tag : tagged) {
             modelTags.add(tag.toModelType());
@@ -185,7 +211,13 @@ public class XmlAdaptedPerson {
             modelMarks.put(mark.getKey(), mark.toModelType());
         }
 
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelPhoto, modelTags, modelMarks);
+        final Map<String, Mark> modelAttendance = new HashMap<>();
+        for (XmlAdaptedMark mark : attendance) {
+            modelAttendance.put(mark.getKey(), mark.toModelType());
+        }
+
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelPhoto, modelTags,
+          modelMarks, modelAttendance, modelNote);
     }
 
     @Override
@@ -205,6 +237,9 @@ public class XmlAdaptedPerson {
                 && Objects.equals(email, otherPerson.email)
                 && Objects.equals(address, otherPerson.address)
                 && Objects.equals(profilephoto, otherPerson.profilephoto)
-                && tagged.equals(otherPerson.tagged);
+                && tagged.equals(otherPerson.tagged)
+                && marks.equals(otherPerson.marks)
+                && attendance.equals(otherPerson.attendance)
+                && Objects.equals(note, otherPerson.note);
     }
 }
