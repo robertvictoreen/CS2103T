@@ -113,8 +113,7 @@ Format: `delete INDEX`
 
 Examples:
 
-* `list` +
-`delete 2` +
+* `delete 2` +
 Deletes the 2nd person in the student list.
 
 === Deleting a student's photo: `deleteProfilePhoto`
@@ -146,11 +145,11 @@ Undoable commands: those commands that modify the student list's content (`add`,
 Examples:
 
 * `delete 1` +
-`list` +
+`select 2`
 `undo` (reverses the `delete 1` command) +
 
 * `results` +
-`list` +
+`select 1` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
 
@@ -286,15 +285,20 @@ Examples:
 === Delete a student's note : `delnote`
 
 Deletes the corresponding note of the student at the specified `INDEX`. +
-Format: `delnote 1`
+Format: `delnote INDEX`
 
 [NOTE]
 An empty note cannot be deleted!
 
+Examples:
+
+* `delnote 2`
+(Deletes the note of the 2nd student shown, is invalid if there is less than 2 students in the shown student list.)
+
 === Edits the note of a student : `editnote`
 
 Edits the corresponding note of the student at the specified `INDEX` to `TEXT`. Refer to 3.21 for details on `TEXT`. +
-Format: `editnote 1 update tutorial attendance week 10`
+Format: `editnote INDEX TEXT`
 
 [NOTE]
 An empty note cannot be edited!
