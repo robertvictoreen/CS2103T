@@ -293,7 +293,7 @@ An empty note cannot be deleted!
 
 === Edits the note of a student : `editnote`
 
-Edits the corresponding note of the student at the specified `INDEX` to `TEXT`. +
+Edits the corresponding note of the student at the specified `INDEX` to `TEXT`. Refer to 3.21 for details on `TEXT`. +
 Format: `editnote 1 update tutorial attendance week 10`
 
 [NOTE]
