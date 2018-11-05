@@ -78,22 +78,28 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com t/CS2103` (Added to the bottom of the student list as index not specified)
 * `add n/Betsy Crowe s/1 e/betsycrowe@example.com t/CS2103T` (The order of the parameters can be swapped around as all parameters have prefixes)
 
-=== Adding a profile photo : `addphoto`
+=== Listing all students : `list`
 
-Adds a profile photo to a student +
+Shows the list of all students in the student list.
+Format: `list`
 
-Format: `addphoto INDEX f/FILENAME`
+=== Locating students by name : `find`
 
-****
-* Adds a photo at location `FILENAME` to person at the specified `INDEX`. The index refers to the index number shown in the last person listing. The index *must be a positive integer* 1, 2, 3, ...
-* `FILENAME` must point to a valid image file.
-****
+Finds students whose names contain any of the given keywords.
+Format: find KEYWORD [MORE KEYWORDS]
+
+* The search is case insensitive. e.g. `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned (i.e. `OR` search) e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
 
-* `addphoto 1 f/C://Users/Zackk95/Pictures/zacharytan.jpg` +
-Edits the profile photo of the 1st person to be the picture at C://Users//Zackk95//Pictures//zacharytan.jpg
-
+* `find John` +
+Returns `john` and `John Doe`
+* `find Betsy Tim John` +
+Returns any person having names `Betsy`, `Tim`, or `John`
 
 === Clearing all entries : `clear`
 
@@ -115,6 +121,40 @@ Examples:
 
 * `delete 2` +
 Deletes the 2nd person in the student list.
+
+=== Selecting a student : `select`
+
+Selects the student identified by the index number used in the displayed student list.
+Format: `select INDEX`
+
+* Selects the student and loads the Google search page the student at the specified `INDEX`.
+* The index refers to the index number shown in the displayed student list.
+* The index **must be a positive integer** `1, 2, 3, ...`
+
+Examples:
+
+* `list` +
+`select 2` +
+Selects the 2nd student in the student list.
+* `find Betsy` +
+`select 1` +
+Selects the 1st student in the results of the `find` command.
+
+=== Adding a profile photo : `addphoto`
+
+Adds a profile photo to a student +
+
+Format: `addphoto INDEX f/FILENAME`
+
+****
+* Adds a photo at location `FILENAME` to person at the specified `INDEX`. The index refers to the index number shown in the last person listing. The index *must be a positive integer* 1, 2, 3, ...
+* `FILENAME` must point to a valid image file.
+****
+
+Examples:
+
+* `addphoto 1 f/C://Users/Zackk95/Pictures/zacharytan.jpg` +
+Edits the profile photo of the 1st person to be the picture at C://Users//Zackk95//Pictures//zacharytan.jpg
 
 === Deleting a student's photo: `deleteProfilePhoto`
 
@@ -297,7 +337,7 @@ Examples:
 
 === Edits the note of a student : `editnote`
 
-Edits the corresponding note of the student at the specified `INDEX` to `TEXT`. Refer to 3.21 for details on `TEXT`. +
+Edits the corresponding note of the student at the specified `INDEX` to `TEXT`. Refer to <<Add a note about a student : `note`>> for details on `TEXT`. +
 Format: `editnote INDEX TEXT`
 
 [NOTE]
@@ -343,13 +383,18 @@ e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Editnote* : `editnote INDEX TEXT` +
 e.g. `editnote 1 Consult changed to 3pm`
 * *Exit* : `exit`
+* *Find* : `find KEYWORD [MORE_KEYWORDS]
+e.g. `find James Jake`
 * *Help* : `help`
 * *History* : `history`
+* *List* : `list`
 * *MarkAssignment* : `markAssignment INDEX id/ASSIGNMENT_INDEX m/MARK` +
 e.g. `markAssignment 1 id/1 m/53`
 * *Note* : `note INDEX TEXT` +
 e.g. `note 4 Good student`
 * *Redo* : `redo`
+* *Select* : `select INDEX`
+e.g. `select 2`
 * *Sort* : `sort`
 * *SortAssignment* : `sortAssignment`
 * *Unattend* : `unattend INDEX at/CLASSNAME` {Coming in v1.4}
