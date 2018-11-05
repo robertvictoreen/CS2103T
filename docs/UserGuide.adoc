@@ -38,8 +38,8 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`add*``John Doe p/999 e/police@hotmail.com t/cops`: Adds a contact named `John Doe` to the student list`
-* **`view`**`1`: views 1st student shown in the student list
+* *`add`*`n/John Doe p/999 e/police@hotmail.com t/cops`: Adds a contact named `John Doe` to the student list
+* **`select`**`1`: views the details of the 1st student shown in the student list
 * **`delete`**`3` : deletes the 3rd student shown in the student list
 * *`exit`* : exits the app
 
