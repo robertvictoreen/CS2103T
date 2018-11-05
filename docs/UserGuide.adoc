@@ -240,7 +240,7 @@ Format: `sortAssignment`
 === Editing a student: `edit`
 
 Edits an existing student in the student list. +
-Format: `edit INDEX [NAME] [p/PHONE] [e/EMAIL] [t/TAG]...`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG]...`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index *must be a positive integer* 1, 2, 3, ...
@@ -254,7 +254,7 @@ Examples:
 
 * `edit 1 p/91234567 e/johndoe@example.com` +
 Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 Betsy Crower t/` +
+* `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
 === Viewing command history : `history`
@@ -331,8 +331,8 @@ e.g. `delete 3`
 e.g. `deleteAssignment 3`
 * *Delnote* : `delnote INDEX` +
 e.g. `delnote 2`
-* *Edit* : `edit INDEX [NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]...` +
-e.g. `edit 2 James Lee e/jameslee@example.com`
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]...` +
+e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Editnote* : `editnote INDEX TEXT` +
 e.g. `editnote 1 Consult changed to 3pm`
 * *Exit* : `exit`
