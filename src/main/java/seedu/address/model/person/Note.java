@@ -9,11 +9,11 @@ public class Note {
         + " and have only one whitespace between it and the index.";
     public static final String MESSAGE_NOTE_EMPTY = "Note is empty!";
 
-    /*
+    /**
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String NOTE_VALIDATION_REGEX = "[\\p{Alnum}](.*)";
+    public static final String NOTE_INVALIDATION_REGEX = "[\\p{Space}](.*)";
 
     // Edit this to change what a text checks for before deciding to add a full stop.
     private static final String END_OF_SENTENCE_REGEX = "[.!?]";

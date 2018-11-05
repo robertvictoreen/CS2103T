@@ -273,6 +273,9 @@ Format: `note INDEX TEXT`
 * If a note is added to a student who already has a previous note, the previous note is changed to end with a comma before the new text is appended to the back.
 ****
 
+[NOTE]
+`TEXT` should not begin with a whitespace but alphanumeric and special characters are allowed.
+
 Examples:
 
 * `note 1 hardworking student` +
