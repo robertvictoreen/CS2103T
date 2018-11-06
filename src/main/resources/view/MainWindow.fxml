@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1"
-         minWidth="600" minHeight="740" onCloseRequest="#handleExit">
+<fx:root height="740.0" minHeight="740" minWidth="740" onCloseRequest="#handleExit" type="javafx.stage.Stage" width="740.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
