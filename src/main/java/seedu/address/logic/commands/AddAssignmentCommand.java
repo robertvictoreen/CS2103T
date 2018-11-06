@@ -20,7 +20,7 @@ public class AddAssignmentCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an assignment to the address book. "
             + "Parameters: "
-            + PREFIX_NAME + "NAME "
+            + PREFIX_NAME + "ASSIGNMENTNAME "
             + PREFIX_WEIGHT + "WEIGHT "
             + PREFIX_DATE + "DEADLINE "
             + PREFIX_MARK + "MAX_MARK \n"

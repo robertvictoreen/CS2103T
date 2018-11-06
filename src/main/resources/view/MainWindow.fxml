@@ -12,7 +12,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="600" minWidth="740" onCloseRequest="#handleExit" resizable="false" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1"
+         minWidth="600" minHeight="740" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -53,7 +54,7 @@
             <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
           </VBox>
 
-          <StackPane fx:id="detailsPlaceholder" minHeight="0.0" minWidth="0.0" prefWidth="390.0">
+          <StackPane fx:id="detailsPlaceholder" minHeight="-Infinity" minWidth="-Infinity" prefWidth="390.0">
             <padding>
               <Insets bottom="10" left="10" right="10" top="10" />
             </padding>
