@@ -14,9 +14,9 @@
    <children>
       <SplitPane fx:id="detailsPanel" dividerPositions="0.5757575757575758" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" stylesheets="@DarkTheme.css">
         <items>
-          <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true">
+          <ScrollPane fitToHeight="true" fitToWidth="true">
             <content>
-              <GridPane fx:id="components" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="106.0">
+              <GridPane fx:id="components" minHeight="-Infinity" minWidth="-Infinity">
                 <columnConstraints>
                   <ColumnConstraints hgrow="ALWAYS" />
                   <ColumnConstraints hgrow="ALWAYS" />
