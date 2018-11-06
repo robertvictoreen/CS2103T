@@ -86,12 +86,12 @@ public class AssignmentStatsCommand extends Command {
                     quartiles[i] = percentile;
                 }
             }
-            summary.append("\nHighest: ").append(summaryStatistics.getMax());
-            summary.append(", Lowest: ").append(summaryStatistics.getMin());
-            summary.append("\n25th: ").append(quartiles[0]);
-            summary.append(", 75th: ").append(quartiles[2]);
-            summary.append("\nAverage: ").append(summaryStatistics.getAverage());
-            summary.append(", Median: ").append(quartiles[1]);
+            summary.append("\nHighest: ").append(String.format("%.1f", summaryStatistics.getMax()));
+            summary.append(", Lowest: ").append(String.format("%.1f", summaryStatistics.getMin()));
+            summary.append("\n25th: ").append(String.format("%.1f", quartiles[0]));
+            summary.append(", 75th: ").append(String.format("%.1f", quartiles[2]));
+            summary.append("\nAverage: ").append(String.format("%.1f", summaryStatistics.getAverage()));
+            summary.append(", Median: ").append(String.format("%.1f", quartiles[1]));
         }
 
         return new CommandResult(summary.toString());
