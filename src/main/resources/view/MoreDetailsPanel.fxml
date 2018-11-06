@@ -15,7 +15,7 @@
       <SplitPane fx:id="detailsPanel" dividerPositions="0.5757575757575758" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" stylesheets="@DarkTheme.css">
         <items>
           <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true">
-          <content>
+            <content>
               <GridPane fx:id="components" minHeight="-Infinity" minWidth="-Infinity">
                 <columnConstraints>
                   <ColumnConstraints hgrow="ALWAYS" />
@@ -24,9 +24,8 @@
                   <ColumnConstraints hgrow="ALWAYS" />
                 </columnConstraints>
               </GridPane>
-
-          </content>
-        </ScrollPane>
+            </content>
+          </ScrollPane>
             <VBox fillWidth="true" prefHeight="109.0" prefWidth="156.0">
                <children>
                   <Label styleClass="label-bright" text="Notes:" />
