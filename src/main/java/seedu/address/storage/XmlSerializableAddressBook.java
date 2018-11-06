@@ -10,6 +10,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.attendance.Attendance;
 import seedu.address.model.person.Person;
 
 /**
@@ -25,6 +26,8 @@ public class XmlSerializableAddressBook {
     private List<XmlAdaptedPerson> persons;
     @XmlElement
     private List<XmlAdaptedAssignment> assignments;
+    @XmlElement
+    private List<XmlAdaptedAttendance> attendance;
 
     /**
      * Creates an empty XmlSerializableAddressBook.
@@ -33,6 +36,7 @@ public class XmlSerializableAddressBook {
     public XmlSerializableAddressBook() {
         persons = new ArrayList<>();
         assignments = new ArrayList<>();
+        attendance = new ArrayList<>();
     }
 
     /**
@@ -45,8 +49,13 @@ public class XmlSerializableAddressBook {
             assignments.add(new XmlAdaptedAssignment(a));
             uidList.add(a.getUniqueId());
         }
+        List<String> attendanceUidList = new ArrayList<>();
+        for (Attendance a: src.getAttendanceList()) {
+            attendance.add(new XmlAdaptedAttendance(a));
+            attendanceUidList.add(a.getUniqueId());
+        }
         for (Person p: src.getPersonList()) {
-            persons.add(new XmlAdaptedPerson(p, uidList));
+            persons.add(new XmlAdaptedPerson(p, uidList, attendanceUidList));
         }
     }
 
