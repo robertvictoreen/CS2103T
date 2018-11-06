@@ -13,8 +13,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class DeleteNoteCommandParser implements Parser<DeleteNoteCommand> {
 
-    private String path;
-    private Index index;
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteNoteCommand
      * and returns a DeleteNoteCommand object for execution.

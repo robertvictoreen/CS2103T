@@ -38,9 +38,10 @@ public class AddProfilePhotoCommandTest {
         updatedPerson.setProfilePhoto(VALID_LOCAL_IMAGE_JPG);
         AddProfilePhotoCommand addProfilePhotoCommand = prepareCommand(index, VALID_LOCAL_IMAGE_JPG);
         String expectedMessage = String.format(AddProfilePhotoCommand.MESSAGE_EDIT_PERSON_SUCCESS, index.getOneBased());
-        Model expectedModel =
+        ModelManager expectedModel =
                 new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.updatePerson(model.getFilteredPersonList().get(0), updatedPerson);
+        expectedModel.commitAddressBook();
 
         assertCommandSuccess(addProfilePhotoCommand, model, commandHistory, expectedMessage, expectedModel);
 
@@ -60,6 +61,7 @@ public class AddProfilePhotoCommandTest {
         Model expectedModel =
                 new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.updatePerson(model.getFilteredPersonList().get(0), updatedPerson);
+        expectedModel.commitAddressBook();
 
         assertCommandSuccess(addProfilePhotoCommand, model, commandHistory, expectedMessage, expectedModel);
 
