@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.model.person.Note.MESSAGE_NOTE_CONSTRAINTS;
-import static seedu.address.model.person.Note.NOTE_VALIDATION_REGEX;
+import static seedu.address.model.person.Note.NOTE_INVALIDATION_REGEX;
 
 import java.util.List;
 
@@ -31,6 +31,9 @@ public class NoteCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New note added to %1$s";
 
+    /**
+     * Guaranteed to be a positive integer, {@code NoteCommandParser}.
+     */
     private final Index studentIndex;
     private String textToAdd;
 
@@ -48,14 +51,14 @@ public class NoteCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        // Checks if index is valid
+        // Checks if index is valid, not more than list size
         int zeroBasedIndex = studentIndex.getZeroBased();
         if (zeroBasedIndex >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
         // Checks if text is valid
-        if (!textToAdd.matches(NOTE_VALIDATION_REGEX)) {
+        if (textToAdd.matches(NOTE_INVALIDATION_REGEX)) {
             throw new CommandException(MESSAGE_NOTE_CONSTRAINTS);
         }
 

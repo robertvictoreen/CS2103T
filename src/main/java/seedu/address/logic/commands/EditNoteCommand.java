@@ -30,6 +30,9 @@ public class EditNoteCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Edited note of %1$s";
 
+    /**
+     * Guaranteed to be a positive integer, {@code EditNoteCommandParser}.
+     */
     private final Index studentIndex;
     private String textToAdd;
 
@@ -56,8 +59,8 @@ public class EditNoteCommand extends Command {
         Person studentToReplace = lastShownList.get(zeroBasedIndex);
         EditPersonDescriptor descriptor = new EditPersonDescriptor();
         Note note = studentToReplace.getNote();
-        // check if note is default
-        if (note.isDefault()) {
+        // check if note is unchanged
+        if (!note.hasChanged()) {
             throw new CommandException(MESSAGE_NOTE_EMPTY);
         }
         Note updatedNote = note.delete();

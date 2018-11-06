@@ -426,7 +426,7 @@ UniqueAssignmentList to know which score belongs to which assignment.
 ** Pros: Easy to implement. All method that wants to read a student assignment information including score only need to read 1 student.
 ** Cons: Requires more memory since every assignment is stored in every student. Harder to edit assignment since we must
 edit assignment information in every single student.
-//end:assignment[]
+// end::assignment[]
 
 // tag::attendance[]
 === Attendance data structure
@@ -446,7 +446,7 @@ The Attendance session date is represented with the Deadline class from the Assi
 * **Alternative 2:** Store a list of attendance marks for each student.
 ** Pros: Higher cohesion with attendance data represented together with student.
 ** Cons: Attendance session data is distributed across all students which increases complexity of operations affecting all students.
-// end:attendance[]
+// end::attendance[]
 
 // tag::studentDetails[]
 === UI-Model binding of student details
@@ -458,7 +458,7 @@ The data `MoreDetailsPanel` binds itself to are `filteredPersons` and `filteredA
 * `filteredAssignments` -- The names of all the assignments that the students have in the database.
 
 `MoreDetailsPanel` will be notified by any changes in the data when a related event is raised, such as `PersonPanelSelectionChangedEvent`. It will then retrieve the new student's marks using `filteredPersons` and display them with reference to their names in `filteredAssignments`.
-//end:studentDetails[]
+// end::studentDetails[]
 
 // tag::note[]
 === Note data structure
@@ -503,7 +503,7 @@ image::EditNoteFeatureClassDiagram.png[width="800"]
 *** Command will be able to work on its own.
 ** Cons: +
 *** Some repeated code with `NoteCommand`.
-//end:note[]
+// end::note[]
 
 === Logging
 

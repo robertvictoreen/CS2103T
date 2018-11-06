@@ -9,11 +9,11 @@ public class Note {
         + " and have only one whitespace between it and the index.";
     public static final String MESSAGE_NOTE_EMPTY = "Note is empty!";
 
-    /*
+    /**
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String NOTE_VALIDATION_REGEX = "[\\p{Alnum}](.*)";
+    public static final String NOTE_INVALIDATION_REGEX = "[\\p{Space}](.*)";
 
     // Edit this to change what a text checks for before deciding to add a full stop.
     private static final String END_OF_SENTENCE_REGEX = "[.!?]";
@@ -64,9 +64,9 @@ public class Note {
      * @param text to be added
      */
     public Note add(String text) {
-        // Clear default text if default
+        // Empty text if default
         String editedText = this.text;
-        if (this.isDefault()) {
+        if (!this.hasChanged()) {
             editedText = "";
         // if current text ends with one of the characters in {@code END_OF_SENTENCE_REGEX}, change to comma
         } else if (this.text.matches(NOTE_PUNCTUATION_REGEX)) {
@@ -85,16 +85,16 @@ public class Note {
     }
 
     /**
-     * Returns a Note object with text reset to {@code DEFAULT_NOTE}.
+     * Returns a Note object with text reset to {@code DEFAULT_NOTE}. Method name keeps internals hidden from users.
      */
     public Note delete() {
         return new Note(DEFAULT_NOTE);
     }
 
     /**
-     * Checks if this note has the default text.
+     * Returns false if this note has the default text. Method name keeps internals hidden from users.
      */
-    public boolean isDefault() {
-        return this.text.equals(DEFAULT_NOTE);
+    public boolean hasChanged() {
+        return !this.text.equals(DEFAULT_NOTE);
     }
 }

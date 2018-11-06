@@ -7,6 +7,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import javafx.collections.ObservableList;
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -38,13 +41,24 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
     private final Person toAdd;
+    private final Index index;
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
+    public AddCommand(Person person, Index index) {
+        requireNonNull(person);
+        toAdd = person;
+        this.index = index;
+    }
+
+    /**
+     * Creates an AddCommand with an index of listSize to add the specified {@code Person}
+     */
     public AddCommand(Person person) {
         requireNonNull(person);
         toAdd = person;
+        this.index = null;
     }
 
     @Override
@@ -55,7 +69,19 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.addPerson(toAdd);
+        if (index != null) {
+            //Last shown list may cause inconsistencies in tests after "find" command
+            ObservableList<Person> lastShownList = model.getFilteredPersonList();
+            // Checks if index is valid, not more than list size
+            int studentIndex = index.getZeroBased();
+            if (studentIndex > lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+            model.addPersonAt(toAdd, studentIndex);
+        } else {
+            model.addPerson(toAdd);
+        }
+
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

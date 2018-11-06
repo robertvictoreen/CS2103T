@@ -262,6 +262,6 @@ public class Person {
      * Returns true if current note has been edited, false if is default.
      */
     public boolean hasNote() {
-        return !(note.isDefault());
+        return note.hasChanged();
     }
 }

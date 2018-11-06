@@ -7,6 +7,6 @@ package seedu.address.model.attendance.exceptions;
  */
 public class DuplicateAttendanceException extends RuntimeException {
     public DuplicateAttendanceException() {
-        super("Operation would result in duplicate attendance sessions");
+        super("Operation would result in duplicate attendance sessions.");
     }
 }
