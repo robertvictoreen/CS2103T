@@ -38,8 +38,8 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`add*``John Doe p/999 e/police@hotmail.com t/cops`: Adds a contact named `John Doe` to the student list`
-* **`view`**`1`: views 1st student shown in the student list
+* *`add`*`n/John Doe p/999 e/police@hotmail.com t/cops`: Adds a contact named `John Doe` to the student list
+* **`select`**`1`: views the details of the 1st student shown in the student list
 * **`delete`**`3` : deletes the 3rd student shown in the student list
 * *`exit`* : exits the app
 
@@ -78,6 +78,70 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com t/CS2103` (Added to the bottom of the student list as index not specified)
 * `add n/Betsy Crowe s/1 e/betsycrowe@example.com t/CS2103T` (The order of the parameters can be swapped around as all parameters have prefixes)
 
+=== Listing all students : `list`
+
+Shows the list of all students in the student list.
+Format: `list`
+
+=== Locating students by name : `find`
+
+Finds students whose names contain any of the given keywords.
+Format: find KEYWORD [MORE KEYWORDS]
+
+* The search is case insensitive. e.g. `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned (i.e. `OR` search) e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+
+Examples:
+
+* `find John` +
+Returns `john` and `John Doe`
+* `find Betsy Tim John` +
+Returns any person having names `Betsy`, `Tim`, or `John`
+
+=== Clearing all entries : `clear`
+
+Clears all entries from the student list. +
+Format: `clear`
+
+=== Deleting a student : `delete`
+
+Deletes a student from the student list. +
+Format: `delete INDEX`
+
+* There can be any number of spaces between `delete` and `INDEX`. +
+
+****
+* Deletes the student at the specified `INDEX`.
+* The index refers to the index number shown in the displayed student list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `delete 2` +
+Deletes the 2nd person in the student list.
+
+=== Selecting a student : `select`
+
+Selects the student identified by the index number used in the displayed student list.
+Format: `select INDEX`
+
+* Selects the student and loads the Google search page the student at the specified `INDEX`.
+* The index refers to the index number shown in the displayed student list.
+* The index **must be a positive integer** `1, 2, 3, ...`
+
+Examples:
+
+* `list` +
+`select 2` +
+Selects the 2nd student in the student list.
+* `find Betsy` +
+`select 1` +
+Selects the 1st student in the results of the `find` command.
+
 === Adding a profile photo : `addphoto`
 
 Adds a profile photo to a student +
@@ -93,29 +157,6 @@ Examples:
 
 * `addphoto 1 f/C://Users/Zackk95/Pictures/zacharytan.jpg` +
 Edits the profile photo of the 1st person to be the picture at C://Users//Zackk95//Pictures//zacharytan.jpg
-
-
-=== Clearing all entries : `clear`
-
-Clears all entries from the student list. +
-Format: `clear`
-
-=== Deleting a student : `delete`
-
-Deletes a student from the student list. +
-Format: `delete INDEX`
-
-****
-* Deletes the student at the specified `INDEX`.
-* The index refers to the index number shown in the displayed student list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the student list.
 
 === Deleting a student's photo: `deleteProfilePhoto`
 
@@ -146,11 +187,11 @@ Undoable commands: those commands that modify the student list's content (`add`,
 Examples:
 
 * `delete 1` +
-`list` +
+`select 2`
 `undo` (reverses the `delete 1` command) +
 
 * `results` +
-`list` +
+`select 1` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
 
@@ -161,7 +202,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 
 === Redoing the previously undone command : `redo`
 
-Reverses the most recent `undo` command. +
+Reverses the most recent `undo` command only if the last command is `undo`. +
 Format: `redo`
 
 Examples:
@@ -209,16 +250,26 @@ Format: `sort`
 === Add an assignment: `addAssignment`
 
 Adds an assignment with given assignment name, weight, deadline, maximum mark. +
-Format: `addAssignment n/NAME w/WEIGHT d/DEADLINE m/MAX_MARK`
+Format: `addAssignment n/ASSIGNMENTNAME w/WEIGHT d/DEADLINE m/MAX_MARK`
 
 === Delete an assignment: `deleteAssignment`
 
 Delete an assignment with given assignment index. +
 Format: `deleteAssignment INDEX`
 
+=== Edit an assignment: `editAssignment`
+
+Edit an existing assignment with specified informations.
+Format: `editAssignment INDEX [n/ASSIGNMENTNAME] [w/WEIGHT] [d/DEADLINE] [m/MAX_MARK]`
+
+=== Sort all assignment: `sortAssignment`
+
+Sort all assignment by deadline. +
+Format: `sortAssignment`
+
 === Record a mark for a student: `markAssignment`
 
-Adds a mark for an assignment associated with a student given the mark obtained. +
+Adds a mark for an assignment associated with a student given the mark obtained. Can mark more than maxMark in case of bonus score. +
 Format: `markAssignment INDEX id/ASSIGNMENT_INDEX m/MARK`
 // end::assignment[]
 
@@ -232,15 +283,10 @@ Format: `assignmentStats INDEX`
 Display the statistics for the overall grades of students. +
 Format: `classStats`
 
-=== Sort all assignment: `sortAssignment`
-
-Sort all assignment by deadline. +
-Format: `sortAssignment`
-
 === Editing a student: `edit`
 
 Edits an existing student in the student list. +
-Format: `edit INDEX [NAME] [p/PHONE] [e/EMAIL] [t/TAG]...`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG]...`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index *must be a positive integer* 1, 2, 3, ...
@@ -254,7 +300,7 @@ Examples:
 
 * `edit 1 p/91234567 e/johndoe@example.com` +
 Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 Betsy Crower t/` +
+* `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
 === Viewing command history : `history`
@@ -273,6 +319,9 @@ Format: `note INDEX TEXT`
 * If a note is added to a student who already has a previous note, the previous note is changed to end with a comma before the new text is appended to the back.
 ****
 
+[NOTE]
+`TEXT` should not begin with a whitespace but alphanumeric and special characters are allowed.
+
 Examples:
 
 * `note 1 hardworking student` +
@@ -283,15 +332,22 @@ Examples:
 === Delete a student's note : `delnote`
 
 Deletes the corresponding note of the student at the specified `INDEX`. +
-Format: `delnote 1`
+Format: `delnote INDEX`
+
+* There can be any number of spaces between `delnote` and `INDEX`. +
 
 [NOTE]
-An empty note cannot be deleted!
+An empty note cannot be deleted! +
+
+Examples:
+
+* `delnote 2`
+(Deletes the note of the 2nd student shown, is invalid if there is less than 2 students in the shown student list.)
 
 === Edits the note of a student : `editnote`
 
-Edits the corresponding note of the student at the specified `INDEX` to `TEXT`. +
-Format: `editnote 1 update tutorial attendance week 10`
+Edits the corresponding note of the student at the specified `INDEX` to `TEXT`. Refer to <<Add a note about a student : `note`>> for details on `TEXT`. +
+Format: `editnote INDEX TEXT`
 
 [NOTE]
 An empty note cannot be edited!
@@ -331,18 +387,25 @@ e.g. `delete 3`
 e.g. `deleteAssignment 3`
 * *Delnote* : `delnote INDEX` +
 e.g. `delnote 2`
-* *Edit* : `edit INDEX [NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]...` +
-e.g. `edit 2 James Lee e/jameslee@example.com`
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]...` +
+e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *EditAssignment* : `editAssignment INDEX [n/NAME] [w/WEIGHT] [d/DEADLINE] [m/MAXMARK]` +
+e.g. `edit 2 n/Assignment3 w/40`
 * *Editnote* : `editnote INDEX TEXT` +
 e.g. `editnote 1 Consult changed to 3pm`
 * *Exit* : `exit`
+* *Find* : `find KEYWORD [MORE_KEYWORDS]
+e.g. `find James Jake`
 * *Help* : `help`
 * *History* : `history`
+* *List* : `list`
 * *MarkAssignment* : `markAssignment INDEX id/ASSIGNMENT_INDEX m/MARK` +
 e.g. `markAssignment 1 id/1 m/53`
 * *Note* : `note INDEX TEXT` +
 e.g. `note 4 Good student`
 * *Redo* : `redo`
+* *Select* : `select INDEX`
+e.g. `select 2`
 * *Sort* : `sort`
 * *SortAssignment* : `sortAssignment`
 * *Unattend* : `unattend INDEX at/CLASSNAME` {Coming in v1.4}

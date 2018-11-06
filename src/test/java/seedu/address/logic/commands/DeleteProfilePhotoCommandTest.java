@@ -14,7 +14,6 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
@@ -38,9 +37,10 @@ public class DeleteProfilePhotoCommandTest {
         DeleteProfilePhotoCommand deleteProfilePhotoCommand = prepareCommand(index);
         String expectedMessage = String.format(DeleteProfilePhotoCommand.MESSAGE_DELETE_PROFILE_PIC_SUCCESS,
                 index.getOneBased());
-        Model expectedModel =
+        ModelManager expectedModel =
                 new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.updatePerson(model.getFilteredPersonList().get(0), updatedPerson);
+        expectedModel.commitAddressBook();
 
         assertCommandSuccess(deleteProfilePhotoCommand, model, commandHistory, expectedMessage, expectedModel);
 
@@ -58,9 +58,10 @@ public class DeleteProfilePhotoCommandTest {
         DeleteProfilePhotoCommand deleteProfilePhotoCommand = prepareCommand(index);
         String expectedMessage = String.format(DeleteProfilePhotoCommand.MESSAGE_DELETE_PROFILE_PIC_SUCCESS,
                 index.getOneBased());
-        Model expectedModel =
+        ModelManager expectedModel =
                 new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.updatePerson(model.getFilteredPersonList().get(0), updatedPerson);
+        expectedModel.commitAddressBook();
 
         assertCommandSuccess(deleteProfilePhotoCommand, model, commandHistory, expectedMessage, expectedModel);
 

@@ -32,8 +32,6 @@ public class NoteCommandParser implements Parser<NoteCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteCommand.MESSAGE_USAGE));
         }
 
-        // TODO: Add tests (test: invalid command word? index not int, out of range)
-
         // Takes care of nulls
         Index index;
         try {
