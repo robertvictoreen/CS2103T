@@ -10,7 +10,7 @@ public class Mark extends Validator implements Comparable<Mark> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Mark should be a real number";
-    public static final String VALIDATION_REGEX = "^\\d+(\\.\\d+)?$";
+    public static final String VALIDATION_REGEX = "^(-+)?\\d+(\\.\\d+)?$";
 
     /**
      * Constructs a {@code Mark}.

@@ -161,7 +161,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 
 === Redoing the previously undone command : `redo`
 
-Reverses the most recent `undo` command. +
+Reverses the most recent `undo` command only if the last command is `undo`. +
 Format: `redo`
 
 Examples:
@@ -209,16 +209,26 @@ Format: `sort`
 === Add an assignment: `addAssignment`
 
 Adds an assignment with given assignment name, weight, deadline, maximum mark. +
-Format: `addAssignment n/NAME w/WEIGHT d/DEADLINE m/MAX_MARK`
+Format: `addAssignment n/ASSIGNMENTNAME w/WEIGHT d/DEADLINE m/MAX_MARK`
 
 === Delete an assignment: `deleteAssignment`
 
 Delete an assignment with given assignment index. +
 Format: `deleteAssignment INDEX`
 
+=== Edit an assignment: `editAssignment`
+
+Edit an existing assignment with specified informations.
+Format: `editAssignment INDEX [n/ASSIGNMENTNAME] [w/WEIGHT] [d/DEADLINE] [m/MAX_MARK]`
+
+=== Sort all assignment: `sortAssignment`
+
+Sort all assignment by deadline. +
+Format: `sortAssignment`
+
 === Record a mark for a student: `markAssignment`
 
-Adds a mark for an assignment associated with a student given the mark obtained. +
+Adds a mark for an assignment associated with a student given the mark obtained. Can mark more than maxMark in case of bonus score. +
 Format: `markAssignment INDEX id/ASSIGNMENT_INDEX m/MARK`
 // end::assignment[]
 
@@ -232,15 +242,10 @@ Format: `assignmentStats INDEX`
 Display the statistics for the overall grades of students. +
 Format: `classStats`
 
-=== Sort all assignment: `sortAssignment`
-
-Sort all assignment by deadline. +
-Format: `sortAssignment`
-
 === Editing a student: `edit`
 
 Edits an existing student in the student list. +
-Format: `edit INDEX [NAME] [p/PHONE] [e/EMAIL] [t/TAG]...`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG]...`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index *must be a positive integer* 1, 2, 3, ...
