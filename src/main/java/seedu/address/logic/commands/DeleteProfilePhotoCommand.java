@@ -71,6 +71,7 @@ public class DeleteProfilePhotoCommand extends Command {
         }
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_DELETE_PROFILE_PIC_SUCCESS, index.getOneBased()));
     }
 
