@@ -32,6 +32,7 @@ public class Person {
     private ProfilePhoto photo;
     private final Set<Tag> tags = new HashSet<>();
     private final Map<String, Mark> marks = new HashMap<>();
+    private final Map<String, Mark> attendance = new HashMap<>();
     private final List<AssignmentStub> assignments = new ArrayList<>();
     private Note note = new Note();
 
@@ -68,12 +69,14 @@ public class Person {
     }
 
     /**
+     * Constructor for EditPersonDescriptor
      * Has both note and pic, calls default constructor for setting defaults before overwriting.
      */
     public Person(Name name, Phone phone, Email email, Address address, ProfilePhoto photo, Set<Tag> tags,
-                  Map<String, Mark> marks, Note note) {
+                  Map<String, Mark> marks, Map<String, Mark> attendance, Note note) {
         this(name, phone, email, address, tags, marks);
-        requireAllNonNull(photo, note);
+        requireAllNonNull(photo, attendance, note);
+        this.attendance.putAll(attendance);
         this.photo = photo;
         this.note = note;
     }
@@ -98,7 +101,7 @@ public class Person {
      */
     public Person(Person source) {
         this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getProfilePhoto(),
-            source.getTags(), source.getMarks(), source.getNote());
+            source.getTags(), source.getMarks(), source.getAttendance(), source.getNote());
     }
 
     public Name getName() {
@@ -171,6 +174,14 @@ public class Person {
     }
 
     /**
+     * Returns an immutable attendance map, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Map<String, Mark> getAttendance() {
+        return Collections.unmodifiableMap(attendance);
+    }
+
+    /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
@@ -221,6 +232,7 @@ public class Person {
                 && otherPerson.getTags().equals(getTags())
                 && otherPerson.getProfilePhoto().equals(getProfilePhoto())
                 && otherPerson.getMarks().equals(getMarks())
+                && otherPerson.getAttendance().equals(getAttendance())
                 && otherPerson.getAssignments().equals(getAssignments())
                 && otherPerson.getNote().equals(getNote());
     }
@@ -228,7 +240,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, marks);
+        return Objects.hash(name, phone, email, address, tags, marks, attendance);
     }
 
     @Override

@@ -1,5 +1,12 @@
 package seedu.address.model.common;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,9 +15,15 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.Mark;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.EmptyAddress;
+import seedu.address.model.person.EmptyEmail;
+import seedu.address.model.person.EmptyPhone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Note;
 import seedu.address.model.person.Person;
@@ -29,6 +42,7 @@ public class EditPersonDescriptor {
     private Address address;
     private Set<Tag> tags;
     private Map<String, Mark> marks;
+    private Map<String, Mark> attendance;
     private Note note;
 
     public EditPersonDescriptor() {}
@@ -44,7 +58,38 @@ public class EditPersonDescriptor {
         setAddress(toCopy.address);
         setTags(toCopy.tags);
         setMarks(toCopy.marks);
+        setAttendance(toCopy.attendance);
         setNote(toCopy.note);
+    }
+
+    /**
+     * Parse constructor.
+     * A defensive copy of {@code tags} is used internally.
+     */
+    public EditPersonDescriptor(ArgumentMultimap argMultimap) throws ParseException {
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        }
+        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
+            setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
+            setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
+        }
+        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+            setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        }
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(this::setTags);
+    }
+
+    /**
+     * Creates and returns a {@code Person} with the details
+     * edited with {@code editPersonDescriptor}.
+     */
+    public Person createNewPerson() {
+        assert name != null;
+        return new Person(name, getPhone().orElseGet(EmptyPhone::new), getEmail().orElseGet(EmptyEmail::new),
+          getAddress().orElseGet(EmptyAddress::new), getTags().orElseGet(HashSet::new));
     }
 
     /**
@@ -61,11 +106,12 @@ public class EditPersonDescriptor {
         ProfilePhoto updatedPicture = personToEdit.getProfilePhoto();
         Set<Tag> updatedTags = this.getTags().orElse(personToEdit.getTags());
         Map<String, Mark> updatedMarks = this.getMarks().orElse(personToEdit.getMarks());
+        Map<String, Mark> updatedAttendance = this.getAttendance().orElse(personToEdit.getAttendance());
         Note updatedNote = this.getNote().orElse(personToEdit.getNote());
 
         return new Person(
             updatedName, updatedPhone, updatedEmail, updatedAddress, updatedPicture, updatedTags, updatedMarks,
-            updatedNote);
+            updatedAttendance, updatedNote);
     }
 
     /**
@@ -132,6 +178,14 @@ public class EditPersonDescriptor {
         return (marks != null) ? Optional.of(Collections.unmodifiableMap(marks)) : Optional.empty();
     }
 
+    public void setAttendance(Map<String, Mark> attendance) {
+        this.attendance = (attendance != null) ? new HashMap<>(attendance) : null;
+    }
+
+    public Optional<Map<String, Mark>> getAttendance() {
+        return (attendance != null) ? Optional.of(Collections.unmodifiableMap(attendance)) : Optional.empty();
+    }
+
     public Optional<Note> getNote() {
         return Optional.ofNullable(note);
     }
@@ -161,6 +215,22 @@ public class EditPersonDescriptor {
             && getAddress().equals(e.getAddress())
             && getTags().equals(e.getTags())
             && getMarks().equals(e.getMarks())
+            && getAttendance().equals(e.getAttendance())
             && getNote().equals(e.getNote());
+    }
+
+    /**
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
+     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
+     * {@code Set<Tag>} containing zero tags.
+     */
+    private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
+        assert tags != null;
+
+        if (tags.isEmpty()) {
+            return Optional.empty();
+        }
+        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
+        return Optional.of(ParserUtil.parseTags(tagSet));
     }
 }
