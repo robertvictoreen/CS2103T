@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.model.person.Note.MESSAGE_NOTE_CONSTRAINTS;
-import static seedu.address.model.person.Note.NOTE_VALIDATION_REGEX;
+import static seedu.address.model.person.Note.NOTE_INVALIDATION_REGEX;
 
 import java.util.List;
 
@@ -58,7 +58,7 @@ public class NoteCommand extends Command {
         }
 
         // Checks if text is valid
-        if (!textToAdd.matches(NOTE_VALIDATION_REGEX)) {
+        if (textToAdd.matches(NOTE_INVALIDATION_REGEX)) {
             throw new CommandException(MESSAGE_NOTE_CONSTRAINTS);
         }
 
