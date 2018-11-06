@@ -111,6 +111,8 @@ Format: `clear`
 Deletes a student from the student list. +
 Format: `delete INDEX`
 
+* There can be any number of spaces between `delete` and `INDEX`. +
+
 ****
 * Deletes the student at the specified `INDEX`.
 * The index refers to the index number shown in the displayed student list.
@@ -327,8 +329,10 @@ Examples:
 Deletes the corresponding note of the student at the specified `INDEX`. +
 Format: `delnote INDEX`
 
+* There can be any number of spaces between `delnote` and `INDEX`. +
+
 [NOTE]
-An empty note cannot be deleted!
+An empty note cannot be deleted! +
 
 Examples:
 
