@@ -336,8 +336,10 @@ e.g. `delete 3`
 e.g. `deleteAssignment 3`
 * *Delnote* : `delnote INDEX` +
 e.g. `delnote 2`
-* *Edit* : `edit INDEX [NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]...` +
-e.g. `edit 2 James Lee e/jameslee@example.com`
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]...` +
+e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *EditAssignment* : `editAssignment INDEX [n/NAME] [w/WEIGHT] [d/DEADLINE] [m/MAXMARK]` +
+e.g. `edit 2 n/Assignment3 w/40`
 * *Editnote* : `editnote INDEX TEXT` +
 e.g. `editnote 1 Consult changed to 3pm`
 * *Exit* : `exit`
