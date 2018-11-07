@@ -6,11 +6,14 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.AddProfilePhotoCommand;
+import seedu.address.logic.commands.EditNoteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.AssignmentName;
 import seedu.address.model.assignment.Deadline;
@@ -221,5 +224,17 @@ public class ParserUtil {
             throw new ParseException(AttendanceMark.MESSAGE_CONSTRAINTS);
         }
         return new AttendanceMark(trimmedMark);
+    }
+
+    public static Matcher parseWithMatcher(String regex, String args) throws ParseException {
+        Pattern formatter = Pattern.compile(regex);
+        Matcher matcher = formatter.matcher(args);
+
+        // has to be " %d " followed by anything
+        boolean isMatching = matcher.matches();
+        if (!isMatching) {
+            throw new ParseException("");
+        }
+        return matcher;
     }
 }

@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.ParserUtil.parseWithMatcher;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,12 +24,11 @@ public class NoteCommandParser implements Parser<NoteCommand> {
 
         // split first integer from rest, throws ParseException if first is not just an integer
         String regex = "(\\s)(\\d+)(\\s)(.*)";
-        Pattern formatter = Pattern.compile(regex);
-        Matcher matcher = formatter.matcher(args);
 
-        // has to be "note %d " followed by anything
-        boolean inputMatches = matcher.matches();
-        if (!inputMatches) {
+        Matcher matcher;
+        try {
+            matcher = parseWithMatcher(regex, args);
+        } catch (ParseException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteCommand.MESSAGE_USAGE));
         }
 
