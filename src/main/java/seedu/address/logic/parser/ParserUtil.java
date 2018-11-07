@@ -13,7 +13,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.AddProfilePhotoCommand;
-import seedu.address.logic.commands.EditNoteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.AssignmentName;
 import seedu.address.model.assignment.Deadline;
@@ -226,6 +225,10 @@ public class ParserUtil {
         return new AttendanceMark(trimmedMark);
     }
 
+    /**
+     * Returns a {@code Matcher} after matching the given args with the given regex.
+     * @throws ParseException if args don't match the regex.
+     */
     public static Matcher parseWithMatcher(String regex, String args) throws ParseException {
         Pattern formatter = Pattern.compile(regex);
         Matcher matcher = formatter.matcher(args);
