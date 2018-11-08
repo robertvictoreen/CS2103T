@@ -3,37 +3,52 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
+== PROJECT: EazyTutors
 
 ---
 
 == Overview
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+=== Purpose 
+* This project portfolio was written to document my role and contribution to the **EazyTutors** project. I was responsible for doing the `Add Profile Photo` and `Sort` feature.
+
+=== Team
+* The team comprises of students from the National University of Singapore and we created this application because we realized that plenty of tutors find it difficult to manage their student's data such as attendance, marks, and grades.
+
+=== Value Proposition of App 
+* To have a All-In-One student management tool for teachers or tutors since research data showed that tutors have difficulty with tracking attendance, marks and grades.
+
+=== Features
+* Records student's attendance
+* Records student's assignment scores
+* Records notes of students
+* Tabulate assignment or class statistics
+* Add student's photos
 
 == Summary of contributions
 
-* *Major enhancement*:
+=== Enhancements
 
-* *Minor enhancement*:
+* *Major enhancement*: Add Profile Photo Feature
+** What it does: Display the profile photo of individual students of a particular class.
+** Justification: This feature allows tutors to remember the faces of their students more effectively. This is helpful for tutors teaching large classes.
+** Highlights: If there is a need to update photo of students, user can delete the photo and then add the latest photo of the student.
+** Credits:
+
+* *Minor enhancement*: Sort list of students' names in alphabetical order.
 
 * *Code contributed*:[https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
-***
+*** Reviewed Pull Request #64
 ** Enhancements to existing features:
 ***
 ** Documentation:
-***
-** Community:
-***
-** Tools:
-***
-
-
-_{you can add/remove categories in the list above}_
+*** Created first draft of user guide.
+*** Conceptualised user stories and user cases.
+*** Refined user and developer guide with respect to explain new features.
 
 == Contributions to the User Guide
 
@@ -42,9 +57,11 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=addphoto]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=deleteProfilePhoto]
+
+include::../UserGuide.adoc[tag=sort]
 
 == Contributions to the Developer Guide
 
@@ -57,8 +74,7 @@ include::../DeveloperGuide.adoc[tag=undoredo]
 include::../DeveloperGuide.adoc[tag=dataencryption]
 
 
-== PROJECT: PowerPointLabs
+=== Proposed Enhancement for v2.0 
+* Integrate EazyTutors with IVLE so that marks updated in this application can be automatically synced with IVLE.
+* Ability to save and have multiple data files to manage multiple classes of students 
 
----
-
-_{Optionally, you may include other projects in your portfolio.}_
