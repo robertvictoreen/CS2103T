@@ -53,6 +53,8 @@ public class NoteCommand extends Command {
 
         // Checks if index is valid, not more than list size
         int zeroBasedIndex = studentIndex.getZeroBased();
+        assert(zeroBasedIndex >= 0);
+
         if (zeroBasedIndex >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
@@ -76,7 +78,7 @@ public class NoteCommand extends Command {
         Person newStudent = descriptor.createEditedPerson(studentToReplace);
         model.updatePerson(studentToReplace, newStudent);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, newStudent));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, studentToReplace));
     }
 
     /**
