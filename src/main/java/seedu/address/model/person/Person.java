@@ -264,4 +264,11 @@ public class Person {
     public boolean hasNote() {
         return note.hasChanged();
     }
+
+    /**
+     * Adds text to this {@code Person}'s current note.
+     */
+    public void addNote(String text) {
+        note = note.add(text);
+    }
 }

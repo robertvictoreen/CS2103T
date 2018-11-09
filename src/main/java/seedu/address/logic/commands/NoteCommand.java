@@ -72,8 +72,7 @@ public class NoteCommand extends Command {
             textToAdd = " " + textToAdd;
         }
 
-        Note note = studentToReplace.getNote();
-        Note updatedNote = note.add(textToAdd);
+        Note updatedNote = studentToReplace.getNote().add(textToAdd);
         descriptor.setNote(updatedNote);
         Person newStudent = descriptor.createEditedPerson(studentToReplace);
         model.updatePerson(studentToReplace, newStudent);
