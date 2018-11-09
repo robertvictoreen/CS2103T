@@ -77,6 +77,7 @@ public class AddCommand extends Command {
             ObservableList<Person> lastShownList = model.getFilteredPersonList();
             // Checks if index is valid, not more than list size
             int studentIndex = index.getZeroBased();
+            assert(studentIndex >= 0);
             if (studentIndex > lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
