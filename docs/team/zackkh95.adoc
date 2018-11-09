@@ -16,7 +16,7 @@
 * The team comprises of students from the National University of Singapore and we created this application because we realized that plenty of tutors find it difficult to manage their student's data such as attendance, marks, and grades.
 
 === Value Proposition of App
-* To have a All-In-One student management tool for teachers or tutors since research data showed that tutors have difficulty with tracking attendance, marks and grades.
+* To have a All-In-One student management tool for teachers or tutors since our research data showed that tutors have difficulty with tracking attendance, marks and grades.
 
 === Features
 * Records student's attendance
@@ -39,7 +39,7 @@
 
 * *Minor enhancement*: Add feature to delete student's profile photo and changes it to default photo. 
 
-* *Code contributed*:[https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*:[https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=zackkh95] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
