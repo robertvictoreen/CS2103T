@@ -37,7 +37,7 @@
 
 * *Minor enhancement*: Sort list of students' names in alphabetical order.
 
-* *Minor enhancement*: Add feature to delete student's profile photo and changes it to default photo. 
+* *Minor enhancement*: Add feature to delete student's profile photo and changes it to default photo.
 
 * *Code contributed*:[https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=zackkh95] [https://github.com[Test code]] _{give links to collated code files}_
 
