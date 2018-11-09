@@ -2,7 +2,10 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTE_TEXT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTE_TEXT_WITH_FULL_STOP;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.updatePersonInModelWithNote;
 import static seedu.address.logic.commands.NoteCommand.MESSAGE_SUCCESS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_LARGE;
@@ -13,26 +16,19 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for {@code NoteCommand}.
  */
 public class NoteCommandTest {
 
-    private static final String SAMPLE_TEXT = "Test";
-    private static final String SAMPLE_TEXT_WITH_FULL_STOP = "Test.";
     private static final String INVALID_TEXT_WITH_WHITESPACE_PREFIX = " Test.";
-    private static final Index FIRST_INDEX = INDEX_FIRST_PERSON;
-    private static final Index SECOND_INDEX = INDEX_SECOND_PERSON;
-    private static final Index INVALID_INDEX = INDEX_LARGE;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -41,22 +37,22 @@ public class NoteCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullText_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new NoteCommand(FIRST_INDEX, null);
+        new NoteCommand(INDEX_FIRST_PERSON, null);
     }
 
     @Test
     public void constructor_nullIndex_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new NoteCommand(null, SAMPLE_TEXT);
+        new NoteCommand(null, VALID_NOTE_TEXT);
     }
 
     @Test
     public void execute_nullModel_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         try {
-            new NoteCommand(FIRST_INDEX, SAMPLE_TEXT).execute(null, commandHistory);
+            new NoteCommand(INDEX_FIRST_PERSON, VALID_NOTE_TEXT).execute(null, commandHistory);
         } catch (CommandException e) {
             throw new AssertionError("CommandException should not be thrown.");
         }
@@ -65,32 +61,44 @@ public class NoteCommandTest {
     @Test
     public void execute_addNote_success() {
         // check add successful to empty note
-        Person personToEdit = model.getFilteredPersonList().get(FIRST_INDEX.getZeroBased());
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        Command command = new NoteCommand(FIRST_INDEX, SAMPLE_TEXT);
-
+        Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         String expectedMessage = String.format(MESSAGE_SUCCESS, personToEdit);
-        Person newPerson = new PersonBuilder(personToEdit).withNote(SAMPLE_TEXT_WITH_FULL_STOP).build();
-        expectedModel.updatePerson(personToEdit, newPerson);
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        updatePersonInModelWithNote(personToEdit, expectedModel, VALID_NOTE_TEXT_WITH_FULL_STOP);
         expectedModel.commitAddressBook();
 
+        Command command = new NoteCommand(INDEX_FIRST_PERSON, VALID_NOTE_TEXT);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
 
-        // check add successful to existing note
-        Command secondCommand = new NoteCommand(FIRST_INDEX, SAMPLE_TEXT);
+        // undo test
+        expectedModel.undoAddressBook();
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        Person finalPerson = new PersonBuilder(newPerson)
-                                .withNote(SAMPLE_TEXT + ", " + SAMPLE_TEXT_WITH_FULL_STOP).build();
-        expectedModel.updatePerson(newPerson, finalPerson);
+        // redo test
+        expectedModel.redoAddressBook();
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        // check add successful to existing note
+        Person newPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        updatePersonInModelWithNote(newPerson, expectedModel, VALID_NOTE_TEXT + ", " + VALID_NOTE_TEXT_WITH_FULL_STOP);
         expectedModel.commitAddressBook();
 
+        Command secondCommand = new NoteCommand(INDEX_FIRST_PERSON, VALID_NOTE_TEXT);
         assertCommandSuccess(secondCommand, model, commandHistory, expectedMessage, expectedModel);
+
+        // undo test
+        expectedModel.undoAddressBook();
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        // redo test
+        expectedModel.redoAddressBook();
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_invalidIndex_throwsCommandException() throws Exception {
         thrown.expect(CommandException.class);
-        new NoteCommand(INVALID_INDEX, SAMPLE_TEXT).execute(model, commandHistory);
+        new NoteCommand(INDEX_LARGE, VALID_NOTE_TEXT).execute(model, commandHistory);
     }
 
     @Test
@@ -101,15 +109,15 @@ public class NoteCommandTest {
 
     @Test
     public void equals() {
-        NoteCommand sampleNoteCommand = new NoteCommand(FIRST_INDEX, SAMPLE_TEXT_WITH_FULL_STOP);
-        NoteCommand secondIndexNoteCommand = new NoteCommand(SECOND_INDEX, SAMPLE_TEXT_WITH_FULL_STOP);
-        NoteCommand noFullStopNoteCommand = new NoteCommand(FIRST_INDEX, SAMPLE_TEXT);
+        NoteCommand sampleNoteCommand = new NoteCommand(INDEX_FIRST_PERSON, VALID_NOTE_TEXT_WITH_FULL_STOP);
+        NoteCommand secondIndexNoteCommand = new NoteCommand(INDEX_SECOND_PERSON, VALID_NOTE_TEXT_WITH_FULL_STOP);
+        NoteCommand noFullStopNoteCommand = new NoteCommand(INDEX_FIRST_PERSON, VALID_NOTE_TEXT);
 
         // same object -> returns true
         assertTrue(sampleNoteCommand.equals(sampleNoteCommand));
 
         // same values -> returns true
-        NoteCommand sampleNoteCommandCopy = new NoteCommand(FIRST_INDEX, SAMPLE_TEXT_WITH_FULL_STOP);
+        NoteCommand sampleNoteCommandCopy = new NoteCommand(INDEX_FIRST_PERSON, VALID_NOTE_TEXT_WITH_FULL_STOP);
         assertTrue(sampleNoteCommand.equals(sampleNoteCommandCopy));
 
         // different types -> returns false

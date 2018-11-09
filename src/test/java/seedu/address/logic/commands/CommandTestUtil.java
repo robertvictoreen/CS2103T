@@ -22,6 +22,7 @@ import seedu.address.model.common.EditPersonDescriptor;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.PersonBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -38,7 +39,8 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
-    public static final String VALID_NOTE_TEXT = "test";
+    public static final String VALID_NOTE_TEXT = "Test";
+    public static final String VALID_NOTE_TEXT_WITH_FULL_STOP = "Test.";
     public static final String VALID_NOTE_NUMBERS = "999";
     public static final String VALID_NOTE_SPECIALCHAR = "[(/.\\)]";
 
@@ -164,4 +166,23 @@ public class CommandTestUtil {
         model.commitAddressBook();
     }
 
+    /**
+     * Returns a copied {@code Person} with a new note added to it.
+     * @param person to be copied, should have no note.
+     * @param text of note to be added
+     */
+    public static Person copyPersonWithNote(Person person, String text) {
+        return new PersonBuilder(person).withNote(text).build();
+    }
+
+    /**
+     * Adds a note with {@code VALID_NOTE_TEXT_WITH_FULL_STOP} text to person in {@code model}.
+     * @param person to add the note to, must exist in model.
+     * @param model that is updated.
+     * @param text that is in the note.
+     */
+    public static void updatePersonInModelWithNote(Person person, Model model, String text) {
+        Person personWithNote = copyPersonWithNote(person, text);
+        model.updatePerson(person, personWithNote);
+    }
 }

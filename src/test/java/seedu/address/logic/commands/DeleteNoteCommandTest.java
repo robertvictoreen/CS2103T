@@ -2,7 +2,9 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTE_TEXT_WITH_FULL_STOP;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.updatePersonInModelWithNote;
 import static seedu.address.logic.commands.DeleteNoteCommand.MESSAGE_SUCCESS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_LARGE;
@@ -13,26 +15,17 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for {@code DeleteNoteCommand}.
  */
 public class DeleteNoteCommandTest {
-
-    private static final String SAMPLE_TEXT = "Test";
-    private static final String SAMPLE_TEXT_WITH_FULL_STOP = "Test.";
-    private static final String INVALID_TEXT_WITH_WHITESPACE_PREFIX = " Test.";
-    private static final Index FIRST_INDEX = INDEX_FIRST_PERSON;
-    private static final Index SECOND_INDEX = INDEX_SECOND_PERSON;
-    private static final Index INVALID_INDEX = INDEX_LARGE;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -50,7 +43,7 @@ public class DeleteNoteCommandTest {
     public void execute_nullModel_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         try {
-            new DeleteNoteCommand(FIRST_INDEX).execute(null, commandHistory);
+            new DeleteNoteCommand(INDEX_FIRST_PERSON).execute(null, commandHistory);
         } catch (CommandException e) {
             throw new AssertionError("CommandException should not be thrown.");
         }
@@ -58,23 +51,29 @@ public class DeleteNoteCommandTest {
 
     @Test
     public void execute_deleteNote_success() {
-        Person personToDelete = model.getFilteredPersonList().get(FIRST_INDEX.getZeroBased());
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        // add note to person first before deleting
-        Person personWithNote = new PersonBuilder(personToDelete).withNote(SAMPLE_TEXT_WITH_FULL_STOP).build();
-        model.updatePerson(personToDelete, personWithNote);
-        Command command = new DeleteNoteCommand(FIRST_INDEX);
-
+        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         String expectedMessage = String.format(MESSAGE_SUCCESS, personToDelete);
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.commitAddressBook();
 
+        // add note to person first before deleting
+        updatePersonInModelWithNote(personToDelete, model, VALID_NOTE_TEXT_WITH_FULL_STOP);
+        Command command = new DeleteNoteCommand(INDEX_FIRST_PERSON);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+
+        // undo test
+        expectedModel.undoAddressBook();
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        // redo test
+        expectedModel.redoAddressBook();
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_invalidIndex_throwsCommandException() throws Exception {
         thrown.expect(CommandException.class);
-        new DeleteNoteCommand(INVALID_INDEX).execute(model, commandHistory);
+        new DeleteNoteCommand(INDEX_LARGE).execute(model, commandHistory);
     }
 
     @Test
@@ -85,14 +84,14 @@ public class DeleteNoteCommandTest {
 
     @Test
     public void equals() {
-        DeleteNoteCommand sampleDeleteNoteCommand = new DeleteNoteCommand(FIRST_INDEX);
-        DeleteNoteCommand secondIndexDeleteNoteCommand = new DeleteNoteCommand(SECOND_INDEX);
+        DeleteNoteCommand sampleDeleteNoteCommand = new DeleteNoteCommand(INDEX_FIRST_PERSON);
+        DeleteNoteCommand secondIndexDeleteNoteCommand = new DeleteNoteCommand(INDEX_SECOND_PERSON);
 
         // same object -> returns true
         assertTrue(sampleDeleteNoteCommand.equals(sampleDeleteNoteCommand));
 
         // same values -> returns true
-        DeleteNoteCommand sampleDeleteNoteCommandCopy = new DeleteNoteCommand(FIRST_INDEX);
+        DeleteNoteCommand sampleDeleteNoteCommandCopy = new DeleteNoteCommand(INDEX_FIRST_PERSON);
         assertTrue(sampleDeleteNoteCommand.equals(sampleDeleteNoteCommandCopy));
 
         // different types -> returns false
