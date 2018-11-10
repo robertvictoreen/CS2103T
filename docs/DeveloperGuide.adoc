@@ -366,34 +366,23 @@ image::SortUMLSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 
-**Aspect:** Storage of images of profile pictures +
+**Aspect:** Storage of images of profile pictures 
 
-* **Chosen Implementation:** +
-Store the images in a local folder. For Windows, it will be in the AppData folder, for Mac/Linux, in the home folder. +
-**Pros: +
-After a profile picture is set, it will continue showing even if the image source is deleted +
-**Cons: +
-Extra space to store the pictures, some images may be too large and use a lot of memory. +
+* **Alternative 1 (current choice):** Store the images in a local folder. For Windows, it will be in the AppData folder, for Mac/Linux, in the home folder. 
+** Pros: After a profile photo is set, it will continue showing even if the image source is deleted.
+** Cons: It requires space to store the photos, some images may be too large and consume a lot of memory. 
 
-* **Alternative:** +
-Not store the images +
-**Pros: +
-No space requirement to store the images locally +
-**Cons: +
-Need to ensure that the image is not deleted, or it won't show. +
+* **Alternative 2:** Not store the image.
+** Pros: No space requirement to store the images locally. 
+** Cons: Need to ensure that the images is not deleted, or it won't show. 
 
-**Aspect:** Putting a limit on profile picture size +
+* **Alternative 1 (current choice):** Set a restriction of 5MB for each photo.
+** Pros: Prevents a user from crashing the app by putting an image that's too large in size.
+** Cons: Some photos may be larger than 5MB. They can use image compression services to compress it in order to fulfill the limit.
 
-* **Chosen Implementation:** 
-Set a restriction of 5MB for each picture. 
-**Pros: 
-Prevents a  user from crashing the app by putting an image that's too large in size. 
-**Cons: 
-Some pictures may be larger than 5MB. They can use image compression services to compress it in order to fulfill the limit.
-
-* **Alternative:** Not put a specified restriction to the size of profile photo 
-**Pros: User can upload image of any size. 
-**Cons: Performance of the app might be unstable if it contains too many large images.
+* **Alternative 2:** Not put a specified restriction to the size of profile photo. 
+** Pros: User can upload image of any size. 
+** Cons: Performance of the app might be unstable if it contains too many large images. 
 
 // end::addphoto[]
 
@@ -401,7 +390,18 @@ Some pictures may be larger than 5MB. They can use image compression services to
 === Delete Profile Photo feature
 
 ==== Current Implementation
-We implemented a feature which allows a user to delete the profile photo and change back to default.
+This is a feature which allows a user to delete the profile photo and changes it back to default.
+
+The following sequence diagram shows how the `deletephoto` command works
+
+image::DeleteProfilePhotoUMLSequenceDiagram.png[width="800"]
+
+    1. The user executes the `deleteProfilePhoto INDEX` command, with parameters `INDEX`
+    2. The `AddressBookParser` class parses the command and create a new `DeleteProfilePhotoCommand` class.
+    3. The `DeleteProfilePhotoCommand` command is executed and handled by the `ModelManager` class.
+    4. A new `ProfilePhoto` object is created, containing the default image.
+    5. The new `ProfilePhoto` is attached to the `Person` at `INDEX`. 
+    6. The default profile photo will now show and the person's image would be deleted. 
 
 ==== Design Considerations
 
