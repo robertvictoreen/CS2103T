@@ -18,8 +18,11 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
 
     private Optional<Person> lastRememberedSelectedPersonCard;
 
-    public PersonListPanelHandle(ListView<Person> personListPanelNode) {
+    private MoreDetailsPanelHandle detailsPanel;
+
+    public PersonListPanelHandle(ListView<Person> personListPanelNode, MoreDetailsPanelHandle detailsPanelHandle) {
         super(personListPanelNode);
+        detailsPanel = detailsPanelHandle;
     }
 
     /**
@@ -73,6 +76,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
         guiRobot.interact(() -> {
             getRootNode().scrollTo(person);
         });
+        detailsPanel.update(person);
         guiRobot.pauseForHuman();
     }
 
@@ -87,6 +91,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
         guiRobot.interact(() -> {
             getRootNode().scrollTo(index);
         });
+        detailsPanel.update(getRootNode().getItems().get(index));
         guiRobot.pauseForHuman();
     }
 
@@ -95,6 +100,8 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
      */
     public void select(int index) {
         getRootNode().getSelectionModel().select(index);
+        detailsPanel.update(getRootNode().getItems().get(index));
+
     }
 
     /**

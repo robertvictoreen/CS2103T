@@ -12,6 +12,7 @@ public class MoreDetailsPanelHandle extends NodeHandle<SplitPane> {
     public static final String DETAILS_PANEL_ID = "#detailsPanel";
 
     private Person lastShownStudent = null;
+    private Person currentStudent = null;
 
     public MoreDetailsPanelHandle(SplitPane moreDetailsPanelNode) {
         super(moreDetailsPanelNode);
@@ -21,7 +22,8 @@ public class MoreDetailsPanelHandle extends NodeHandle<SplitPane> {
      * Remembers the current details shown.
      */
     public void rememberDetails() {
-        // remember current student?
+        assert(currentStudent != null);
+        lastShownStudent = currentStudent;
     }
 
     /**
@@ -29,7 +31,7 @@ public class MoreDetailsPanelHandle extends NodeHandle<SplitPane> {
      */
     public boolean isDetailsChanged() {
         // check if current student shown = prev
-        return false;
+        return !lastShownStudent.equals(currentStudent);
     }
 
     /**
@@ -37,16 +39,17 @@ public class MoreDetailsPanelHandle extends NodeHandle<SplitPane> {
      */
     public String getOwner() {
         // return last shown student shown
-        if (lastShownStudent == null) {
-            return "No student selected.";
+        if (currentStudent == null) {
+            return DEFAULT;
         }
-        return lastShownStudent.getName() + "'s details:";
+        return currentStudent.getName().fullName;
     }
 
     /**
-     * Returns the header at top of details panel that states which student's details is being shown.
+     * Update identity of student currently shown.
+     * @param person that was just selected in {@code PersonListPanelHandle}.
      */
-    public String getHeader() {
-        return getOwner() + "'s details:";
+    public void update(Person person) {
+        currentStudent = person;
     }
 }
