@@ -169,9 +169,9 @@ public class CommandTestUtil {
     }
 
     /**
-     * Returns a copied {@code Person} with a new note added to it.
-     * @param person to be copied, should have no note.
-     * @param text of note to be added
+     * Returns a copied {@code Person} with a new note with given text added to it, overwrites any existing note.
+     * @param person to be copied.
+     * @param text of note to be added.
      */
     public static Person copyPersonWithNote(Person person, String text) {
         return new PersonBuilder(person).withNote(text).build();
