@@ -276,8 +276,8 @@ Format: `markAssignment INDEX id/ASSIGNMENT_INDEX m/MARK`
 // tag::stats[]
 === Display the statistics for the marks of an assignment: `assignmentStats`
 
-Displays the number of submissions and the highest, lowest, 25th/75th percentiles, average, and median of the marks for an assignment. +
-Format: `assignmentStats INDEX`
+Displays the number of submissions and the highest, lowest, 25th/75th percentiles, average, and median of the marks for the specified assignment. +
+Format: `assignmentStats ASSIGNMENT_INDEX`
 
 .Assignment Statistics
 image::assignment_stats.png[width="800"]
@@ -383,7 +383,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 e.g. `add n/James Ho s/1 p/22224444 e/jamesho@example.com t/friend t/colleague`
 * *AddAssignment* : `addAssignment n/NAME w/WEIGHT d/DEADLINE m/MAX_MARK` +
 e.g. `addAssignment n/Assignment 1 w/15 d/14/10/2019 m/100`
-* *AssignmentStats* : `assignmentStats INDEX` +
+* *AssignmentStats* : `assignmentStats ASSIGNMENT_INDEX` +
 e.g. `assignmentStats 1`
 * *Attend* : `attend INDEX at/CLASSNAME` +
 e.g. `attend 1 at/Tutorial 1`
