@@ -339,6 +339,15 @@ The primary sorting algorithm is contained in the 'UniquePersonList' class. It i
 
 The 'indicateAddressBookChanged' event is raised by 'Model' after the sorting is done to show that the Address Book has been modified.
 
+The sequence diagram below illustrates how the sort mechanism works:
+
+image::SortUMLSequenceDiagram.PNG[width="800"] 
+
+    1. User executes the `sort` command which is then parsed through `AddressBookParser`.
+    2. A new `sort` command is created and it then executes the `sort` method in `ModelManager`.
+    3. `ModelManager` calls the internal sorting function in the `UniquePersonList` class and the person list is sorted.
+    4. Lastly, the `updateFilteredPersonList()` method in `ModelManager` is called and it then returns the result.
+
 ==== Design Considerations
 
 ===== Aspect: Implementation of `SortCommand`
