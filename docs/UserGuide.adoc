@@ -155,8 +155,9 @@ Format: `addphoto INDEX f/FILENAME`
 
 Examples:
 
-* `addphoto 1 f/C://Users/Zackk95/Pictures/zacharytan.jpg` +
-Edits the profile photo of the 1st person to be the picture at C://Users//Zackk95//Pictures//zacharytan.jpg
+* `addphoto 1 f/C:\\Users\Zackk95\Pictures\zacharytan.jpg` +
+Edits the profile photo of the 1st person to be the picture at C:\\Users\Zackk95\Pictures\zacharytan.jpg
+* Important to take note the double backslash after C.
 
 === Deleting a student's photo: `deleteProfilePhoto`
 
