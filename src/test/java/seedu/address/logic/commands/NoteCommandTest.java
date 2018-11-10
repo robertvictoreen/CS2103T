@@ -33,7 +33,10 @@ public class NoteCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+    @Rule
     private ModelManager model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+    @Rule
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

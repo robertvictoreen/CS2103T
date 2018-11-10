@@ -11,6 +11,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_LARGE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -30,7 +31,10 @@ public class DeleteNoteCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+    @Rule
     private ModelManager model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+    @Rule
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
