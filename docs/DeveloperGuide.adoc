@@ -341,7 +341,7 @@ The 'indicateAddressBookChanged' event is raised by 'Model' after the sorting is
 
 The sequence diagram below illustrates how the sort mechanism works:
 
-image::SortUMLSequenceDiagram.png[width="800"] 
+image::SortUMLSequenceDiagram.png[width="800"]
 
     1. User executes the `sort` command which is then parsed through `AddressBookParser`.
     2. A new `sort` command is created and it then executes the `sort` method in `ModelManager`.
@@ -352,12 +352,12 @@ image::SortUMLSequenceDiagram.png[width="800"]
 
 ===== Aspect: Implementation of `SortCommand`
 
-* **Alternative 1 (current choice):** Only sorts by names of persons in the Address Book. 
-** Pros: Easy to implement and more intuitive for the user. 
+* **Alternative 1 (current choice):** Only sorts by names of persons in the Address Book.
+** Pros: Easy to implement and more intuitive for the user.
 ** Cons: Functionality is limited and may not satisfy the demands of the user.
 
 * **Alternative 2:** Sorts persons in the Address Book by any field (e.g. sorting by email or tag), which is given as an input by the user.
-** Pros: More flexibility for the user since he has the option to sort contacts using more fields. 
+** Pros: More flexibility for the user since he has the option to sort contacts using more fields.
 ** Cons: Harder to implement and constant updating of code is required every time a new field in the `Person` class is introduced.
 // end::sort[]
 
@@ -383,21 +383,21 @@ image::AddProfilePhotoUMLSequenceDiagram.png[width="800"]
 
 **Aspect:** Implementation of `AddProfilePhotoCommand`
 
-* **Alternative 1 (current choice):** Store the images in a local folder. For Windows, it will be in the AppData folder, for Mac/Linux, in the home folder. 
+* **Alternative 1 (current choice):** Store the images in a local folder. For Windows, it will be in the AppData folder, for Mac/Linux, in the home folder.
 ** Pros: After a profile photo is set, it will continue showing even if the image source is deleted.
-** Cons: It requires space to store the photos, some images may be too large and consume a lot of memory. 
+** Cons: It requires space to store the photos, some images may be too large and consume a lot of memory.
 
 * **Alternative 2:** Not store the image.
-** Pros: No space requirement to store the images locally. 
-** Cons: Need to ensure that the images is not deleted, or it won't show. 
+** Pros: No space requirement to store the images locally.
+** Cons: Need to ensure that the images is not deleted, or it won't show.
 
 * **Alternative 1 (current choice):** Set a restriction of 5MB for each photo.
 ** Pros: Prevents a user from crashing the app by putting an image that's too large in size.
 ** Cons: Some photos may be larger than 5MB. They can use image compression services to compress it in order to fulfill the limit.
 
-* **Alternative 2:** Not put a specified restriction to the size of profile photo. 
-** Pros: User can upload image of any size. 
-** Cons: Performance of the app might be unstable if it contains too many large images. 
+* **Alternative 2:** Not put a specified restriction to the size of profile photo.
+** Pros: User can upload image of any size.
+** Cons: Performance of the app might be unstable if it contains too many large images.
 
 // end::addphoto[]
 
@@ -415,15 +415,15 @@ image::DeleteProfilePhotoUMLSequenceDiagram.png[width="800"]
     2. The `AddressBookParser` class parses the command to create a new `DeleteProfilePhotoCommand` class.
     3. The `DeleteProfilePhotoCommand` command is executed and handled by the `ModelManager` class.
     4. A new `ProfilePhoto` object is created, containing the default image.
-    5. The new `ProfilePhoto` is attached to the `Person` at `INDEX`. 
-    6. The default profile photo will now show and the person's image would be deleted. 
+    5. The new `ProfilePhoto` is attached to the `Person` at `INDEX`.
+    6. The default profile photo will now show and the person's image would be deleted.
 
 ==== Design Considerations
 
 **Aspect:** Implementation of `DeleteProfilePhotoCommand`
 
-* **Alternative 1 (current choice):** Create a new ProfilePhoto object. 
-** Pros: Easier if developer decides to change the path of the default photo, or the properties of the ProfilePhotoclass. 
+* **Alternative 1 (current choice):** Create a new ProfilePhoto object.
+** Pros: Easier if developer decides to change the path of the default photo, or the properties of the ProfilePhotoclass.
 ** Cons: Creating a new object each time might be highly memory-consuming, but probably insignificant on a modern PC.
 
 // end::deletephoto[]
