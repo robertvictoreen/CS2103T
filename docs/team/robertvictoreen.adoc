@@ -53,10 +53,10 @@ This section describes my contribution to the project, including code, documenta
 ** Enhancements to existing features:
 *** Updated the UI to display the grades of each student (Pull requests https://github.com/CS2103-AY1819S1-W12-4/main/pull/81[#81], https://github.com/CS2103-AY1819S1-W12-4/main/pull/142[#142])
 *** Updated the storage model to integrate new features (Pull request https://github.com/CS2103-AY1819S1-W12-4/main/pull/104[#104])
-*** Modified tests for existing features to ensure accuracy with changes in functionality (Pull requests https://github.com[#36], https://github.com[#38])
+*** Modified tests for existing features to ensure accuracy with changes in functionality (Pull request https://github.com/CS2103-AY1819S1-W12-4/main/pull/104[#104])
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W12-4/main/pull/52[#52], https://github.com/CS2103-AY1819S1-W12-4/main/pull/55[#55]
-*** Contributed to bug fixes (https://github.com/CS2103-AY1819S1-W12-4/main/pull/104[#104])
+*** Contributed to bug fixes (Pull request https://github.com/CS2103-AY1819S1-W12-4/main/pull/104[#104])
 
 == Contributions to the User Guide
 
