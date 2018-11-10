@@ -92,6 +92,7 @@ public class VersionedAddressBook extends AddressBook {
     @Override
     public String toString() {
         String finalContent = Integer.toString(addressBookStateList.get(currentStatePointer).getPersonList().size());
+        finalContent += " persons";
         return finalContent;
     }
 
