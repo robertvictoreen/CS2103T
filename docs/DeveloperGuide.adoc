@@ -351,13 +351,14 @@ image::SortUMLSequenceDiagram.png[width="800"]
 ==== Design Considerations
 
 ===== Aspect: Implementation of `SortCommand`
-* **Chosen Implementation:** Only sorts by names of persons in the Address Book. +
-**Pros: Easy to implement and more intuitive for the user. +
-**Cons: Functionality is limited and may not satisfy the requirements of the user. +
 
-* **Alternative :** Sorts persons in the Address Book by any field (e.g. sorting by email or tag), which is given as an input by the user. +
-**Pros: More flexibility for the user since he has the option to sort contacts using more fields. +
-**Cons: Harder to implement and constant updating of code is required every time a new field in the `Person` class is introduced.
+* **Alternative 1 (current choice):** Only sorts by names of persons in the Address Book. 
+** Pros: Easy to implement and more intuitive for the user. 
+** Cons: Functionality is limited and may not satisfy the demands of the user.
+
+* **Alternative 2:** Sorts persons in the Address Book by any field (e.g. sorting by email or tag), which is given as an input by the user.
+** Pros: More flexibility for the user since he has the option to sort contacts using more fields. 
+** Cons: Harder to implement and constant updating of code is required every time a new field in the `Person` class is introduced.
 // end::sort[]
 
 // tag::addphoto[]
@@ -380,7 +381,7 @@ image::AddProfilePhotoUMLSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 
-**Aspect:** Storage of images of profile photo
+**Aspect:** Implementation of `AddProfilePhotoCommand`
 
 * **Alternative 1 (current choice):** Store the images in a local folder. For Windows, it will be in the AppData folder, for Mac/Linux, in the home folder. 
 ** Pros: After a profile photo is set, it will continue showing even if the image source is deleted.
@@ -418,6 +419,8 @@ image::DeleteProfilePhotoUMLSequenceDiagram.png[width="800"]
     6. The default profile photo will now show and the person's image would be deleted. 
 
 ==== Design Considerations
+
+**Aspect:** Implementation of `DeleteProfilePhotoCommand`
 
 * **Alternative 1 (current choice):** Create a new ProfilePhoto object. 
 ** Pros: Easier if developer decides to change the path of the default photo, or the properties of the ProfilePhotoclass. 
