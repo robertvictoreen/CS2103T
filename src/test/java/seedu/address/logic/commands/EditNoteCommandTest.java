@@ -10,7 +10,7 @@ import static seedu.address.logic.commands.EditNoteCommand.MESSAGE_SUCCESS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_LARGE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBookCopy;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -39,7 +39,7 @@ public class EditNoteCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalAddressBookCopy(), new UserPrefs());
         commandHistory = new CommandHistory();
 
     }
