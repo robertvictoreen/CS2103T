@@ -368,14 +368,14 @@ image::SortUMLSequenceDiagram.png[width="800"]
 
 **Aspect:** Storage of images of profile pictures +
 
-**Chosen Implementation:** +
+* **Chosen Implementation:** +
 Store the images in a local folder. For Windows, it will be in the AppData folder, for Mac/Linux, in the home folder. +
 **Pros:** +
 After a profile picture is set, it will continue showing even if the image source is deleted +
 **Cons:** +
 Extra space to store the pictures, some images may be too large and use a lot of memory. +
 
-**Alternative:** +
+* **Alternative:** +
 Not store the images +
 **Pros:** +
 No space requirement to store the images locally +
@@ -384,14 +384,14 @@ Need to ensure that the image is not deleted, or it won't show. +
 
 **Aspect:** Putting a limit on profile picture size +
 
-**Chosen Implementation:** +
+* **Chosen Implementation:** +
 Set a restriction of 5MB for each picture. +
 **Pros:** +
 Prevents a  user from crashing the app by putting an image that's too large in size. +
 **Cons:** +
 Some pictures may be larger than 5MB. They can use image compression services to compress it in order to fulfill the limit.
 
-**Alternative:** +
+* **Alternative:** +
 Not put a specified restriction to the size of profile photo +
 **Pros:** +
 User can upload image of any size. +
