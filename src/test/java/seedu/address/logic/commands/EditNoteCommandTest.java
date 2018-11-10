@@ -12,6 +12,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_LARGE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -33,8 +34,15 @@ public class EditNoteCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private ModelManager model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private CommandHistory commandHistory = new CommandHistory();
+    private ModelManager model;
+    private CommandHistory commandHistory;
+
+    @Before
+    public void setUp() {
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        commandHistory = new CommandHistory();
+
+    }
 
     @Test
     public void constructor_nullText_throwsNullPointerException() {

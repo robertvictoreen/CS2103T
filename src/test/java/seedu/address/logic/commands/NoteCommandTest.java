@@ -87,11 +87,12 @@ public class NoteCommandTest {
 
         // check add successful to existing note
         Person newPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        String nextExpectedMessage = String.format(MESSAGE_SUCCESS, newPerson);
         updatePersonInModelWithNote(newPerson, expectedModel, VALID_NOTE_TEXT + ", " + VALID_NOTE_TEXT_WITH_FULL_STOP);
         expectedModel.commitAddressBook();
 
-        Command secondCommand = new NoteCommand(INDEX_FIRST_PERSON, VALID_NOTE_TEXT);
-        assertCommandSuccess(secondCommand, model, commandHistory, expectedMessage, expectedModel);
+        Command nextCommand = new NoteCommand(INDEX_FIRST_PERSON, VALID_NOTE_TEXT);
+        assertCommandSuccess(nextCommand, model, commandHistory, nextExpectedMessage, expectedModel);
 
         // undo test
         expectedModel.undoAddressBook();
