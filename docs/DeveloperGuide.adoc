@@ -341,7 +341,7 @@ The 'indicateAddressBookChanged' event is raised by 'Model' after the sorting is
 
 The sequence diagram below illustrates how the sort mechanism works:
 
-image::SortUMLSequenceDiagram.PNG[width="800"] 
+image::SortUMLSequenceDiagram.png[width="800"] 
 
     1. User executes the `sort` command which is then parsed through `AddressBookParser`.
     2. A new `sort` command is created and it then executes the `sort` method in `ModelManager`.
