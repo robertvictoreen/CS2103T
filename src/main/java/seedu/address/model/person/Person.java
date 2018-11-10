@@ -2,6 +2,8 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.person.Note.MESSAGE_NOTE_CONSTRAINTS;
+import static seedu.address.model.person.Note.isValid;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -268,9 +270,13 @@ public class Person {
     }
 
     /**
-     * Adds text to this {@code Person}'s current note.
+     * Adds text to this {@code Person}'s current note if text is valid.
+     * @throws IllegalArgumentException if text is invalid.
      */
     public void addNote(String text) {
+        if (!isValid(text)) {
+            throw new IllegalArgumentException(MESSAGE_NOTE_CONSTRAINTS);
+        }
         note = note.add(text);
     }
 }

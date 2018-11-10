@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.model.person.Note.MESSAGE_NOTE_CONSTRAINTS;
 import static seedu.address.model.person.Note.NOTE_INVALIDATION_REGEX;
+import static seedu.address.model.person.Note.isValid;
 
 import java.util.List;
 
@@ -60,7 +61,7 @@ public class NoteCommand extends Command {
         }
 
         // Checks if text is valid
-        if (textToAdd.matches(NOTE_INVALIDATION_REGEX)) {
+        if (!isValid(textToAdd)) {
             throw new CommandException(MESSAGE_NOTE_CONSTRAINTS);
         }
 

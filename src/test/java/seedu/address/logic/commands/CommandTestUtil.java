@@ -41,6 +41,8 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_NOTE_TEXT = "Test";
     public static final String VALID_NOTE_TEXT_WITH_FULL_STOP = "Test.";
+    public static final String VALID_NOTE_TEXT_WITH_EXCLAMATION = "Test!";
+    public static final String VALID_NOTE_TEXT_WITH_QUESTION = "Test?";
     public static final String VALID_NOTE_NUMBERS = "999";
     public static final String VALID_NOTE_SPECIALCHAR = "[(/.\\)]";
 

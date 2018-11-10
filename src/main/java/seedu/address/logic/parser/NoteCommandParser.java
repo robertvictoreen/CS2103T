@@ -15,7 +15,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class NoteCommandParser implements Parser<NoteCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the NoteCommand
+     * Parses the given {@code String} of arguments in the context of the {@code NoteCommand}
      * and returns a NoteCommand object for execution.
      * @throws ParseException if the user input does not conform to the expected format
      */
@@ -41,6 +41,8 @@ public class NoteCommandParser implements Parser<NoteCommand> {
         }
         String text = matcher.group(4);
 
+        // text is non-empty
+        assert(!text.equals(""));
         return new NoteCommand(index, text);
     }
 }
