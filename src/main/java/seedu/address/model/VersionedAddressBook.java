@@ -89,6 +89,12 @@ public class VersionedAddressBook extends AddressBook {
                 && currentStatePointer == otherVersionedAddressBook.currentStatePointer;
     }
 
+    @Override
+    public String toString() {
+        String finalContent = Integer.toString(addressBookStateList.get(currentStatePointer).getPersonList().size());
+        return finalContent;
+    }
+
     /**
      * Thrown when trying to {@code undo()} but can't.
      */
