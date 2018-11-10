@@ -70,6 +70,15 @@ public class TypicalPersons {
         return ab;
     }
 
+    public static AddressBook getTypicalAddressBookCopy() {
+        AddressBookBuilder abBuilder = new AddressBookBuilder();
+        for (Person person : getTypicalPersons()) {
+            PersonBuilder personBuilder = new PersonBuilder(person);
+            abBuilder.withPerson(personBuilder.build());
+        }
+        return abBuilder.build();
+    }
+
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }

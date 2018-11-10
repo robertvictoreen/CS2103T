@@ -26,7 +26,7 @@ public class DeleteNoteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Note of Student: %1$s";
+    public static final String MESSAGE_SUCCESS = "Deleted Note of Student: %1$s";
 
     /**
      * Guaranteed to be a positive integer, {@code DeleteNoteCommandParser}.
@@ -34,6 +34,7 @@ public class DeleteNoteCommand extends Command {
     private final Index targetIndex;
 
     public DeleteNoteCommand(Index targetIndex) {
+        requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
     }
 
@@ -43,6 +44,8 @@ public class DeleteNoteCommand extends Command {
         List<Person> lastShownList = model.getFilteredPersonList();
 
         int index = targetIndex.getZeroBased();
+        assert(index >= 0);
+
         // check if index is valid, not more than list size
         if (index >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -61,7 +64,7 @@ public class DeleteNoteCommand extends Command {
         Person newStudent = descriptor.createEditedPerson(studentToReplace);
         model.updatePerson(studentToReplace, newStudent);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, newStudent));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, newStudent));
     }
 
     @Override
