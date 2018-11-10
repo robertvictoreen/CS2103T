@@ -51,6 +51,7 @@ public class EditNoteCommand extends Command {
 
         List<Person> lastShownList = model.getFilteredPersonList();
         int zeroBasedIndex = studentIndex.getZeroBased();
+        assert(zeroBasedIndex >= 0);
 
         if (zeroBasedIndex >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);

@@ -17,51 +17,51 @@ import static seedu.address.logic.parser.CommandParserTestUtil.createIndex;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.NoteCommand;
+import seedu.address.logic.commands.EditNoteCommand;
 
-public class NoteCommandParserTest {
+public class EditNoteCommandParserTest {
 
-    private NoteCommandParser parser = new NoteCommandParser();
+    private EditNoteCommandParser parser = new EditNoteCommandParser();
 
     @Test
     public void parseValidInput() {
         // making use of Each Valid Input At Least Once In A Positive Test Case heuristic
         // correct format
         // single digit index, characters text
-        assertParseSuccess_singleDigitIndex_charText(parser, new NoteCommand(createIndex(1), VALID_NOTE_TEXT));
+        assertParseSuccess_singleDigitIndex_charText(parser, new EditNoteCommand(createIndex(1), VALID_NOTE_TEXT));
 
         // multiple digit index, numbers text
-        assertParseSuccess_multipleDigitIndex_numText(parser, new NoteCommand(createIndex(111),
+        assertParseSuccess_multipleDigitIndex_numText(parser, new EditNoteCommand(createIndex(111),
             VALID_NOTE_NUMBERS));
 
         // special characters text
-        assertParseSuccess_specialCharText(parser, new NoteCommand(createIndex(1), VALID_NOTE_SPECIALCHAR));
+        assertParseSuccess_specialCharText(parser, new EditNoteCommand(createIndex(1), VALID_NOTE_SPECIALCHAR));
     }
 
     @Test
     public void parseInvalidInput() {
         // no prefix whitespace
         assertParseFailure_noPrefixWhitespace(parser,
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteCommand.MESSAGE_USAGE));
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditNoteCommand.MESSAGE_USAGE));
 
         // no whitespace between
         assertParseFailure_noWhitespaceBetween(parser,
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteCommand.MESSAGE_USAGE));
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditNoteCommand.MESSAGE_USAGE));
 
         // letter index
         assertParseFailure_charIndex(parser,
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteCommand.MESSAGE_USAGE));
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditNoteCommand.MESSAGE_USAGE));
 
         // special char index
         assertParseFailure_specialCharIndex(parser,
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteCommand.MESSAGE_USAGE));
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditNoteCommand.MESSAGE_USAGE));
 
         // int + char index
         assertParseFailure_intAndCharIndex(parser,
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteCommand.MESSAGE_USAGE));
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditNoteCommand.MESSAGE_USAGE));
 
         // non-empty preamble
         assertParseFailure_nonEmptyPreamble(parser,
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteCommand.MESSAGE_USAGE));
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditNoteCommand.MESSAGE_USAGE));
     }
 }
