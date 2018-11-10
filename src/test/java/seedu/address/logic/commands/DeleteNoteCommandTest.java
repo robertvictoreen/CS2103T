@@ -35,7 +35,7 @@ public class DeleteNoteCommandTest {
     private CommandHistory commandHistory;
 
     @Before
-    private void setUp() {
+    public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         commandHistory = new CommandHistory();
     }
