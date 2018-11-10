@@ -391,12 +391,9 @@ Prevents a  user from crashing the app by putting an image that's too large in s
 **Cons: 
 Some pictures may be larger than 5MB. They can use image compression services to compress it in order to fulfill the limit.
 
-* **Alternative:** 
-Not put a specified restriction to the size of profile photo 
-**Pros: 
-User can upload image of any size. 
-**Cons: 
-Performance of the app might be unstable if it contains too many large images.
+* **Alternative:** Not put a specified restriction to the size of profile photo 
+**Pros: User can upload image of any size. 
+**Cons: Performance of the app might be unstable if it contains too many large images.
 
 // end::addphoto[]
 
@@ -408,12 +405,9 @@ We implemented a feature which allows a user to delete the profile photo and cha
 
 ==== Design Considerations
 
-* **Chosen Implementation:** 
-Create a new ProfilePhoto object. 
-**Pros: 
-Easier if developer decides to change the path of the default photo, or the properties of the ProfilePhotoclass 
-**Cons: 
-Creating a new object each time might be highly memory-consuming, but probably insignificant on a modern PC. 
+* **Chosen Implementation:** Create a new ProfilePhoto object. 
+**Pros: Easier if developer decides to change the path of the default photo, or the properties of the ProfilePhotoclass 
+**Cons: Creating a new object each time might be highly memory-consuming, but probably insignificant on a modern PC. 
 
 // end::deletephoto[]
 
