@@ -364,9 +364,23 @@ image::SortUMLSequenceDiagram.png[width="800"]
 
 === Add Profile Photo feature
 
+==== Current Implementation
+The student's Profile Photo can be viewed at the right side of the student's profile card.
+
+The following sequence diagram shows how the `addphoto` command works.
+
+image::AddProfilePhotoUMLSequenceDiagram.png[width="800"]
+
+    1. The user inputs the `addphoto INDEX f/FILENAME` command, with parameters `INDEX` and `FILENAME`
+    2. The `AddressBookParser` class parses the command to create a new `AddProfilePhotoCommand` class.
+    3. The `AddProfilePhotoCommand` command is executed and handled by the `ModelManager` class.
+    4. A new `ProfilePhoto` object is created, containing the image referenced by `FILENAME`
+    5. The new `ProfilePhoto` is attached to the `Person` at `INDEX`
+    6. The new profile photo is displayed
+
 ==== Design Considerations
 
-**Aspect:** Storage of images of profile pictures 
+**Aspect:** Storage of images of profile photo
 
 * **Alternative 1 (current choice):** Store the images in a local folder. For Windows, it will be in the AppData folder, for Mac/Linux, in the home folder. 
 ** Pros: After a profile photo is set, it will continue showing even if the image source is deleted.
@@ -392,12 +406,12 @@ image::SortUMLSequenceDiagram.png[width="800"]
 ==== Current Implementation
 This is a feature which allows a user to delete the profile photo and changes it back to default.
 
-The following sequence diagram shows how the `deletephoto` command works
+The following sequence diagram shows how the `deleteProfilePhoto` command works
 
 image::DeleteProfilePhotoUMLSequenceDiagram.png[width="800"]
 
     1. The user executes the `deleteProfilePhoto INDEX` command, with parameters `INDEX`
-    2. The `AddressBookParser` class parses the command and create a new `DeleteProfilePhotoCommand` class.
+    2. The `AddressBookParser` class parses the command to create a new `DeleteProfilePhotoCommand` class.
     3. The `DeleteProfilePhotoCommand` command is executed and handled by the `ModelManager` class.
     4. A new `ProfilePhoto` object is created, containing the default image.
     5. The new `ProfilePhoto` is attached to the `Person` at `INDEX`. 
