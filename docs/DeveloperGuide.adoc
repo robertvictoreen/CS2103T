@@ -405,9 +405,9 @@ We implemented a feature which allows a user to delete the profile photo and cha
 
 ==== Design Considerations
 
-* **Chosen Implementation:** Create a new ProfilePhoto object. 
-**Pros: Easier if developer decides to change the path of the default photo, or the properties of the ProfilePhotoclass 
-**Cons: Creating a new object each time might be highly memory-consuming, but probably insignificant on a modern PC. 
+* **Alternative 1 (current choice):** Create a new ProfilePhoto object. 
+** Pros: Easier if developer decides to change the path of the default photo, or the properties of the ProfilePhotoclass. 
+** Cons: Creating a new object each time might be highly memory-consuming, but probably insignificant on a modern PC.
 
 // end::deletephoto[]
 
