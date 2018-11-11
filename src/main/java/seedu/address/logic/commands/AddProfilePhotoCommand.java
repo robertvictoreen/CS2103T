@@ -25,7 +25,6 @@ public class AddProfilePhotoCommand extends Command {
     public static final String COMMAND_WORD = "addphoto";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Photo for Person: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "A valid file must be provided.";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the photo of the person identified by the index number used in the last person listing.\n"
             + "Parameters: INDEX (must be a positive integer) " + PREFIX_FILEPATH
