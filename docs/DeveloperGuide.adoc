@@ -324,13 +324,6 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
 // tag::sort[]
 === Sort mechanism
 
@@ -433,12 +426,15 @@ edit assignment information in every single student.
 
 Provides a representation of an attendance session for a particular date.
 This enables a mapping between each student and multiple attendance sessions
-with a record of attendance/absense for that session.
+with a record of attendance/absence for that session.
+
+.Structure of the Model Component including the Attendance data structure
+image::ModelClassDiagram.png[width="800"]
 
 ==== Design Considerations
 
-===== Aspect: Data Structure to support assignment operations
-* **Alternative 1 (current choice):** Adaptation of Assignment model, using a hashmap for each student to record the attendance/absense
+===== Aspect: Data Structure to support attendance operations
+* **Alternative 1 (current choice):** Adaptation of Assignment model, using a HashMap for each student to record the attendance/absence
 with the uniqueId of the Attendance session. AttendanceMark is a subclass of the Mark class from the Assignment model, limited to a value of 1 or 0.
 The Attendance session date is represented with the Deadline class from the Assignment model.
 ** Pros: Limited code duplication, consistent model implementation, prevents inconsistent attendance records across the class.
@@ -504,6 +500,76 @@ image::EditNoteFeatureClassDiagram.png[width="800"]
 ** Cons: +
 *** Some repeated code with `NoteCommand`.
 // end::note[]
+
+// tag::assignmentStats[]
+=== Assignment Statistics feature
+==== Current Implementation
+
+The `Mark` objects associated with the `Assignment` are obtained by filtering the `Mark` HashMap
+using the assignment unique id as the key, for each `Person` in the addressbook.
+The maximum, minimum, and average marks are calculated by the `DoubleSummaryStatistics` object.
+The median, 25th, and 75th percentiles are calculated by indexing a sorted array of the `Mark` values.
+
+==== Design Considerations
+
+===== Aspect: Specification of the Assignment Model
+
+* **Alternative 1 (current choice):** Use a stream to filter the `Mark` objects associated with the `Assignment`.
+** Pros: Implementation follows specification of the Assignment Model.
+** Cons: `Mark` objects are associated with `Person` objects, thus requiring several linear operations to obtain
+all `Mark` objects associated with one `Assignment`.
+* **Alternative 2:** Create a new mapping between `Mark` objects and each `Assignment`.
+** Pros: `Mark` objects can be aggregated over time, eliminating the need to filter each time.
+** Cons: Major changes to the specification of the Assignment Model.
+// end::assignmentStats[]
+
+// tag::classStats[]
+=== Class Statistics feature
+==== Current Implementation
+
+For each `Person` in the addressbook, the associated `Mark` objects are cross-referenced using the
+unique id for each `Assignment` to calculate the grade of each assignment to obtain the
+weighted overall grade of each student.
+The maximum, minimum, and average marks are calculated by the `DoubleSummaryStatistics` object.
+The median, 25th, and 75th percentiles are calculated by indexing a sorted array of the overall grades.
+
+==== Design Considerations
+
+===== Aspect: Specification of the Assignment Model
+
+* **Alternative 1 (current choice):** Use a stream to group the `Mark` objects by association
+with each `Person` and calculate the overall grade using the relevant `Assignment` objects for each `Mark`.
+** Pros: Implementation follows specification of the Assignment Model.
+** Cons: Several linear operations must be performed to
+bridge the association between each `Mark`, `Assignment`, and `Person`.
+* **Alternative 2:** Create a class data structure to record the data for the entire class.
+** Pros: Calculations may be performed within the data structure.
+** Cons: Increased operations for each change in data due to high coupling between `Mark`, `Assignment`, and `Person`.
+// end::classStats[]
+
+// tag::gradeDisplay[]
+=== Grade Display feature
+==== Current Implementation
+
+The information for each `Assignment` object in the addressbook is listed,
+including the the index number, name, deadline, weight, mark, and maximum mark. +
+The mark is obtained from the `Mark` associated with the selected `Person` object. +
+The total grade for the student is calculated as a weighted sum of the marks for all the assignments and listed below.
+
+.Grade Display
+image::grade_display.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: Evaluation of total grade for the student
+
+* **Alternative 1 (current choice):** Calculate the total grade on demand.
+** Pros: Implementation does not require additional models.
+** Cons: The calculation is linear and must bbe performed every time the student is selected.
+* **Alternative 2:** Create a new model to aggregate the total grade.
+** Pros: The total grade is readily available and may be used elsewhere in the application.
+** Cons: Increased operations for each change in data to update the total grade.
+// end::gradeDisplay[]
 
 === Logging
 

@@ -15,7 +15,7 @@ image::robertvictoreen.png[width="150", align="left"]
 {empty}[https://github.com/robertvictoreen[github]] [<<robertvictoreen#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Integration
+Responsibilities: Back-End
 
 === Tan Ken Hao Zachary
 image::zackkh95.png[width="150", align="left"]

@@ -273,15 +273,23 @@ Adds a mark for an assignment associated with a student given the mark obtained.
 Format: `markAssignment INDEX id/ASSIGNMENT_INDEX m/MARK`
 // end::assignment[]
 
-=== Display the statistics for an assignment: `assignmentStats`
+// tag::stats[]
+=== Display the statistics for the marks of an assignment: `assignmentStats`
 
-Display the statistics for the specified assignment. +
-Format: `assignmentStats INDEX`
+Displays the number of submissions and the maximum, highest, lowest, 25th/75th percentiles, average, and median mark for the specified assignment. +
+Format: `assignmentStats ASSIGNMENT_INDEX`
 
-=== Display the statistics for an assignment: `classStats`
+.Assignment Statistics
+image::assignment_stats.png[width="800"]
 
-Display the statistics for the overall grades of students. +
+=== Display the statistics for the total grades of the students in the class: `classStats`
+
+Displays the number of students and the maximum, highest, lowest, 25th/75th percentiles, average, and median total grade. +
 Format: `classStats`
+
+.Class Statistics
+image::class_stats.png[width="800"]
+// end::stats[]
 
 === Editing a student: `edit`
 
@@ -375,7 +383,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 e.g. `add n/James Ho s/1 p/22224444 e/jamesho@example.com t/friend t/colleague`
 * *AddAssignment* : `addAssignment n/NAME w/WEIGHT d/DEADLINE m/MAX_MARK` +
 e.g. `addAssignment n/Assignment 1 w/15 d/14/10/2019 m/100`
-* *AssignmentStats* : `assignmentStats INDEX` +
+* *AssignmentStats* : `assignmentStats ASSIGNMENT_INDEX` +
 e.g. `assignmentStats 1`
 * *Attend* : `attend INDEX at/CLASSNAME` +
 e.g. `attend 1 at/Tutorial 1`
