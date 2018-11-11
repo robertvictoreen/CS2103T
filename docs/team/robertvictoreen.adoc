@@ -34,7 +34,7 @@ This section describes my contribution to the project, including code, documenta
 * *Major enhancement*: Grade Statistics
 ** What it does: Calculates the statistics for the grades of an individual assignment or the overall class.
 ** Justification: This feature enables tutors to analyse the grades of students to provide relative feedback based on the performance of the class.
-** Highlights: Provides high, low, 25th/75th percentiles, average, and median of the grades.
+** Highlights: Provides maximum, highest, lowest, 25th/75th percentiles, average, and median grade.
 
 * *Minor enhancement*: Grade Display
 ** What it does: Displays the assignment grades and overall grade for each student.

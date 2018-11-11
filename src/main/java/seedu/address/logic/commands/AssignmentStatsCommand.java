@@ -27,6 +27,11 @@ public class AssignmentStatsCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
+    public static final String MESSAGE_SUCCESS = "%s Statistics\nSubmissions: %d, Maximum Mark: %.1f\n"
+            + "Highest: %.1f, Lowest: %.1f\n"
+            + "25th: %.1f, 75th: %.1f\n"
+            + "Average: %.1f, Median: %.1f";
+
     private final Index targetIndex;
 
     public AssignmentStatsCommand(Index targetIndex) {
@@ -43,6 +48,7 @@ public class AssignmentStatsCommand extends Command {
         }
 
         Assignment assignment = lastShownList.get(targetIndex.getZeroBased());
+        float maxMark = assignment.getMaxMark().getValue();
         String uniqueId = assignment.getUniqueId();
         List<Person> filteredPersonList = model.getFilteredPersonList();
         DoubleStream markStream;
@@ -53,11 +59,10 @@ public class AssignmentStatsCommand extends Command {
                                         .mapToDouble((marks) -> marks.get(uniqueId).getValue());
         DoubleSummaryStatistics summaryStatistics = markStream.summaryStatistics();
 
-        StringBuilder summary = new StringBuilder(assignment.getName().getValue());
-        summary.append(" Statistics\nSubmissions: ");
-        summary.append(summaryStatistics.getCount());
+        long submissionsCount = summaryStatistics.getCount();
 
-        if (summaryStatistics.getCount() > 0) {
+        double[] quartiles = new double[3];
+        if (submissionsCount > 0) {
 
             markStream = filteredPersonList.stream()
                                             .map(Person::getMarks)
@@ -65,14 +70,16 @@ public class AssignmentStatsCommand extends Command {
                                             .mapToDouble((marks) -> marks.get(uniqueId).getValue());
             double[] marks = markStream.sorted().toArray();
 
-            double[] quartiles = {0.25, 0.50, 0.75};
-
             if (marks.length == 1) {
                 quartiles[0] = quartiles[1] = quartiles[2] = marks[0];
             } else {
                 double percentile;
                 double position;
                 int index;
+
+                quartiles[0] = 0.25;
+                quartiles[1] = 0.50;
+                quartiles[2] = 0.75;
 
                 for (int i = 0; i < 3; i++) {
                     position = quartiles[i] * marks.length;
@@ -86,15 +93,14 @@ public class AssignmentStatsCommand extends Command {
                     quartiles[i] = percentile;
                 }
             }
-            summary.append("\nHighest: ").append(String.format("%.1f", summaryStatistics.getMax()));
-            summary.append(", Lowest: ").append(String.format("%.1f", summaryStatistics.getMin()));
-            summary.append("\n25th: ").append(String.format("%.1f", quartiles[0]));
-            summary.append(", 75th: ").append(String.format("%.1f", quartiles[2]));
-            summary.append("\nAverage: ").append(String.format("%.1f", summaryStatistics.getAverage()));
-            summary.append(", Median: ").append(String.format("%.1f", quartiles[1]));
+        } else {
+            summaryStatistics.accept(0);
         }
 
-        return new CommandResult(summary.toString());
+        return new CommandResult(String.format(MESSAGE_SUCCESS, assignment.getName().getValue(),
+            submissionsCount, maxMark, assignment.getMaxMark().getValue(),
+            summaryStatistics.getMax(), summaryStatistics.getMin(),
+            quartiles[0], quartiles[2], summaryStatistics.getAverage(), quartiles[1]));
     }
 
     @Override

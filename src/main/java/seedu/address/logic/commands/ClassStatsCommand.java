@@ -24,6 +24,11 @@ public class ClassStatsCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Display the statistics for the overall grades of students.";
 
+    public static final String MESSAGE_SUCCESS = "Class Statistics\nStudents: %d, Maximum Grade: %.1f\n"
+            + "Highest: %.1f, Lowest: %.1f\n"
+            + "25th: %.1f, 75th: %.1f\n"
+            + "Average: %.1f, Median: %.1f";
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
@@ -59,15 +64,10 @@ public class ClassStatsCommand extends Command {
             marks[i] = overallMark;
         }
 
-        StringBuilder summary = new StringBuilder("Class Statistics\nStudents: ");
-        summary.append(studentsCount);
-
+        double[] quartiles = new double[3];
         if (studentsCount > 0) {
-            summary.append(", Maximum Grade: ").append(totalWeight);
 
             Arrays.sort(marks);
-
-            double[] quartiles = {0.25, 0.50, 0.75};
 
             if (marks.length == 1) {
                 quartiles[0] = quartiles[1] = quartiles[2] = marks[0];
@@ -75,6 +75,10 @@ public class ClassStatsCommand extends Command {
                 double percentile;
                 double position;
                 int index;
+
+                quartiles[0] = 0.25;
+                quartiles[1] = 0.50;
+                quartiles[2] = 0.75;
 
                 for (int i = 0; i < 3; i++) {
                     position = quartiles[i] * marks.length;
@@ -88,14 +92,12 @@ public class ClassStatsCommand extends Command {
                     quartiles[i] = percentile;
                 }
             }
-            summary.append("\nHighest: ").append(String.format("%.1f", summaryStatistics.getMax()));
-            summary.append(", Lowest: ").append(String.format("%.1f", summaryStatistics.getMin()));
-            summary.append("\n25th: ").append(String.format("%.1f", quartiles[0]));
-            summary.append(", 75th: ").append(String.format("%.1f", quartiles[2]));
-            summary.append("\nAverage: ").append(String.format("%.1f", summaryStatistics.getAverage()));
-            summary.append(", Median: ").append(String.format("%.1f", quartiles[1]));
+        } else {
+            summaryStatistics.accept(0);
         }
 
-        return new CommandResult(summary.toString());
+        return new CommandResult(String.format(MESSAGE_SUCCESS, studentsCount, totalWeight,
+            summaryStatistics.getMax(), summaryStatistics.getMin(),
+            quartiles[0], quartiles[2], summaryStatistics.getAverage(), quartiles[1]));
     }
 }
