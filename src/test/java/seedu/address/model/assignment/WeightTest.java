@@ -52,4 +52,15 @@ public class WeightTest {
         assertEquals(weight2.compareTo(weight2), 0);
         assertEquals(weight3.compareTo(weight3), 0);
     }
+
+    @Test
+    public void weightValue() {
+        Weight weight1 = new Weight("-13");
+        Weight weight2 = new Weight("-0.5");
+        Weight weight3 = new Weight("3");
+
+        assertEquals(weight1.getValue(), Double.valueOf(-13));
+        assertEquals(weight2.getValue(), Double.valueOf(-0.5));
+        assertEquals(weight3.getValue(), Double.valueOf(3));
+    }
 }

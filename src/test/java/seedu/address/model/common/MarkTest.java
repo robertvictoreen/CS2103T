@@ -52,4 +52,15 @@ public class MarkTest {
         assertEquals(mark2.compareTo(mark2), 0);
         assertEquals(mark3.compareTo(mark3), 0);
     }
+
+    @Test
+    public void markValue() {
+        Mark mark1 = new Mark("-13");
+        Mark mark2 = new Mark("-0.5");
+        Mark mark3 = new Mark("3");
+
+        assertEquals(mark1.getValue(), Double.valueOf(-13));
+        assertEquals(mark2.getValue(), Double.valueOf(-0.5));
+        assertEquals(mark3.getValue(), Double.valueOf(3));
+    }
 }

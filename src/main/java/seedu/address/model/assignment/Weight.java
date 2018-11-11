@@ -37,8 +37,8 @@ public class Weight implements Comparable<Weight> {
         return this.getValue().compareTo(other.getValue());
     }
 
-    public Float getValue() {
-        return Float.valueOf(this.internalString);
+    public Double getValue() {
+        return Double.valueOf(this.internalString);
     }
 
     @Override
