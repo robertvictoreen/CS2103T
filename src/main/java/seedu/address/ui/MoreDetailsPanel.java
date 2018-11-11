@@ -72,6 +72,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         currentStudent = event.getNewSelection();
         currentStudentIndex = studentList.indexOf(currentStudent);
+        System.out.println(currentStudentIndex);
         // find student index
         display(currentStudentIndex); // display student's details in details panel
     }
@@ -107,6 +108,10 @@ public class MoreDetailsPanel extends UiPart<Region> {
             // Keep track of who was just displayed
             currentStudent = student;
         } catch (IndexOutOfBoundsException e) {
+            components.getChildren().clear();
+            Label noComponents = new Label("<No student selected>");
+            noComponents.setFont(new Font("System", (double) 25));
+            components.add(noComponents, 0, 0);
             throw new IndexOutOfBoundsException("Student was not selected yet.");
         }
         if (student == null) {

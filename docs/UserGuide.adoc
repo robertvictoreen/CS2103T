@@ -103,7 +103,7 @@ Returns any person having names `Betsy`, `Tim`, or `John`
 
 === Clearing all entries : `clear`
 
-Clears all entries from the student list. +
+Clears all data from application. +
 Format: `clear`
 
 === Deleting a student : `delete`
