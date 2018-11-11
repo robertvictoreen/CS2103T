@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.model.person.Note.MESSAGE_NOTE_CONSTRAINTS;
-import static seedu.address.model.person.Note.NOTE_INVALIDATION_REGEX;
+import static seedu.address.model.person.Note.isValid;
 
 import java.util.List;
 
@@ -53,12 +53,14 @@ public class NoteCommand extends Command {
 
         // Checks if index is valid, not more than list size
         int zeroBasedIndex = studentIndex.getZeroBased();
+        assert(zeroBasedIndex >= 0);
+
         if (zeroBasedIndex >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
         // Checks if text is valid
-        if (textToAdd.matches(NOTE_INVALIDATION_REGEX)) {
+        if (!isValid(textToAdd)) {
             throw new CommandException(MESSAGE_NOTE_CONSTRAINTS);
         }
 
@@ -70,13 +72,12 @@ public class NoteCommand extends Command {
             textToAdd = " " + textToAdd;
         }
 
-        Note note = studentToReplace.getNote();
-        Note updatedNote = note.add(textToAdd);
+        Note updatedNote = studentToReplace.getNote().add(textToAdd);
         descriptor.setNote(updatedNote);
         Person newStudent = descriptor.createEditedPerson(studentToReplace);
         model.updatePerson(studentToReplace, newStudent);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, newStudent));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, studentToReplace));
     }
 
     /**
