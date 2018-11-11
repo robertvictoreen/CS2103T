@@ -1,16 +1,19 @@
 package seedu.address.model.assignment;
 
-import seedu.address.model.common.Validator;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents an assignment's weight in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  */
-public class Weight extends Validator implements Comparable<Weight> {
+public class Weight implements Comparable<Weight> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Weights should be real number, and it should not be blank";
     public static final String VALIDATION_REGEX = "^(-+)?\\d+(\\.\\d+)?$";
+
+    public final String internalString;
 
     /**
      * Constructs a {@code Weight}.
@@ -18,7 +21,9 @@ public class Weight extends Validator implements Comparable<Weight> {
      * @param weight A valid weight string.
      */
     public Weight(String weight) {
-        super(weight);
+        requireNonNull(weight);
+        checkArgument(isValid(weight), MESSAGE_CONSTRAINTS);
+        internalString = weight;
     }
 
     /**
@@ -32,9 +37,24 @@ public class Weight extends Validator implements Comparable<Weight> {
         return this.getValue().compareTo(other.getValue());
     }
 
-    @Override
     public Float getValue() {
         return Float.valueOf(this.internalString);
+    }
+
+    @Override
+    public String toString() {
+        return this.internalString;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Weight // instanceof handles nulls
+                && internalString.equals(((Weight) other).internalString)); // state check
+    }
+    @Override
+    public int hashCode() {
+        return internalString.hashCode();
     }
 
 }

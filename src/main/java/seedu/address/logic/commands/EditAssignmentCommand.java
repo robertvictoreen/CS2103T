@@ -18,8 +18,8 @@ import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.AssignmentName;
 import seedu.address.model.assignment.Deadline;
-import seedu.address.model.assignment.Mark;
 import seedu.address.model.assignment.Weight;
+import seedu.address.model.common.Mark;
 
 /**
  * Edits the details of an existing assignment in the deadline book.

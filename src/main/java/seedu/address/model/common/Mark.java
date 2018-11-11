@@ -1,16 +1,19 @@
-package seedu.address.model.assignment;
+package seedu.address.model.common;
 
-import seedu.address.model.common.Validator;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents an assignment's mark in the app.
  * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  */
-public class Mark extends Validator implements Comparable<Mark> {
+public class Mark implements Comparable<Mark> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Mark should be a real number";
     public static final String VALIDATION_REGEX = "^(-+)?\\d+(\\.\\d+)?$";
+
+    public final String internalString;
 
     /**
      * Constructs a {@code Mark}.
@@ -18,7 +21,9 @@ public class Mark extends Validator implements Comparable<Mark> {
      * @param mark A valid real number.
      */
     public Mark(String mark) {
-        super(mark);
+        requireNonNull(mark);
+        checkArgument(isValid(mark), MESSAGE_CONSTRAINTS);
+        internalString = mark;
     }
 
     /**
@@ -32,10 +37,24 @@ public class Mark extends Validator implements Comparable<Mark> {
         return this.getValue().compareTo(other.getValue());
     }
 
-
-    @Override
     public Float getValue() {
         return Float.valueOf(this.internalString);
+    }
+
+    @Override
+    public String toString() {
+        return this.internalString;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Mark // instanceof handles nulls
+                && internalString.equals(((Mark) other).internalString)); // state check
+    }
+    @Override
+    public int hashCode() {
+        return internalString.hashCode();
     }
 
 }

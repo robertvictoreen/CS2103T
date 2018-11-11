@@ -4,6 +4,9 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.commons.util.UniqueIdUtil.createUniqueId;
 
 import java.util.Objects;
+
+import seedu.address.model.common.Mark;
+
 /**
  * Represents an Assignment in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.

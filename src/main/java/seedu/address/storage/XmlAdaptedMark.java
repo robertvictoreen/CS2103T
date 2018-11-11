@@ -3,7 +3,7 @@ package seedu.address.storage;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.assignment.Mark;
+import seedu.address.model.common.Mark;
 
 /**
  * JAXB-friendly adapted version of the Mark.
