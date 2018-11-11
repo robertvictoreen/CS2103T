@@ -466,15 +466,24 @@ The data `MoreDetailsPanel` binds itself to are `filteredPersons` and `filteredA
 === Note data structure
 
 ==== Current Implementation
-A `Note` stores a String `text` (content of the note) and methods to manipulate the text in a note.
+A `Note` stores a String `text` (content of the note). `text` is final and never changed once initialized. When a
+`note` or `editnote` command is executed, a new `Note` is created with the final `text`. The methods in the `Note` class
+return a new `Note` object with the new `text`.
 
 ==== Design considerations
 
 ===== Aspect: Note auto-punctuation
 * **Alternative 1(current choice):** `Note` texts are automatically ended with a full stop (`.`) if it is not added by
-the user, unless the user ends the text with `!` or `?`. When text is added to a `Note` that already has text, the
-current `text` is changed to end with a comma (`,`) instead, before the new text is appended to the end.
-// add activity diag here to show ^
+the user, unless the user ends the text with `!` or `?`. When a `note` or `editnote` command is executed on a `Note`
+that already has text, the previous text's punctuation is changed to a comma (`,`) instead before being added to the
+final `text`.
+
+The workflow for this algorithm is shown below. *Text* refers to the text being added, *noteText* refers to the existing
+text in the `Note` and *newText* refers to the final text in the newly created `Note`.
+
+.Activity Diagram for Text Addition
+image::NoteTextAdditionActivityDiagram.png[width="800"]
+
 ** Pros: +
 *** `Note` text is standardized without the user having to bother about doing so in their input.
 ** Cons: +
@@ -498,6 +507,10 @@ similar in both `delnote` and `editnote`, they implement the `NoteDeleter` inter
 .Structure of Note commands (only classes closely related to EditNoteCommand shown)
 image::EditNoteFeatureClassDiagram.png[width="800"]
 
+An example of how the `editnote` command would work is depicted in the sequence diagram below.
+
+// seq diag here
+
 ** Pros: +
 *** Easier to implement.
 *** Adapts with any changes to the `NoteCommand` without needing to update.
@@ -505,6 +518,7 @@ image::EditNoteFeatureClassDiagram.png[width="800"]
 *** Some overhead accrued due to `NoteCommand` object creation.
 *** Dependency between `EditNoteCommand` and `NoteCommand`.
 
+//
 * **Alternative 2:** Implement a separate edit note command.
 ** Pros: +
 *** Command will be able to work on its own.
