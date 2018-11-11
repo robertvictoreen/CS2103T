@@ -14,8 +14,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
