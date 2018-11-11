@@ -154,7 +154,7 @@ Format: `addphoto INDEX f/FILENAME`
 * Adds a photo at location `FILENAME` to person at the specified `INDEX`. The index refers to the index number shown in the last person listing. The index *must be a positive integer* 1, 2, 3, ...
 * `FILENAME` must point to a valid image file.
 * This feature isn't compatible with MAC OS X at the moment.
-* Do not delete photos from storage at this point since doing so may trigger some undesirable behaviour in the program.
+* Do not delete photos from storage (EzTutor File) at this point since doing so may trigger some undesirable behaviour in the program.
 ****
 
 Examples:
