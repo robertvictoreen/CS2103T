@@ -8,8 +8,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.AssignmentName;
 import seedu.address.model.assignment.Deadline;
-import seedu.address.model.assignment.Mark;
 import seedu.address.model.assignment.Weight;
+import seedu.address.model.common.Mark;
 
 /**
  * JAXB-friendly version of the Assignment.
