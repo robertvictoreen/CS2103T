@@ -284,7 +284,7 @@ Format: `sortAssignment`
 === Record a mark for a student: `markAssignment`
 
 Adds a mark for an assignment associated with a student given the mark obtained. Can mark more than maxMark in case of bonus score. +
-Format: `markAssignment INDEX id/ASSIGNMENT_INDEX m/MARK`
+Format: `markAssignment STUDENT_INDEX id/ASSIGNMENT_INDEX m/MARK`
 // end::assignment[]
 
 // tag::stats[]

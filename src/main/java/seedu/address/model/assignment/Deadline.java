@@ -49,7 +49,7 @@ public class Deadline implements Comparable<Deadline> {
     }
 
     public int compareTo(Deadline other) {
-        return this.getValue().compareTo(other.getValue());
+        return getValue().compareTo(other.getValue());
     }
 
     public Date getValue() {
@@ -65,7 +65,7 @@ public class Deadline implements Comparable<Deadline> {
 
     @Override
     public String toString() {
-        return this.internalString;
+        return internalString;
     }
 
     @Override

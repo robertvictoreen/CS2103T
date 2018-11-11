@@ -43,7 +43,7 @@ public class AssignmentName implements Comparable<AssignmentName> {
 
     @Override
     public String toString() {
-        return this.internalString;
+        return internalString;
     }
 
     @Override
