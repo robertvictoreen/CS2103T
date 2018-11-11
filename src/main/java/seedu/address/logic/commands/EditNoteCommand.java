@@ -72,7 +72,7 @@ public class EditNoteCommand extends Command {
         new NoteCommand(studentIndex, textToAdd).execute(model, history);
         Person student = lastShownList.get(zeroBasedIndex);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, student));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, studentToReplace));
     }
 
     /**

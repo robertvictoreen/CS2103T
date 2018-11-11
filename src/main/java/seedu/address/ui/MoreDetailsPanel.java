@@ -26,6 +26,8 @@ import seedu.address.model.person.Person;
 public class MoreDetailsPanel extends UiPart<Region> {
 
     private static final String FXML = "MoreDetailsPanel.fxml";
+    private static final String DEFAULT_LABEL = "<No student selected>";
+    private static final String DEFAULT_TEXT = "<No note found>";
 
     // Value that indicates that no student has been selected yet.
     private static final int NONE = -1;
@@ -58,7 +60,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
         this.assignmentList = listOfAssignments;
 
         // default label
-        Label noComponents = new Label("<No student selected>");
+        Label noComponents = new Label(DEFAULT_LABEL);
         noComponents.setFont(new Font("System", (double) 25));
         components.add(noComponents, 0, 0);
 
@@ -100,14 +102,19 @@ public class MoreDetailsPanel extends UiPart<Region> {
      * Displays the student's details in the Details Panel on the bottom right.
      * Student obtained using his/her index to avoid displaying the wrong student when undo/redo executed.
      */
-    public void display(int studentIndex) throws Exception {
-        Person student;
+    public void display(int studentIndex) {
+        Person student = null;
         try {
             student = studentList.get(studentIndex);
             // Keep track of who was just displayed
             currentStudent = student;
         } catch (IndexOutOfBoundsException e) {
-            throw new IndexOutOfBoundsException("Student was not selected yet.");
+            components.getChildren().clear();
+            Label noComponents = new Label(DEFAULT_LABEL);
+            noComponents.setFont(new Font("System", (double) 25));
+            components.add(noComponents, 0, 0);
+            notesText.clear();
+            notesText.setText(DEFAULT_TEXT);
         }
         if (student == null) {
             return;

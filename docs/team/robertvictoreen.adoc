@@ -57,6 +57,7 @@ This section describes my contribution to the project, including code, documenta
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W12-4/main/pull/52[#52], https://github.com/CS2103-AY1819S1-W12-4/main/pull/55[#55]
 *** Contributed to bug fixes (Pull request https://github.com/CS2103-AY1819S1-W12-4/main/pull/104[#104])
+*** Reported bugs and suggestions for other teams (examples:  https://github.com/CS2103-AY1819S1-T16-3/main/issues/140[1], https://github.com/CS2103-AY1819S1-T16-3/main/issues/144[2], https://github.com/CS2103-AY1819S1-T16-3/main/issues/149[3], https://github.com/CS2103-AY1819S1-T16-3/main/issues/146[4])
 
 == Contributions to the User Guide
 
