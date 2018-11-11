@@ -19,9 +19,10 @@ By: `Team W12-4`      Since: `Aug 2018`      Licence: `MIT`
 // tag::intro[]
 == Introduction
 
-EazyTutors is an application for tutors or teachers who prefer a virtual way to record students’ attendance. It
-also boasts extra features to check on students’ progress and helps users customise their teaching to students
-with different capabilities. EazyTutors is optimized for those who prefer to work with a Command Line Interface
+EazyTutors is an application for tutors or teachers who prefer a virtual way to manage a class of students. It allows
+users to mark students' attendance, as well as checking on students' individual progress. This helps users customise
+their teaching to students with different capabilities. It boasts extra features such as calculating the class
+statistics and assignment statistics. EazyTutors is optimized for those who prefer to work with a Command Line Interface
 (CLI) while still having the benefits of a Graphical User Interface (GUI). You won't need to bring around attendance
 sheets anymore with EazyTutors! Interested? Jump to Section 2, “Quick Start” to get started. Enjoy!
 // end::intro[]
@@ -192,7 +193,7 @@ Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the student list's content (`add`, `delete`, `edit`, `addAssignment`, `deleteAssignment`, `markAssignment`, `attend`, `note`, `delnote`, `editnote` and `clear`).
+Undoable commands: those commands that modify the student list's content (`add`, `delete`, `edit`, `sort`, `addAssignment`, `deleteAssignment`, `editAssignment`, `markAssignment`, `attend`, `note`, `delnote`, `editnote`, `addphoto`, `deleteProfilePhoto` and `clear`).
 ====
 
 Examples:
@@ -337,7 +338,7 @@ Attaches a note with `TEXT` to a student in the student list specified by his/he
 Format: `note INDEX TEXT`
 
 ****
-* Any added note is automatically ended with a full stop even if the input text does not have one.
+* Any added note is automatically ended with a full stop unless the input `TEXT` ends with either `.`, `!` or `?`.
 * If a note is added to a student who already has a previous note, the previous note is changed to end with a comma before the new text is appended to the back.
 ****
 
@@ -348,8 +349,8 @@ Examples:
 
 * `note 1 hardworking student` +
 (Adds the text `hardworking student.` to the student at index 1) +
-`note 1 motivated too` +
-(Note for student at index 1 is now `hardworking student, motivated too.`)
+`note 1 motivated too!` +
+(Note for student at index 1 is now `hardworking student, motivated too!`)
 
 === Delete a student's note : `delnote`
 
@@ -378,9 +379,9 @@ Examples:
 
 * `note 1 check finals mark addition`
 (Note is now: `check finals mark addition.` +
-`note 1 check midterms also`
-(Note is now: `check finals mark addition, check midterms also.`) +
-`editnote marks checked` +
+`note 1 check midterms also?`
+(Note is now: `check finals mark addition, check midterms also?`) +
+`editnote marks checked.`
 (Note is now: `marks checked.`) +
 `delnote 1`
 (Note deleted and reset to default `<No note added>`)

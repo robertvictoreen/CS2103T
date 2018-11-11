@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import guitests.guihandles.MoreDetailsPanelHandle;
 import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import javafx.collections.FXCollections;
@@ -41,6 +42,10 @@ public class PersonListPanelTest extends GuiUnitTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
 
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
+
+    private final MoreDetailsPanelHandle moreDetailsPanelHandle =
+        new MoreDetailsPanelHandle(getChildNode(MORE_DETAILS_PANEL.getRoot(),
+                                   MoreDetailsPanelHandle.DETAILS_PANEL_ID));
 
     private PersonListPanelHandle personListPanelHandle;
 
@@ -127,6 +132,6 @@ public class PersonListPanelTest extends GuiUnitTest {
         uiPartRule.setUiPart(personListPanel);
 
         personListPanelHandle = new PersonListPanelHandle(getChildNode(personListPanel.getRoot(),
-                PersonListPanelHandle.PERSON_LIST_VIEW_ID));
+                PersonListPanelHandle.PERSON_LIST_VIEW_ID), moreDetailsPanelHandle);
     }
 }
