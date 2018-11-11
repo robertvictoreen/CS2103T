@@ -19,10 +19,13 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for {@code EditNoteCommand}.
@@ -68,13 +71,11 @@ public class EditNoteCommandTest {
 
     @Test
     public void execute_editExistingNote_success() {
-        // pre-add note to student
-        Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        personToEdit.addNote(VALID_NOTE_TEXT_TWO_WITH_FULL_STOP);
-
-        String expectedMessage = String.format(MESSAGE_SUCCESS, personToEdit);
+        model = createNewModelWithExistingNote();
+        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        updatePersonInModelWithNote(personToEdit, expectedModel, VALID_NOTE_TEXT_TWO_WITH_FULL_STOP);
+        updatePersonInModelWithNote(firstPerson, expectedModel, VALID_NOTE_TEXT_TWO_WITH_FULL_STOP);
+        String expectedMessage = String.format(MESSAGE_SUCCESS, firstPerson);
         expectedModel.commitAddressBook();
 
         Command command = new EditNoteCommand(INDEX_FIRST_PERSON, VALID_NOTE_TEXT_TWO_WITH_FULL_STOP);
@@ -127,5 +128,11 @@ public class EditNoteCommandTest {
 
         // different text -> returns false
         assertFalse(sampleEditNoteCommand.equals(noFullStopEditNoteCommand));
+    }
+
+    private ModelManager createNewModelWithExistingNote() {
+        Person samplePerson = new PersonBuilder().withNote(VALID_NOTE_TEXT).build();
+        AddressBook addressBook = new AddressBookBuilder().withPerson(samplePerson).build();
+        return new ModelManager(addressBook, new UserPrefs());
     }
 }
