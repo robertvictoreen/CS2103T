@@ -1,5 +1,6 @@
 package systemtests;
 
+import static guitests.guihandles.MoreDetailsPanelHandle.DEFAULT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -189,12 +190,12 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Asserts that the previously selected card is now deselected and the details panel remains displaying the details
+     * Asserts that the previously selected card is now deselected and the details panel stops displaying the details
      * of the previously selected person.
      * @see MoreDetailsPanelHandle#isDetailsChanged(PersonListPanelHandle)
      */
     protected void assertSelectedCardDeselected() {
-        assertFalse(getDetailsPanel().isDetailsChanged(getPersonListPanel()));
+        assertTrue(getDetailsPanel().getOwner(getPersonListPanel()).equals(DEFAULT));
         assertFalse(getPersonListPanel().isAnyCardSelected());
     }
 
