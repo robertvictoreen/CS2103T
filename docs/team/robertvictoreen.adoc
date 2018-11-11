@@ -9,41 +9,54 @@
 
 == Overview
 
-EazyTutors
+=== Purpose
+* This project portfolio documents my role and contributions to the **EazyTutors** project. I was responsible for the grade statistics features and display of grades.
+
+=== The Team
+* My team comprises of students from the National University of Singapore and we decided on creating this application after observing the hassle tutors have to deal with when marking attendance.
+
+=== The Application
+* EazyTutors is a desktop statistics recording application used for managing classes of students. It was created with NUS tutors in mind, but can be extended to tutors or teachers from other organizations as well. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+=== Features
+* Mark students' attendance
+* Record students' assignment scores
+* Calculate assignment statistics
+* Calculate class performance
+* Add students' photos
+* Record notes about students
 
 == Summary of contributions
+
+=== Preface
+This section describes my contribution to the project, including code, documentation and administrative tasks.
 
 * *Major enhancement*: Grade Statistics
 ** What it does: Calculates the statistics for the grades of an individual assignment or the overall class.
 ** Justification: This feature enables tutors to analyse the grades of students to provide relative feedback based on the performance of the class.
-** Highlights: Provides high, low, 25th/75th percentiles, average, and median of the grades.
-** Credits:
+** Highlights: Provides maximum, highest, lowest, 25th/75th percentiles, average, and median grade.
 
-* *Major enhancement*: Attendance Model
-** What it does: Provides a representation of an attendance session for a particular date.
+* *Minor enhancement*: Grade Display
+** What it does: Displays the assignment grades and overall grade for each student.
+** Justification: This enhancement enables tutors to view the performance of each student.
+** Highlights: Calculates the total grade on demand using the specifications of the assignment model.
+
+* *Minor enhancement*: Attendance Model
+** What it does: Represents an attendance session for a particular date.
 ** Justification: This enhancement provides the model for the attendance feature.
-** Highlights: This enables a mapping between each student and multiple attendance sessions
-               with a record of attendance/absense for that session.
-** Credits:
+** Highlights: Provides a mapping between each student and multiple attendance sessions with a record of attendance/absence for that session.
 
-* *Minor enhancement*: Calculate and display the assignment grades when a student is selected.
-
-* *Code contributed*: [https://github.com/CS2103-AY1819S1-W12-4/main/commits/master?author=robertvictoreen] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=robertvictoreen[RepoSense]] [https://github.com/CS2103-AY1819S1-W12-4/main/commits/master?author=robertvictoreen[GitHub]]
 
 * *Other contributions*:
 
-** Project management:
-*** Review pull requests:
 ** Enhancements to existing features:
-***
-** Documentation:
-*** UserGuide / DeveloperGuide
+*** Updated the UI to display the grades of each student (Pull requests https://github.com/CS2103-AY1819S1-W12-4/main/pull/81[#81], https://github.com/CS2103-AY1819S1-W12-4/main/pull/142[#142])
+*** Updated the storage model to integrate new features (Pull request https://github.com/CS2103-AY1819S1-W12-4/main/pull/104[#104])
+*** Modified tests for existing features to ensure accuracy with changes in functionality (Pull request https://github.com/CS2103-AY1819S1-W12-4/main/pull/104[#104])
 ** Community:
-***
-** Tools:
-***
-
-_{you can add/remove categories in the list above}_
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W12-4/main/pull/52[#52], https://github.com/CS2103-AY1819S1-W12-4/main/pull/55[#55]
+*** Contributed to bug fixes (Pull request https://github.com/CS2103-AY1819S1-W12-4/main/pull/104[#104])
 
 == Contributions to the User Guide
 
@@ -52,9 +65,7 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=assignmentstats]
-
-include::../UserGuide.adoc[tag=classstats]
+include::../UserGuide.adoc[tag=stats]
 
 == Contributions to the Developer Guide
 
@@ -62,11 +73,10 @@ include::../UserGuide.adoc[tag=classstats]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=assignmentStats]
+
+include::../DeveloperGuide.adoc[tag=classStats]
+
+include::../DeveloperGuide.adoc[tag=gradeDisplay]
+
 include::../DeveloperGuide.adoc[tag=attendance]
-
-
-== PROJECT:
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
