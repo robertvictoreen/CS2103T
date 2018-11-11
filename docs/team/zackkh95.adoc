@@ -76,7 +76,7 @@ include::../DeveloperGuide.adoc[tag=addphoto]
 
 include::../DeveloperGuide.adoc[tag=deleteProfilePhoto]
 
-include::../UserGuide.adoc[tag=sort]
+include::../DeveloperGuide.adoc[tag=sort]
 
 
 === Proposed Enhancement for v2.0
