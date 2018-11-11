@@ -142,6 +142,8 @@ Selects the 2nd student in the student list.
 `select 1` +
 Selects the 1st student in the results of the `find` command.
 
+// tag::addphoto[]
+
 === Adding a profile photo : `addphoto`
 
 Adds a profile photo to a student +
@@ -160,6 +162,10 @@ Examples:
 Edits the profile photo of the 1st person to be the picture at C:\\Users\Zackk95\Pictures\zacharytan.jpg
 * Important to take note the double backslash after C.
 
+// end::addphoto[]
+
+// tag::deleteProfilePhoto[]
+
 === Deleting a student's photo: `deleteProfilePhoto`
 
 Delete a student's photo and sets it to the default photo. +
@@ -174,6 +180,8 @@ Examples:
 
 * `deleteProfilePhoto 1` +
 Delete the photo of the person at index 1 and set it to the default photo.
+
+// end::addphoto[]
 
 // tag::undoredo[]
 === Undoing previous command : `undo`
@@ -240,6 +248,7 @@ Format: `attend INDEX at/CLASSNAME`
 Records the attendance of a student as absent for a specified class. +
 Format: `unattend INDEX at/CLASSNAME`
 
+// tag::sort[]
 === Sort the student list: `sort`
 
 Sort the student list by alphabetical order. +
@@ -247,6 +256,8 @@ Format: `sort`
 
 //[TIP]
 //Students are sorted according by alphabetical order by default (with no argument).
+
+// end::sort[]
 
 // tag::assignment[]
 === Add an assignment: `addAssignment`
