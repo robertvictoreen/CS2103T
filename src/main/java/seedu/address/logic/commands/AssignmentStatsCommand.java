@@ -48,7 +48,6 @@ public class AssignmentStatsCommand extends Command {
         }
 
         Assignment assignment = lastShownList.get(targetIndex.getZeroBased());
-        float maxMark = assignment.getMaxMark().getValue();
         String uniqueId = assignment.getUniqueId();
         List<Person> filteredPersonList = model.getFilteredPersonList();
         DoubleStream markStream;
@@ -98,7 +97,7 @@ public class AssignmentStatsCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, assignment.getName().getValue(),
-            submissionsCount, maxMark, assignment.getMaxMark().getValue(),
+            submissionsCount, assignment.getMaxMark().getValue(),
             summaryStatistics.getMax(), summaryStatistics.getMin(),
             quartiles[0], quartiles[2], summaryStatistics.getAverage(), quartiles[1]));
     }
