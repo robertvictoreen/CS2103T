@@ -394,7 +394,7 @@ image::AddProfilePhotoUMLSequenceDiagram.png[width="800"]
 
 // end::addphoto[]
 
-// tag::deletephoto[]
+// tag::deleteProfilePhoto[]
 === Delete Profile Photo feature
 
 ==== Current Implementation
@@ -419,7 +419,7 @@ image::DeleteProfilePhotoUMLSequenceDiagram.png[width="800"]
 ** Pros: Easier if developer decides to change the path of the default photo, or the properties of the ProfilePhotoclass.
 ** Cons: Creating a new object each time might be highly memory-consuming, but probably insignificant on a modern PC.
 
-// end::deletephoto[]
+// end::deleteProfilePhoto[]
 
 // tag::assignment[]
 === Assignment data structure

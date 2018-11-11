@@ -181,7 +181,7 @@ Examples:
 * `deleteProfilePhoto 1` +
 Delete the photo of the person at index 1 and set it to the default photo.
 
-// end::addphoto[]
+// end::deleteProfilePhoto[]
 
 // tag::undoredo[]
 === Undoing previous command : `undo`
