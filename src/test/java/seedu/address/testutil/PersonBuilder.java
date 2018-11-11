@@ -103,6 +103,14 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Note} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withNote(String text) {
+        this.note = new Note(text);
+        return this;
+    }
+
     // TODO: Create a withMarks() function to set the marks of the (@code Person) that we are building.
 
     public Person build() {

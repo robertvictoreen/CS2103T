@@ -16,7 +16,7 @@
         <items>
           <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true">
             <content>
-              <GridPane fx:id="components" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="106.0">
+              <GridPane fx:id="components" minHeight="-Infinity" minWidth="-Infinity">
                 <columnConstraints>
                   <ColumnConstraints hgrow="ALWAYS" />
                   <ColumnConstraints hgrow="ALWAYS" />
