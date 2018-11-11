@@ -3,10 +3,7 @@ package guitests.guihandles;
 import java.util.List;
 import java.util.Optional;
 
-import com.google.common.eventbus.Subscribe;
-
 import javafx.scene.control.SplitPane;
-import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.person.Person;
 
 /**
