@@ -454,10 +454,12 @@ The Attendance session date is represented with the Deadline class from the Assi
 ==== Current Implementation
 The data `MoreDetailsPanel` binds itself to are `filteredPersons` and `filteredAssignments` in the `Model` class.
 
-* `filteredPersons` -- Current students stored in the database.
+* `filteredPersons` -- Current students (filtered by `find` command) stored in the database.
 * `filteredAssignments` -- The names of all the assignments that the students have in the database.
 
-`MoreDetailsPanel` will be notified by any changes in the data when a related event is raised, such as `PersonPanelSelectionChangedEvent`. It will then retrieve the new student's marks using `filteredPersons` and display them with reference to their names in `filteredAssignments`.
+`MoreDetailsPanel` will be notified by any changes in the data when a related event is raised, such as
+`PersonPanelSelectionChangedEvent`. It will then retrieve the new student's marks and note using `filteredPersons`
+ and display them with reference to their names in `filteredAssignments`.
 // end::studentDetails[]
 
 // tag::note[]
@@ -469,11 +471,15 @@ A `Note` stores a String `text` (content of the note) and methods to manipulate 
 ==== Design considerations
 
 ===== Aspect: Note auto-punctuation
-* **Alternative 1(current choice):** `Note` texts are automatically ended with a full stop (`.`) if it is not added by the user, unless the user ends the text with `!` or `?`. When text is added to a `Note` that already has text, the current `text` is changed to end with a comma (`,`) instead, before the new text is appended to the end.
+* **Alternative 1(current choice):** `Note` texts are automatically ended with a full stop (`.`) if it is not added by
+the user, unless the user ends the text with `!` or `?`. When text is added to a `Note` that already has text, the
+current `text` is changed to end with a comma (`,`) instead, before the new text is appended to the end.
+// add activity diag here to show ^
 ** Pros: +
 *** `Note` text is standardized without the user having to bother about doing so in their input.
 ** Cons: +
-*** If the user wishes to end their notes with other punctuation such as `!` or `?`, the user has to add it into their input.
+*** If the user wishes to end their notes with other punctuation such as `!` or `?`, the user has to add it into their
+input.
 *** Other special characters used to end sentences will not be detected and a full stop will be added to them.
 *** Developers have to manually add special characters to be checked for.
 
@@ -485,7 +491,9 @@ A `Note` stores a String `text` (content of the note) and methods to manipulate 
 *** User has to take more care in adding `Note` text in their input.
 
 ===== Aspect: Edit note implementation
-* **Alternative 1 (current choice):** Use `note` command in implementation.
+* **Alternative 1 (current choice):** Delete the note before adding it using `note` command. As deleting the note is
+similar in both `delnote` and `editnote`, they implement the `NoteDeleter` interface with has a default method
+`copyWithoutNote` to reduce repeated code.
 
 .Structure of Note commands (only classes closely related to EditNoteCommand shown)
 image::EditNoteFeatureClassDiagram.png[width="800"]
@@ -497,7 +505,6 @@ image::EditNoteFeatureClassDiagram.png[width="800"]
 *** Some overhead accrued due to `NoteCommand` object creation.
 *** Dependency between `EditNoteCommand` and `NoteCommand`.
 
-//
 * **Alternative 2:** Implement a separate edit note command.
 ** Pros: +
 *** Command will be able to work on its own.
@@ -994,7 +1001,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* NUS lecturers/tutors
+* Tutors or teachers
 
 *Value proposition*:
 
@@ -1063,6 +1070,7 @@ Use case ends.
 ** 3a2. User enters new data.
 ** 3a3. Goes to step 4 with new details.
 
+{nbsp}
 [discrete]
 === Use case: Assignment Submission
 
@@ -1086,6 +1094,7 @@ Use case ends.
 ** 3a2. User enters new data.
 ** 3a3. Goes to step 4 with new details.
 
+{nbsp}
 [discrete]
 === Use case: Assignment Grading
 

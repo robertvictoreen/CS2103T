@@ -19,9 +19,10 @@ By: `Team W12-4`      Since: `Aug 2018`      Licence: `MIT`
 // tag::intro[]
 == Introduction
 
-EazyTutors is an application for tutors or teachers who prefer a virtual way to record students’ attendance. It
-also boasts extra features to check on students’ progress and helps users customise their teaching to students
-with different capabilities. EazyTutors is optimized for those who prefer to work with a Command Line Interface
+EazyTutors is an application for tutors or teachers who prefer a virtual way to manage a class of students. It allows
+users to mark students' attendance, as well as checking on students' individual progress. This helps users customise
+their teaching to students with different capabilities. It boasts extra features such as calculating the class
+statistics and assignment statistics. EazyTutors is optimized for those who prefer to work with a Command Line Interface
 (CLI) while still having the benefits of a Graphical User Interface (GUI). You won't need to bring around attendance
 sheets anymore with EazyTutors! Interested? Jump to Section 2, “Quick Start” to get started. Enjoy!
 // end::intro[]
@@ -181,7 +182,7 @@ Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the student list's content (`add`, `delete`, `edit`, `addAssignment`, `deleteAssignment`, `markAssignment`, `attend`, `note`, `delnote`, `editnote` and `clear`).
+Undoable commands: those commands that modify the student list's content (`add`, `delete`, `edit`, `sort`, `addAssignment`, `deleteAssignment`, `editAssignment`, `markAssignment`, `attend`, `note`, `delnote`, `editnote`, `addphoto`, `deleteProfilePhoto` and `clear`).
 ====
 
 Examples:
