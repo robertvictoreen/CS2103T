@@ -470,26 +470,41 @@ The Attendance session date is represented with the Deadline class from the Assi
 ==== Current Implementation
 The data `MoreDetailsPanel` binds itself to are `filteredPersons` and `filteredAssignments` in the `Model` class.
 
-* `filteredPersons` -- Current students stored in the database.
+* `filteredPersons` -- Current students (filtered by `find` command) stored in the database.
 * `filteredAssignments` -- The names of all the assignments that the students have in the database.
 
-`MoreDetailsPanel` will be notified by any changes in the data when a related event is raised, such as `PersonPanelSelectionChangedEvent`. It will then retrieve the new student's marks using `filteredPersons` and display them with reference to their names in `filteredAssignments`.
+`MoreDetailsPanel` will be notified by any changes in the data when a related event is raised, such as
+`PersonPanelSelectionChangedEvent`. It will then retrieve the new student's marks and note using `filteredPersons`
+ and display them with reference to their names in `filteredAssignments`.
 // end::studentDetails[]
 
 // tag::note[]
 === Note data structure
 
 ==== Current Implementation
-A `Note` stores a String `text` (content of the note) and methods to manipulate the text in a note.
+A `Note` stores a String `text` (content of the note). `text` is final and never changed once initialized. When a
+`note` or `editnote` command is executed, a new `Note` is created with the final `text`. The methods in the `Note` class
+return a new `Note` object with the new `text`.
 
 ==== Design considerations
 
 ===== Aspect: Note auto-punctuation
-* **Alternative 1(current choice):** `Note` texts are automatically ended with a full stop (`.`) if it is not added by the user, unless the user ends the text with `!` or `?`. When text is added to a `Note` that already has text, the current `text` is changed to end with a comma (`,`) instead, before the new text is appended to the end.
+* **Alternative 1(current choice):** `Note` texts are automatically ended with a full stop (`.`) if it is not added by
+the user, unless the user ends the text with `!` or `?`. When a `note` or `editnote` command is executed on a `Note`
+that already has text, the previous text's punctuation is changed to a comma (`,`) instead before being added to the
+final `text`.
+
+The workflow for this algorithm is shown below. *Text* refers to the text being added, *noteText* refers to the existing
+text in the `Note` and *newText* refers to the final text in the newly created `Note`.
+
+.Activity Diagram for Text Addition
+image::NoteTextAdditionActivityDiagram.png[width="800"]
+
 ** Pros: +
 *** `Note` text is standardized without the user having to bother about doing so in their input.
 ** Cons: +
-*** If the user wishes to end their notes with other punctuation such as `!` or `?`, the user has to add it into their input.
+*** If the user wishes to end their notes with other punctuation such as `!` or `?`, the user has to add it into their
+input.
 *** Other special characters used to end sentences will not be detected and a full stop will be added to them.
 *** Developers have to manually add special characters to be checked for.
 
@@ -501,10 +516,16 @@ A `Note` stores a String `text` (content of the note) and methods to manipulate 
 *** User has to take more care in adding `Note` text in their input.
 
 ===== Aspect: Edit note implementation
-* **Alternative 1 (current choice):** Use `note` command in implementation.
+* **Alternative 1 (current choice):** Delete the note before adding it using `note` command. As deleting the note is
+similar in both `delnote` and `editnote`, they implement the `NoteDeleter` interface with has a default method
+`copyWithoutNote` to reduce repeated code.
 
 .Structure of Note commands (only classes closely related to EditNoteCommand shown)
 image::EditNoteFeatureClassDiagram.png[width="800"]
+
+An example of how the `editnote` command would work is depicted in the sequence diagram below.
+
+// seq diag here
 
 ** Pros: +
 *** Easier to implement.
@@ -1080,7 +1101,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* NUS lecturers/tutors
+* Tutors or teachers
 
 *Value proposition*:
 
@@ -1149,6 +1170,7 @@ Use case ends.
 ** 3a2. User enters new data.
 ** 3a3. Goes to step 4 with new details.
 
+{nbsp}
 [discrete]
 === Use case: Assignment Submission
 
@@ -1172,6 +1194,7 @@ Use case ends.
 ** 3a2. User enters new data.
 ** 3a3. Goes to step 4 with new details.
 
+{nbsp}
 [discrete]
 === Use case: Assignment Grading
 

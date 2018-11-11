@@ -1,5 +1,6 @@
 package systemtests;
 
+import static guitests.guihandles.MoreDetailsPanelHandle.DEFAULT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -103,11 +104,9 @@ public abstract class AddressBookSystemTest {
         return mainWindowHandle.getMainMenu();
     }
 
-    /*
     public MoreDetailsPanelHandle getDetailsPanel() {
         return mainWindowHandle.getDetailsPanel();
     }
-    */
 
     public StatusBarFooterHandle getStatusBarFooter() {
         return mainWindowHandle.getStatusBarFooter();
@@ -182,45 +181,45 @@ public abstract class AddressBookSystemTest {
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
 
-        //getDetailsPanel().rememberDetails(); // MoreDetailsPanelHandle!
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
         getPersonListPanel().rememberSelectedPersonCard();
+        getDetailsPanel().rememberDetails(getPersonListPanel());
     }
 
     /**
-     * Asserts that the previously selected card is now deselected and the details panel remains displaying the details
+     * Asserts that the previously selected card is now deselected and the details panel stops displaying the details
      * of the previously selected person.
-     * @see MoreDetailsPanelHandle#isDetailsChanged()
+     * @see MoreDetailsPanelHandle#isDetailsChanged(PersonListPanelHandle)
      */
     protected void assertSelectedCardDeselected() {
-        // assertFalse(getDetailsPanel().isDetailsChanged()); // in MoreDetailsPanelHandle!
+        assertTrue(getDetailsPanel().getOwner(getPersonListPanel()).equals(DEFAULT));
         assertFalse(getPersonListPanel().isAnyCardSelected());
     }
 
     /**
      * Asserts that the details panel is changed to display the details of the person in the person list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
-     * @see MoreDetailsPanelHandle#isDetailsChanged()
+     * @see MoreDetailsPanelHandle#isDetailsChanged(PersonListPanelHandle)
      * @see PersonListPanelHandle#isSelectedPersonCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
         String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
-
-        //String expectedOwner = "No student selected."; // Implement in MoreDetailsPanel
-        //assertEquals(expectedOwner, getDetailsPanel().getOwner());
-
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+
+        String expectedOwner = selectedCardName;
+        assertEquals(expectedOwner, getDetailsPanel().getOwner(getPersonListPanel()));
+
     }
 
     /**
      * Asserts that the details panel and the selected card in the person list panel remain unchanged.
-     * @see MoreDetailsPanelHandle#isDetailsChanged()
+     * @see MoreDetailsPanelHandle#isDetailsChanged(PersonListPanelHandle)
      * @see PersonListPanelHandle#isSelectedPersonCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
-        //assertFalse(getDetailsPanel().isDetailsChanged());
+        assertFalse(getDetailsPanel().isDetailsChanged(getPersonListPanel()));
         assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
     }
 
@@ -268,7 +267,7 @@ public abstract class AddressBookSystemTest {
         assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
 
         // default shown in details panel
-        //assertEquals(getDetailsPanel().DEFAULT, getDetailsPanel().getOwner());
+        assertEquals(getDetailsPanel().DEFAULT, getDetailsPanel().getOwner(getPersonListPanel()));
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
