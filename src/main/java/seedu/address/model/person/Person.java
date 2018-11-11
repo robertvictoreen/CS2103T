@@ -2,8 +2,6 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.model.person.Note.MESSAGE_NOTE_CONSTRAINTS;
-import static seedu.address.model.person.Note.isValid;
 
 import java.util.ArrayList;
 import java.util.Collections;
