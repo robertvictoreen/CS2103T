@@ -315,7 +315,7 @@ Attaches a note with `TEXT` to a student in the student list specified by his/he
 Format: `note INDEX TEXT`
 
 ****
-* Any added note is automatically ended with a full stop even if the input text does not have one.
+* Any added note is automatically ended with a full stop unless the input `TEXT` ends with either `.`, `!` or `?`.
 * If a note is added to a student who already has a previous note, the previous note is changed to end with a comma before the new text is appended to the back.
 ****
 
@@ -326,8 +326,8 @@ Examples:
 
 * `note 1 hardworking student` +
 (Adds the text `hardworking student.` to the student at index 1) +
-`note 1 motivated too` +
-(Note for student at index 1 is now `hardworking student, motivated too.`)
+`note 1 motivated too!` +
+(Note for student at index 1 is now `hardworking student, motivated too!`)
 
 === Delete a student's note : `delnote`
 
@@ -356,9 +356,9 @@ Examples:
 
 * `note 1 check finals mark addition`
 (Note is now: `check finals mark addition.` +
-`note 1 check midterms also`
-(Note is now: `check finals mark addition, check midterms also.`) +
-`editnote marks checked` +
+`note 1 check midterms also?`
+(Note is now: `check finals mark addition, check midterms also?`) +
+`editnote marks checked.`
 (Note is now: `marks checked.`) +
 `delnote 1`
 (Note deleted and reset to default `<No note added>`)

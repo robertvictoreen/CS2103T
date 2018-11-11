@@ -13,6 +13,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlType;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -180,45 +182,45 @@ public abstract class AddressBookSystemTest {
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
 
-        getDetailsPanel().rememberDetails();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
         getPersonListPanel().rememberSelectedPersonCard();
+        getDetailsPanel().rememberDetails(getPersonListPanel());
     }
 
     /**
      * Asserts that the previously selected card is now deselected and the details panel remains displaying the details
      * of the previously selected person.
-     * @see MoreDetailsPanelHandle#isDetailsChanged()
+     * @see MoreDetailsPanelHandle#isDetailsChanged(PersonListPanelHandle)
      */
     protected void assertSelectedCardDeselected() {
-        assertFalse(getDetailsPanel().isDetailsChanged());
+        assertFalse(getDetailsPanel().isDetailsChanged(getPersonListPanel()));
         assertFalse(getPersonListPanel().isAnyCardSelected());
     }
 
     /**
      * Asserts that the details panel is changed to display the details of the person in the person list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
-     * @see MoreDetailsPanelHandle#isDetailsChanged()
+     * @see MoreDetailsPanelHandle#isDetailsChanged(PersonListPanelHandle)
      * @see PersonListPanelHandle#isSelectedPersonCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
         String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
 
         String expectedOwner = selectedCardName;
-        assertEquals(expectedOwner, getDetailsPanel().getOwner());
+        assertEquals(expectedOwner, getDetailsPanel().getOwner(getPersonListPanel()));
 
-        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
     }
 
     /**
      * Asserts that the details panel and the selected card in the person list panel remain unchanged.
-     * @see MoreDetailsPanelHandle#isDetailsChanged()
+     * @see MoreDetailsPanelHandle#isDetailsChanged(PersonListPanelHandle)
      * @see PersonListPanelHandle#isSelectedPersonCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
-        assertFalse(getDetailsPanel().isDetailsChanged());
+        assertFalse(getDetailsPanel().isDetailsChanged(getPersonListPanel()));
         assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
     }
 
@@ -266,7 +268,7 @@ public abstract class AddressBookSystemTest {
         assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
 
         // default shown in details panel
-        assertEquals(getDetailsPanel().DEFAULT, getDetailsPanel().getOwner());
+        assertEquals(getDetailsPanel().DEFAULT, getDetailsPanel().getOwner(getPersonListPanel()));
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());

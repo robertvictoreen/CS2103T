@@ -76,7 +76,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
         guiRobot.interact(() -> {
             getRootNode().scrollTo(person);
         });
-        detailsPanel.update(person);
+        //detailsPanel.update(person);
         guiRobot.pauseForHuman();
     }
 
@@ -91,7 +91,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
         guiRobot.interact(() -> {
             getRootNode().scrollTo(index);
         });
-        detailsPanel.update(getRootNode().getItems().get(index));
+        //detailsPanel.update(getRootNode().getItems().get(index));
         guiRobot.pauseForHuman();
     }
 
@@ -100,8 +100,6 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
      */
     public void select(int index) {
         getRootNode().getSelectionModel().select(index);
-        detailsPanel.update(getRootNode().getItems().get(index));
-
     }
 
     /**
