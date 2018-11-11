@@ -69,29 +69,10 @@ public class ClassStatsCommand extends Command {
 
             Arrays.sort(marks);
 
-            if (marks.length == 1) {
-                quartiles[0] = quartiles[1] = quartiles[2] = marks[0];
-            } else {
-                double percentile;
-                double position;
-                int index;
-
-                quartiles[0] = 0.25;
-                quartiles[1] = 0.50;
-                quartiles[2] = 0.75;
-
-                for (int i = 0; i < 3; i++) {
-                    position = quartiles[i] * marks.length;
-                    index = (int) position;
-                    percentile = marks[index];
-
-                    if (position - index == 0) {
-                        percentile = (percentile + marks[index - 1]) / 2;
-                    }
-
-                    quartiles[i] = percentile;
-                }
-            }
+            quartiles[0] = AssignmentStatsCommand.FIRST_QUARTILE;
+            quartiles[1] = AssignmentStatsCommand.SECOND_QUARTILE;
+            quartiles[2] = AssignmentStatsCommand.THIRD_QUARTILE;
+            AssignmentStatsCommand.calculateQuartiles(quartiles, marks);
         } else {
             summaryStatistics.accept(0);
         }
