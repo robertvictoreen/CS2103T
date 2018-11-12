@@ -43,7 +43,7 @@ public class Note {
      */
     public Note(String text) {
         requireNonNull(text);
-        if (!this.hasChanged()) {
+        if (isDefault(text)) {
             this.text = DEFAULT_NOTE;
         } else if (!isPunctuated(text)) {
             this.text = text + ".";
@@ -78,20 +78,28 @@ public class Note {
         assert(text != null);
         String editedText;
         if (!this.hasChanged()) {
-            editedText = "";
+            editedText = reset();
         } else {
             assert(isPunctuated(this.text));
             editedText = replacePunctuationWithComma();
         }
         if (!isPunctuated(text)) {
-            text = addFullStop(text);
+            addFullStop(text);
         }
         editedText += text;
         return new Note(editedText);
     }
 
-    private String addFullStop(String text) {
-        return text + ".";
+    /**
+     * Re
+     * @return
+     */
+    private String reset() {
+        return "";
+    }
+
+    private void addFullStop(String text) {
+        text += ".";
     }
 
     /**
@@ -126,6 +134,10 @@ public class Note {
             return false;
         }
         return !(text.matches(NOTE_INVALIDATION_REGEX));
+    }
+
+    private static boolean isDefault(String text) {
+        return text.equals(DEFAULT_NOTE);
     }
 
     /**
