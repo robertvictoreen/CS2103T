@@ -1351,6 +1351,60 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Similar to previous.
 // end::spencerTestInstructions[]
 
+// tag::robertInstructions[]
+=== Assignment Statistics
+
+. Statistics of assignment with no marks entered
+
+.. Prerequisites: Students list not empty. Assignment list contains assignments with no marks entered for any student.
+.. Test case: `assignmentStats 1` +
+   Expected: Statistics data is all 0.
+
+. Statistics of assignment after student with marks deleted
+
+.. Prerequisites: Students list contains 1 student with marks for an assignment.
+.. Test case: `delete 1` `assignmentStats 1` +
+   Expected: Statistics data is all 0 because marks are deleted along with the student.
+
+. Statistics of deleted assignment
+
+.. Prerequisites: Assignment list contains an assignment to be deleted.
+.. Test case: `deleteAssignment 1` `assignmentStats 1` +
+   Expected: Assignment is no longer accessible, invalid index or index refers to other assignment.
+
+. Statistics of assignment with marks entered
+
+.. Prerequisites: Students list not empty. Assignment list contains an assignment with marks entered for any student.
+.. Test case: `assignmentStats 1` +
+   Expected: Statistics data is accurate according to the marks.
+
+=== Class Statistics
+
+. Statistics of class with no students and no assignments
+
+.. Prerequisites: Students list and assignment list is empty.
+.. Test case: `classStats` +
+   Expected: Statistics data is all 0.
+
+. Statistics of class with students but no assignments
+
+.. Prerequisites: Students list contains students but no assignments.
+.. Test case: `classStats` +
+   Expected: Statistics shows the number of students, other data is all 0.
+
+. Statistics of class with students and assignments but no marks entered
+
+.. Prerequisites: Students list not empty. Assignment list contains assignments with no marks entered for any student.
+.. Test case: `classStats` +
+   Expected: Statistics shows the number of students and the maximum grade is the total weight of the assignments, other data is all 0.
+
+. Statistics of class with students and assignments with marks entered
+
+.. Prerequisites: Students list not empty. Assignment list contains assignments with marks entered for students.
+.. Test case: `classStats` +
+   Expected: Statistics data is accurate according to the total marks of the students.
+// end::robertInstructions[]
+
 === Saving data
 
 . Dealing with missing/corrupted data files
