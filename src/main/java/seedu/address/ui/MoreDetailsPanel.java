@@ -136,9 +136,9 @@ public class MoreDetailsPanel extends UiPart<Region> {
      */
     private void showAssignments(Person student) {
         Label label;
-        float assignmentWeight;
-        float totalWeight = 0;
-        float weightedMarks = 0;
+        double assignmentWeight;
+        double totalWeight = 0;
+        double weightedMarks = 0;
 
         int row = 1;
         Assignment assignment;
@@ -189,10 +189,10 @@ public class MoreDetailsPanel extends UiPart<Region> {
      */
     private float showMarks(Person student, Assignment assignment, int row) {
         String text;
-        float result = 0;
-        float assignmentMark;
-        float assignmentMaxMark;
-        float assignmentWeight = assignment.getWeight().getValue();
+        double result = 0;
+        double assignmentMark;
+        double assignmentMaxMark;
+        double assignmentWeight = assignment.getWeight().getValue();
         // adding marks label
         try {
             assignmentMark = student.getMarks().get(assignment.getUniqueId()).getValue();
