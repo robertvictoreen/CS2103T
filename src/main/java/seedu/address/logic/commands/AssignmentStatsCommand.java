@@ -19,6 +19,10 @@ import seedu.address.model.person.Person;
  */
 public class AssignmentStatsCommand extends Command {
 
+    public static final double FIRST_QUARTILE = 0.25;
+    public static final double SECOND_QUARTILE = 0.50;
+    public static final double THIRD_QUARTILE = 0.75;
+
     public static final String COMMAND_WORD = "assignmentStats";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -26,6 +30,11 @@ public class AssignmentStatsCommand extends Command {
             + " index number in the assignment list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
+
+    public static final String MESSAGE_SUCCESS = "%s Statistics\nSubmissions: %d, Maximum Mark: %.1f\n"
+            + "Highest: %.1f, Lowest: %.1f\n"
+            + "25th: %.1f, 75th: %.1f\n"
+            + "Average: %.1f, Median: %.1f";
 
     private final Index targetIndex;
 
@@ -53,11 +62,10 @@ public class AssignmentStatsCommand extends Command {
                                         .mapToDouble((marks) -> marks.get(uniqueId).getValue());
         DoubleSummaryStatistics summaryStatistics = markStream.summaryStatistics();
 
-        StringBuilder summary = new StringBuilder(assignment.getName().getValue());
-        summary.append(" Statistics\nSubmissions: ");
-        summary.append(summaryStatistics.getCount());
+        long submissionsCount = summaryStatistics.getCount();
 
-        if (summaryStatistics.getCount() > 0) {
+        double[] quartiles = new double[3];
+        if (submissionsCount > 0) {
 
             markStream = filteredPersonList.stream()
                                             .map(Person::getMarks)
@@ -65,36 +73,18 @@ public class AssignmentStatsCommand extends Command {
                                             .mapToDouble((marks) -> marks.get(uniqueId).getValue());
             double[] marks = markStream.sorted().toArray();
 
-            double[] quartiles = {0.25, 0.50, 0.75};
-
-            if (marks.length == 1) {
-                quartiles[0] = quartiles[1] = quartiles[2] = marks[0];
-            } else {
-                double percentile;
-                double position;
-                int index;
-
-                for (int i = 0; i < 3; i++) {
-                    position = quartiles[i] * marks.length;
-                    index = (int) position;
-                    percentile = marks[index];
-
-                    if (position - index == 0) {
-                        percentile = (percentile + marks[index - 1]) / 2;
-                    }
-
-                    quartiles[i] = percentile;
-                }
-            }
-            summary.append("\nHighest: ").append(summaryStatistics.getMax());
-            summary.append(", Lowest: ").append(summaryStatistics.getMin());
-            summary.append("\n25th: ").append(quartiles[0]);
-            summary.append(", 75th: ").append(quartiles[2]);
-            summary.append("\nAverage: ").append(summaryStatistics.getAverage());
-            summary.append(", Median: ").append(quartiles[1]);
+            quartiles[0] = FIRST_QUARTILE;
+            quartiles[1] = SECOND_QUARTILE;
+            quartiles[2] = THIRD_QUARTILE;
+            calculateQuartiles(quartiles, marks);
+        } else {
+            summaryStatistics.accept(0);
         }
 
-        return new CommandResult(summary.toString());
+        return new CommandResult(String.format(MESSAGE_SUCCESS, assignment.getName().getValue(),
+            submissionsCount, assignment.getMaxMark().getValue(),
+            summaryStatistics.getMax(), summaryStatistics.getMin(),
+            quartiles[0], quartiles[2], summaryStatistics.getAverage(), quartiles[1]));
     }
 
     @Override
@@ -102,5 +92,37 @@ public class AssignmentStatsCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof AssignmentStatsCommand // instanceof handles nulls
                 && targetIndex.equals(((AssignmentStatsCommand) other).targetIndex)); // state check
+    }
+
+    /**
+     * Calculates and replaces each fractional value in quartiles
+     * with the value obtained from the corresponding index in marks.
+     */
+    public static void calculateQuartiles(double[] quartiles, double[] marks) {
+        int i;
+        if (marks.length == 1) {
+            for (i = 0; i < quartiles.length; i++) {
+                quartiles[i] = marks[0];
+            }
+        } else if (marks.length > 1) {
+            double percentile;
+            double position;
+            int index;
+
+            for (i = 0; i < quartiles.length; i++) {
+                position = quartiles[i] * marks.length;
+                index = (int) position;
+                if (index >= marks.length) {
+                    continue;
+                }
+                percentile = marks[index];
+
+                if (position - index == 0) {
+                    percentile = (percentile + marks[index - 1]) / 2;
+                }
+
+                quartiles[i] = percentile;
+            }
+        }
     }
 }

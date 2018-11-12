@@ -9,10 +9,8 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -28,6 +26,8 @@ import seedu.address.model.person.Person;
 public class MoreDetailsPanel extends UiPart<Region> {
 
     private static final String FXML = "MoreDetailsPanel.fxml";
+    private static final String DEFAULT_LABEL = "<No student selected>";
+    private static final String DEFAULT_TEXT = "<No note found>";
 
     // Value that indicates that no student has been selected yet.
     private static final int NONE = -1;
@@ -46,8 +46,6 @@ public class MoreDetailsPanel extends UiPart<Region> {
     private Person currentStudent = null;
     private int currentStudentIndex = NONE;
 
-    private boolean isSetUp = false;
-
     @FXML
     private TextArea notesText;
 
@@ -62,7 +60,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
         this.assignmentList = listOfAssignments;
 
         // default label
-        Label noComponents = new Label("<No student selected>");
+        Label noComponents = new Label(DEFAULT_LABEL);
         noComponents.setFont(new Font("System", (double) 25));
         components.add(noComponents, 0, 0);
 
@@ -104,30 +102,22 @@ public class MoreDetailsPanel extends UiPart<Region> {
      * Displays the student's details in the Details Panel on the bottom right.
      * Student obtained using his/her index to avoid displaying the wrong student when undo/redo executed.
      */
-    public void display(int studentIndex) throws Exception {
-        Person student;
+    public void display(int studentIndex) {
+        Person student = null;
         try {
             student = studentList.get(studentIndex);
             // Keep track of who was just displayed
             currentStudent = student;
         } catch (IndexOutOfBoundsException e) {
-            throw new IndexOutOfBoundsException("Student was not selected yet.");
+            components.getChildren().clear();
+            Label noComponents = new Label(DEFAULT_LABEL);
+            noComponents.setFont(new Font("System", (double) 25));
+            components.add(noComponents, 0, 0);
+            notesText.clear();
+            notesText.setText(DEFAULT_TEXT);
         }
         if (student == null) {
             return;
-        }
-        if (!isSetUp) {
-            // add 2 columns, default has 1
-            ColumnConstraints newColumn = new ColumnConstraints();
-            newColumn.setPercentWidth(25);
-            components.getColumnConstraints().add(newColumn);
-            newColumn = new ColumnConstraints();
-            newColumn.setPercentWidth(25);
-            components.getColumnConstraints().addAll(newColumn, newColumn, newColumn);
-
-            RowConstraints newRow = new RowConstraints();
-            components.getRowConstraints().add(newRow);
-            isSetUp = true;
         }
 
         logger.info("Displaying details!\n");
@@ -141,7 +131,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
         String style = "-fx-font-size: 11pt;\n" + "-fx-font-family: \"Segoe UI Semibold\";\n"
             + "-fx-text-fill: white;\n" + "-fx-opacity: 1;";
 
-        label = new Label("Assignment");
+        label = new Label("Assignments");
         label.setStyle(style);
         components.add(label, 0, 0);
 
@@ -189,9 +179,8 @@ public class MoreDetailsPanel extends UiPart<Region> {
                 assignmentMark = student.getMarks().get(assignment.getUniqueId()).getValue();
                 assignmentMaxMark = assignment.getMaxMark().getValue();
 
-                label = new Label(String.format("%s/%s",
-                    String.valueOf(assignmentMark),
-                    String.valueOf(assignmentMaxMark)));
+                label = new Label(String.format("%.1f/%.1f",
+                    assignmentMark, assignmentMaxMark));
 
                 assignmentMark /= assignmentMaxMark;
                 weightedMarks += assignmentMark * assignmentWeight;
@@ -207,9 +196,8 @@ public class MoreDetailsPanel extends UiPart<Region> {
         label.setStyle(style);
         components.add(label, 0, row);
 
-        label = new Label(String.format("%s/%s",
-            String.valueOf(weightedMarks),
-            String.valueOf(totalWeight)));
+        label = new Label(String.format("%.1f/%.1f",
+            weightedMarks, totalWeight));
         label.setStyle(style);
         components.add(label, 3, row);
 

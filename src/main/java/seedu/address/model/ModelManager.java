@@ -222,4 +222,17 @@ public class ModelManager extends ComponentManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
+    @Override
+    public String toString() {
+        String finalContent = "";
+        // NOTE: VersionedAddressBook does not have a toString() method, so you will need to manually
+        // implement VersionedAddressBook#toString() to see its content!
+        finalContent += "versioned addressbook: " + versionedAddressBook.toString();
+        finalContent += ", filtered person list: [";
+        for (Person p : filteredPersons) {
+            finalContent += p.toString() + ",";
+        }
+        finalContent += "]";
+        return finalContent;
+    }
 }

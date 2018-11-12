@@ -43,14 +43,16 @@ This section serves to inform you of the improvements I made to the project, inc
 
 * *Minor enhancement*: added a stub for Assignment class to test the details panel in the GUI.
 
+* Code contributed: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=spencertan96[Project Code Dashboard]]
+
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.1` and `v1.3` (2 releases) on GitHub
+*** Managed releases `v1.1` and `v1.3` to `v1.3.4` (6 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated .. (Pull requests https://github.com[#33], https://github.com[#34])
+*** Changed the "add" command to only have a person's name as a compulsory parameter, with the rest being optional. It also takes in an additional index argument that adds the person at that specified index. (Pull request https://github.com/CS2103-AY1819S1-W12-4/main/pull/103[#103])
 ** Documentation:
-*** Did administrative tweaks to Travis generated documentation: https://github.com[#14]
+*** Update GitHubPages and README to reflect the product and the team details: https://github.com[#14]
 *** Updated introduction in User Guide
 *** Created first draft of User Guide
 *** Added implementation details of `Note` and `MoreDetailsPanel` to Developer Guide

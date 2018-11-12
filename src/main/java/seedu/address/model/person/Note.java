@@ -1,5 +1,7 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Represents a Person's note in the address book.
  */
@@ -9,11 +11,14 @@ public class Note {
         + " and have only one whitespace between it and the index.";
     public static final String MESSAGE_NOTE_EMPTY = "Note is empty!";
 
-    /*
+    // Text in an unedited or reset note
+    static final String DEFAULT_NOTE = "<No note added>";
+
+    /**
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String NOTE_VALIDATION_REGEX = "[\\p{Alnum}](.*)";
+    private static final String NOTE_INVALIDATION_REGEX = "[\\p{Space}](.*)";
 
     // Edit this to change what a text checks for before deciding to add a full stop.
     private static final String END_OF_SENTENCE_REGEX = "[.!?]";
@@ -23,10 +28,7 @@ public class Note {
      */
     private static final String NOTE_PUNCTUATION_REGEX = "(.*)" + END_OF_SENTENCE_REGEX;
 
-    // Text in an unedited or reset note
-    private static final String DEFAULT_NOTE = "<No note added>";
-
-    private String text;
+    private final String text;
 
     /**
      * Constructs a {@code Note} with default text.
@@ -36,10 +38,18 @@ public class Note {
     }
 
     /**
-     * Constructs a {@code Note} with input text.
+     * Constructs a {@code Note} with input text, punctuates text with no punctuation,
+     * except if input text is {@code DEFAULT_NOTE}.
      */
     public Note(String text) {
-        this.text = text;
+        requireNonNull(text);
+        if (text.equals(DEFAULT_NOTE)) {
+            this.text = DEFAULT_NOTE;
+        } else if (!isPunctuated(text)) {
+            this.text = text + ".";
+        } else {
+            this.text = text;
+        }
     }
 
     @Override
@@ -61,15 +71,18 @@ public class Note {
 
     /**
      * Returns a new Note object with added text in its text.
+     * Guarantees: text is not null.
      * @param text to be added
      */
     public Note add(String text) {
+        assert(text != null);
+        String editedText;
         // Empty text if default
-        String editedText = this.text;
         if (!this.hasChanged()) {
             editedText = "";
-        // if current text ends with one of the characters in {@code END_OF_SENTENCE_REGEX}, change to comma
-        } else if (this.text.matches(NOTE_PUNCTUATION_REGEX)) {
+        } else {
+            // If text is not default/empty, it should always be punctuated. Replace punctuation with comma.
+            assert(isPunctuated(this.text));
             editedText = this.text.split(END_OF_SENTENCE_REGEX)[0];
             editedText += ",";
         }
@@ -77,7 +90,7 @@ public class Note {
          * If added text does not end with one of the characters in {@code END_OF_SENTENCE_REGEX},
          * add a full stop to end.
          */
-        if (!text.matches(NOTE_PUNCTUATION_REGEX)) {
+        if (!isPunctuated(text)) {
             text += ".";
         }
         editedText += text;
@@ -96,5 +109,25 @@ public class Note {
      */
     public boolean hasChanged() {
         return !this.text.equals(DEFAULT_NOTE);
+    }
+
+    /**
+     * Returns true if text ends with a punctuation that is present in {@code NOTE_PUNCTUATION_REGEX}.
+     * Guarantees: text is not null.
+     */
+    static boolean isPunctuated(String text) {
+        assert(text != null);
+        return text.matches(NOTE_PUNCTUATION_REGEX);
+    }
+
+    /**
+     * Returns true if text does not begin with a space, is non-null and non-empty.
+     */
+    public static boolean isValid(String text) {
+        requireNonNull(text);
+        if (text.equals("")) {
+            return false;
+        }
+        return !(text.matches(NOTE_INVALIDATION_REGEX));
     }
 }

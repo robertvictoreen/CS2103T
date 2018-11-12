@@ -1,9 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.ParserUtil.parseWithMatcher;
 
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.NoteCommand;
@@ -15,7 +15,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class NoteCommandParser implements Parser<NoteCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the NoteCommand
+     * Parses the given {@code String} of arguments in the context of the {@code NoteCommand}
      * and returns a NoteCommand object for execution.
      * @throws ParseException if the user input does not conform to the expected format
      */
@@ -23,16 +23,13 @@ public class NoteCommandParser implements Parser<NoteCommand> {
 
         // split first integer from rest, throws ParseException if first is not just an integer
         String regex = "(\\s)(\\d+)(\\s)(.*)";
-        Pattern formatter = Pattern.compile(regex);
-        Matcher matcher = formatter.matcher(args);
 
-        // has to be "note %d " followed by anything
-        boolean inputMatches = matcher.matches();
-        if (!inputMatches) {
+        Matcher matcher;
+        try {
+            matcher = parseWithMatcher(regex, args);
+        } catch (ParseException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteCommand.MESSAGE_USAGE));
         }
-
-        // TODO: Add tests (test: invalid command word? index not int, out of range)
 
         // Takes care of nulls
         Index index;
@@ -44,6 +41,8 @@ public class NoteCommandParser implements Parser<NoteCommand> {
         }
         String text = matcher.group(4);
 
+        // text is non-empty
+        assert(!text.equals(""));
         return new NoteCommand(index, text);
     }
 }

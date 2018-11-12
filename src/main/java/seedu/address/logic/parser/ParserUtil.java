@@ -6,6 +6,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -237,5 +239,21 @@ public class ParserUtil {
             throw new ParseException(AssignmentName.MESSAGE_CONSTRAINTS);
         }
         return new Session(trimmedName);
+    }
+
+    /**
+     * Returns a {@code Matcher} after matching the given args with the given regex.
+     * @throws ParseException if args don't match the regex.
+     */
+    public static Matcher parseWithMatcher(String regex, String args) throws ParseException {
+        Pattern formatter = Pattern.compile(regex);
+        Matcher matcher = formatter.matcher(args);
+
+        // has to be " %d " followed by anything
+        boolean isMatching = matcher.matches();
+        if (!isMatching) {
+            throw new ParseException("");
+        }
+        return matcher;
     }
 }
