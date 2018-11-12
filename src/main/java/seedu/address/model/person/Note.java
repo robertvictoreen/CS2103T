@@ -81,7 +81,7 @@ public class Note {
             editedText = reset();
         } else {
             assert(isPunctuated(this.text));
-            editedText = replacePunctuationWithComma();
+            editedText = addTextWithComma();
         }
         if (!isPunctuated(text)) {
             addFullStop(text);
@@ -91,8 +91,7 @@ public class Note {
     }
 
     /**
-     * Re
-     * @return
+     * Return an empty String. Abstract out details to make implementation clear.
      */
     private String reset() {
         return "";
@@ -143,7 +142,7 @@ public class Note {
     /**
      * Return a String with this object's text ending punctuation replaced with a comma.
      */
-    private String replacePunctuationWithComma() {
+    private String addTextWithComma() {
         String text = this.text.split(END_OF_SENTENCE_REGEX)[0];
         return text + ",";
     }
