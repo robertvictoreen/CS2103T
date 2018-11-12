@@ -22,6 +22,7 @@ import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.Mark;
 import seedu.address.model.attendance.Attendance;
 import seedu.address.model.attendance.AttendanceMark;
+import seedu.address.model.common.Mark;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 
