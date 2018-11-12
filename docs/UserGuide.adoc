@@ -65,13 +65,13 @@ Format: `help`
 
 === Adding a student: `add`
 
-Adds a student at INDEX with a compulsory name. The other information (index at list to add him to,
-phone number, email and tags) is optional. +
+Adds a student at the specified index in the list with a compulsory name. The rest of the details (index at list to add
+him to, phone number, email and tags) are optional. +
 Format: `add n/NAME [p/PHONE_NUMBER e/EMAIL a/ADDRESS s/INDEX t/TAG...]`
 
 [TIP]
-Students are added to the bottom of the student list by default.
-A student can have multiple tags (or none).
+Students are added to the bottom of the student list by default. +
+A student can have multiple tags (or none). +
 Whitespace between different parameters do not affect the result, such as between `s/1` and `n/John Doe`.
 
 Examples:
@@ -334,7 +334,7 @@ Format: `history`
 // tag::note[]
 === Add a note about a student : `note`
 
-Attaches a note with `TEXT` to a student in the student list specified by his/her `INDEX`. +
+Attaches a note with specified text to a student in the student list specified by his/her index. +
 Format: `note INDEX TEXT`
 
 ****
@@ -348,13 +348,18 @@ Format: `note INDEX TEXT`
 Examples:
 
 * `note 1 hardworking student` +
-(Adds the text `hardworking student.` to the student at index 1) +
+Student at 1st index's note:
++
+image::userGuide_noteExample.png[width="200"]
++
 `note 1 motivated too!` +
-(Note for student at index 1 is now `hardworking student, motivated too!`)
+Student at 1st index's note:
++
+image::userGuide_noteExample2.png[width="200"]
 
 === Delete a student's note : `delnote`
 
-Deletes the corresponding note of the student at the specified `INDEX`. +
+Deletes the corresponding note of the student at the specified index. +
 Format: `delnote INDEX`
 
 * There can be any number of spaces between `delnote` and `INDEX`. +
@@ -369,7 +374,7 @@ Examples:
 
 === Edits the note of a student : `editnote`
 
-Edits the corresponding note of the student at the specified `INDEX` to `TEXT`. Refer to <<Add a note about a student : `note`>> for details on `TEXT`. +
+Sets the corresponding note of the student at the specified index to text. Refer to <<Add a note about a student : `note`>> for details on text. +
 Format: `editnote INDEX TEXT`
 
 [NOTE]
@@ -377,14 +382,20 @@ An empty note cannot be edited!
 
 Examples:
 
-* `note 1 check finals mark addition`
-(Note is now: `check finals mark addition.` +
-`note 1 check midterms also?`
-(Note is now: `check finals mark addition, check midterms also?`) +
-`editnote marks checked.`
-(Note is now: `marks checked.`) +
-`delnote 1`
-(Note deleted and reset to default `<No note added>`)
+* `note 2 check finals mark addition?` +
+Student at 2nd index's note:
++
+image::userGuide_editnoteExample.png[width="200"]
++
+`editnote 2 marks checked.` +
+Student at 2nd index's note:
++
+image::userGuide_editnoteExample3.png[width="200"]
++
+`delnote 2` +
+Student at 2nd index's note:
++
+image::userGuide_editnoteExample4.png[width="200"]
 // end::note[]
 
 [NOTE]
@@ -394,7 +405,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 == Command Summary
 
-* *Add* : `add n/NAME [s/INDEX p/PHONE_NUMBER e/EMAIL t/TAG]...` +
+* *Add* : `add n/NAME [p/PHONE_NUMBER e/EMAIL s/INDEX t/TAG...]` +
 e.g. `add n/James Ho s/1 p/22224444 e/jamesho@example.com t/friend t/colleague`
 * *AddAssignment* : `addAssignment n/NAME w/WEIGHT d/DEADLINE m/MAX_MARK` +
 e.g. `addAssignment n/Assignment 1 w/15 d/14/10/2019 m/100`
