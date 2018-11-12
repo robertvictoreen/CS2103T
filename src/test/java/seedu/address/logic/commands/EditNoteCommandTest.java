@@ -7,10 +7,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTE_TEXT_WITH_
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.updatePersonInModelWithNote;
 import static seedu.address.logic.commands.EditNoteCommand.MESSAGE_SUCCESS;
+import static seedu.address.testutil.TypicalAddressbook.getTypicalAddressBookCopy;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_LARGE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBookCopy;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -26,6 +26,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TestUtil;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for {@code EditNoteCommand}.
@@ -72,7 +73,7 @@ public class EditNoteCommandTest {
     @Test
     public void execute_editExistingNote_success() {
         model = createNewModelWithExistingNote();
-        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person firstPerson = TestUtil.getPerson(model, INDEX_FIRST_PERSON);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         updatePersonInModelWithNote(firstPerson, expectedModel, VALID_NOTE_TEXT_TWO_WITH_FULL_STOP);
         String expectedMessage = String.format(MESSAGE_SUCCESS, firstPerson);

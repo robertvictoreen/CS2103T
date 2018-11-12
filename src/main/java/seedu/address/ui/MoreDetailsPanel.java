@@ -18,7 +18,6 @@ import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.attendance.Attendance;
-import seedu.address.model.person.AssignmentStub;
 import seedu.address.model.person.Person;
 
 /**
@@ -34,10 +33,6 @@ public class MoreDetailsPanel extends UiPart<Region> {
     private static final int NONE = -1;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
-
-    // Initializing test data
-    private AssignmentStub[] assignments = {new AssignmentStub("Finals", 73), new AssignmentStub("Mid-terms", 39),
-        new AssignmentStub("Participation", 10), new AssignmentStub("Product Demo", 101)};
 
     // List of students
     private ObservableList<Person> studentList;
@@ -151,11 +146,11 @@ public class MoreDetailsPanel extends UiPart<Region> {
         label.setStyle(style);
         components.add(label, 3, 0);
 
-        float assignmentWeight;
-        float assignmentMark;
-        float assignmentMaxMark;
-        float totalWeight = 0;
-        float weightedMarks = 0;
+        double assignmentWeight;
+        double assignmentMark;
+        double assignmentMaxMark;
+        double totalWeight = 0;
+        double weightedMarks = 0;
 
         int row = 1;
         Assignment assignment;
