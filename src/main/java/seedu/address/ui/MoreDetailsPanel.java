@@ -133,6 +133,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
 
         int row = 0;
 
+        //Column headers
         label = new Label("Assignments");
         label.setStyle(style);
         components.add(label, 0, row);
@@ -158,24 +159,26 @@ public class MoreDetailsPanel extends UiPart<Region> {
         Assignment assignment;
         for (int i = 0; i < assignmentList.size(); i++) {
             assignment = assignmentList.get(i);
-            // adding assignment label
             row = i + 1;
 
+            //Assignment index and name
             label = new Label(String.format("%d. %s", row, assignment.getName()));
             label.setStyle(style);
             components.add(label, 0, row);
 
+            //Assignment deadline
             label = new Label(String.valueOf(assignment.getDeadline()));
             label.setStyle(style);
             components.add(label, 1, row);
 
+            //Assignment weight
             assignmentWeight = assignment.getWeight().getValue();
             totalWeight += assignmentWeight;
             label = new Label(String.valueOf(assignment.getWeight()));
             label.setStyle(style);
             components.add(label, 2, row);
 
-            // adding marks label
+            //Assignment mark / maxMark
             if (student.getMarks().containsKey(assignment.getUniqueId())) {
                 assignmentMark = student.getMarks().get(assignment.getUniqueId()).getValue();
                 assignmentMaxMark = assignment.getMaxMark().getValue();
@@ -197,6 +200,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
         label.setStyle(style);
         components.add(label, 0, row);
 
+        //Total weightedMarks / totalWeight
         label = new Label(String.format("%.1f/%.1f",
             weightedMarks, totalWeight));
         label.setStyle(style);

@@ -56,6 +56,7 @@ public class AssignmentStatsCommand extends Command {
         List<Person> filteredPersonList = model.getFilteredPersonList();
         DoubleStream markStream;
 
+        //Get all the marks for this assignment
         markStream = filteredPersonList.stream()
                                         .map(Person::getMarks)
                                         .filter((marks) -> marks.containsKey(uniqueId))
