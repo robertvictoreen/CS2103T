@@ -167,7 +167,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
     /**
      * Shows the obtained marks and maximum marks in the given row of the GridPane.
      */
-    private void showTotalGrade(float weightedMarks, float totalWeight, int row) {
+    private void showTotalGrade(double weightedMarks, float totalWeight, int row) {
         Label label = createLabel("Total", DEFAULT_STYLE);
         components.add(label, 0, row);
 
@@ -187,7 +187,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
     /**
      * Shows student's marks in the display at given row for the specified assignment.
      */
-    private float showMarks(Person student, Assignment assignment, int row) {
+    private double showMarks(Person student, Assignment assignment, int row) {
         String text;
         double result = 0;
         double assignmentMark;
