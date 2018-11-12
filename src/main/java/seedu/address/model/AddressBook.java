@@ -152,6 +152,24 @@ public class AddressBook implements ReadOnlyAddressBook {
         assignments.setAssignment(target, editedAssignment);
     }
 
+    // attendance-level operation
+
+    /**
+     * Returns true if a session with the same
+     */
+    public boolean hasAttendance(Attendance a) {
+        requireNonNull(a);
+        return attendance.contains(a);
+    }
+
+    /**
+     * Adds a session to the address book.
+     * The assignment must not already exist in the address book.
+     */
+    public void addAttendance(Attendance a) {
+        attendance.add(a);
+    }
+
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.

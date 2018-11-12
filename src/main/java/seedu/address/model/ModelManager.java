@@ -13,6 +13,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.attendance.Attendance;
 import seedu.address.model.person.Person;
 
 /**
@@ -131,6 +132,19 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void sortAssignment() {
         versionedAddressBook.sortAssignment();
         indicateAddressBookChanged();
+    }
+
+    @Override
+    public void addAttendance(Attendance attendance) {
+        versionedAddressBook.addAttendance(attendance);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public boolean hasAttendance(Attendance attendance) {
+        requireNonNull(attendance);
+        return versionedAddressBook.hasAttendance(attendance);
     }
 
     //=========== Filtered Person List Accessors =============================================================

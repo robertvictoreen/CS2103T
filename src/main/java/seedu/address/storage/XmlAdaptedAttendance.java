@@ -5,8 +5,9 @@ import java.util.Objects;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.assignment.Deadline;
 import seedu.address.model.attendance.Attendance;
+import seedu.address.model.attendance.AttendanceMark;
+import seedu.address.model.attendance.Session;
 
 /**
  * JAXB-friendly version of the Attendance.
@@ -19,6 +20,8 @@ public class XmlAdaptedAttendance {
     private String session;
     @XmlElement(required = true)
     private String uniqueId;
+    @XmlElement(required = true)
+    private String attendanceMark;
 
     /**
      * Constructs an XmlAdaptedAttendance.
@@ -29,8 +32,9 @@ public class XmlAdaptedAttendance {
     /**
      * Constructs an {@code XmlAdaptedAttendance} with the given attendance details.
      */
-    public XmlAdaptedAttendance(String session, String uniqueId) {
+    public XmlAdaptedAttendance(String session, String attendanceMark, String uniqueId) {
         this.session = session;
+        this.attendanceMark = attendanceMark;
         this.uniqueId = uniqueId;
     }
 
@@ -41,6 +45,7 @@ public class XmlAdaptedAttendance {
      */
     public XmlAdaptedAttendance(Attendance source) {
         session = source.getSession().internalString;
+        attendanceMark = source.getAttendanceMark().internalString;
         uniqueId = source.getUniqueId();
     }
 
@@ -52,15 +57,25 @@ public class XmlAdaptedAttendance {
     public Attendance toModelType() throws IllegalValueException {
         if (session == null) {
             throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Deadline.class.getSimpleName())
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Session.class.getSimpleName())
             );
         }
-        if (!Deadline.isValid(session)) {
-            throw new IllegalValueException(Deadline.MESSAGE_CONSTRAINTS);
+        if (!Session.isValid(session)) {
+            throw new IllegalValueException(Session.MESSAGE_CONSTRAINTS);
         }
-        final Deadline modelSession = new Deadline(session);
+        final Session modelSession = new Session(session);
 
-        return new Attendance(modelSession, uniqueId);
+        if (attendanceMark == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, AttendanceMark.class.getSimpleName())
+            );
+        }
+        if (!AttendanceMark.isValid(attendanceMark)) {
+            throw new IllegalValueException(AttendanceMark.MESSAGE_CONSTRAINTS);
+        }
+        final AttendanceMark modelAttendanceMark = new AttendanceMark(attendanceMark);
+
+        return new Attendance(modelSession, modelAttendanceMark, uniqueId);
     }
 
     @Override

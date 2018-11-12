@@ -13,24 +13,30 @@ import seedu.address.model.assignment.Deadline;
 public class Attendance implements Comparable<Attendance> {
 
     // Identity fields
-    private final Deadline session;
+    private final Session name;
+    private final AttendanceMark presence;
     private final String uniqueId;
 
     /**
      * Every field must be present and not null.
      */
-    public Attendance(Deadline session, String uniqueId) {
-        requireAllNonNull(session, uniqueId);
-        this.session = session;
+    public Attendance(Session name, AttendanceMark presence, String uniqueId) {
+        requireAllNonNull(name, uniqueId);
+        this.name = name;
+        this.presence = presence;
         this.uniqueId = uniqueId;
     }
 
-    public Attendance(Deadline session) {
-        this(session, createUniqueId(session.hashCode()));
+    public Attendance(Session name, AttendanceMark presence) {
+        this(name, presence,
+                createUniqueId(name.hashCode() + presence.hashCode())
+        );
     }
 
-    public Deadline getSession() {
-        return session;
+    public Session getSession() { return name; }
+
+    public AttendanceMark getAttendanceMark() {
+        return presence;
     }
 
     public String getUniqueId() {
@@ -87,7 +93,8 @@ public class Attendance implements Comparable<Attendance> {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Attendance Session: ")
-                .append(getSession());
+                .append(getSession())
+                .append(getAttendanceMark());
         return builder.toString();
     }
 
