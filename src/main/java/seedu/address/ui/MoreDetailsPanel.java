@@ -124,21 +124,23 @@ public class MoreDetailsPanel extends UiPart<Region> {
         String style = "-fx-font-size: 11pt;\n" + "-fx-font-family: \"Segoe UI Semibold\";\n"
             + "-fx-text-fill: white;\n" + "-fx-opacity: 1;";
 
+        int row = 0;
+
         label = new Label("Assignments");
         label.setStyle(style);
-        components.add(label, 0, 0);
+        components.add(label, 0, row);
 
         label = new Label("Deadline");
         label.setStyle(style);
-        components.add(label, 1, 0);
+        components.add(label, 1, row);
 
         label = new Label("Weight");
         label.setStyle(style);
-        components.add(label, 2, 0);
+        components.add(label, 2, row);
 
         label = new Label("Grade");
         label.setStyle(style);
-        components.add(label, 3, 0);
+        components.add(label, 3, row);
 
         float assignmentWeight;
         float assignmentMark;
@@ -146,7 +148,6 @@ public class MoreDetailsPanel extends UiPart<Region> {
         float totalWeight = 0;
         float weightedMarks = 0;
 
-        int row = 1;
         Assignment assignment;
         for (int i = 0; i < assignmentList.size(); i++) {
             assignment = assignmentList.get(i);
@@ -168,7 +169,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
             components.add(label, 2, row);
 
             // adding marks label
-            try {
+            if (student.getMarks().containsKey(assignment.getUniqueId())) {
                 assignmentMark = student.getMarks().get(assignment.getUniqueId()).getValue();
                 assignmentMaxMark = assignment.getMaxMark().getValue();
 
@@ -177,7 +178,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
 
                 assignmentMark /= assignmentMaxMark;
                 weightedMarks += assignmentMark * assignmentWeight;
-            } catch (Exception e) {
+            } else {
                 label = new Label("");
             }
             label.setStyle(style);
