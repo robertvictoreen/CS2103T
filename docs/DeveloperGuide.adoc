@@ -500,16 +500,18 @@ input.
 *** User has to take more care in adding `Note` text in their input.
 
 ===== Aspect: Edit note implementation
-* **Alternative 1 (current choice):** Delete the note before adding it using `note` command. As deleting the note is
+* **Alternative 1 (current choice):** Delete the note, before adding it using `note` command. As deleting the note is
 similar in both `delnote` and `editnote`, they implement the `NoteDeleter` interface with has a default method
 `copyWithoutNote` to reduce repeated code.
-
++
 .Structure of Note commands (only classes closely related to EditNoteCommand shown)
 image::EditNoteFeatureClassDiagram.png[width="800"]
-
-An example of how the `editnote` command would work is depicted in the sequence diagram below.
-
-// seq diag here
++
+An example of how the `editnote` command would work is depicted in the sequence diagram below. `NoteCommand` is
+minimally represented for brevity.
++
+.Sequence Diagram of EditNoteCommand executing (only relevant methods are shown)
+image::EditNoteCommandSequenceDiagram.png[width="800"]
 
 ** Pros: +
 *** Easier to implement.
