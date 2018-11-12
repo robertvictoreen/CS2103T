@@ -551,6 +551,9 @@ using the assignment unique id as the key, for each `Person` in the addressbook.
 The maximum, minimum, and average marks are calculated by the `DoubleSummaryStatistics` object.
 The median, 25th, and 75th percentiles are calculated by indexing a sorted array of the `Mark` values.
 
+.Sequence diagram of the Assignment Statistics feature
+image::AssignmentStatsSequenceDiagram.png[width="800"]
+
 ==== Design Considerations
 
 ===== Aspect: Specification of the Assignment Model
@@ -573,6 +576,9 @@ unique id for each `Assignment` to calculate the grade of each assignment to obt
 weighted overall grade of each student.
 The maximum, minimum, and average marks are calculated by the `DoubleSummaryStatistics` object.
 The median, 25th, and 75th percentiles are calculated by indexing a sorted array of the overall grades.
+
+.Sequence diagram of the Class Statistics feature
+image::ClassStatsSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 
