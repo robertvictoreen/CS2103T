@@ -1178,21 +1178,54 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a person
 
 . Deleting a person while all persons are listed
 
 .. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
+   Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size), `delete -1`
+   (where index should not be negative) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Adding a person
+
+. Adding a person to the current list
+
+.. Prerequisites: No student already exists in the student list with the same name. If there is an index specified, it
+   must be a positive integer lesser than the current size of the student list + 1.
+.. Test case: `add n/John Doe p/67891234 e/johnd@gmail.com a/Parliament House t/friend s/2` +
+   Expected: Student with name "John Doe" added to 2nd index of list. Details of the added student shown in the status
+   message. Timestamp in the status bar is updated.
+.. Test case: `add n/John Doe` +
+   Expected: Student with name "John Doe" added to bottom of list, all other details are empty. Details of the added
+   student shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `add n/John Doe s/1` +
+   Expected: Similar to previous, except the student is now added to the top of the list.
+.. Test case: `add n/ p/98765432 e/test@example.com` +
+   Expected: No person is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect add commands to try: `add n/John Doe p/99`, `add n/John Doe t/good friend, `add n/John Doe e/test`
+   (commands where the parameters used are invalid)
+
+=== Adding a note
+
+. Adding a note to a student
+
+.. Prerequisites: There must be a student at the index specified. The index must be a positive integer.
+.. Test case: `note 1 test` +
+   Expected: If the first student had no note, his note as displayed at the bottom right is now `test.`, else, `test.` is added to back of his existing
+   note, with the full-stop of existing note changed to a comma. Details of student whom the note was added to shown in
+   the status message. Timestamp in the status bar is updated.
+.. Test case: `note 2 great!` +
+   Expected: Similar to previous, except the note ends with an exclamation mark instead.
+.. Test case: `note 1  test2` +
+   Expected: No note is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect note commands to try: `note 1test`, `note  1 test` (where the format is incorrect)
+   Expected: Similar to previous.
 
 === Saving data
 
