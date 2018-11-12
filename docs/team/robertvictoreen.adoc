@@ -46,6 +46,13 @@ This section describes my contribution to the project, including code, documenta
 ** Justification: This enhancement provides the model for the attendance feature.
 ** Highlights: Provides a mapping between each student and multiple attendance sessions with a record of attendance/absence for that session.
 
+* *Minor enhancement*: Create new person from EditPersonDescriptor
+** What it does: Parses command arguments to create the skeleton for a person with optional fields.
+** Justification: Since creating a new Person requires non-null attributes,
+this allows the creation of a new Person with the optional fields of EditPersonDescriptor.
+** Highlights: This improves the cohesion because the attributes of the EditPersonDescriptor are populated within the class itself instead of set by another class.
+The missing attributes are replaced with default values to create a valid new Person.
+
 * *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=robertvictoreen[RepoSense]] [https://github.com/CS2103-AY1819S1-W12-4/main/commits/master?author=robertvictoreen[GitHub]]
 
 * *Other contributions*:
@@ -81,3 +88,5 @@ include::../DeveloperGuide.adoc[tag=classStats]
 include::../DeveloperGuide.adoc[tag=gradeDisplay]
 
 include::../DeveloperGuide.adoc[tag=attendance]
+
+include::../DeveloperGuide.adoc[tag=robertInstructions]
