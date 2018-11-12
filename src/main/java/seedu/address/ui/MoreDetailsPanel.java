@@ -37,10 +37,6 @@ public class MoreDetailsPanel extends UiPart<Region> {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    // Initializing test data
-    private AssignmentStub[] assignments = {new AssignmentStub("Finals", 73), new AssignmentStub("Mid-terms", 39),
-        new AssignmentStub("Participation", 10), new AssignmentStub("Product Demo", 101)};
-
     // List of students
     private ObservableList<Person> studentList;
     private ObservableList<Assignment> assignmentList;
