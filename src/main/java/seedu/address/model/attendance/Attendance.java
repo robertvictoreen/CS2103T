@@ -5,7 +5,6 @@ import static seedu.address.commons.util.UniqueIdUtil.createUniqueId;
 
 import java.util.Objects;
 
-import seedu.address.model.assignment.Deadline;
 /**
  * Represents an Attendance in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -14,30 +13,33 @@ public class Attendance implements Comparable<Attendance> {
 
     // Identity fields
     private final Session name;
+    private final SessionDate date;
     private final AttendanceMark presence;
     private final String uniqueId;
 
     /**
      * Every field must be present and not null.
      */
-    public Attendance(Session name, AttendanceMark presence, String uniqueId) {
+    public Attendance(Session name, SessionDate date, AttendanceMark presence, String uniqueId) {
         requireAllNonNull(name, uniqueId);
         this.name = name;
+        this.date = date;
         this.presence = presence;
         this.uniqueId = uniqueId;
+
     }
 
-    public Attendance(Session name, AttendanceMark presence) {
-        this(name, presence,
-                createUniqueId(name.hashCode() + presence.hashCode())
+    public Attendance(Session name, SessionDate date, AttendanceMark presence) {
+        this(name, date, presence,
+                createUniqueId(name.hashCode() + date.hashCode() + presence.hashCode())
         );
     }
 
     public Session getSession() { return name; }
 
-    public AttendanceMark getAttendanceMark() {
-        return presence;
-    }
+    public SessionDate getDate() { return date; }
+
+    public AttendanceMark getPresence() { return presence; }
 
     public String getUniqueId() {
         return uniqueId;
@@ -94,7 +96,7 @@ public class Attendance implements Comparable<Attendance> {
         final StringBuilder builder = new StringBuilder();
         builder.append("Attendance Session: ")
                 .append(getSession())
-                .append(getAttendanceMark());
+                .append(getDate());
         return builder.toString();
     }
 

@@ -20,6 +20,7 @@ import seedu.address.model.assignment.Mark;
 import seedu.address.model.assignment.Weight;
 import seedu.address.model.attendance.AttendanceMark;
 import seedu.address.model.attendance.Session;
+import seedu.address.model.attendance.SessionDate;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -224,6 +225,21 @@ public class ParserUtil {
             throw new ParseException(AttendanceMark.MESSAGE_CONSTRAINTS);
         }
         return new AttendanceMark(trimmedMark);
+    }
+
+    /**
+     * Parses a {@code String date} into an {@code Date}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static SessionDate parseSessionDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!Deadline.isValid(date)) {
+            throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
+        }
+        return new SessionDate(trimmedDate);
     }
 
     /**

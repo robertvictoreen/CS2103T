@@ -25,6 +25,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Assignment> filteredAssignments;
+    private final FilteredList<Attendance> filteredAttendance;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -38,6 +39,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredAssignments = new FilteredList<>(versionedAddressBook.getAssignmentList());
+        filteredAttendance = new FilteredList<>(versionedAddressBook.getAttendanceList());
     }
 
     public ModelManager() {
@@ -173,6 +175,17 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ObservableList<Assignment> getFilteredAssignmentList() {
         return FXCollections.unmodifiableObservableList(filteredAssignments);
+    }
+
+    //=========== Attendance List Accessors ==================================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Attendance> getFilteredAttendanceList() {
+        return FXCollections.unmodifiableObservableList(filteredAttendance);
     }
 
     //=========== Undo/Redo =================================================================================

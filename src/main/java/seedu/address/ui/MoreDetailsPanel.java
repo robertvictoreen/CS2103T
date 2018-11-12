@@ -17,6 +17,7 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.attendance.Attendance;
 import seedu.address.model.person.AssignmentStub;
 import seedu.address.model.person.Person;
 
@@ -41,6 +42,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
     // List of students
     private ObservableList<Person> studentList;
     private ObservableList<Assignment> assignmentList;
+    private ObservableList<Attendance> attendanceList;
 
     // Current student whose details are being shown
     private Person currentStudent = null;
@@ -53,11 +55,13 @@ public class MoreDetailsPanel extends UiPart<Region> {
     @FXML
     private GridPane components;
 
-    public MoreDetailsPanel(ObservableList<Person> listOfStudents, ObservableList<Assignment> listOfAssignments) {
+    public MoreDetailsPanel(ObservableList<Person> listOfStudents, ObservableList<Assignment> listOfAssignments,
+                            ObservableList<Attendance> listOfAttendance) {
         super(FXML);
         registerAsAnEventHandler(this);
         this.studentList = listOfStudents;
         this.assignmentList = listOfAssignments;
+        this.attendanceList = listOfAttendance;
 
         // default label
         Label noComponents = new Label(DEFAULT_LABEL);
@@ -200,6 +204,45 @@ public class MoreDetailsPanel extends UiPart<Region> {
             weightedMarks, totalWeight));
         label.setStyle(style);
         components.add(label, 3, row);
+
+        row ++;
+        label = new Label(" ");
+        components.add(label, 0, row);
+        row++;
+
+        label = new Label("Lessons");
+        label.setStyle(style);
+        components.add(label, 0, row);
+
+        label = new Label("Date");
+        label.setStyle(style);
+        components.add(label, 1, row);
+
+        label = new Label("Attendance");
+        label.setStyle(style);
+        components.add(label, 2, row);
+
+        Attendance attendance;
+        for (int i = 0; i < attendanceList.size(); i++) {
+            attendance = attendanceList.get(i);
+            // adding attendance label
+            row ++;
+
+            label = new Label(String.format("%d. %s", row, attendance.getSession()));
+            label.setStyle(style);
+            components.add(label, 0, row);
+
+            label = new Label(String.valueOf(attendance.getDate()));
+            label.setStyle(style);
+            components.add(label, 1, row);
+
+            label = new Label(String.valueOf(attendance.getPresence()));
+            label.setStyle(style);
+            components.add(label, 2, row);
+
+        }
+
+
 
         // show student's notes
         notesText.clear();

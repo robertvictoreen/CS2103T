@@ -20,6 +20,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.Mark;
+import seedu.address.model.attendance.Attendance;
+import seedu.address.model.attendance.AttendanceMark;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 
@@ -31,24 +33,24 @@ public class AttendanceCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Creates an attendance entry for the person identified by the index number used in the displayed"
             + " person list.\n"
-            + "Parameters: attend INDEX (must be a positive integer) " + PREFIX_ID + "CLASSNAME(a string) " + PREFIX_ATTENDANCE + "MARK\n"
-            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_ID + "Tutorial1" + PREFIX_ATTENDANCE + "1";
+            + "Parameters: attend INDEX " + PREFIX_ID + "SESSION_INDEX " + PREFIX_ATTENDANCE + "ATTENDANCE\n"
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_ID + "Tutorial1 " + PREFIX_ATTENDANCE + "1";
 
-    public static final String MESSAGE_ATTENDANCE_PRESENT = "Recorded present for person: %1$s";
+    public static final String MESSAGE_MARK_ATTENDANCE_SUCCESS = "Recorded attendance for person: %1$s";
     public static final String MESSAGE_ATTENDANCE_ABSENT = "Recorded absent for person: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
     public static final String MESSAGE_ATTENDANCE_NOT_MARKED = "Invalid attendance provided.";
 
     private final Index index;
     private final Index attendanceIndex;
-    private final Mark attendanceMark;
+    private final AttendanceMark attendanceMark;
 
     /**
      * @param index           of the person in the filtered person list to edit
      * @param attendanceIndex of the attendance shown
      * @param attendanceMark  of the person in class
      */
-    public AttendanceCommand(Index index, Index attendanceIndex, Mark attendanceMark) {
+    public AttendanceCommand(Index index, Index attendanceIndex, AttendanceMark attendanceMark) {
         requireNonNull(index);
         requireNonNull(attendanceIndex);
         requireNonNull(attendanceMark);
@@ -69,11 +71,11 @@ public class AttendanceCommand extends Command {
 
         Person personToMarkAttendance = lastShownList.get(index.getZeroBased());
 
-        List<Assignment> lastShownAssignmentList = model.getFilteredAssignmentList();
-        if (attendanceIndex.getZeroBased() >= lastShownAssignmentList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ASSIGNMENT_DISPLAYED_INDEX);
+        List<Attendance> lastShownAttendanceList = model.getFilteredAttendanceList();
+        if (attendanceIndex.getZeroBased() >= lastShownAttendanceList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_SESSION_DISPLAYED_INDEX);
         }
-        String assignmentUid = lastShownAssignmentList.get(attendanceIndex.getZeroBased()).getUniqueId();
+        String assignmentUid = lastShownAttendanceList.get(attendanceIndex.getZeroBased()).getUniqueId();
 
         Person markedPerson = createAttendedPerson(personToMarkAttendance, assignmentUid, attendanceMark);
 
@@ -84,14 +86,15 @@ public class AttendanceCommand extends Command {
         model.updatePerson(personToMarkAttendance, markedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_ATTENDANCE_PRESENT, markedPerson));
+        return new CommandResult(String.format(MESSAGE_MARK_ATTENDANCE_SUCCESS, markedPerson));
     }
 
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Person createAttendedPerson(Person personToMarkAttendance, String attendanceUid, Mark attendanceMark) {
+    private static Person createAttendedPerson(Person personToMarkAttendance, String attendanceUid,
+                                               AttendanceMark attendanceMark) {
         assert personToMarkAttendance != null;
 
         Name updatedName = personToMarkAttendance.getName();
@@ -103,7 +106,8 @@ public class AttendanceCommand extends Command {
         Map<String, Mark> updatedAttendance = personToMarkAttendance.getMarks();
         updatedAttendance.put(attendanceUid, attendanceMark);
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedPhoto, updatedTags, updatedAttendance);
+        return new Person(
+                updatedName, updatedPhone, updatedEmail, updatedAddress, updatedPhoto, updatedTags, updatedAttendance);
     }
 
     @Override
@@ -122,7 +126,7 @@ public class AttendanceCommand extends Command {
         AttendanceCommand e = (AttendanceCommand) other;
         return index.equals(e.index)
                 && attendanceIndex.equals(e.attendanceIndex)
-                && attendanceMark.equals(e.attendanceMark);
+                && attendanceMark.equals(attendanceMark);
     }
 }
 

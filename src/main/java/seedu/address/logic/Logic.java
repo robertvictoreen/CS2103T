@@ -5,6 +5,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.attendance.Attendance;
 import seedu.address.model.person.Person;
 
 /**
@@ -24,6 +25,8 @@ public interface Logic {
     ObservableList<Person> getFilteredPersonList();
 
     ObservableList<Assignment> getFilteredAssignmentList();
+
+    ObservableList<Attendance> getFilteredAttendanceList();
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();

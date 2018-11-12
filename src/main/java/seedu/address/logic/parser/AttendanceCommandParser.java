@@ -17,6 +17,8 @@ import seedu.address.logic.commands.AttendanceCommand;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.Mark;
+import seedu.address.model.attendance.Attendance;
+import seedu.address.model.attendance.AttendanceMark;
 
 /**
  * Parses input arguments and creates a new MarkCommand object
@@ -41,7 +43,8 @@ public class AttendanceCommandParser implements Parser<AttendanceCommand> {
 
             Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
             Index attendanceIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_ID).get());
-            Mark attendanceMark = ParserUtil.parseMark(argMultimap.getValue(PREFIX_MARK).get());
+            AttendanceMark attendanceMark = ParserUtil.parseAttendanceMark(
+                    argMultimap.getValue(PREFIX_ATTENDANCE).get());
 
             return new AttendanceCommand(index, attendanceIndex, attendanceMark);
         }
