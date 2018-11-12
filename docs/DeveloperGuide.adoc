@@ -421,16 +421,21 @@ image::DeleteProfilePhotoUMLSequenceDiagram.png[width="800"]
 
 // end::deleteProfilePhoto[]
 
+// tag::classDiagram[]
+=== Assignment and Attendance data structure
+image::ModelClassDiagram.png[width="800"]
+// end::classDiagram[]
+
 // tag::assignment[]
-=== Assignment data structure
+==== Assignment data structure
 
 Global information about assignment is stored in addressbook level and
 each assignment have a uniqueId that will not change when the assignment is edited.
 Also every student store a map with assignment uniqueId as key and mark obtained as value.
 
-==== Design Considerations
+===== Design Considerations
 
-===== Aspect: Data Structure to support assignment operations
+====== Aspect: Data Structure to support assignment operations
 * **Alternative 1 (current choice):** Use a hashmap of uniqueId to mark to store assignment score of each student.
 ** Pros: Flexibility to edit assignment without having to do any operation on each student.
 ** Cons: Any functionality that needs to iterate through all assignment score for a student must first iterate through
@@ -442,18 +447,18 @@ edit assignment information in every single student.
 // end::assignment[]
 
 // tag::attendance[]
-=== Attendance data structure
+==== Attendance data structure
 
 Provides a representation of an attendance session for a particular date.
 This enables a mapping between each student and multiple attendance sessions
 with a record of attendance/absence for that session.
 
 .Structure of the Model Component including the Attendance data structure
-image::ModelClassDiagram.png[width="800"]
 
-==== Design Considerations
 
-===== Aspect: Data Structure to support attendance operations
+===== Design Considerations
+
+====== Aspect: Data Structure to support attendance operations
 * **Alternative 1 (current choice):** Adaptation of Assignment model, using a HashMap for each student to record the attendance/absence
 with the uniqueId of the Attendance session. AttendanceMark is a subclass of the Mark class from the Assignment model, limited to a value of 1 or 0.
 The Attendance session date is represented with the Deadline class from the Assignment model.
@@ -1369,6 +1374,49 @@ These instructions only provide a starting point for testers to work on; testers
    incorrect) +
    Expected: Similar to previous.
 // end::spencerTestInstructions[]
+
+// tag::henryInstructions[]
+=== Testing Assignment Manipulation
+Optional Prerequisite: There is at least 1 person recorded in the application to view assignments in the gui.
+
+. Adding an assignment to the application
+
+.. Prerequisites: Application currently do not have an assignment with the same name.
+.. Test case: `addAssignment n/Assignment1 w/15 d/31/12/2019 m/100` +
+   Expected: New assignment called "Assignment1" is added to the application, if you select a student,
+   Assignment1 will appear on the MoreDetailsPanel on the right of student list.
+.. Test case: `addAssignment n/Assignment2 w/a d/31/12/2019 m/100` +
+   Expected: Error message appear: weight must be a real number.
+
+. Deleting an assignment
+
+.. Prerequisites: There is at least 1 assignment stored in the application.
+.. Test case: `deleteAssignment 1` +
+   Expected: The first assignment on the assignment list will be deleted.
+.. Test case: `deleteAssignment asdf` +
+   Expected: `Invalid command format` error.
+
+. Editing an assignment
+
+.. Prerequisites: There is at least 1 assignment stored in the application. There is no assignment with the name
+   "Assignment2"
+.. Test case: `editAssignment 1 n/Assignment2 w/30` +
+   Expected: the first assignment's name in the assignment list changed to "Assignment2" and its weight changed to 30.
+
+. Marking a person
+
+.. Prerequisites: There is at least 2 person and 1 assignment stored.
+
+.. Test case: `markAssignment 2 id/1 m/30` +
+   Expected: second person in the list have his/her mark stored for first assignment. He/She got 30 marks for it.
+
+. Sorting assignments
+
+.. Prerequisites: There is at least 2 assignment and not ordered from oldest to latest by deadline.
+
+.. Test case: `sortAssignment` +
+   Expected: the assignments are all sorted by deadline and if they have same deadline, then by name.
+// tag::henryInstructions[]
 
 // tag::robertInstructions[]
 === Testing Assignment Statistics
