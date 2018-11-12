@@ -140,6 +140,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
         float totalWeight = 0;
         float weightedMarks = 0;
 
+        int row = 1;
         Assignment assignment;
         for (int i = 0; i < assignmentList.size(); i++) {
             assignment = assignmentList.get(i);
