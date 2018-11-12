@@ -1,6 +1,6 @@
 package seedu.address.model.attendance;
 
-import seedu.address.model.assignment.Mark;
+import seedu.address.model.common.Mark;
 
 /**
  * Represents an attendance mark in the app.

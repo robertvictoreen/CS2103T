@@ -324,13 +324,6 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
 // tag::sort[]
 === Sort mechanism
 
@@ -339,74 +332,94 @@ The primary sorting algorithm is contained in the 'UniquePersonList' class. It i
 
 The 'indicateAddressBookChanged' event is raised by 'Model' after the sorting is done to show that the Address Book has been modified.
 
+The sequence diagram below illustrates how the sort mechanism works:
+
+image::SortUMLSequenceDiagram.png[width="800"]
+
+    1. User executes the `sort` command which is then parsed through `AddressBookParser`.
+    2. A new `sort` command is created and it then executes the `sort` method in `ModelManager`.
+    3. `ModelManager` calls the internal sorting function in the `UniquePersonList` class and the person list is sorted.
+    4. Lastly, the `updateFilteredPersonList()` method in `ModelManager` is called and it then returns the result.
+
 ==== Design Considerations
 
 ===== Aspect: Implementation of `SortCommand`
-**Chosen Implementation:** Only sorts by names of persons in the Address Book. +
-**Pros:** Easy to implement and more intuitive for the user. +
-**Cons:** Functionality is limited and may not satisfy the requirements of the user. +
 
-**Alternative :** Sorts persons in the Address Book by any field (e.g. sorting by email or tag), which is given as an input by the user. +
-**Pros:** More flexibility for the user since he has the option to sort contacts using more fields. +
-**Cons:** Harder to implement and constant updating of code is required every time a new field in the `Person` class is introduced.
+* **Alternative 1 (current choice):** Only sorts by names of persons in the Address Book.
+** Pros: Easy to implement and more intuitive for the user.
+** Cons: Functionality is limited and may not satisfy the demands of the user.
+
+* **Alternative 2:** Sorts persons in the Address Book by any field (e.g. sorting by email or tag), which is given as an input by the user.
+** Pros: More flexibility for the user since he has the option to sort contacts using more fields.
+** Cons: Harder to implement and constant updating of code is required every time a new field in the `Person` class is introduced.
 // end::sort[]
 
 // tag::addphoto[]
 
 === Add Profile Photo feature
 
+==== Current Implementation
+The student's Profile Photo can be viewed at the right side of the student's profile card.
+
+The following sequence diagram shows how the `addphoto` command works.
+
+image::AddProfilePhotoUMLSequenceDiagram.png[width="800"]
+
+    1. The user inputs the `addphoto INDEX f/FILENAME` command, with parameters `INDEX` and `FILENAME`
+    2. The `AddressBookParser` class parses the command to create a new `AddProfilePhotoCommand` class.
+    3. The `AddProfilePhotoCommand` command is executed and handled by the `ModelManager` class.
+    4. A new `ProfilePhoto` object is created, containing the image referenced by `FILENAME`
+    5. The new `ProfilePhoto` is attached to the `Person` at `INDEX`
+    6. The new profile photo is displayed
+
 ==== Design Considerations
 
-**Aspect:** Storage of images of profile pictures +
+**Aspect:** Implementation of `AddProfilePhotoCommand`
 
-**Chosen Implementation:** +
-Store the images in a local folder. For Windows, it will be in the AppData folder, for Mac/Linux, in the home folder. +
-**Pros:** +
-After a profile picture is set, it will continue showing even if the image source is deleted +
-**Cons:** +
-Extra space to store the pictures, some images may be too large and use a lot of memory. +
+* **Alternative 1 (current choice):** Store the images in a local folder. For Windows, it will be in the AppData folder, for Mac/Linux, in the home folder.
+** Pros: After a profile photo is set, it will continue showing even if the image source is deleted.
+** Cons: It requires space to store the photos, some images may be too large and consume a lot of memory.
 
-**Alternative:** +
-Not store the images +
-**Pros:** +
-No space requirement to store the images locally +
-**Cons:** +
-Need to ensure that the image is not deleted, or it won't show. +
+* **Alternative 2:** Not store the image.
+** Pros: No space requirement to store the images locally.
+** Cons: Need to ensure that the images is not deleted, or it won't show.
 
-**Aspect:** Putting a limit on profile picture size +
+* **Alternative 1 (current choice):** Set a restriction of 5MB for each photo.
+** Pros: Prevents a user from crashing the app by putting an image that's too large in size.
+** Cons: Some photos may be larger than 5MB. They can use image compression services to compress it in order to fulfill the limit.
 
-**Chosen Implementation:** +
-Set a restriction of 5MB for each picture. +
-**Pros:** +
-Prevents a  user from crashing the app by putting an image that's too large in size. +
-**Cons:** +
-Some pictures may be larger than 5MB. They can use image compression services to compress it in order to fulfill the limit.
-
-**Alternative:** +
-Not put a specified restriction to the size of profile photo +
-**Pros:** +
-User can upload image of any size. +
-**Cons:** +
-Performance of the app might be unstable if it contains too many large images.
+* **Alternative 2:** Not put a specified restriction to the size of profile photo.
+** Pros: User can upload image of any size.
+** Cons: Performance of the app might be unstable if it contains too many large images.
 
 // end::addphoto[]
 
-// tag::deletephoto[]
+// tag::deleteProfilePhoto[]
 === Delete Profile Photo feature
 
 ==== Current Implementation
-We implemented a feature which allows a user to delete the profile photo and change back to default.
+This is a feature which allows a user to delete the profile photo and changes it back to default.
+
+The following sequence diagram shows how the `deleteProfilePhoto` command works
+
+image::DeleteProfilePhotoUMLSequenceDiagram.png[width="800"]
+
+    1. The user executes the `deleteProfilePhoto INDEX` command, with parameters `INDEX`
+    2. The `AddressBookParser` class parses the command to create a new `DeleteProfilePhotoCommand` class.
+    3. The `DeleteProfilePhotoCommand` command is executed and handled by the `ModelManager` class.
+    4. A new `ProfilePhoto` object is created, containing the default image.
+    5. The new `ProfilePhoto` is attached to the `Person` at `INDEX`.
+    6. The default profile photo will now show and the person's image would be deleted.
 
 ==== Design Considerations
 
-**Chosen Implementation:** +
-Create a new ProfilePhoto object. +
-**Pros:** +
-Easier if developer decides to change the path of the default photo, or the properties of the ProfilePhotoclass +
-**Cons:** +
-Creating a new object each time might be highly memory-consuming, but probably insignificant on a modern PC. +
+**Aspect:** Implementation of `DeleteProfilePhotoCommand`
 
-// end::deletephoto[]
+* **Alternative 1 (current choice):** Create a new ProfilePhoto object.
+** Pros: Easier if developer decides to change the path of the default photo, or the properties of the ProfilePhotoclass.
+** Cons: Creating a new object each time might be highly memory-consuming, but probably insignificant on a modern PC.
+
+// end::deleteProfilePhoto[]
 
 // tag::assignment[]
 === Assignment data structure
@@ -433,12 +446,15 @@ edit assignment information in every single student.
 
 Provides a representation of an attendance session for a particular date.
 This enables a mapping between each student and multiple attendance sessions
-with a record of attendance/absense for that session.
+with a record of attendance/absence for that session.
+
+.Structure of the Model Component including the Attendance data structure
+image::ModelClassDiagram.png[width="800"]
 
 ==== Design Considerations
 
-===== Aspect: Data Structure to support assignment operations
-* **Alternative 1 (current choice):** Adaptation of Assignment model, using a hashmap for each student to record the attendance/absense
+===== Aspect: Data Structure to support attendance operations
+* **Alternative 1 (current choice):** Adaptation of Assignment model, using a HashMap for each student to record the attendance/absence
 with the uniqueId of the Attendance session. AttendanceMark is a subclass of the Mark class from the Assignment model, limited to a value of 1 or 0.
 The Attendance session date is represented with the Deadline class from the Assignment model.
 ** Pros: Limited code duplication, consistent model implementation, prevents inconsistent attendance records across the class.
@@ -527,6 +543,82 @@ image::EditNoteCommandSequenceDiagram.png[width="800"]
 ** Cons: +
 *** Some repeated code with `NoteCommand`.
 // end::note[]
+
+// tag::assignmentStats[]
+=== Assignment Statistics feature
+==== Current Implementation
+
+The `Mark` objects associated with the `Assignment` are obtained by filtering the `Mark` HashMap
+using the assignment unique id as the key, for each `Person` in the addressbook.
+The maximum, minimum, and average marks are calculated by the `DoubleSummaryStatistics` object.
+The median, 25th, and 75th percentiles are calculated by indexing a sorted array of the `Mark` values.
+
+.Sequence diagram of the Assignment Statistics feature
+image::AssignmentStatsSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: Specification of the Assignment Model
+
+* **Alternative 1 (current choice):** Use a stream to filter the `Mark` objects associated with the `Assignment`.
+** Pros: Implementation follows specification of the Assignment Model.
+** Cons: `Mark` objects are associated with `Person` objects, thus requiring several linear operations to obtain
+all `Mark` objects associated with one `Assignment`.
+* **Alternative 2:** Create a new mapping between `Mark` objects and each `Assignment`.
+** Pros: `Mark` objects can be aggregated over time, eliminating the need to filter each time.
+** Cons: Major changes to the specification of the Assignment Model.
+// end::assignmentStats[]
+
+// tag::classStats[]
+=== Class Statistics feature
+==== Current Implementation
+
+For each `Person` in the addressbook, the associated `Mark` objects are cross-referenced using the
+unique id for each `Assignment` to calculate the grade of each assignment to obtain the
+weighted overall grade of each student.
+The maximum, minimum, and average marks are calculated by the `DoubleSummaryStatistics` object.
+The median, 25th, and 75th percentiles are calculated by indexing a sorted array of the overall grades.
+
+.Sequence diagram of the Class Statistics feature
+image::ClassStatsSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: Specification of the Assignment Model
+
+* **Alternative 1 (current choice):** Use a stream to group the `Mark` objects by association
+with each `Person` and calculate the overall grade using the relevant `Assignment` objects for each `Mark`.
+** Pros: Implementation follows specification of the Assignment Model.
+** Cons: Several linear operations must be performed to
+bridge the association between each `Mark`, `Assignment`, and `Person`.
+* **Alternative 2:** Create a class data structure to record the data for the entire class.
+** Pros: Calculations may be performed within the data structure.
+** Cons: Increased operations for each change in data due to high coupling between `Mark`, `Assignment`, and `Person`.
+// end::classStats[]
+
+// tag::gradeDisplay[]
+=== Grade Display feature
+==== Current Implementation
+
+The information for each `Assignment` object in the addressbook is listed,
+including the the index number, name, deadline, weight, mark, and maximum mark. +
+The mark is obtained from the `Mark` associated with the selected `Person` object. +
+The total grade for the student is calculated as a weighted sum of the marks for all the assignments and listed below.
+
+.Grade Display
+image::grade_display.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: Evaluation of total grade for the student
+
+* **Alternative 1 (current choice):** Calculate the total grade on demand.
+** Pros: Implementation does not require additional models.
+** Cons: The calculation is linear and must bbe performed every time the student is selected.
+* **Alternative 2:** Create a new model to aggregate the total grade.
+** Pros: The total grade is readily available and may be used elsewhere in the application.
+** Cons: Increased operations for each change in data to update the total grade.
+// end::gradeDisplay[]
 
 === Logging
 
@@ -1259,10 +1351,56 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Similar to previous.
 // end::spencerTestInstructions[]
 
-=== Saving data
+// tag::robertInstructions[]
+=== Testing Assignment Statistics
 
-. Dealing with missing/corrupted data files
+. Statistics of assignment with no marks entered
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Prerequisites: Students list not empty. Assignment list contains assignments with no marks entered for any student.
+.. Test case: `assignmentStats 1` +
+   Expected: Statistics data is all 0.
 
-_{ more test cases ... }_
+. Statistics of assignment after student with marks deleted
+
+.. Prerequisites: Students list contains 1 student with marks for an assignment.
+.. Test case: `delete 1` `assignmentStats 1` +
+   Expected: Statistics data is all 0 because marks are deleted along with the student.
+
+. Statistics of deleted assignment
+
+.. Prerequisites: Assignment list contains an assignment to be deleted.
+.. Test case: `deleteAssignment 1` `assignmentStats 1` +
+   Expected: Assignment is no longer accessible, invalid index or index refers to other assignment.
+
+. Statistics of assignment with marks entered
+
+.. Prerequisites: Students list not empty. Assignment list contains an assignment with marks entered for any student.
+.. Test case: `assignmentStats 1` +
+   Expected: Statistics data is accurate according to the marks.
+
+=== Testing Class Statistics
+
+. Statistics of class with no students and no assignments
+
+.. Prerequisites: Students list and assignment list is empty.
+.. Test case: `classStats` +
+   Expected: Statistics data is all 0.
+
+. Statistics of class with students but no assignments
+
+.. Prerequisites: Students list contains students but no assignments.
+.. Test case: `classStats` +
+   Expected: Statistics shows the number of students, other data is all 0.
+
+. Statistics of class with students and assignments but no marks entered
+
+.. Prerequisites: Students list not empty. Assignment list contains assignments with no marks entered for any student.
+.. Test case: `classStats` +
+   Expected: Statistics shows the number of students and the maximum grade is the total weight of the assignments, other data is all 0.
+
+. Statistics of class with students and assignments with marks entered
+
+.. Prerequisites: Students list not empty. Assignment list contains assignments with marks entered for students.
+.. Test case: `classStats` +
+   Expected: Statistics data is accurate according to the total marks of the students.
+// end::robertInstructions[]

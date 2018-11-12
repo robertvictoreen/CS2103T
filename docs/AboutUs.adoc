@@ -15,14 +15,14 @@ image::robertvictoreen.png[width="150", align="left"]
 {empty}[https://github.com/robertvictoreen[github]] [<<robertvictoreen#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Integration
+Responsibilities: Back-End
 
 === Tan Ken Hao Zachary
 image::zackkh95.png[width="150", align="left"]
 {empty}[https://github.com/Zackkh95[github]] [<<zackkh95#,portfolio>>]
 
 Role: Developer +
-Responsibilities: UI + Documentation
+Responsibilities: Logic
 
 === Spencer Tan Wen Hao
 image::spencertan96.png[width="150", align="left"]

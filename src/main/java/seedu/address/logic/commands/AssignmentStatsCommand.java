@@ -9,6 +9,7 @@ import java.util.stream.DoubleStream;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.calculation.Quartiles;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
@@ -26,6 +27,11 @@ public class AssignmentStatsCommand extends Command {
             + " index number in the assignment list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
+
+    public static final String MESSAGE_SUCCESS = "%s Statistics\nSubmissions: %d, Maximum Mark: %.1f\n"
+            + "Highest: %.1f, Lowest: %.1f\n"
+            + "25th: %.1f, 75th: %.1f\n"
+            + "Average: %.1f, Median: %.1f";
 
     private final Index targetIndex;
 
@@ -47,17 +53,17 @@ public class AssignmentStatsCommand extends Command {
         List<Person> filteredPersonList = model.getFilteredPersonList();
         DoubleStream markStream;
 
+        //Get all the marks for this assignment
         markStream = filteredPersonList.stream()
                                         .map(Person::getMarks)
                                         .filter((marks) -> marks.containsKey(uniqueId))
                                         .mapToDouble((marks) -> marks.get(uniqueId).getValue());
         DoubleSummaryStatistics summaryStatistics = markStream.summaryStatistics();
 
-        StringBuilder summary = new StringBuilder(assignment.getName().getValue());
-        summary.append(" Statistics\nSubmissions: ");
-        summary.append(summaryStatistics.getCount());
+        long submissionsCount = summaryStatistics.getCount();
 
-        if (summaryStatistics.getCount() > 0) {
+        double[] quartiles = new double[3];
+        if (submissionsCount > 0) {
 
             markStream = filteredPersonList.stream()
                                             .map(Person::getMarks)
@@ -65,36 +71,18 @@ public class AssignmentStatsCommand extends Command {
                                             .mapToDouble((marks) -> marks.get(uniqueId).getValue());
             double[] marks = markStream.sorted().toArray();
 
-            double[] quartiles = {0.25, 0.50, 0.75};
-
-            if (marks.length == 1) {
-                quartiles[0] = quartiles[1] = quartiles[2] = marks[0];
-            } else {
-                double percentile;
-                double position;
-                int index;
-
-                for (int i = 0; i < 3; i++) {
-                    position = quartiles[i] * marks.length;
-                    index = (int) position;
-                    percentile = marks[index];
-
-                    if (position - index == 0) {
-                        percentile = (percentile + marks[index - 1]) / 2;
-                    }
-
-                    quartiles[i] = percentile;
-                }
-            }
-            summary.append("\nHighest: ").append(String.format("%.1f", summaryStatistics.getMax()));
-            summary.append(", Lowest: ").append(String.format("%.1f", summaryStatistics.getMin()));
-            summary.append("\n25th: ").append(String.format("%.1f", quartiles[0]));
-            summary.append(", 75th: ").append(String.format("%.1f", quartiles[2]));
-            summary.append("\nAverage: ").append(String.format("%.1f", summaryStatistics.getAverage()));
-            summary.append(", Median: ").append(String.format("%.1f", quartiles[1]));
+            quartiles[0] = Quartiles.FIRST_QUARTILE;
+            quartiles[1] = Quartiles.SECOND_QUARTILE;
+            quartiles[2] = Quartiles.THIRD_QUARTILE;
+            Quartiles.calculateQuartiles(quartiles, marks);
+        } else {
+            summaryStatistics.accept(0);
         }
 
-        return new CommandResult(summary.toString());
+        return new CommandResult(String.format(MESSAGE_SUCCESS, assignment.getName().getValue(),
+            submissionsCount, assignment.getMaxMark().getValue(),
+            summaryStatistics.getMax(), summaryStatistics.getMin(),
+            quartiles[0], quartiles[2], summaryStatistics.getAverage(), quartiles[1]));
     }
 
     @Override

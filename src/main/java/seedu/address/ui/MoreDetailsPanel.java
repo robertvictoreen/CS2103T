@@ -140,22 +140,23 @@ public class MoreDetailsPanel extends UiPart<Region> {
         float totalWeight = 0;
         float weightedMarks = 0;
 
-        int row = 1;
         Assignment assignment;
         for (int i = 0; i < assignmentList.size(); i++) {
             assignment = assignmentList.get(i);
             row = i + 1;
 
-            // adding assignment labels
+            // adding assignment labels (name and deadline)
             String assignmentString = String.format("%d. %s", row, assignment.getName().getValue());
             addLabelToGrid(assignmentString, row, 0);
             addLabelToGrid(String.valueOf(assignment.getDeadline()), row, 1);
 
+            // assignment weight
             assignmentWeight = assignment.getWeight().getValue();
             totalWeight += assignmentWeight;
             addLabelToGrid(String.valueOf(assignment.getWeight()), row, 2);
 
             weightedMarks += showMarks(student, assignment, row);
+
         }
 
         row++;
