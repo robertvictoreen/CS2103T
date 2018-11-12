@@ -288,6 +288,17 @@ Adds a mark for an assignment associated with a student given the mark obtained.
 Format: `markAssignment INDEX id/ASSIGNMENT_INDEX m/MARK`
 // end::assignment[]
 
+//tag::attendance[]
+=== Add an Lesson: `addLesson`
+
+Adds a lesson with given lesson name, date, attendance. +
+Format: `addLesson n/LESSONNAME d/DATE at/ATTENDANCE`
+
+=== Mark attendance of students: `attend`
+
+Marks the attendance of a student for a lesson, 0 for absent, 1 for present. +
+Format: `attend INDEX id/LESSONINDEX at/ATTENDANCE`
+
 // tag::stats[]
 === Display the statistics for the marks of an assignment: `assignmentStats`
 
