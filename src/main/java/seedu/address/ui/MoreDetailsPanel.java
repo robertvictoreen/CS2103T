@@ -18,7 +18,6 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.assignment.Assignment;
-import seedu.address.model.person.AssignmentStub;
 import seedu.address.model.person.Person;
 
 /**
