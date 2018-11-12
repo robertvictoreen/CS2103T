@@ -228,7 +228,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
             // adding attendance label
             row ++;
 
-            label = new Label(String.format("%d. %s", row, attendance.getSession()));
+            label = new Label(String.format("%d. %s", i+1, attendance.getSession()));
             label.setStyle(style);
             components.add(label, 0, row);
 
