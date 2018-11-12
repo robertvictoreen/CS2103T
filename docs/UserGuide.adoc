@@ -328,16 +328,16 @@ Examples:
 * `note 1 hardworking student` +
 Student at 1st index's note:
 +
-image::userGuide_noteExample.png[width="300"]
+image::userGuide_noteExample.png[width="200"]
 +
 `note 1 motivated too!` +
 Student at 1st index's note:
 +
-image::userGuide_noteExample2.png[width="300]
+image::userGuide_noteExample2.png[width="200"]
 
 === Delete a student's note : `delnote`
 
-Deletes the corresponding note of the student at the specified `INDEX`. +
+Deletes the corresponding note of the student at the specified index. +
 Format: `delnote INDEX`
 
 * There can be any number of spaces between `delnote` and `INDEX`. +
@@ -352,7 +352,7 @@ Examples:
 
 === Edits the note of a student : `editnote`
 
-Edits the corresponding note of the student at the specified `INDEX` to `TEXT`. Refer to <<Add a note about a student : `note`>> for details on `TEXT`. +
+Sets the corresponding note of the student at the specified index to text. Refer to <<Add a note about a student : `note`>> for details on text. +
 Format: `editnote INDEX TEXT`
 
 [NOTE]
@@ -360,25 +360,20 @@ An empty note cannot be edited!
 
 Examples:
 
-* `note 2 check finals mark addition` +
+* `note 2 check finals mark addition?` +
 Student at 2nd index's note:
 +
-image::userGuide_editnoteExample.png[width="300]
-+
-`note 2 check midterms also?` +
-Student at 2nd index's note:
-+
-image::userGuide_editnoteExample2.png[width="300]
+image::userGuide_editnoteExample.png[width="200"]
 +
 `editnote 2 marks checked.` +
 Student at 2nd index's note:
 +
-image::userGuide_editnoteExample3.png[width="300]
+image::userGuide_editnoteExample3.png[width="200"]
 +
 `delnote 2` +
 Student at 2nd index's note:
 +
-image::userGuide_editnoteExample4.png[width="300]
+image::userGuide_editnoteExample4.png[width="200"]
 // end::note[]
 
 [NOTE]

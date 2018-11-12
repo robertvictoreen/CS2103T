@@ -477,10 +477,10 @@ return a new `Note` object with the new `text`.
 the user, unless the user ends the text with `!` or `?`. When a `note` or `editnote` command is executed on a `Note`
 that already has text, the previous text's punctuation is changed to a comma (`,`) instead before being added to the
 final `text`.
-
++
 The workflow for this algorithm is shown below. *Text* refers to the text being added, *noteText* refers to the existing
 text in the `Note` and *newText* refers to the final text in the newly created `Note`.
-
++
 .Activity Diagram for Text Addition
 image::NoteTextAdditionActivityDiagram.png[width="800"]
 
@@ -1192,6 +1192,7 @@ These instructions only provide a starting point for testers to work on; testers
    (where index should not be negative) +
    Expected: Similar to previous.
 
+// tag::spencerTestInstructions[]
 === Adding a person
 
 . Adding a person to the current list
@@ -1256,6 +1257,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect note commands to try: `editnote 2inquisitive`, `note  1 consult at 2pm` (where the format is
    incorrect) +
    Expected: Similar to previous.
+// end::spencerTestInstructions[]
 
 === Saving data
 
