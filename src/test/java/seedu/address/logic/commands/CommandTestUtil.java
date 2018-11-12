@@ -15,12 +15,14 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.EditAssignmentCommand.EditAssignmentDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.common.EditPersonDescriptor;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.EditAssignmentDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -89,6 +91,17 @@ public class CommandTestUtil {
 
     public static final EditPersonDescriptor DESC_AMY;
     public static final EditPersonDescriptor DESC_BOB;
+    public static final EditAssignmentDescriptor DESC_A;
+    public static final EditAssignmentDescriptor DESC_B;
+
+    public static final String VALID_ASSIGNMENTNAME_A = "Assignment A";
+    public static final String VALID_ASSIGNMENTNAME_B = "Assignment B";
+    public static final String VALID_DEADLINE_A = "01/01/2019";
+    public static final String VALID_DEADLINE_B = "02/02/2019";
+    public static final String VALID_WEIGHT_A = "10";
+    public static final String VALID_WEIGHT_B = "20";
+    public static final String VALID_MAXMARK_A = "10";
+    public static final String VALID_MAXMARK_B = "20";
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -97,6 +110,11 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_A = new EditAssignmentDescriptorBuilder().withName(VALID_ASSIGNMENTNAME_A)
+                .withDeadline(VALID_DEADLINE_A).withMaxMark(VALID_MAXMARK_A).withWeight(VALID_WEIGHT_A).build();
+        DESC_B = new EditAssignmentDescriptorBuilder().withName(VALID_ASSIGNMENTNAME_B)
+                .withDeadline(VALID_DEADLINE_B).withMaxMark(VALID_MAXMARK_B).withWeight(VALID_WEIGHT_B).build();
+
     }
 
     /**

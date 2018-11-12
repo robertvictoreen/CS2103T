@@ -104,7 +104,7 @@ Returns any person having names `Betsy`, `Tim`, or `John`
 
 === Clearing all entries : `clear`
 
-Clears all entries from the student list. +
+Clears all data from application. +
 Format: `clear`
 
 === Deleting a student : `delete`
@@ -285,7 +285,7 @@ Format: `sortAssignment`
 === Record a mark for a student: `markAssignment`
 
 Adds a mark for an assignment associated with a student given the mark obtained. Can mark more than maxMark in case of bonus score. +
-Format: `markAssignment INDEX id/ASSIGNMENT_INDEX m/MARK`
+Format: `markAssignment STUDENT_INDEX id/ASSIGNMENT_INDEX m/MARK`
 // end::assignment[]
 
 // tag::stats[]
