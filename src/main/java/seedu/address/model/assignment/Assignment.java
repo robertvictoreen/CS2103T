@@ -77,6 +77,10 @@ public class Assignment implements Comparable<Assignment> {
         if (deadlineComparison != 0) {
             return deadlineComparison;
         }
+        int nameComparison = this.getName().compareTo(other.getName());
+        if (nameComparison != 0) {
+            return nameComparison;
+        }
         return 0;
     }
 

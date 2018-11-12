@@ -69,7 +69,12 @@ public class MarkAssignmentCommand extends Command {
         }
         String assignmentUid = lastShownAssignmentList.get(assignmentIndex.getZeroBased()).getUniqueId();
 
-        Person markedPerson = createMarkedPerson(personToMarkAssignment, assignmentUid, assignmentMark);
+        EditPersonDescriptor descriptor = new EditPersonDescriptor();
+        Map<String, Mark> updatedMarks = new HashMap<>(personToMarkAssignment.getMarks());
+        updatedMarks.put(assignmentUid, assignmentMark);
+        descriptor.setMarks(updatedMarks);
+
+        Person markedPerson = descriptor.createEditedPerson(personToMarkAssignment);
 
         if (!personToMarkAssignment.isSamePerson(markedPerson) && model.hasPerson(markedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
@@ -79,19 +84,6 @@ public class MarkAssignmentCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_MARK_PERSON_SUCCESS, markedPerson));
-    }
-
-    /**
-     * Creates and returns a {@code Person} with added mark for {@code assignmentUid}, {@code assignmentMark}
-     */
-    private static Person createMarkedPerson(Person personToMarkAssignment, String assignmentUid, Mark assignmentMark) {
-        assert personToMarkAssignment != null;
-        EditPersonDescriptor descriptor = new EditPersonDescriptor();
-        Map<String, Mark> updatedMarks = new HashMap<>(personToMarkAssignment.getMarks());
-        updatedMarks.put(assignmentUid, assignmentMark);
-        descriptor.setMarks(updatedMarks);
-
-        return descriptor.createEditedPerson(personToMarkAssignment);
     }
 
     @Override

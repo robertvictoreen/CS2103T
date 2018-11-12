@@ -7,10 +7,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTE_TEXT_WITH_
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.updatePersonInModelWithNote;
 import static seedu.address.logic.commands.EditNoteCommand.MESSAGE_SUCCESS;
+import static seedu.address.testutil.TypicalAddressbook.getTypicalAddressBookCopy;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_LARGE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBookCopy;
 
 import org.junit.Before;
 import org.junit.Rule;

@@ -42,7 +42,7 @@ public class XmlAdaptedMark {
     /**
      * Converts this jaxb-friendly adapted mark object into the model's Mark object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted mark
      */
     public Mark toModelType() throws IllegalValueException {
         if (!Mark.isValid(value)) {
