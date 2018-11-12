@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.calculation.Quartiles;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
@@ -23,6 +24,11 @@ public class ClassStatsCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Display the statistics for the overall grades of students.";
+
+    public static final String MESSAGE_SUCCESS = "Class Statistics\nStudents: %d, Maximum Grade: %.1f\n"
+            + "Highest: %.1f, Lowest: %.1f\n"
+            + "25th: %.1f, 75th: %.1f\n"
+            + "Average: %.1f, Median: %.1f";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
@@ -43,6 +49,7 @@ public class ClassStatsCommand extends Command {
         double overallMark;
         DoubleSummaryStatistics summaryStatistics = new DoubleSummaryStatistics();
         Person person;
+        //Calculate overallMark for each person
         for (int i = 0; i < studentsCount; i++) {
             person = filteredPersonList.get(i);
             overallMark = person.getMarks().entrySet().stream()
@@ -59,43 +66,21 @@ public class ClassStatsCommand extends Command {
             marks[i] = overallMark;
         }
 
-        StringBuilder summary = new StringBuilder("Class Statistics\nStudents: ");
-        summary.append(studentsCount);
-
+        double[] quartiles = new double[3];
         if (studentsCount > 0) {
-            summary.append(", Maximum Grade: ").append(totalWeight);
 
             Arrays.sort(marks);
 
-            double[] quartiles = {0.25, 0.50, 0.75};
-
-            if (marks.length == 1) {
-                quartiles[0] = quartiles[1] = quartiles[2] = marks[0];
-            } else {
-                double percentile;
-                double position;
-                int index;
-
-                for (int i = 0; i < 3; i++) {
-                    position = quartiles[i] * marks.length;
-                    index = (int) position;
-                    percentile = marks[index];
-
-                    if (position - index == 0) {
-                        percentile = (percentile + marks[index - 1]) / 2;
-                    }
-
-                    quartiles[i] = percentile;
-                }
-            }
-            summary.append("\nHighest: ").append(String.format("%.1f", summaryStatistics.getMax()));
-            summary.append(", Lowest: ").append(String.format("%.1f", summaryStatistics.getMin()));
-            summary.append("\n25th: ").append(String.format("%.1f", quartiles[0]));
-            summary.append(", 75th: ").append(String.format("%.1f", quartiles[2]));
-            summary.append("\nAverage: ").append(String.format("%.1f", summaryStatistics.getAverage()));
-            summary.append(", Median: ").append(String.format("%.1f", quartiles[1]));
+            quartiles[0] = Quartiles.FIRST_QUARTILE;
+            quartiles[1] = Quartiles.SECOND_QUARTILE;
+            quartiles[2] = Quartiles.THIRD_QUARTILE;
+            Quartiles.calculateQuartiles(quartiles, marks);
+        } else {
+            summaryStatistics.accept(0);
         }
 
-        return new CommandResult(summary.toString());
+        return new CommandResult(String.format(MESSAGE_SUCCESS, studentsCount, totalWeight,
+            summaryStatistics.getMax(), summaryStatistics.getMin(),
+            quartiles[0], quartiles[2], summaryStatistics.getAverage(), quartiles[1]));
     }
 }

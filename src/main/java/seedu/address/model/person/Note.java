@@ -11,14 +11,14 @@ public class Note {
         + " and have only one whitespace between it and the index.";
     public static final String MESSAGE_NOTE_EMPTY = "Note is empty!";
 
+    // Text in an unedited or reset note
+    static final String DEFAULT_NOTE = "<No note added>";
+
     /**
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String NOTE_INVALIDATION_REGEX = "[\\p{Space}](.*)";
-
-    // Text in an unedited or reset note
-    public static final String DEFAULT_NOTE = "<No note added>";
+    private static final String NOTE_INVALIDATION_REGEX = "[\\p{Space}](.*)";
 
     // Edit this to change what a text checks for before deciding to add a full stop.
     private static final String END_OF_SENTENCE_REGEX = "[.!?]";
@@ -28,7 +28,7 @@ public class Note {
      */
     private static final String NOTE_PUNCTUATION_REGEX = "(.*)" + END_OF_SENTENCE_REGEX;
 
-    private String text;
+    private final String text;
 
     /**
      * Constructs a {@code Note} with default text.
@@ -43,7 +43,7 @@ public class Note {
      */
     public Note(String text) {
         requireNonNull(text);
-        if (text.equals(DEFAULT_NOTE)) {
+        if (isDefault(text)) {
             this.text = DEFAULT_NOTE;
         } else if (!isPunctuated(text)) {
             this.text = text + ".";
@@ -76,25 +76,29 @@ public class Note {
      */
     public Note add(String text) {
         assert(text != null);
-        String editedText = this.text;
-        // Empty text if default
+        String editedText;
         if (!this.hasChanged()) {
-            editedText = "";
+            editedText = reset();
         } else {
-            // If text is not default/empty, it should always be punctuated. Replace punctuation with comma.
             assert(isPunctuated(this.text));
-            editedText = this.text.split(END_OF_SENTENCE_REGEX)[0];
-            editedText += ",";
+            editedText = addTextWithComma();
         }
-        /*
-         * If added text does not end with one of the characters in {@code END_OF_SENTENCE_REGEX},
-         * add a full stop to end.
-         */
         if (!isPunctuated(text)) {
-            text += ".";
+            addFullStop(text);
         }
         editedText += text;
         return new Note(editedText);
+    }
+
+    /**
+     * Return an empty String. Abstract out details to make implementation clear.
+     */
+    private String reset() {
+        return "";
+    }
+
+    private void addFullStop(String text) {
+        text += ".";
     }
 
     /**
@@ -115,7 +119,7 @@ public class Note {
      * Returns true if text ends with a punctuation that is present in {@code NOTE_PUNCTUATION_REGEX}.
      * Guarantees: text is not null.
      */
-    public static boolean isPunctuated(String text) {
+    static boolean isPunctuated(String text) {
         assert(text != null);
         return text.matches(NOTE_PUNCTUATION_REGEX);
     }
@@ -129,5 +133,17 @@ public class Note {
             return false;
         }
         return !(text.matches(NOTE_INVALIDATION_REGEX));
+    }
+
+    private static boolean isDefault(String text) {
+        return text.equals(DEFAULT_NOTE);
+    }
+
+    /**
+     * Return a String with this object's text ending punctuation replaced with a comma.
+     */
+    private String addTextWithComma() {
+        String text = this.text.split(END_OF_SENTENCE_REGEX)[0];
+        return text + ",";
     }
 }

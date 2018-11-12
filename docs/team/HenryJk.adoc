@@ -10,7 +10,7 @@
 == Overview
 
 === Purpose
-* This project portfolio was written to document my role and contributions to the **EazyTutors** project. I was responsible for creating 'Assignment' related commands and back end.
+* This project portfolio was written to document my role and contributions to the **EazyTutors** project. I was responsible for creating `Assignment` related commands and the data structures supporting it.
 
 === The Team
 * My team comprises of students from the National University of Singapore and we decided on creating this application after observing the hassle tutors have to deal with when marking attendance.
@@ -37,9 +37,12 @@ This section serves to inform you of the improvements I made to the project, inc
 ** What it does: allows the user to add, delete or edit assignment information globally, and add assignment mark specific to each student.
 ** Justification: This feature will help tutors keep track on student's grade so tutors can put attention towards struggling students.
 ** Highlights: Added assignment can be sorted by deadline.
-** Credits:
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=HenryJk[Project Code
+                      Dashboard]]
+* *Other contributions*:
+** Documentation:
+*** Added implementation details of `Assignment` data structure to Developer Guide.
 
 == Contributions to the User Guide
 
@@ -64,7 +67,11 @@ include::../UserGuide.adoc[tag=assignment]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=classDiagram]
+
 include::../DeveloperGuide.adoc[tag=assignment]
+
+include::../DeveloperGuide.adoc[tag=editAssignmentCommand]
 
 === Proposed Enhancement for v2.0
 * Adding more UML diagrams as an aid to show readers exactly how the application is built

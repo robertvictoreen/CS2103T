@@ -2,20 +2,16 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.model.person.Note.MESSAGE_NOTE_CONSTRAINTS;
-import static seedu.address.model.person.Note.isValid;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.assignment.Mark;
+import seedu.address.model.common.Mark;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -35,7 +31,6 @@ public class Person {
     private final Set<Tag> tags = new HashSet<>();
     private final Map<String, Mark> marks = new HashMap<>();
     private final Map<String, Mark> attendance = new HashMap<>();
-    private final List<AssignmentStub> assignments = new ArrayList<>();
     private Note note = new Note();
 
     /**
@@ -153,13 +148,6 @@ public class Person {
     }
 
     /**
-     * Getter for stub assignments
-     */
-    public List<AssignmentStub> getAssignments() {
-        return assignments;
-    }
-
-    /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
@@ -198,21 +186,6 @@ public class Person {
     }
 
     /**
-     * Adds assignment to student if student doesn't already have it, returns boolean that indicates if addition
-     * was successful.
-     */
-    public boolean addAssignment(AssignmentStub toAdd) {
-        return this.assignments.add(toAdd);
-    }
-
-    /**
-     * Removes assignment from student if student has it, returns boolean that indicates if removal was successful.
-     */
-    public boolean removeAssignment(AssignmentStub toRemove) {
-        return this.assignments.remove(toRemove);
-    }
-
-    /**
      * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
      */
@@ -235,7 +208,6 @@ public class Person {
                 && otherPerson.getProfilePhoto().equals(getProfilePhoto())
                 && otherPerson.getMarks().equals(getMarks())
                 && otherPerson.getAttendance().equals(getAttendance())
-                && otherPerson.getAssignments().equals(getAssignments())
                 && otherPerson.getNote().equals(getNote());
     }
 
@@ -267,16 +239,5 @@ public class Person {
      */
     public boolean hasNote() {
         return note.hasChanged();
-    }
-
-    /**
-     * Adds text to this {@code Person}'s current note if text is valid.
-     * @throws IllegalArgumentException if text is invalid.
-     */
-    public void addNote(String text) {
-        if (!isValid(text)) {
-            throw new IllegalArgumentException(MESSAGE_NOTE_CONSTRAINTS);
-        }
-        note = note.add(text);
     }
 }

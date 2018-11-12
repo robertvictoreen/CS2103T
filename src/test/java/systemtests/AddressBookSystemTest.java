@@ -1,5 +1,6 @@
 package systemtests;
 
+import static guitests.guihandles.MoreDetailsPanelHandle.DEFAULT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -12,8 +13,6 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
-import javax.xml.bind.annotation.XmlType;
 
 import org.junit.After;
 import org.junit.Before;
@@ -36,7 +35,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalAddressbook;
 import seedu.address.ui.CommandBox;
 
 /**
@@ -79,7 +78,7 @@ public abstract class AddressBookSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected AddressBook getInitialData() {
-        return TypicalPersons.getTypicalAddressBook();
+        return TypicalAddressbook.getTypicalAddressBook();
     }
 
     /**
@@ -189,12 +188,12 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Asserts that the previously selected card is now deselected and the details panel remains displaying the details
+     * Asserts that the previously selected card is now deselected and the details panel stops displaying the details
      * of the previously selected person.
      * @see MoreDetailsPanelHandle#isDetailsChanged(PersonListPanelHandle)
      */
     protected void assertSelectedCardDeselected() {
-        assertFalse(getDetailsPanel().isDetailsChanged(getPersonListPanel()));
+        assertTrue(getDetailsPanel().getOwner(getPersonListPanel()).equals(DEFAULT));
         assertFalse(getPersonListPanel().isAnyCardSelected());
     }
 
