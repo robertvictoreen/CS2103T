@@ -156,6 +156,7 @@ Format: `addphoto INDEX f/FILENAME`
 * `FILENAME` must point to a valid image file.
 * This feature isn't compatible with MAC OS X at the moment.
 * Do not delete photos from storage (EzTutor File) at this point since doing so may trigger some undesirable behaviour in the program.
+* File size of photo should be less than 5MB.
 ****
 
 Examples:
