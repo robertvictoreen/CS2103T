@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.calculation.Quartiles;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
@@ -48,6 +49,7 @@ public class ClassStatsCommand extends Command {
         double overallMark;
         DoubleSummaryStatistics summaryStatistics = new DoubleSummaryStatistics();
         Person person;
+        //Calculate overallMark for each person
         for (int i = 0; i < studentsCount; i++) {
             person = filteredPersonList.get(i);
             overallMark = person.getMarks().entrySet().stream()
@@ -69,10 +71,10 @@ public class ClassStatsCommand extends Command {
 
             Arrays.sort(marks);
 
-            quartiles[0] = AssignmentStatsCommand.FIRST_QUARTILE;
-            quartiles[1] = AssignmentStatsCommand.SECOND_QUARTILE;
-            quartiles[2] = AssignmentStatsCommand.THIRD_QUARTILE;
-            AssignmentStatsCommand.calculateQuartiles(quartiles, marks);
+            quartiles[0] = Quartiles.FIRST_QUARTILE;
+            quartiles[1] = Quartiles.SECOND_QUARTILE;
+            quartiles[2] = Quartiles.THIRD_QUARTILE;
+            Quartiles.calculateQuartiles(quartiles, marks);
         } else {
             summaryStatistics.accept(0);
         }

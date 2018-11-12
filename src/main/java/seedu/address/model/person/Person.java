@@ -13,7 +13,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.assignment.Mark;
+import seedu.address.model.common.Mark;
 import seedu.address.model.tag.Tag;
 
 /**

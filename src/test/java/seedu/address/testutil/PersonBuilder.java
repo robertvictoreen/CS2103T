@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import seedu.address.model.assignment.Mark;
+import seedu.address.model.common.Mark;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -111,7 +111,13 @@ public class PersonBuilder {
         return this;
     }
 
-    // TODO: Create a withMarks() function to set the marks of the (@code Person) that we are building.
+    /**
+     * Sets the {@code Marks} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withMarks(Map<String, Mark> marks) {
+        this.marks = marks;
+        return this;
+    }
 
     public Person build() {
         return new Person(name, phone, email, address, photo, tags, marks, attendance, note);

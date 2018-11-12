@@ -24,7 +24,7 @@ image::zackkh95.png[width="150", align="left"]
 Role: Developer +
 Responsibilities: Logic
 
-=== Spencer Tan
+=== Spencer Tan Wen Hao
 image::spencertan96.png[width="150", align="left"]
 {empty}[https://github.com/spencertan96[github]] [<<spencertan96#, portfolio>>]
 

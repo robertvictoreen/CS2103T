@@ -13,8 +13,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.AssignmentName;
 import seedu.address.model.assignment.Deadline;
-import seedu.address.model.assignment.Mark;
 import seedu.address.model.assignment.Weight;
+import seedu.address.model.common.Mark;
 
 /**
  * Parses input arguments and creates a new AddAssignmentCommand object

@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static junit.framework.TestCase.assertEquals;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalAddressbook.getTypicalAddressBook;
 
 import org.junit.Before;
 import org.junit.Test;
