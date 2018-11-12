@@ -48,15 +48,15 @@ public class AddAssignmentCommandParserTest {
         assertParseSuccess(parser, ASSIGNMENTNAME_DESC_A + ASSIGNMENTNAME_DESC_B + WEIGHT_DESC_B + DEADLINE_DESC_B
                 + MAXMARK_DESC_B, new AddAssignmentCommand(expectedAssignment));
 
-        // multiple phones - last phone accepted
+        // multiple weight - last weight accepted
         assertParseSuccess(parser, ASSIGNMENTNAME_DESC_B + WEIGHT_DESC_A + WEIGHT_DESC_B + DEADLINE_DESC_B
                 + MAXMARK_DESC_B, new AddAssignmentCommand(expectedAssignment));
 
-        // multiple emails - last email accepted
+        // multiple deadline - last deadline accepted
         assertParseSuccess(parser, ASSIGNMENTNAME_DESC_B + WEIGHT_DESC_B + DEADLINE_DESC_A + DEADLINE_DESC_B
                 + MAXMARK_DESC_B, new AddAssignmentCommand(expectedAssignment));
 
-        // multiple addresses - last address accepted
+        // multiple maxmark - last maxmark accepted
         assertParseSuccess(parser, ASSIGNMENTNAME_DESC_B + WEIGHT_DESC_B + DEADLINE_DESC_B + MAXMARK_DESC_A
                 + MAXMARK_DESC_B, new AddAssignmentCommand(expectedAssignment));
     }
