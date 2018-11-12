@@ -48,6 +48,7 @@ public class ClassStatsCommand extends Command {
         double overallMark;
         DoubleSummaryStatistics summaryStatistics = new DoubleSummaryStatistics();
         Person person;
+        //Calculate overallMark for each person
         for (int i = 0; i < studentsCount; i++) {
             person = filteredPersonList.get(i);
             overallMark = person.getMarks().entrySet().stream()

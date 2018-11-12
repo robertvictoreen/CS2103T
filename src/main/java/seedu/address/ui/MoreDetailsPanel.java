@@ -131,21 +131,24 @@ public class MoreDetailsPanel extends UiPart<Region> {
         String style = "-fx-font-size: 11pt;\n" + "-fx-font-family: \"Segoe UI Semibold\";\n"
             + "-fx-text-fill: white;\n" + "-fx-opacity: 1;";
 
+        int row = 0;
+
+        //Column headers
         label = new Label("Assignments");
         label.setStyle(style);
-        components.add(label, 0, 0);
+        components.add(label, 0, row);
 
         label = new Label("Deadline");
         label.setStyle(style);
-        components.add(label, 1, 0);
+        components.add(label, 1, row);
 
         label = new Label("Weight");
         label.setStyle(style);
-        components.add(label, 2, 0);
+        components.add(label, 2, row);
 
         label = new Label("Grade");
         label.setStyle(style);
-        components.add(label, 3, 0);
+        components.add(label, 3, row);
 
         float assignmentWeight;
         float assignmentMark;
@@ -153,29 +156,30 @@ public class MoreDetailsPanel extends UiPart<Region> {
         float totalWeight = 0;
         float weightedMarks = 0;
 
-        int row = 1;
         Assignment assignment;
         for (int i = 0; i < assignmentList.size(); i++) {
             assignment = assignmentList.get(i);
-            // adding assignment label
             row = i + 1;
 
+            //Assignment index and name
             label = new Label(String.format("%d. %s", row, assignment.getName()));
             label.setStyle(style);
             components.add(label, 0, row);
 
+            //Assignment deadline
             label = new Label(String.valueOf(assignment.getDeadline()));
             label.setStyle(style);
             components.add(label, 1, row);
 
+            //Assignment weight
             assignmentWeight = assignment.getWeight().getValue();
             totalWeight += assignmentWeight;
             label = new Label(String.valueOf(assignment.getWeight()));
             label.setStyle(style);
             components.add(label, 2, row);
 
-            // adding marks label
-            try {
+            //Assignment mark / maxMark
+            if (student.getMarks().containsKey(assignment.getUniqueId())) {
                 assignmentMark = student.getMarks().get(assignment.getUniqueId()).getValue();
                 assignmentMaxMark = assignment.getMaxMark().getValue();
 
@@ -184,7 +188,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
 
                 assignmentMark /= assignmentMaxMark;
                 weightedMarks += assignmentMark * assignmentWeight;
-            } catch (Exception e) {
+            } else {
                 label = new Label("");
             }
             label.setStyle(style);
@@ -196,6 +200,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
         label.setStyle(style);
         components.add(label, 0, row);
 
+        //Total weightedMarks / totalWeight
         label = new Label(String.format("%.1f/%.1f",
             weightedMarks, totalWeight));
         label.setStyle(style);
