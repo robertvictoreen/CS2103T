@@ -11,14 +11,14 @@ public class Note {
         + " and have only one whitespace between it and the index.";
     public static final String MESSAGE_NOTE_EMPTY = "Note is empty!";
 
+    // Text in an unedited or reset note
+    static final String DEFAULT_NOTE = "<No note added>";
+
     /**
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String NOTE_INVALIDATION_REGEX = "[\\p{Space}](.*)";
-
-    // Text in an unedited or reset note
-    public static final String DEFAULT_NOTE = "<No note added>";
+    private static final String NOTE_INVALIDATION_REGEX = "[\\p{Space}](.*)";
 
     // Edit this to change what a text checks for before deciding to add a full stop.
     private static final String END_OF_SENTENCE_REGEX = "[.!?]";
@@ -28,7 +28,7 @@ public class Note {
      */
     private static final String NOTE_PUNCTUATION_REGEX = "(.*)" + END_OF_SENTENCE_REGEX;
 
-    private String text;
+    private final String text;
 
     /**
      * Constructs a {@code Note} with default text.
@@ -76,7 +76,7 @@ public class Note {
      */
     public Note add(String text) {
         assert(text != null);
-        String editedText = this.text;
+        String editedText;
         // Empty text if default
         if (!this.hasChanged()) {
             editedText = "";
@@ -115,7 +115,7 @@ public class Note {
      * Returns true if text ends with a punctuation that is present in {@code NOTE_PUNCTUATION_REGEX}.
      * Guarantees: text is not null.
      */
-    public static boolean isPunctuated(String text) {
+    static boolean isPunctuated(String text) {
         assert(text != null);
         return text.matches(NOTE_PUNCTUATION_REGEX);
     }

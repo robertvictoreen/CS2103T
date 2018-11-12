@@ -332,74 +332,94 @@ The primary sorting algorithm is contained in the 'UniquePersonList' class. It i
 
 The 'indicateAddressBookChanged' event is raised by 'Model' after the sorting is done to show that the Address Book has been modified.
 
+The sequence diagram below illustrates how the sort mechanism works:
+
+image::SortUMLSequenceDiagram.png[width="800"]
+
+    1. User executes the `sort` command which is then parsed through `AddressBookParser`.
+    2. A new `sort` command is created and it then executes the `sort` method in `ModelManager`.
+    3. `ModelManager` calls the internal sorting function in the `UniquePersonList` class and the person list is sorted.
+    4. Lastly, the `updateFilteredPersonList()` method in `ModelManager` is called and it then returns the result.
+
 ==== Design Considerations
 
 ===== Aspect: Implementation of `SortCommand`
-**Chosen Implementation:** Only sorts by names of persons in the Address Book. +
-**Pros:** Easy to implement and more intuitive for the user. +
-**Cons:** Functionality is limited and may not satisfy the requirements of the user. +
 
-**Alternative :** Sorts persons in the Address Book by any field (e.g. sorting by email or tag), which is given as an input by the user. +
-**Pros:** More flexibility for the user since he has the option to sort contacts using more fields. +
-**Cons:** Harder to implement and constant updating of code is required every time a new field in the `Person` class is introduced.
+* **Alternative 1 (current choice):** Only sorts by names of persons in the Address Book.
+** Pros: Easy to implement and more intuitive for the user.
+** Cons: Functionality is limited and may not satisfy the demands of the user.
+
+* **Alternative 2:** Sorts persons in the Address Book by any field (e.g. sorting by email or tag), which is given as an input by the user.
+** Pros: More flexibility for the user since he has the option to sort contacts using more fields.
+** Cons: Harder to implement and constant updating of code is required every time a new field in the `Person` class is introduced.
 // end::sort[]
 
 // tag::addphoto[]
 
 === Add Profile Photo feature
 
+==== Current Implementation
+The student's Profile Photo can be viewed at the right side of the student's profile card.
+
+The following sequence diagram shows how the `addphoto` command works.
+
+image::AddProfilePhotoUMLSequenceDiagram.png[width="800"]
+
+    1. The user inputs the `addphoto INDEX f/FILENAME` command, with parameters `INDEX` and `FILENAME`
+    2. The `AddressBookParser` class parses the command to create a new `AddProfilePhotoCommand` class.
+    3. The `AddProfilePhotoCommand` command is executed and handled by the `ModelManager` class.
+    4. A new `ProfilePhoto` object is created, containing the image referenced by `FILENAME`
+    5. The new `ProfilePhoto` is attached to the `Person` at `INDEX`
+    6. The new profile photo is displayed
+
 ==== Design Considerations
 
-**Aspect:** Storage of images of profile pictures +
+**Aspect:** Implementation of `AddProfilePhotoCommand`
 
-**Chosen Implementation:** +
-Store the images in a local folder. For Windows, it will be in the AppData folder, for Mac/Linux, in the home folder. +
-**Pros:** +
-After a profile picture is set, it will continue showing even if the image source is deleted +
-**Cons:** +
-Extra space to store the pictures, some images may be too large and use a lot of memory. +
+* **Alternative 1 (current choice):** Store the images in a local folder. For Windows, it will be in the AppData folder, for Mac/Linux, in the home folder.
+** Pros: After a profile photo is set, it will continue showing even if the image source is deleted.
+** Cons: It requires space to store the photos, some images may be too large and consume a lot of memory.
 
-**Alternative:** +
-Not store the images +
-**Pros:** +
-No space requirement to store the images locally +
-**Cons:** +
-Need to ensure that the image is not deleted, or it won't show. +
+* **Alternative 2:** Not store the image.
+** Pros: No space requirement to store the images locally.
+** Cons: Need to ensure that the images is not deleted, or it won't show.
 
-**Aspect:** Putting a limit on profile picture size +
+* **Alternative 1 (current choice):** Set a restriction of 5MB for each photo.
+** Pros: Prevents a user from crashing the app by putting an image that's too large in size.
+** Cons: Some photos may be larger than 5MB. They can use image compression services to compress it in order to fulfill the limit.
 
-**Chosen Implementation:** +
-Set a restriction of 5MB for each picture. +
-**Pros:** +
-Prevents a  user from crashing the app by putting an image that's too large in size. +
-**Cons:** +
-Some pictures may be larger than 5MB. They can use image compression services to compress it in order to fulfill the limit.
-
-**Alternative:** +
-Not put a specified restriction to the size of profile photo +
-**Pros:** +
-User can upload image of any size. +
-**Cons:** +
-Performance of the app might be unstable if it contains too many large images.
+* **Alternative 2:** Not put a specified restriction to the size of profile photo.
+** Pros: User can upload image of any size.
+** Cons: Performance of the app might be unstable if it contains too many large images.
 
 // end::addphoto[]
 
-// tag::deletephoto[]
+// tag::deleteProfilePhoto[]
 === Delete Profile Photo feature
 
 ==== Current Implementation
-We implemented a feature which allows a user to delete the profile photo and change back to default.
+This is a feature which allows a user to delete the profile photo and changes it back to default.
+
+The following sequence diagram shows how the `deleteProfilePhoto` command works
+
+image::DeleteProfilePhotoUMLSequenceDiagram.png[width="800"]
+
+    1. The user executes the `deleteProfilePhoto INDEX` command, with parameters `INDEX`
+    2. The `AddressBookParser` class parses the command to create a new `DeleteProfilePhotoCommand` class.
+    3. The `DeleteProfilePhotoCommand` command is executed and handled by the `ModelManager` class.
+    4. A new `ProfilePhoto` object is created, containing the default image.
+    5. The new `ProfilePhoto` is attached to the `Person` at `INDEX`.
+    6. The default profile photo will now show and the person's image would be deleted.
 
 ==== Design Considerations
 
-**Chosen Implementation:** +
-Create a new ProfilePhoto object. +
-**Pros:** +
-Easier if developer decides to change the path of the default photo, or the properties of the ProfilePhotoclass +
-**Cons:** +
-Creating a new object each time might be highly memory-consuming, but probably insignificant on a modern PC. +
+**Aspect:** Implementation of `DeleteProfilePhotoCommand`
 
-// end::deletephoto[]
+* **Alternative 1 (current choice):** Create a new ProfilePhoto object.
+** Pros: Easier if developer decides to change the path of the default photo, or the properties of the ProfilePhotoclass.
+** Cons: Creating a new object each time might be highly memory-consuming, but probably insignificant on a modern PC.
+
+// end::deleteProfilePhoto[]
 
 // tag::assignment[]
 === Assignment data structure
@@ -450,26 +470,41 @@ The Attendance session date is represented with the Deadline class from the Assi
 ==== Current Implementation
 The data `MoreDetailsPanel` binds itself to are `filteredPersons` and `filteredAssignments` in the `Model` class.
 
-* `filteredPersons` -- Current students stored in the database.
+* `filteredPersons` -- Current students (filtered by `find` command) stored in the database.
 * `filteredAssignments` -- The names of all the assignments that the students have in the database.
 
-`MoreDetailsPanel` will be notified by any changes in the data when a related event is raised, such as `PersonPanelSelectionChangedEvent`. It will then retrieve the new student's marks using `filteredPersons` and display them with reference to their names in `filteredAssignments`.
+`MoreDetailsPanel` will be notified by any changes in the data when a related event is raised, such as
+`PersonPanelSelectionChangedEvent`. It will then retrieve the new student's marks and note using `filteredPersons`
+ and display them with reference to their names in `filteredAssignments`.
 // end::studentDetails[]
 
 // tag::note[]
 === Note data structure
 
 ==== Current Implementation
-A `Note` stores a String `text` (content of the note) and methods to manipulate the text in a note.
+A `Note` stores a String `text` (content of the note). `text` is final and never changed once initialized. When a
+`note` or `editnote` command is executed, a new `Note` is created with the final `text`. The methods in the `Note` class
+return a new `Note` object with the new `text`.
 
 ==== Design considerations
 
 ===== Aspect: Note auto-punctuation
-* **Alternative 1(current choice):** `Note` texts are automatically ended with a full stop (`.`) if it is not added by the user, unless the user ends the text with `!` or `?`. When text is added to a `Note` that already has text, the current `text` is changed to end with a comma (`,`) instead, before the new text is appended to the end.
+* **Alternative 1(current choice):** `Note` texts are automatically ended with a full stop (`.`) if it is not added by
+the user, unless the user ends the text with `!` or `?`. When a `note` or `editnote` command is executed on a `Note`
+that already has text, the previous text's punctuation is changed to a comma (`,`) instead before being added to the
+final `text`.
+
+The workflow for this algorithm is shown below. *Text* refers to the text being added, *noteText* refers to the existing
+text in the `Note` and *newText* refers to the final text in the newly created `Note`.
+
+.Activity Diagram for Text Addition
+image::NoteTextAdditionActivityDiagram.png[width="800"]
+
 ** Pros: +
 *** `Note` text is standardized without the user having to bother about doing so in their input.
 ** Cons: +
-*** If the user wishes to end their notes with other punctuation such as `!` or `?`, the user has to add it into their input.
+*** If the user wishes to end their notes with other punctuation such as `!` or `?`, the user has to add it into their
+input.
 *** Other special characters used to end sentences will not be detected and a full stop will be added to them.
 *** Developers have to manually add special characters to be checked for.
 
@@ -481,10 +516,16 @@ A `Note` stores a String `text` (content of the note) and methods to manipulate 
 *** User has to take more care in adding `Note` text in their input.
 
 ===== Aspect: Edit note implementation
-* **Alternative 1 (current choice):** Use `note` command in implementation.
+* **Alternative 1 (current choice):** Delete the note before adding it using `note` command. As deleting the note is
+similar in both `delnote` and `editnote`, they implement the `NoteDeleter` interface with has a default method
+`copyWithoutNote` to reduce repeated code.
 
 .Structure of Note commands (only classes closely related to EditNoteCommand shown)
 image::EditNoteFeatureClassDiagram.png[width="800"]
+
+An example of how the `editnote` command would work is depicted in the sequence diagram below.
+
+// seq diag here
 
 ** Pros: +
 *** Easier to implement.
@@ -1060,7 +1101,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* NUS lecturers/tutors
+* Tutors or teachers
 
 *Value proposition*:
 
@@ -1129,6 +1170,7 @@ Use case ends.
 ** 3a2. User enters new data.
 ** 3a3. Goes to step 4 with new details.
 
+{nbsp}
 [discrete]
 === Use case: Assignment Submission
 
@@ -1152,6 +1194,7 @@ Use case ends.
 ** 3a2. User enters new data.
 ** 3a3. Goes to step 4 with new details.
 
+{nbsp}
 [discrete]
 === Use case: Assignment Grading
 
