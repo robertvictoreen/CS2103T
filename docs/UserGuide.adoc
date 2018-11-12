@@ -19,9 +19,10 @@ By: `Team W12-4`      Since: `Aug 2018`      Licence: `MIT`
 // tag::intro[]
 == Introduction
 
-EazyTutors is an application for tutors or teachers who prefer a virtual way to record students’ attendance. It
-also boasts extra features to check on students’ progress and helps users customise their teaching to students
-with different capabilities. EazyTutors is optimized for those who prefer to work with a Command Line Interface
+EazyTutors is an application for tutors or teachers who prefer a virtual way to manage a class of students. It allows
+users to mark students' attendance, as well as checking on students' individual progress. This helps users customise
+their teaching to students with different capabilities. It boasts extra features such as calculating the class
+statistics and assignment statistics. EazyTutors is optimized for those who prefer to work with a Command Line Interface
 (CLI) while still having the benefits of a Graphical User Interface (GUI). You won't need to bring around attendance
 sheets anymore with EazyTutors! Interested? Jump to Section 2, “Quick Start” to get started. Enjoy!
 // end::intro[]
@@ -64,13 +65,13 @@ Format: `help`
 
 === Adding a student: `add`
 
-Adds a student at INDEX with a compulsory name. The other information (index at list to add him to,
-phone number, email and tags) is optional. +
+Adds a student at the specified index in the list with a compulsory name. The rest of the details (index at list to add
+him to, phone number, email and tags) are optional. +
 Format: `add n/NAME [p/PHONE_NUMBER e/EMAIL a/ADDRESS s/INDEX t/TAG...]`
 
 [TIP]
-Students are added to the bottom of the student list by default.
-A student can have multiple tags (or none).
+Students are added to the bottom of the student list by default. +
+A student can have multiple tags (or none). +
 Whitespace between different parameters do not affect the result, such as between `s/1` and `n/John Doe`.
 
 Examples:
@@ -103,7 +104,7 @@ Returns any person having names `Betsy`, `Tim`, or `John`
 
 === Clearing all entries : `clear`
 
-Clears all entries from the student list. +
+Clears all data from application. +
 Format: `clear`
 
 === Deleting a student : `delete`
@@ -193,7 +194,7 @@ Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the student list's content (`add`, `delete`, `edit`, `addAssignment`, `deleteAssignment`, `markAssignment`, `attend`, `note`, `delnote`, `editnote` and `clear`).
+Undoable commands: those commands that modify the student list's content (`add`, `delete`, `edit`, `sort`, `addAssignment`, `deleteAssignment`, `editAssignment`, `markAssignment`, `attend`, `note`, `delnote`, `editnote`, `addphoto`, `deleteProfilePhoto` and `clear`).
 ====
 
 Examples:
@@ -245,7 +246,7 @@ Format: `exit`
 Records the attendance of a student as present for a specified class. +
 Format: `attend INDEX at/CLASSNAME`
 
-=== Mark a student's attendance as absent: `unattend` {Coming in v1.4}
+=== Mark a student's attendance as absent: `unattend` {Coming in v2.0}
 
 Records the attendance of a student as absent for a specified class. +
 Format: `unattend INDEX at/CLASSNAME`
@@ -285,18 +286,26 @@ Format: `sortAssignment`
 === Record a mark for a student: `markAssignment`
 
 Adds a mark for an assignment associated with a student given the mark obtained. Can mark more than maxMark in case of bonus score. +
-Format: `markAssignment INDEX id/ASSIGNMENT_INDEX m/MARK`
+Format: `markAssignment STUDENT_INDEX id/ASSIGNMENT_INDEX m/MARK`
 // end::assignment[]
 
-=== Display the statistics for an assignment: `assignmentStats`
+// tag::stats[]
+=== Display the statistics for the marks of an assignment: `assignmentStats`
 
-Display the statistics for the specified assignment. +
-Format: `assignmentStats INDEX`
+Displays the number of submissions and the maximum, highest, lowest, 25th/75th percentiles, average, and median mark for the specified assignment. +
+Format: `assignmentStats ASSIGNMENT_INDEX`
 
-=== Display the statistics for an assignment: `classStats`
+.Assignment Statistics
+image::assignment_stats.png[width="800"]
 
-Display the statistics for the overall grades of students. +
+=== Display the statistics for the total grades of the students in the class: `classStats`
+
+Displays the number of students and the maximum, highest, lowest, 25th/75th percentiles, average, and median total grade. +
 Format: `classStats`
+
+.Class Statistics
+image::class_stats.png[width="800"]
+// end::stats[]
 
 === Editing a student: `edit`
 
@@ -326,11 +335,11 @@ Format: `history`
 // tag::note[]
 === Add a note about a student : `note`
 
-Attaches a note with `TEXT` to a student in the student list specified by his/her `INDEX`. +
+Attaches a note with specified text to a student in the student list specified by his/her index. +
 Format: `note INDEX TEXT`
 
 ****
-* Any added note is automatically ended with a full stop even if the input text does not have one.
+* Any added note is automatically ended with a full stop unless the input `TEXT` ends with either `.`, `!` or `?`.
 * If a note is added to a student who already has a previous note, the previous note is changed to end with a comma before the new text is appended to the back.
 ****
 
@@ -340,13 +349,18 @@ Format: `note INDEX TEXT`
 Examples:
 
 * `note 1 hardworking student` +
-(Adds the text `hardworking student.` to the student at index 1) +
-`note 1 motivated too` +
-(Note for student at index 1 is now `hardworking student, motivated too.`)
+Student at 1st index's note:
++
+image::userGuide_noteExample.png[width="200"]
++
+`note 1 motivated too!` +
+Student at 1st index's note:
++
+image::userGuide_noteExample2.png[width="200"]
 
 === Delete a student's note : `delnote`
 
-Deletes the corresponding note of the student at the specified `INDEX`. +
+Deletes the corresponding note of the student at the specified index. +
 Format: `delnote INDEX`
 
 * There can be any number of spaces between `delnote` and `INDEX`. +
@@ -361,7 +375,7 @@ Examples:
 
 === Edits the note of a student : `editnote`
 
-Edits the corresponding note of the student at the specified `INDEX` to `TEXT`. Refer to <<Add a note about a student : `note`>> for details on `TEXT`. +
+Sets the corresponding note of the student at the specified index to text. Refer to <<Add a note about a student : `note`>> for details on text. +
 Format: `editnote INDEX TEXT`
 
 [NOTE]
@@ -369,14 +383,20 @@ An empty note cannot be edited!
 
 Examples:
 
-* `note 1 check finals mark addition`
-(Note is now: `check finals mark addition.` +
-`note 1 check midterms also`
-(Note is now: `check finals mark addition, check midterms also.`) +
-`editnote marks checked` +
-(Note is now: `marks checked.`) +
-`delnote 1`
-(Note deleted and reset to default `<No note added>`)
+* `note 2 check finals mark addition?` +
+Student at 2nd index's note:
++
+image::userGuide_editnoteExample.png[width="200"]
++
+`editnote 2 marks checked.` +
+Student at 2nd index's note:
++
+image::userGuide_editnoteExample3.png[width="200"]
++
+`delnote 2` +
+Student at 2nd index's note:
++
+image::userGuide_editnoteExample4.png[width="200"]
 // end::note[]
 
 [NOTE]
@@ -386,11 +406,11 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 == Command Summary
 
-* *Add* : `add n/NAME [s/INDEX p/PHONE_NUMBER e/EMAIL t/TAG]...` +
+* *Add* : `add n/NAME [p/PHONE_NUMBER e/EMAIL s/INDEX t/TAG...]` +
 e.g. `add n/James Ho s/1 p/22224444 e/jamesho@example.com t/friend t/colleague`
 * *AddAssignment* : `addAssignment n/NAME w/WEIGHT d/DEADLINE m/MAX_MARK` +
 e.g. `addAssignment n/Assignment 1 w/15 d/14/10/2019 m/100`
-* *AssignmentStats* : `assignmentStats INDEX` +
+* *AssignmentStats* : `assignmentStats ASSIGNMENT_INDEX` +
 e.g. `assignmentStats 1`
 * *Attend* : `attend INDEX at/CLASSNAME` +
 e.g. `attend 1 at/Tutorial 1`
@@ -423,6 +443,6 @@ e.g. `note 4 Good student`
 e.g. `select 2`
 * *Sort* : `sort`
 * *SortAssignment* : `sortAssignment`
-* *Unattend* : `unattend INDEX at/CLASSNAME` {Coming in v1.4}
+* *Unattend* : `unattend INDEX at/CLASSNAME` {Coming in v2.0}
 * *Undo* : `undo`
 

@@ -3,7 +3,7 @@ package seedu.address.storage;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.assignment.Mark;
+import seedu.address.model.common.Mark;
 
 /**
  * JAXB-friendly adapted version of the Mark.
@@ -42,7 +42,7 @@ public class XmlAdaptedMark {
     /**
      * Converts this jaxb-friendly adapted mark object into the model's Mark object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted mark
      */
     public Mark toModelType() throws IllegalValueException {
         if (!Mark.isValid(value)) {

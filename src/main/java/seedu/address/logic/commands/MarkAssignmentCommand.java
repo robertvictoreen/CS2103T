@@ -8,7 +8,6 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -16,14 +15,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
-import seedu.address.model.assignment.Mark;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
+import seedu.address.model.common.EditPersonDescriptor;
+import seedu.address.model.common.Mark;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.ProfilePhoto;
-import seedu.address.model.tag.Tag;
 
 /**
  * Mark a person grade for an assignment in the address book.
@@ -75,7 +69,12 @@ public class MarkAssignmentCommand extends Command {
         }
         String assignmentUid = lastShownAssignmentList.get(assignmentIndex.getZeroBased()).getUniqueId();
 
-        Person markedPerson = createMarkedPerson(personToMarkAssignment, assignmentUid, assignmentMark);
+        EditPersonDescriptor descriptor = new EditPersonDescriptor();
+        Map<String, Mark> updatedMarks = new HashMap<>(personToMarkAssignment.getMarks());
+        updatedMarks.put(assignmentUid, assignmentMark);
+        descriptor.setMarks(updatedMarks);
+
+        Person markedPerson = descriptor.createEditedPerson(personToMarkAssignment);
 
         if (!personToMarkAssignment.isSamePerson(markedPerson) && model.hasPerson(markedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
@@ -85,26 +84,6 @@ public class MarkAssignmentCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_MARK_PERSON_SUCCESS, markedPerson));
-    }
-
-    /**
-     * Creates and returns a {@code Person} with added mark for {@code assignmentUid}, {@code assignmentMark}
-     */
-    private static Person createMarkedPerson(Person personToMarkAssignment, String assignmentUid, Mark assignmentMark) {
-        assert personToMarkAssignment != null;
-
-        Name updatedName = personToMarkAssignment.getName();
-        Phone updatedPhone = personToMarkAssignment.getPhone();
-        Email updatedEmail = personToMarkAssignment.getEmail();
-        Address updatedAddress = personToMarkAssignment.getAddress();
-        ProfilePhoto updatedPhoto = personToMarkAssignment.getProfilePhoto();
-        Set<Tag> updatedTags = personToMarkAssignment.getTags();
-        Map<String, Mark> updatedMarks = new HashMap<>(personToMarkAssignment.getMarks());
-        updatedMarks.put(assignmentUid, assignmentMark);
-
-        return new Person(
-                updatedName, updatedPhone, updatedEmail, updatedAddress, updatedPhoto, updatedTags, updatedMarks
-        );
     }
 
     @Override
