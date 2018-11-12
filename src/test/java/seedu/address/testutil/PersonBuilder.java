@@ -111,7 +111,13 @@ public class PersonBuilder {
         return this;
     }
 
-    // TODO: Create a withMarks() function to set the marks of the (@code Person) that we are building.
+    /**
+     * Sets the {@code Marks} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withMarks(Map<String, Mark> marks) {
+        this.marks = marks;
+        return this;
+    }
 
     public Person build() {
         return new Person(name, phone, email, address, photo, tags, marks, attendance, note);
