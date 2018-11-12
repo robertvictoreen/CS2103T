@@ -1196,3 +1196,9 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+=== Add Profile Photo
+
+.  Prerequisites: The Profile Photo should not exceed 5MB.
+
+.. Advantage: Restricts user from uploading large image files as this may affect performance of the application.
