@@ -1217,14 +1217,44 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Prerequisites: There must be a student at the index specified. The index must be a positive integer.
 .. Test case: `note 1 test` +
-   Expected: If the first student had no note, his note as displayed at the bottom right is now `test.`, else, `test.` is added to back of his existing
-   note, with the full-stop of existing note changed to a comma. Details of student whom the note was added to shown in
-   the status message. Timestamp in the status bar is updated.
+   Expected: If the first student had no note, his note as displayed at the bottom right is now `test.`, else, `test.`
+   is added to back of his existing note, with the full-stop of existing note changed to a comma. Details of student
+   to whom the note was added is shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `note 2 great!` +
    Expected: Similar to previous, except the note ends with an exclamation mark instead.
 .. Test case: `note 1  test2` +
    Expected: No note is added. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect note commands to try: `note 1test`, `note  1 test` (where the format is incorrect)
+   Expected: Similar to previous.
+
+=== Deleting a note
+
+. Deleting a note of a student
+
+.. Prerequisites: Student at specified index must have an existing note.
+.. Test case: `delnote 1` +
+   Expected: Note of first student is deleted. Details of the student whose note was deleted shown in the status
+   message. Timestamp in the status bar is updated.
+.. Test case: `delnote 0` +
+   Expected: No note is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delnote`, `delnote x` (where x is larger than the list size), `delnote -1`
+   (where index should not be negative) +
+   Expected: Similar to previous.
+
+=== Editing a note
+
+. Editing a student's note
+
+.. Prerequisites: Student at specified index must have an existing note.
+.. Test case: `editnote 1 test?` +
+   Expected: New note `test?` displayed on bottom right of window. Details of student whose note was edited shown in the
+   status message. Timestamp in the status bar is updated.
+.. Test case: `editnote 2 might need more help on recursion.` +
+   Expected: Similar to previous, except the note ends with a full-stop instead.
+.. Test case: `editnote 1  test2` +
+   Expected: No change to the note. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect note commands to try: `editnote 2inquisitive`, `note  1 consult at 2pm` (where the format is
+   incorrect) +
    Expected: Similar to previous.
 
 === Saving data
