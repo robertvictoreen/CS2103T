@@ -240,15 +240,15 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Exits the program. +
 Format: `exit`
 
-=== Mark a student's attendance as present: `attend`
+=== Add a lesson: `addLesson`
 
-Records the attendance of a student as present for a specified class. +
-Format: `attend INDEX at/CLASSNAME`
+Adds a session to the address book.  +
+Format: `addLesson n/NAME d/DATE at/SET AS 0 (DEFAULT)`
 
-=== Mark a student's attendance as absent: `unattend` {Coming in v1.4}
+=== Mark a student's attendance: `attend`
 
-Records the attendance of a student as absent for a specified class. +
-Format: `unattend INDEX at/CLASSNAME`
+Creates an attendance entry for the person identified by the index number used in the displayed person list. +
+Format: `attend INDEX id/SESSION_INDEX at/ATTENDANCE`
 
 // tag::sort[]
 === Sort the student list: `sort`
@@ -409,10 +409,12 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 e.g. `add n/James Ho s/1 p/22224444 e/jamesho@example.com t/friend t/colleague`
 * *AddAssignment* : `addAssignment n/NAME w/WEIGHT d/DEADLINE m/MAX_MARK` +
 e.g. `addAssignment n/Assignment 1 w/15 d/14/10/2019 m/100`
+* *AddLesson* : `addLesson n/NAME d/DATE at/SET AS 0 (DEFAULT)` +
+e.g. `addLesson n/Tutorial 1 d/11/11/2018 at/0`
 * *AssignmentStats* : `assignmentStats ASSIGNMENT_INDEX` +
 e.g. `assignmentStats 1`
-* *Attend* : `attend INDEX at/CLASSNAME` +
-e.g. `attend 1 at/Tutorial 1`
+* *Attend* : `attend INDEX id/SESSION_INDEX at/ATTENDANCE` +
+e.g. `attend 1 id/Tutorial1 at/1`
 * *ClassStats* : `classStats`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
