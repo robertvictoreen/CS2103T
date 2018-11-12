@@ -245,7 +245,7 @@ Format: `exit`
 Records the attendance of a student as present for a specified class. +
 Format: `attend INDEX at/CLASSNAME`
 
-=== Mark a student's attendance as absent: `unattend` {Coming in v1.4}
+=== Mark a student's attendance as absent: `unattend` {Coming in v2.0}
 
 Records the attendance of a student as absent for a specified class. +
 Format: `unattend INDEX at/CLASSNAME`
@@ -442,6 +442,6 @@ e.g. `note 4 Good student`
 e.g. `select 2`
 * *Sort* : `sort`
 * *SortAssignment* : `sortAssignment`
-* *Unattend* : `unattend INDEX at/CLASSNAME` {Coming in v1.4}
+* *Unattend* : `unattend INDEX at/CLASSNAME` {Coming in v2.0}
 * *Undo* : `undo`
 
