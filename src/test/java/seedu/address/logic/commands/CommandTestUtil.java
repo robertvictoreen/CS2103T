@@ -3,11 +3,15 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILEPATH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WEIGHT;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -96,12 +100,33 @@ public class CommandTestUtil {
 
     public static final String VALID_ASSIGNMENTNAME_A = "Assignment A";
     public static final String VALID_ASSIGNMENTNAME_B = "Assignment B";
-    public static final String VALID_DEADLINE_A = "01/01/2019";
-    public static final String VALID_DEADLINE_B = "02/02/2019";
-    public static final String VALID_WEIGHT_A = "10";
-    public static final String VALID_WEIGHT_B = "20";
-    public static final String VALID_MAXMARK_A = "10";
-    public static final String VALID_MAXMARK_B = "20";
+    public static final String VALID_DEADLINE_A = "04/04/2019";
+    public static final String VALID_DEADLINE_B = "05/05/2019";
+    public static final String VALID_WEIGHT_A = "40";
+    public static final String VALID_WEIGHT_B = "50";
+    public static final String VALID_MAXMARK_A = "40";
+    public static final String VALID_MAXMARK_B = "50";
+    public static final String VALID_ASSIGNMENTID = "12";
+    public static final String VALID_MARK = "15";
+
+    public static final String ASSIGNMENTNAME_DESC_A = " " + PREFIX_NAME + VALID_ASSIGNMENTNAME_A;
+    public static final String ASSIGNMENTNAME_DESC_B = " " + PREFIX_NAME + VALID_ASSIGNMENTNAME_B;
+    public static final String DEADLINE_DESC_A = " " + PREFIX_DATE + VALID_DEADLINE_A;
+    public static final String DEADLINE_DESC_B = " " + PREFIX_DATE + VALID_DEADLINE_B;
+    public static final String WEIGHT_DESC_A = " " + PREFIX_WEIGHT + VALID_WEIGHT_A;
+    public static final String WEIGHT_DESC_B = " " + PREFIX_WEIGHT + VALID_WEIGHT_B;
+    public static final String MAXMARK_DESC_A = " " + PREFIX_MARK + VALID_MAXMARK_A;
+    public static final String MAXMARK_DESC_B = " " + PREFIX_MARK + VALID_MAXMARK_B;
+    public static final String VALID_ASSIGNMENTID_DESC = " " + PREFIX_ID + VALID_ASSIGNMENTID;
+    public static final String VALID_MARK_DESC = " " + PREFIX_MARK + VALID_MARK;
+
+    public static final String INVALID_ASSIGNMENTNAME_DESC = " " + PREFIX_NAME + "  ";
+    public static final String INVALID_DEADLINE_DESC = " " + PREFIX_DATE + "29/02/2003";
+    public static final String INVALID_WEIGHT_DESC = " " + PREFIX_WEIGHT + "10Ol";
+    public static final String INVALID_MAXMARK_DESC = " " + PREFIX_MARK + "C20AB";
+    public static final String INVALID_ASSIGNMENTID_DESC = " " + PREFIX_ID + "1a1";
+    public static final String INVALID_MARK_DESC = " " + PREFIX_MARK + "332.4a";
+
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
