@@ -1352,7 +1352,7 @@ These instructions only provide a starting point for testers to work on; testers
 // end::spencerTestInstructions[]
 
 // tag::robertInstructions[]
-=== Assignment Statistics
+=== Testing Assignment Statistics
 
 . Statistics of assignment with no marks entered
 
@@ -1378,7 +1378,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `assignmentStats 1` +
    Expected: Statistics data is accurate according to the marks.
 
-=== Class Statistics
+=== Testing Class Statistics
 
 . Statistics of class with no students and no assignments
 
@@ -1404,11 +1404,3 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `classStats` +
    Expected: Statistics data is accurate according to the total marks of the students.
 // end::robertInstructions[]
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
