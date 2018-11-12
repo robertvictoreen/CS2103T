@@ -62,7 +62,7 @@ The missing attributes are replaced with default values to create a valid new Pe
 *** Updated the storage model to integrate new features (Pull request https://github.com/CS2103-AY1819S1-W12-4/main/pull/104[#104])
 *** Modified tests for existing features to ensure accuracy with changes in functionality (Pull request https://github.com/CS2103-AY1819S1-W12-4/main/pull/104[#104])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W12-4/main/pull/52[#52], https://github.com/CS2103-AY1819S1-W12-4/main/pull/55[#55]
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W12-4/main/pull/52[#52], https://github.com/CS2103-AY1819S1-W12-4/main/pull/55[#55], https://github.com/CS2103-AY1819S1-W12-4/main/pull/162[#162]
 *** Contributed to bug fixes (Pull request https://github.com/CS2103-AY1819S1-W12-4/main/pull/104[#104])
 *** Reported bugs and suggestions for other teams (examples:  https://github.com/CS2103-AY1819S1-T16-3/main/issues/140[1], https://github.com/CS2103-AY1819S1-T16-3/main/issues/144[2], https://github.com/CS2103-AY1819S1-T16-3/main/issues/149[3], https://github.com/CS2103-AY1819S1-T16-3/main/issues/146[4])
 
