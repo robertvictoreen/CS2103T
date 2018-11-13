@@ -126,11 +126,11 @@ public class MoreDetailsPanel extends UiPart<Region> {
         notesText.setText(student.getNote().toString());
     }
 
+    //@@author robertvictoreen
     /**
      * Show the specified student's assignments and marks.
      */
     private void showAssignments(Person student) {
-        //@@author robertvictoreen
         Label label;
         double assignmentWeight;
         double totalWeight = 0;
@@ -158,21 +158,18 @@ public class MoreDetailsPanel extends UiPart<Region> {
 
         row++;
         showTotalGrade(weightedMarks, totalWeight, row);
-        //@@author
     }
 
     /**
      * Shows the obtained marks and maximum marks in the given row of the GridPane.
      */
     private void showTotalGrade(double weightedMarks, double totalWeight, int row) {
-        //@@author robertvictoreen
         Label label = createLabel("Total", DEFAULT_STYLE);
         components.add(label, 0, row);
 
         String text = String.format("%.1f/%.1f", weightedMarks, totalWeight);
         label = createLabel(text, DEFAULT_STYLE);
         components.add(label, 3, row);
-        //@@author
     }
 
     /**
@@ -187,7 +184,6 @@ public class MoreDetailsPanel extends UiPart<Region> {
      * Shows student's marks in the display at given row for the specified assignment.
      */
     private double showMarks(Person student, Assignment assignment, int row) {
-        //@@author robertvictoreen
         String text;
         double result = 0;
         double assignmentMark;
@@ -208,14 +204,12 @@ public class MoreDetailsPanel extends UiPart<Region> {
         Label label = createLabel(text, DEFAULT_STYLE);
         components.add(label, 3, row);
         return result;
-        //@@author
     }
 
     /**
      * Set the {@code GridPane}'s rows and columns to Assignment layout.
      */
     private void setRowsAndColumns() {
-        //@@author robertvictoreen
         Label label = createLabel("Assignments", DEFAULT_STYLE);
         components.add(label, 0, 0);
 
@@ -227,8 +221,8 @@ public class MoreDetailsPanel extends UiPart<Region> {
 
         label = createLabel("Grade", DEFAULT_STYLE);
         components.add(label, 3, 0);
-        //@@author
     }
+    //@@author spencertan96
 
     /**
      * Resets display to default where no student is selected.
