@@ -126,6 +126,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
         notesText.setText(student.getNote().toString());
     }
 
+    //@@author robertvictoreen
     /**
      * Show the specified student's assignments and marks.
      */
@@ -189,7 +190,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
         double assignmentMaxMark;
         double assignmentWeight = assignment.getWeight().getValue();
         // adding marks label
-        try {
+        if (student.getMarks().containsKey(assignment.getUniqueId())) {
             assignmentMark = student.getMarks().get(assignment.getUniqueId()).getValue();
             assignmentMaxMark = assignment.getMaxMark().getValue();
 
@@ -197,7 +198,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
 
             assignmentMark /= assignmentMaxMark;
             result += assignmentMark * assignmentWeight;
-        } catch (Exception e) {
+        } else {
             text = "";
         }
         Label label = createLabel(text, DEFAULT_STYLE);
@@ -221,6 +222,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
         label = createLabel("Grade", DEFAULT_STYLE);
         components.add(label, 3, 0);
     }
+    //@@author spencertan96
 
     /**
      * Resets display to default where no student is selected.
