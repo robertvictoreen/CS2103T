@@ -194,7 +194,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
         double assignmentMaxMark;
         double assignmentWeight = assignment.getWeight().getValue();
         // adding marks label
-        try {
+        if (student.getMarks().containsKey(assignment.getUniqueId())) {
             assignmentMark = student.getMarks().get(assignment.getUniqueId()).getValue();
             assignmentMaxMark = assignment.getMaxMark().getValue();
 
@@ -202,7 +202,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
 
             assignmentMark /= assignmentMaxMark;
             result += assignmentMark * assignmentWeight;
-        } catch (Exception e) {
+        } else {
             text = "";
         }
         Label label = createLabel(text, DEFAULT_STYLE);
