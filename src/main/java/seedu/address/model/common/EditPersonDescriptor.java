@@ -18,6 +18,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.attendance.AttendanceMark;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.EmptyAddress;
@@ -41,7 +42,7 @@ public class EditPersonDescriptor {
     private Address address;
     private Set<Tag> tags;
     private Map<String, Mark> marks;
-    private Map<String, Mark> attendance;
+    private Map<String, AttendanceMark> attendance;
     private Note note;
 
     public EditPersonDescriptor() {}
@@ -105,7 +106,7 @@ public class EditPersonDescriptor {
         ProfilePhoto updatedPicture = personToEdit.getProfilePhoto();
         Set<Tag> updatedTags = this.getTags().orElse(personToEdit.getTags());
         Map<String, Mark> updatedMarks = this.getMarks().orElse(personToEdit.getMarks());
-        Map<String, Mark> updatedAttendance = this.getAttendance().orElse(personToEdit.getAttendance());
+        Map<String, AttendanceMark> updatedAttendance = this.getAttendance().orElse(personToEdit.getAttendance());
         Note updatedNote = this.getNote().orElse(personToEdit.getNote());
 
         return new Person(
@@ -177,11 +178,11 @@ public class EditPersonDescriptor {
         return (marks != null) ? Optional.of(Collections.unmodifiableMap(marks)) : Optional.empty();
     }
 
-    public void setAttendance(Map<String, Mark> attendance) {
+    public void setAttendance(Map<String, AttendanceMark> attendance) {
         this.attendance = (attendance != null) ? new HashMap<>(attendance) : null;
     }
 
-    public Optional<Map<String, Mark>> getAttendance() {
+    public Optional<Map<String, AttendanceMark>> getAttendance() {
         return (attendance != null) ? Optional.of(Collections.unmodifiableMap(attendance)) : Optional.empty();
     }
 

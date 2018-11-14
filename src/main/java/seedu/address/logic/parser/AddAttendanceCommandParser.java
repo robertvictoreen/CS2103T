@@ -4,7 +4,6 @@ import seedu.address.logic.commands.AddAttendanceCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.attendance.Attendance;
 
-import seedu.address.model.attendance.AttendanceMark;
 import seedu.address.model.attendance.Session;
 import seedu.address.model.attendance.SessionDate;
 
@@ -23,18 +22,17 @@ public class AddAttendanceCommandParser implements Parser<AddAttendanceCommand> 
      */
     public AddAttendanceCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DATE, PREFIX_ATTENDANCE);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DATE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DATE, PREFIX_ATTENDANCE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAttendanceCommand.MESSAGE_USAGE));
         }
 
         Session name = ParserUtil.parseSession(argMultimap.getValue(PREFIX_NAME).get());
         SessionDate date = ParserUtil.parseSessionDate(argMultimap.getValue(PREFIX_DATE).get());
-        AttendanceMark presence = ParserUtil.parseAttendanceMark(argMultimap.getValue(PREFIX_ATTENDANCE).get());
 
-        Attendance attendance = new Attendance(name, date, presence);
+        Attendance attendance = new Attendance(name, date);
 
         return new AddAttendanceCommand(attendance);
     }

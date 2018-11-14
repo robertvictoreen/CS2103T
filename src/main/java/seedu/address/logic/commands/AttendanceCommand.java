@@ -5,10 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ATTENDANCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -17,6 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.attendance.Attendance;
 import seedu.address.model.attendance.AttendanceMark;
+import seedu.address.model.common.EditPersonDescriptor;
 import seedu.address.model.common.Mark;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
@@ -33,9 +31,8 @@ public class AttendanceCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_ID + "Tutorial1 " + PREFIX_ATTENDANCE + "1";
 
     public static final String MESSAGE_MARK_ATTENDANCE_SUCCESS = "Recorded attendance for person: %1$s";
-    public static final String MESSAGE_ATTENDANCE_ABSENT = "Recorded absent for person: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
-    public static final String MESSAGE_ATTENDANCE_NOT_MARKED = "Invalid attendance provided.";
+
 
     private final Index index;
     private final Index attendanceIndex;
@@ -71,9 +68,14 @@ public class AttendanceCommand extends Command {
         if (attendanceIndex.getZeroBased() >= lastShownAttendanceList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_SESSION_DISPLAYED_INDEX);
         }
-        String assignmentUid = lastShownAttendanceList.get(attendanceIndex.getZeroBased()).getUniqueId();
+        String attendanceUid = lastShownAttendanceList.get(attendanceIndex.getZeroBased()).getUniqueId();
 
-        Person markedPerson = createAttendedPerson(personToMarkAttendance, assignmentUid, attendanceMark);
+        EditPersonDescriptor descriptor = new EditPersonDescriptor();
+        Map<String, AttendanceMark> updatedAttendance = new HashMap<>(personToMarkAttendance.getAttendance());
+        updatedAttendance.put(attendanceUid, attendanceMark);
+        descriptor.setAttendance(updatedAttendance);
+
+        Person markedPerson = descriptor.createEditedPerson(personToMarkAttendance);
 
         if (!personToMarkAttendance.isSamePerson(markedPerson) && model.hasPerson(markedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
@@ -85,26 +87,6 @@ public class AttendanceCommand extends Command {
         return new CommandResult(String.format(MESSAGE_MARK_ATTENDANCE_SUCCESS, markedPerson));
     }
 
-    /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
-     */
-    private static Person createAttendedPerson(Person personToMarkAttendance, String attendanceUid,
-                                               AttendanceMark attendanceMark) {
-        assert personToMarkAttendance != null;
-
-        Name updatedName = personToMarkAttendance.getName();
-        Phone updatedPhone = personToMarkAttendance.getPhone();
-        Email updatedEmail = personToMarkAttendance.getEmail();
-        Address updatedAddress = personToMarkAttendance.getAddress();
-        ProfilePhoto updatedPhoto = personToMarkAttendance.getProfilePhoto();
-        Set<Tag> updatedTags = new HashSet<>();
-        Map<String, Mark> updatedAttendance = personToMarkAttendance.getMarks();
-        updatedAttendance.put(attendanceUid, attendanceMark);
-
-        return new Person(
-                updatedName, updatedPhone, updatedEmail, updatedAddress, updatedPhoto, updatedTags, updatedAttendance);
-    }
 
     @Override
     public boolean equals(Object other) {

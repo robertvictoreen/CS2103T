@@ -217,6 +217,8 @@ public class MoreDetailsPanel extends UiPart<Region> {
         label.setStyle(style);
         components.add(label, 2, row);
 
+        double attendanceMark;
+
         Attendance attendance;
         for (int i = 0; i < attendanceList.size(); i++) {
             attendance = attendanceList.get(i);
@@ -231,7 +233,21 @@ public class MoreDetailsPanel extends UiPart<Region> {
             label.setStyle(style);
             components.add(label, 1, row);
 
-            label = new Label(String.valueOf(attendance.getPresence()));
+            label = new Label(String.valueOf("-"));
+            label.setStyle(style);
+            components.add(label, 2, row);
+
+            // adding marks label
+            try {
+                attendanceMark = student.getAttendance().get(attendance.getUniqueId()).getValue();
+
+
+                label = new Label(String.format("%.0f",
+                        attendanceMark));
+
+            } catch (Exception e) {
+                label = new Label("");
+            }
             label.setStyle(style);
             components.add(label, 2, row);
 

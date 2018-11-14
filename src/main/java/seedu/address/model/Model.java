@@ -127,6 +127,12 @@ public interface Model {
     boolean hasAttendance(Attendance attendance);
 
     /**
+     * Deletes the given lesson.
+     * The lesson must exist in the address book.
+     */
+    void deleteAttendance(Attendance target);
+
+    /**
      * Adds the given lesson.
      * {@code lesson} must not already exist in the address book.
      */

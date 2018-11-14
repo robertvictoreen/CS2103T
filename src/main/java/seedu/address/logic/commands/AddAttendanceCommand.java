@@ -7,14 +7,9 @@ import seedu.address.model.Model;
 
 import static java.util.Objects.requireNonNull;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ATTENDANCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
-
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
 import seedu.address.model.attendance.Attendance;
 
 /**
@@ -27,12 +22,10 @@ public class AddAttendanceCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a session to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_DATE + "DATE "
-            + PREFIX_ATTENDANCE + "SET AS 0 (DEFAULT) \n"
+            + PREFIX_DATE + "DATE \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Tutorial 1 "
-            + PREFIX_DATE + "11/11/2018 "
-            + PREFIX_ATTENDANCE + "0";
+            + PREFIX_DATE + "11/11/2018 ";
 
     public static final String MESSAGE_SUCCESS = "New Lesson added: %1$s";
     public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This lesson already exists in the address book";

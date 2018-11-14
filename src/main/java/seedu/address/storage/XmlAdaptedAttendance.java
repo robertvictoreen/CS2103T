@@ -50,7 +50,6 @@ public class XmlAdaptedAttendance {
     public XmlAdaptedAttendance(Attendance source) {
         session = source.getSession().internalString;
         date = source.getDate().internalString;
-        presence = source.getPresence().internalString;
         uniqueId = source.getUniqueId();
     }
 
@@ -80,17 +79,8 @@ public class XmlAdaptedAttendance {
         }
         final SessionDate modelSessionDate = new SessionDate(date);
 
-        if (session == null) {
-            throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, AttendanceMark.class.getSimpleName())
-            );
-        }
-        if (!Session.isValid(session)) {
-            throw new IllegalValueException(Session.MESSAGE_CONSTRAINTS);
-        }
-        final AttendanceMark modelAttendanceMark = new AttendanceMark(presence);
 
-        return new Attendance(modelSession, modelSessionDate, modelAttendanceMark, uniqueId);
+        return new Attendance(modelSession, modelSessionDate, uniqueId);
     }
 
     @Override

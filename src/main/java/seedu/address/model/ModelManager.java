@@ -149,6 +149,12 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook.hasAttendance(attendance);
     }
 
+    @Override
+    public void deleteAttendance(Attendance target) {
+        versionedAddressBook.removeAttendance(target);
+        indicateAddressBookChanged();
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**

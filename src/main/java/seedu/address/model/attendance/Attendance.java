@@ -14,32 +14,28 @@ public class Attendance implements Comparable<Attendance> {
     // Identity fields
     private final Session name;
     private final SessionDate date;
-    private final AttendanceMark presence;
     private final String uniqueId;
 
     /**
      * Every field must be present and not null.
      */
-    public Attendance(Session name, SessionDate date, AttendanceMark presence, String uniqueId) {
+    public Attendance(Session name, SessionDate date, String uniqueId) {
         requireAllNonNull(name, uniqueId);
         this.name = name;
         this.date = date;
-        this.presence = presence;
         this.uniqueId = uniqueId;
 
     }
 
-    public Attendance(Session name, SessionDate date, AttendanceMark presence) {
-        this(name, date, presence,
-                createUniqueId(name.hashCode() + date.hashCode() + presence.hashCode())
+    public Attendance(Session name, SessionDate date) {
+        this(name, date,
+                createUniqueId(name.hashCode() + date.hashCode())
         );
     }
 
     public Session getSession() { return name; }
 
     public SessionDate getDate() { return date; }
-
-    public AttendanceMark getPresence() { return presence; }
 
     public String getUniqueId() {
         return uniqueId;
