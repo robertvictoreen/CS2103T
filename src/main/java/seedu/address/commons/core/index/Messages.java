@@ -14,5 +14,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_ASSIGNMENT_DISPLAYED_INDEX = "The assignment index provided is invalid";
     public static final String MESSAGE_INVALID_SESSION_DISPLAYED_INDEX = "The session index provided is invalid";
     public static final String MESSAGE_ASSIGNMENTS_LISTED_OVERVIEW = "%1$d assignments listed!";
+    public static final String MESSAGE_INVALID_LESSON_DISPLAYED_INDEX = "The session index provided is invalid";
 
 }

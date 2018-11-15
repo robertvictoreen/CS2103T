@@ -152,6 +152,19 @@ public class AddressBook implements ReadOnlyAddressBook {
         assignments.setAssignment(target, editedAssignment);
     }
 
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeAssignment(Assignment key) {
+        assignments.remove(key);
+    }
+
+    /** Sorts the assignments in this {@code AddressBook} by deadline */
+    public void sortAssignment() {
+        assignments.sort();
+    }
+
     // attendance-level operation
 
     /**
@@ -179,16 +192,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
-    public void removeAssignment(Assignment key) {
-        assignments.remove(key);
-    }
+    public void updateAttendance(Attendance target, Attendance editedLesson) {
+        requireNonNull(editedLesson);
 
-    /** Sorts the assignments in this {@code AddressBook} by deadline */
-    public void sortAssignment() {
-        assignments.sort();
+        attendance.setAttendance(target, editedLesson);
     }
 
     //// util methods

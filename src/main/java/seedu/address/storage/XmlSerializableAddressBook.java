@@ -50,9 +50,9 @@ public class XmlSerializableAddressBook {
             uidList.add(a.getUniqueId());
         }
         List<String> attendanceUidList = new ArrayList<>();
-        for (Attendance a: src.getAttendanceList()) {
-            attendance.add(new XmlAdaptedAttendance(a));
-            attendanceUidList.add(a.getUniqueId());
+        for (Attendance at: src.getAttendanceList()) {
+            attendance.add(new XmlAdaptedAttendance(at));
+            attendanceUidList.add(at.getUniqueId());
         }
         for (Person p: src.getPersonList()) {
             persons.add(new XmlAdaptedPerson(p, uidList, attendanceUidList));
@@ -80,6 +80,13 @@ public class XmlSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_ASSIGNMENT);
             }
             addressBook.addAssignment(assignment);
+        }
+        for (XmlAdaptedAttendance at : attendance) {
+            Attendance attendance = at.toModelType();
+            if (addressBook.hasAttendance(attendance)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_ASSIGNMENT);
+            }
+            addressBook.addAttendance(attendance);
         }
         return addressBook;
     }

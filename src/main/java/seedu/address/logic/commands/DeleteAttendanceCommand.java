@@ -10,6 +10,7 @@ import seedu.address.model.attendance.Attendance;
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 
 public class DeleteAttendanceCommand extends Command {
 
@@ -17,10 +18,11 @@ public class DeleteAttendanceCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the attendance identified by the index number used in the displayed attendance list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Parameters: "
+            + PREFIX_ID + "SESSION_INDEX\n"
+            + "Example: " + COMMAND_WORD + " id/1";
 
-    public static final String MESSAGE_DELETE_ASSIGNMENT_SUCCESS = "Deleted Assignment: %1$s";
+    public static final String MESSAGE_DELETE_ATTENDANCE_SUCCESS = "Deleted Session: %1$s";
 
     private final Index targetIndex;
 
@@ -40,7 +42,7 @@ public class DeleteAttendanceCommand extends Command {
         Attendance attendanceToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteAttendance(attendanceToDelete);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_DELETE_ASSIGNMENT_SUCCESS, attendanceToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_ATTENDANCE_SUCCESS, attendanceToDelete));
     }
 
     @Override

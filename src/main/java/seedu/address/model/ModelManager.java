@@ -155,6 +155,14 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void updateAttendance(Attendance target, Attendance editedLesson) {
+        requireAllNonNull(target, editedLesson);
+
+        versionedAddressBook.updateAttendance(target, editedLesson);
+        indicateAddressBookChanged();
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**

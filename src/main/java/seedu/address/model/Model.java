@@ -137,4 +137,12 @@ public interface Model {
      * {@code lesson} must not already exist in the address book.
      */
     void addAttendance(Attendance attendance);
+
+    /**
+     * Replaces the given lesson {@code target} with {@code editedLesson}.
+     * {@code target} must exist in the address book.
+     * The lesson identity of {@code editedAssignment} must not be the same as another existing lesson in the
+     * address book.
+     */
+    void updateAttendance(Attendance target, Attendance editedAttendance);
 }
