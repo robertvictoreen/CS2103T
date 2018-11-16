@@ -241,15 +241,70 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Exits the program. +
 Format: `exit`
 
-=== Mark a student's attendance as present: `attend`
+//tag::attendance[]
+=== Add a lesson: `addLesson`
 
-Records the attendance of a student as present for a specified class. +
-Format: `attend INDEX at/CLASSNAME`
+Adds a lesson to the list of lessons in the address book.  +
+Format: `addLesson n/NAME d/DATE`
 
-=== Mark a student's attendance as absent: `unattend` {Coming in v2.0}
+****
+* Adds a lesson to all students in the class (i.e the students is the address book),
+with the name of the lesson, NAME and when the session was held, DATE. 
+* `NAME` should be a String.
+* `DATE` should follow the format DD/MM/YYYY.
+* Cannot be undone/redone.
+****
 
-Records the attendance of a student as absent for a specified class. +
-Format: `unattend INDEX at/CLASSNAME`
+.Add Lesson
+image::addLesson.png[width="800"]
+
+=== Mark a student's attendance: `attend`
+
+Creates an attendance entry for the person identified by the index number used in the displayed person list. +
+Format: `attend INDEX id/SESSION_INDEX at/ATTENDANCE`
+
+****
+* Marks a student's attendance, ATTENDANCE as 1, for present, 0 for absent, given the index of the student in the address book, INDEX, index of the lesson, SESSION_INDEX
+* `INDEX` should be a positive integer.
+* `SESSION_INDEX` should be a positive integer.
+* `ATTENDANCE` should be either 1 or 0.
+* Cannot be undone/redone.
+****
+
+.Mark Attendance
+image::attend.png[width="800"]
+
+=== Delete a session: `deleteAttendance`
+
+Deletes a lesson from the list of lessons in the address book. +
+Format: `deleteAttendance id/SESSION_INDEX`
+
+****
+* Deletes a lesson from the list of lessons in the address book with the input index,
+SESSION_INDEX.
+* `SESSION_INDEX` should be a positive integer.
+* Cannot be undone/redone.
+****
+
+.Delete Lesson
+image::deleteAttendance.png[width="800"]
+
+=== Edit a session: `editLesson`
+
+Edits the name and date of an existing lesson. +
+Format: `editLesson id/SESSION_INDEX n/UPDATED_NAME d/UPDATED_DATE`
+
+****
+* Edits the name and/or date of an existing lesson in the list of lessons in the
+addressbook, replacing them with UPDATED_NAME and/or UPDATED_DATE respectively.
+* `UPDATED_NAME` should be a String.
+* `UPDATED_DATE` should follow the format DD/MM/YYYY.
+* Cannot be undone/redone.
+****
+
+.Edit Lesson
+image::editLesson.png[width="800"]
+// end::attendance[]
 
 // tag::sort[]
 === Sort the student list: `sort`
@@ -267,6 +322,7 @@ Format: `sort`
 
 Adds an assignment with given assignment name, weight, deadline, maximum mark. +
 Format: `addAssignment n/ASSIGNMENTNAME w/WEIGHT d/DEADLINE m/MAX_MARK`
+
 
 === Delete an assignment: `deleteAssignment`
 
@@ -410,22 +466,28 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 e.g. `add n/James Ho s/1 p/22224444 e/jamesho@example.com t/friend t/colleague`
 * *AddAssignment* : `addAssignment n/NAME w/WEIGHT d/DEADLINE m/MAX_MARK` +
 e.g. `addAssignment n/Assignment 1 w/15 d/14/10/2019 m/100`
+* *AddLesson* : `addLesson n/NAME d/DATE` +
+e.g. `addLesson n/Tutorial 1 d/11/11/2018`
 * *AssignmentStats* : `assignmentStats ASSIGNMENT_INDEX` +
 e.g. `assignmentStats 1`
-* *Attend* : `attend INDEX at/CLASSNAME` +
-e.g. `attend 1 at/Tutorial 1`
+* *Attend* : `attend INDEX id/SESSION_INDEX at/ATTENDANCE` +
+e.g. `attend 1 id/1 at/1`
 * *ClassStats* : `classStats`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
 * *DeleteAssignment* : `deleteAssignment INDEX` +
 e.g. `deleteAssignment 3`
+* *DeleteAttendance* : `deleteAttendance id/SESSION_INDEX` +
+e.g. `deleteAttendance id/1`
 * *Delnote* : `delnote INDEX` +
 e.g. `delnote 2`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *EditAssignment* : `editAssignment INDEX [n/NAME] [w/WEIGHT] [d/DEADLINE] [m/MAXMARK]` +
 e.g. `edit 2 n/Assignment3 w/40`
+* *EditLesson* : `editLesson id/SESSION_INDEX n/UPDATED_NAME d/UPDATED_DATE` +
+e.g. `editLesson id/1 n/Tutorial 2 d/12/12/2018`
 * *Editnote* : `editnote INDEX TEXT` +
 e.g. `editnote 1 Consult changed to 3pm`
 * *Exit* : `exit`
@@ -443,6 +505,9 @@ e.g. `note 4 Good student`
 e.g. `select 2`
 * *Sort* : `sort`
 * *SortAssignment* : `sortAssignment`
+<<<<<<< HEAD
+=======
 * *Unattend* : `unattend INDEX at/CLASSNAME` {Coming in v2.0}
+>>>>>>> caf11e4085ee854c8ebf7ffb10759b4d7fbf7e6a
 * *Undo* : `undo`
 

@@ -11,6 +11,8 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.attendance.Attendance;
+import seedu.address.model.attendance.AttendanceMark;
 import seedu.address.model.common.Mark;
 import seedu.address.model.tag.Tag;
 
@@ -30,7 +32,7 @@ public class Person {
     private ProfilePhoto photo;
     private final Set<Tag> tags = new HashSet<>();
     private final Map<String, Mark> marks = new HashMap<>();
-    private final Map<String, Mark> attendance = new HashMap<>();
+    private final Map<String, AttendanceMark> attendance = new HashMap<>();
     private Note note = new Note();
 
     /**
@@ -70,7 +72,7 @@ public class Person {
      * Has both note and pic, calls default constructor for setting defaults before overwriting.
      */
     public Person(Name name, Phone phone, Email email, Address address, ProfilePhoto photo, Set<Tag> tags,
-                  Map<String, Mark> marks, Map<String, Mark> attendance, Note note) {
+                  Map<String, Mark> marks, Map<String, AttendanceMark> attendance, Note note) {
         this(name, phone, email, address, tags, marks);
         requireAllNonNull(photo, attendance, note);
         this.attendance.putAll(attendance);
@@ -167,7 +169,7 @@ public class Person {
      * Returns an immutable attendance map, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Map<String, Mark> getAttendance() {
+    public Map<String, AttendanceMark> getAttendance() {
         return Collections.unmodifiableMap(attendance);
     }
 

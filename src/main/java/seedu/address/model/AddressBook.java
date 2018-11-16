@@ -165,6 +165,43 @@ public class AddressBook implements ReadOnlyAddressBook {
         assignments.sort();
     }
 
+    // attendance-level operation
+
+    /**
+     * Returns true if a session with the same
+     */
+    public boolean hasAttendance(Attendance a) {
+        requireNonNull(a);
+        return attendance.contains(a);
+    }
+
+    /**
+     * Adds a session to the address book.
+     * The assignment must not already exist in the address book.
+     */
+    public void addAttendance(Attendance a) {
+        attendance.add(a);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeAttendance(Attendance key) {
+        attendance.remove(key);
+    }
+
+    /**
+     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
+    public void updateAttendance(Attendance target, Attendance editedLesson) {
+        requireNonNull(editedLesson);
+
+        attendance.setAttendance(target, editedLesson);
+    }
+
     //// util methods
 
     @Override

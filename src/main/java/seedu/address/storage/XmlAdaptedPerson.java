@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.attendance.Attendance;
+import seedu.address.model.attendance.AttendanceMark;
 import seedu.address.model.common.Mark;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -52,7 +54,7 @@ public class XmlAdaptedPerson {
     @XmlElement
     private List<XmlAdaptedMark> marks = new ArrayList<>();
     @XmlElement
-    private List<XmlAdaptedMark> attendance = new ArrayList<>();
+    private List<XmlAdaptedAttendanceMark> attendance = new ArrayList<>();
 
     /**
      * Constructs an XmlAdaptedPerson.
@@ -81,7 +83,7 @@ public class XmlAdaptedPerson {
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address, String profilephoto,
                             List<XmlAdaptedTag> tagged, List<XmlAdaptedMark> marks,
-                            List<XmlAdaptedMark> attendance, String note) {
+                            List<XmlAdaptedAttendanceMark> attendance, String note) {
         this(name, phone, email, address, tagged);
         this.profilephoto = profilephoto;
         this.note = note;
@@ -115,9 +117,9 @@ public class XmlAdaptedPerson {
             }
         }
         for (String key: allowedAttendanceUid) {
-            Mark mark = source.getAttendance().get(key);
-            if (mark != null) {
-                attendance.add(new XmlAdaptedMark(key, mark.internalString));
+            AttendanceMark attendanceMark = source.getAttendance().get(key);
+            if (attendanceMark != null) {
+                attendance.add(new XmlAdaptedAttendanceMark(key, attendanceMark.internalString));
             }
         }
     }
@@ -140,8 +142,8 @@ public class XmlAdaptedPerson {
         for (Map.Entry<String, Mark> entry : source.getMarks().entrySet()) {
             marks.add(new XmlAdaptedMark(entry.getKey(), entry.getValue().internalString));
         }
-        for (Map.Entry<String, Mark> entry : source.getAttendance().entrySet()) {
-            attendance.add(new XmlAdaptedMark(entry.getKey(), entry.getValue().internalString));
+        for (Map.Entry<String, AttendanceMark> entry : source.getAttendance().entrySet()) {
+            attendance.add(new XmlAdaptedAttendanceMark(entry.getKey(), entry.getValue().internalString));
         }
     }
 
@@ -211,9 +213,9 @@ public class XmlAdaptedPerson {
             modelMarks.put(mark.getKey(), mark.toModelType());
         }
 
-        final Map<String, Mark> modelAttendance = new HashMap<>();
-        for (XmlAdaptedMark mark : attendance) {
-            modelAttendance.put(mark.getKey(), mark.toModelType());
+        final Map<String, AttendanceMark> modelAttendance = new HashMap<>();
+        for (XmlAdaptedAttendanceMark attendanceMark : attendance) {
+            modelAttendance.put(attendanceMark.getKey(), attendanceMark.toModelType());
         }
 
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelPhoto, modelTags,

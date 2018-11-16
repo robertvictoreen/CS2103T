@@ -18,18 +18,20 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.attendance.Attendance;
 import seedu.address.model.person.Person;
 
 /**
  * The More Details Panel of the App.
  */
+//@@author spencertan96
 public class MoreDetailsPanel extends UiPart<Region> {
 
     private static final String FXML = "MoreDetailsPanel.fxml";
     private static final String DEFAULT_LABEL = "<No student selected>";
     private static final String DEFAULT_TEXT = "<No note found>";
     private static final String DEFAULT_STYLE = "-fx-font-size: 11pt;\n" + "-fx-font-family: \"Segoe UI Semibold\";\n"
-        + "-fx-text-fill: white;\n" + "-fx-opacity: 1;";
+            + "-fx-text-fill: white;\n" + "-fx-opacity: 1;";
     private static final Font DEFAULT_FONT = new Font("System", (double) 25);
 
     // Value that indicates that no student has been selected yet.
@@ -40,6 +42,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
     // List of students
     private ObservableList<Person> studentList;
     private ObservableList<Assignment> assignmentList;
+    private ObservableList<Attendance> attendanceList;
 
     // Current student whose details are being shown
     private Person currentStudent = null;
@@ -52,11 +55,13 @@ public class MoreDetailsPanel extends UiPart<Region> {
     @FXML
     private GridPane components;
 
-    public MoreDetailsPanel(ObservableList<Person> listOfStudents, ObservableList<Assignment> listOfAssignments) {
+    public MoreDetailsPanel(ObservableList<Person> listOfStudents, ObservableList<Assignment> listOfAssignments,
+                            ObservableList<Attendance> listOfAttendance) {
         super(FXML);
         registerAsAnEventHandler(this);
         this.studentList = listOfStudents;
         this.assignmentList = listOfAssignments;
+        this.attendanceList = listOfAttendance;
 
         // default label
         showDefaultLabel();
@@ -117,8 +122,9 @@ public class MoreDetailsPanel extends UiPart<Region> {
         components.getChildren().clear();
 
         setRowsAndColumns();
-        showAssignments(student);
+        int row = showAssignments(student);
         showNote(student);
+        showAttendance(student, row);
     }
 
     private void showNote(Person student) {
@@ -130,7 +136,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
     /**
      * Show the specified student's assignments and marks.
      */
-    private void showAssignments(Person student) {
+    private int showAssignments(Person student) {
         Label label;
         double assignmentWeight;
         double totalWeight = 0;
@@ -158,6 +164,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
 
         row++;
         showTotalGrade(weightedMarks, totalWeight, row);
+        return row;
     }
 
     /**
@@ -207,8 +214,54 @@ public class MoreDetailsPanel extends UiPart<Region> {
     }
 
     /**
+     * Show the specified student's lessons and attendance.
+     */
+
+    //@@author zzsmao
+    private void showAttendance(Person student, int row) {
+        double attendanceMark;
+        Label label;
+
+        label = createLabel(" ", DEFAULT_STYLE);
+        components.add(label, 0, row);
+
+        label = createLabel("Lessons", DEFAULT_STYLE);
+        components.add(label, 0, row + 2);
+
+        label = createLabel("Date", DEFAULT_STYLE);
+        components.add(label, 1, row + 2);
+
+        label = createLabel("Attendance", DEFAULT_STYLE);
+        components.add(label, 2, row + 2);
+
+        Attendance attendance;
+        for (int i = 0; i < attendanceList.size(); i++) {
+            attendance = attendanceList.get(i);
+            row += 3;
+
+            // adding attendance labels (name and date)
+            String lessonName = String.format("%d. %s", i+1, attendance.getSession().getValue());
+            addLabelToGrid(lessonName, row, 0);
+            addLabelToGrid(String.valueOf(attendance.getDate()), row, 1);
+
+            // attendance
+            try {
+                attendanceMark = student.getAttendance().get(attendance.getUniqueId()).getValue();
+
+                addLabelToGrid(String.format("%.0f", attendanceMark), row, 2);
+
+            } catch (Exception e) {
+                addLabelToGrid(String.valueOf("-"), row, 2);
+            }
+
+
+        }
+    }
+
+    /**
      * Set the {@code GridPane}'s rows and columns to Assignment layout.
      */
+    //@@author spencertan96
     private void setRowsAndColumns() {
         Label label = createLabel("Assignments", DEFAULT_STYLE);
         components.add(label, 0, 0);
@@ -221,6 +274,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
 
         label = createLabel("Grade", DEFAULT_STYLE);
         components.add(label, 3, 0);
+
     }
     //@@author spencertan96
 

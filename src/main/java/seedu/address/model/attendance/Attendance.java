@@ -5,7 +5,6 @@ import static seedu.address.commons.util.UniqueIdUtil.createUniqueId;
 
 import java.util.Objects;
 
-import seedu.address.model.assignment.Deadline;
 /**
  * Represents an Attendance in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -13,25 +12,30 @@ import seedu.address.model.assignment.Deadline;
 public class Attendance implements Comparable<Attendance> {
 
     // Identity fields
-    private final Deadline session;
+    private final Session name;
+    private final SessionDate date;
     private final String uniqueId;
 
     /**
      * Every field must be present and not null.
      */
-    public Attendance(Deadline session, String uniqueId) {
-        requireAllNonNull(session, uniqueId);
-        this.session = session;
+    public Attendance(Session name, SessionDate date, String uniqueId) {
+        requireAllNonNull(name, uniqueId);
+        this.name = name;
+        this.date = date;
         this.uniqueId = uniqueId;
+
     }
 
-    public Attendance(Deadline session) {
-        this(session, createUniqueId(session.hashCode()));
+    public Attendance(Session name, SessionDate date) {
+        this(name, date,
+                createUniqueId(name.hashCode() + date.hashCode())
+        );
     }
 
-    public Deadline getSession() {
-        return session;
-    }
+    public Session getSession() { return name; }
+
+    public SessionDate getDate() { return date; }
 
     public String getUniqueId() {
         return uniqueId;
@@ -87,7 +91,8 @@ public class Attendance implements Comparable<Attendance> {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Attendance Session: ")
-                .append(getSession());
+                .append(getSession() + " ")
+                .append(getDate());
         return builder.toString();
     }
 

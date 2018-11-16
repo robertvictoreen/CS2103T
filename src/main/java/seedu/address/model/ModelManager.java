@@ -13,6 +13,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.attendance.Attendance;
 import seedu.address.model.person.Person;
 
 /**
@@ -24,6 +25,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Assignment> filteredAssignments;
+    private final FilteredList<Attendance> filteredAttendance;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -37,6 +39,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredAssignments = new FilteredList<>(versionedAddressBook.getAssignmentList());
+        filteredAttendance = new FilteredList<>(versionedAddressBook.getAttendanceList());
     }
 
     public ModelManager() {
@@ -133,6 +136,33 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void addAttendance(Attendance attendance) {
+        versionedAddressBook.addAttendance(attendance);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public boolean hasAttendance(Attendance attendance) {
+        requireNonNull(attendance);
+        return versionedAddressBook.hasAttendance(attendance);
+    }
+
+    @Override
+    public void deleteAttendance(Attendance target) {
+        versionedAddressBook.removeAttendance(target);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void updateAttendance(Attendance target, Attendance editedLesson) {
+        requireAllNonNull(target, editedLesson);
+
+        versionedAddressBook.updateAttendance(target, editedLesson);
+        indicateAddressBookChanged();
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -159,6 +189,17 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ObservableList<Assignment> getFilteredAssignmentList() {
         return FXCollections.unmodifiableObservableList(filteredAssignments);
+    }
+
+    //=========== Attendance List Accessors ==================================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Attendance> getFilteredAttendanceList() {
+        return FXCollections.unmodifiableObservableList(filteredAttendance);
     }
 
     //=========== Undo/Redo =================================================================================

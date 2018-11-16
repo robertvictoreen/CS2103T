@@ -6,33 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddAssignmentCommand;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddProfilePhotoCommand;
-import seedu.address.logic.commands.AssignmentStatsCommand;
-import seedu.address.logic.commands.AttendanceCommand;
-import seedu.address.logic.commands.ClassStatsCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteAssignmentCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.DeleteNoteCommand;
-import seedu.address.logic.commands.DeleteProfilePhotoCommand;
-import seedu.address.logic.commands.EditAssignmentCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditNoteCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.MarkAssignmentCommand;
-import seedu.address.logic.commands.NoteCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.commands.SortAssignmentCommand;
-import seedu.address.logic.commands.SortCommand;
-import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.*;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -68,6 +42,9 @@ public class AddressBookParser {
         case AttendanceCommand.COMMAND_WORD:
             return new AttendanceCommandParser().parse(arguments);
 
+        case AddAttendanceCommand.COMMAND_WORD:
+            return new AddAttendanceCommandParser().parse(arguments);
+
         case AddProfilePhotoCommand.COMMAND_WORD:
             return new AddPhotoCommandParser().parse(arguments);
 
@@ -86,11 +63,17 @@ public class AddressBookParser {
         case EditAssignmentCommand.COMMAND_WORD:
             return new EditAssignmentCommandParser().parse(arguments);
 
+        case EditLessonCommand.COMMAND_WORD:
+            return new EditLessonCommandParser().parse(arguments);
+
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
 
         case DeleteAssignmentCommand.COMMAND_WORD:
             return new DeleteAssignmentCommandParser().parse(arguments);
+
+        case DeleteAttendanceCommand.COMMAND_WORD:
+            return new DeleteAttendanceCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
