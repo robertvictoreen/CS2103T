@@ -24,6 +24,7 @@ import seedu.address.model.person.Person;
 /**
  * The More Details Panel of the App.
  */
+//@@author spencertan96
 public class MoreDetailsPanel extends UiPart<Region> {
 
     private static final String FXML = "MoreDetailsPanel.fxml";
@@ -216,6 +217,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
      * Show the specified student's lessons and attendance.
      */
 
+    //@@author zzsmao
     private void showAttendance(Person student, int row) {
         double attendanceMark;
         Label label;
@@ -259,6 +261,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
     /**
      * Set the {@code GridPane}'s rows and columns to Assignment layout.
      */
+    //@@author spencertan96
     private void setRowsAndColumns() {
         Label label = createLabel("Assignments", DEFAULT_STYLE);
         components.add(label, 0, 0);
