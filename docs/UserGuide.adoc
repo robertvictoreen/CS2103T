@@ -247,19 +247,16 @@ Format: `exit`
 Adds a lesson to the list of lessons in the address book.  +
 Format: `addLesson n/NAME d/DATE`
 
-<<<<<<< HEAD
 ****
 * Adds a lesson to all students in the class (i.e the students is the address book),
 with the name of the lesson, NAME and when the session was held, DATE. 
 * `NAME` should be a String.
 * `DATE` should follow the format DD/MM/YYYY.
+* Cannot be undone/redone.
 ****
 
 .Add Lesson
 image::addLesson.png[width="800"]
-=======
-=== Mark a student's attendance as absent: `unattend` {Coming in v2.0}
->>>>>>> caf11e4085ee854c8ebf7ffb10759b4d7fbf7e6a
 
 === Mark a student's attendance: `attend`
 
@@ -271,6 +268,7 @@ Format: `attend INDEX id/SESSION_INDEX at/ATTENDANCE`
 * `INDEX` should be a positive integer.
 * `SESSION_INDEX` should be a positive integer.
 * `ATTENDANCE` should be either 1 or 0.
+* Cannot be undone/redone.
 ****
 
 .Mark Attendance
@@ -285,6 +283,7 @@ Format: `deleteAttendance id/SESSION_INDEX`
 * Deletes a lesson from the list of lessons in the address book with the input index,
 SESSION_INDEX.
 * `SESSION_INDEX` should be a positive integer.
+* Cannot be undone/redone.
 ****
 
 .Delete Lesson
@@ -300,6 +299,7 @@ Format: `editLesson id/SESSION_INDEX n/UPDATED_NAME d/UPDATED_DATE`
 addressbook, replacing them with UPDATED_NAME and/or UPDATED_DATE respectively.
 * `UPDATED_NAME` should be a String.
 * `UPDATED_DATE` should follow the format DD/MM/YYYY.
+* Cannot be undone/redone.
 ****
 
 .Edit Lesson

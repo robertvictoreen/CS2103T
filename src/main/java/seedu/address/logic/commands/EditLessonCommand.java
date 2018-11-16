@@ -71,7 +71,6 @@ import static seedu.address.logic.parser.CliSyntax.*;
             }
 
             model.updateAttendance(lessonToEdit, editedLesson);
-            model.commitAddressBook();
             return new CommandResult(String.format(MESSAGE_EDIT_LESSON_SUCCESS, editedLesson));
         }
 

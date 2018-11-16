@@ -83,7 +83,6 @@ public class AttendanceCommand extends Command {
 
         model.updatePerson(personToMarkAttendance, markedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_MARK_ATTENDANCE_SUCCESS, markedPerson));
     }
 
