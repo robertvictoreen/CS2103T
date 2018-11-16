@@ -13,6 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.BaseEvent;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
@@ -28,6 +29,9 @@ public class MoreDetailsPanel extends UiPart<Region> {
     private static final String FXML = "MoreDetailsPanel.fxml";
     private static final String DEFAULT_LABEL = "<No student selected>";
     private static final String DEFAULT_TEXT = "<No note found>";
+    private static final String DEFAULT_STYLE = "-fx-font-size: 11pt;\n" + "-fx-font-family: \"Segoe UI Semibold\";\n"
+            + "-fx-text-fill: white;\n" + "-fx-opacity: 1;";
+    private static final Font DEFAULT_FONT = new Font("System", (double) 25);
 
     // Value that indicates that no student has been selected yet.
     private static final int NONE = -1;
@@ -59,9 +63,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
         this.attendanceList = listOfAttendance;
 
         // default label
-        Label noComponents = new Label(DEFAULT_LABEL);
-        noComponents.setFont(new Font("System", (double) 25));
-        components.add(noComponents, 0, 0);
+        showDefaultLabel();
 
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
@@ -69,21 +71,20 @@ public class MoreDetailsPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) throws Exception {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         currentStudent = event.getNewSelection();
         currentStudentIndex = studentList.indexOf(currentStudent);
         // find student index
-        display(currentStudentIndex); // display student's details in details panel
+        display(currentStudentIndex, event); // display student's details in details panel
     }
 
     @Subscribe
-    private void handleAddressbookChangedEvent(AddressBookChangedEvent event) throws Exception {
+    private void handleAddressbookChangedEvent(AddressBookChangedEvent event) {
         // No student selected yet, don't need to display.
         if (currentStudentIndex == NONE) {
             return;
         }
-        display(currentStudentIndex); // display student's details in details panel
+        display(currentStudentIndex, event); // display student's details in details panel
     }
 
     @Subscribe
@@ -94,61 +95,49 @@ public class MoreDetailsPanel extends UiPart<Region> {
         if (currentStudentIndex == NONE) {
             return;
         }
-        display(currentStudentIndex); // display student's details in details panel
+        display(currentStudentIndex, event); // display student's details in details panel
     }
 
     /**
      * Displays the student's details in the Details Panel on the bottom right.
      * Student obtained using his/her index to avoid displaying the wrong student when undo/redo executed.
      */
-    public void display(int studentIndex) {
+    public void display(int studentIndex, BaseEvent event) {
         Person student = null;
         try {
             student = studentList.get(studentIndex);
             // Keep track of who was just displayed
             currentStudent = student;
         } catch (IndexOutOfBoundsException e) {
-            components.getChildren().clear();
-            Label noComponents = new Label(DEFAULT_LABEL);
-            noComponents.setFont(new Font("System", (double) 25));
-            components.add(noComponents, 0, 0);
-            notesText.clear();
-            notesText.setText(DEFAULT_TEXT);
+            logger.info(LogsCenter.getEventHandlingLogMessage(event, "Displaying default details"));
+            showDefault();
         }
         if (student == null) {
             return;
         }
-
-        logger.info("Displaying details!\n");
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Displaying student's details"));
 
         // remove old labels
         components.getChildren().clear();
 
-        // add no. of rows equal to no. of assignments keyed in
-        // Labels set to be label-bright
+        setRowsAndColumns();
+        int row = showAssignments(student);
+        showNote(student);
+        showAttendance(student, row);
+    }
+
+    private void showNote(Person student) {
+        notesText.clear();
+        notesText.setText(student.getNote().toString());
+    }
+
+    //@@author robertvictoreen
+    /**
+     * Show the specified student's assignments and marks.
+     */
+    private int showAssignments(Person student) {
         Label label;
-        String style = "-fx-font-size: 11pt;\n" + "-fx-font-family: \"Segoe UI Semibold\";\n"
-            + "-fx-text-fill: white;\n" + "-fx-opacity: 1;";
-
-        label = new Label("Assignments");
-        label.setStyle(style);
-        components.add(label, 0, 0);
-
-        label = new Label("Deadline");
-        label.setStyle(style);
-        components.add(label, 1, 0);
-
-        label = new Label("Weight");
-        label.setStyle(style);
-        components.add(label, 2, 0);
-
-        label = new Label("Grade");
-        label.setStyle(style);
-        components.add(label, 3, 0);
-
         double assignmentWeight;
-        double assignmentMark;
-        double assignmentMaxMark;
         double totalWeight = 0;
         double weightedMarks = 0;
 
@@ -156,108 +145,166 @@ public class MoreDetailsPanel extends UiPart<Region> {
         Assignment assignment;
         for (int i = 0; i < assignmentList.size(); i++) {
             assignment = assignmentList.get(i);
-            // adding assignment label
             row = i + 1;
 
-            label = new Label(String.format("%d. %s", row, assignment.getName()));
-            label.setStyle(style);
-            components.add(label, 0, row);
+            // adding assignment labels (name and deadline)
+            String assignmentString = String.format("%d. %s", row, assignment.getName().getValue());
+            addLabelToGrid(assignmentString, row, 0);
+            addLabelToGrid(String.valueOf(assignment.getDeadline()), row, 1);
 
-            label = new Label(String.valueOf(assignment.getDeadline()));
-            label.setStyle(style);
-            components.add(label, 1, row);
-
+            // assignment weight
             assignmentWeight = assignment.getWeight().getValue();
             totalWeight += assignmentWeight;
-            label = new Label(String.valueOf(assignment.getWeight()));
-            label.setStyle(style);
-            components.add(label, 2, row);
+            addLabelToGrid(String.valueOf(assignment.getWeight()), row, 2);
 
-            // adding marks label
-            try {
-                assignmentMark = student.getMarks().get(assignment.getUniqueId()).getValue();
-                assignmentMaxMark = assignment.getMaxMark().getValue();
+            weightedMarks += showMarks(student, assignment, row);
 
-                label = new Label(String.format("%.1f/%.1f",
-                    assignmentMark, assignmentMaxMark));
-
-                assignmentMark /= assignmentMaxMark;
-                weightedMarks += assignmentMark * assignmentWeight;
-            } catch (Exception e) {
-                label = new Label("");
-            }
-            label.setStyle(style);
-            components.add(label, 3, row);
         }
 
         row++;
-        label = new Label("Total");
-        label.setStyle(style);
+        showTotalGrade(weightedMarks, totalWeight, row);
+        return row;
+    }
+
+    /**
+     * Shows the obtained marks and maximum marks in the given row of the GridPane.
+     */
+    private void showTotalGrade(double weightedMarks, double totalWeight, int row) {
+        Label label = createLabel("Total", DEFAULT_STYLE);
         components.add(label, 0, row);
 
-        label = new Label(String.format("%.1f/%.1f",
-            weightedMarks, totalWeight));
-        label.setStyle(style);
+        String text = String.format("%.1f/%.1f", weightedMarks, totalWeight);
+        label = createLabel(text, DEFAULT_STYLE);
         components.add(label, 3, row);
+    }
 
-        row ++;
-        label = new Label(" ");
-        components.add(label, 0, row);
-        row++;
+    /**
+     * Add label with specified text to GridPane at given row and column.
+     */
+    private void addLabelToGrid(String text, int row, int column) {
+        Label label = createLabel(text, DEFAULT_STYLE);
+        components.add(label, column, row);
+    }
 
-        label = new Label("Lessons");
-        label.setStyle(style);
-        components.add(label, 0, row);
+    /**
+     * Shows student's marks in the display at given row for the specified assignment.
+     */
+    private double showMarks(Person student, Assignment assignment, int row) {
+        String text;
+        double result = 0;
+        double assignmentMark;
+        double assignmentMaxMark;
+        double assignmentWeight = assignment.getWeight().getValue();
+        // adding marks label
+        if (student.getMarks().containsKey(assignment.getUniqueId())) {
+            assignmentMark = student.getMarks().get(assignment.getUniqueId()).getValue();
+            assignmentMaxMark = assignment.getMaxMark().getValue();
 
-        label = new Label("Date");
-        label.setStyle(style);
-        components.add(label, 1, row);
+            text = String.format("%.1f/%.1f", assignmentMark, assignmentMaxMark);
 
-        label = new Label("Attendance");
-        label.setStyle(style);
-        components.add(label, 2, row);
+            assignmentMark /= assignmentMaxMark;
+            result += assignmentMark * assignmentWeight;
+        } else {
+            text = "";
+        }
+        Label label = createLabel(text, DEFAULT_STYLE);
+        components.add(label, 3, row);
+        return result;
+    }
 
+    /**
+     * Show the specified student's lessons and attendance.
+     */
+
+    private void showAttendance(Person student, int row) {
         double attendanceMark;
+        Label label;
+
+        label = createLabel(" ", DEFAULT_STYLE);
+        components.add(label, 0, row);
+
+        label = createLabel("Lessons", DEFAULT_STYLE);
+        components.add(label, 0, row + 2);
+
+        label = createLabel("Date", DEFAULT_STYLE);
+        components.add(label, 1, row + 2);
+
+        label = createLabel("Attendance", DEFAULT_STYLE);
+        components.add(label, 2, row + 2);
 
         Attendance attendance;
         for (int i = 0; i < attendanceList.size(); i++) {
             attendance = attendanceList.get(i);
-            // adding attendance label
-            row ++;
+            row += 3;
 
-            label = new Label(String.format("%d. %s", i+1, attendance.getSession()));
-            label.setStyle(style);
-            components.add(label, 0, row);
+            // adding attendance labels (name and date)
+            String lessonName = String.format("%d. %s", i+1, attendance.getSession().getValue());
+            addLabelToGrid(lessonName, row, 0);
+            addLabelToGrid(String.valueOf(attendance.getDate()), row, 1);
 
-            label = new Label(String.valueOf(attendance.getDate()));
-            label.setStyle(style);
-            components.add(label, 1, row);
-
-            label = new Label(String.valueOf("-"));
-            label.setStyle(style);
-            components.add(label, 2, row);
-
-            // adding marks label
+            // attendance
             try {
                 attendanceMark = student.getAttendance().get(attendance.getUniqueId()).getValue();
 
-
-                label = new Label(String.format("%.0f",
-                        attendanceMark));
+                addLabelToGrid(String.format("%.0f", attendanceMark), row, 2);
 
             } catch (Exception e) {
-                label = new Label("");
+                addLabelToGrid(String.valueOf("-"), row, 2);
             }
-            label.setStyle(style);
-            components.add(label, 2, row);
+
 
         }
+    }
 
+    /**
+     * Set the {@code GridPane}'s rows and columns to Assignment layout.
+     */
+    private void setRowsAndColumns() {
+        Label label = createLabel("Assignments", DEFAULT_STYLE);
+        components.add(label, 0, 0);
 
+        label = createLabel("Deadline", DEFAULT_STYLE);
+        components.add(label, 1, 0);
 
-        // show student's notes
+        label = createLabel("Weight", DEFAULT_STYLE);
+        components.add(label, 2, 0);
+
+        label = createLabel("Grade", DEFAULT_STYLE);
+        components.add(label, 3, 0);
+
+    }
+    //@@author spencertan96
+
+    /**
+     * Resets display to default where no student is selected.
+     */
+    private void showDefault() {
+        showDefaultLabel();
+        showDefaultText();
+    }
+
+    /**
+     * Resets note display to default.
+     */
+    private void showDefaultText() {
         notesText.clear();
-        notesText.setText(student.getNote().toString());
+        notesText.setText(DEFAULT_TEXT);
+    }
+
+    /**
+     * Resets assignments display to default.
+     */
+    private void showDefaultLabel() {
+        components.getChildren().clear();
+        Label noComponents = new Label(DEFAULT_LABEL);
+        noComponents.setFont(DEFAULT_FONT);
+        components.add(noComponents, 0, 0);
+    }
+
+    private Label createLabel(String text, String style) {
+        Label label = new Label(text);
+        label.setStyle(style);
+        return label;
     }
 
     public ObservableList<Person> getList() {

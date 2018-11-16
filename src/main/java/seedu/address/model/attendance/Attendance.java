@@ -91,7 +91,7 @@ public class Attendance implements Comparable<Attendance> {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Attendance Session: ")
-                .append(getSession())
+                .append(getSession() + " ")
                 .append(getDate());
         return builder.toString();
     }

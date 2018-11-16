@@ -41,7 +41,6 @@ public class DeleteAttendanceCommand extends Command {
 
         Attendance attendanceToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteAttendance(attendanceToDelete);
-        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_DELETE_ATTENDANCE_SUCCESS, attendanceToDelete));
     }
 

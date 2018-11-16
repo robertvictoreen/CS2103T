@@ -156,6 +156,7 @@ Format: `addphoto INDEX f/FILENAME`
 * `FILENAME` must point to a valid image file.
 * This feature isn't compatible with MAC OS X at the moment.
 * Do not delete photos from storage (EzTutor File) at this point since doing so may trigger some undesirable behaviour in the program.
+* File size of photo should be less than 5MB.
 ****
 
 Examples:
@@ -246,6 +247,7 @@ Format: `exit`
 Adds a lesson to the list of lessons in the address book.  +
 Format: `addLesson n/NAME d/DATE`
 
+<<<<<<< HEAD
 ****
 * Adds a lesson to all students in the class (i.e the students is the address book),
 with the name of the lesson, NAME and when the session was held, DATE. 
@@ -255,6 +257,9 @@ with the name of the lesson, NAME and when the session was held, DATE.
 
 .Add Lesson
 image::addLesson.png[width="800"]
+=======
+=== Mark a student's attendance as absent: `unattend` {Coming in v2.0}
+>>>>>>> caf11e4085ee854c8ebf7ffb10759b4d7fbf7e6a
 
 === Mark a student's attendance: `attend`
 
@@ -500,5 +505,9 @@ e.g. `note 4 Good student`
 e.g. `select 2`
 * *Sort* : `sort`
 * *SortAssignment* : `sortAssignment`
+<<<<<<< HEAD
+=======
+* *Unattend* : `unattend INDEX at/CLASSNAME` {Coming in v2.0}
+>>>>>>> caf11e4085ee854c8ebf7ffb10759b4d7fbf7e6a
 * *Undo* : `undo`
 
