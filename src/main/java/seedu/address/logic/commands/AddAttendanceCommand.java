@@ -12,7 +12,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import seedu.address.model.attendance.Attendance;
 
 /**
- * Adds an assignment to the address book.
+ * Adds a lesson to the address book.
  */
 public class AddAttendanceCommand extends Command {
 
