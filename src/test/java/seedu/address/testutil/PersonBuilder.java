@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import seedu.address.model.attendance.Attendance;
 import seedu.address.model.attendance.AttendanceMark;
 import seedu.address.model.common.Mark;
 import seedu.address.model.person.Address;
