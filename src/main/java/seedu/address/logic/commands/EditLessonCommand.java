@@ -133,24 +133,24 @@ public class EditLessonCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-                return CollectionUtil.isAnyNonNull(name, date);
-            }
+            return CollectionUtil.isAnyNonNull(name, date);
+        }
 
         public void setName(Session name) {
-                this.name = name;
-            }
+            this.name = name;
+        }
 
         public Optional<Session> getName() {
-                return Optional.ofNullable(name);
-            }
+            return Optional.ofNullable(name);
+        }
 
         public void setDate(SessionDate date) {
-                this.date = date;
-            }
+            this.date = date;
+        }
 
         public Optional<SessionDate> getDate() {
-                return Optional.ofNullable(date);
-            }
+            return Optional.ofNullable(date);
+        }
 
 
         @Override

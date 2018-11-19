@@ -1,12 +1,14 @@
 package seedu.address.storage;
 
+import javax.xml.bind.annotation.XmlElement;
+
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.attendance.Attendance;
 import seedu.address.model.attendance.AttendanceMark;
 import seedu.address.model.common.Mark;
 
-import javax.xml.bind.annotation.XmlElement;
-
+/**
+ * JAXB-friendly adapted version of the AttendanceMark.
+ */
 public class XmlAdaptedAttendanceMark {
 
     @XmlElement

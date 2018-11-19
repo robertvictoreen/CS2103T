@@ -6,7 +6,7 @@ import seedu.address.model.common.Validator;
  * Represents a Lesson Name in the app.
  * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  */
-public class Session extends Validator implements Comparable<Session>{
+public class Session extends Validator implements Comparable<Session> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Attendance name should not be blank";

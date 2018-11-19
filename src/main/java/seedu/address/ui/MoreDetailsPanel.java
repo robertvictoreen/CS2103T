@@ -240,7 +240,7 @@ public class MoreDetailsPanel extends UiPart<Region> {
             row += 3;
 
             // adding attendance labels (name and date)
-            String lessonName = String.format("%d. %s", i+1, attendance.getSession().getValue());
+            String lessonName = String.format("%d. %s", i + 1, attendance.getSession().getValue());
             addLabelToGrid(lessonName, row, 0);
             addLabelToGrid(String.valueOf(attendance.getDate()), row, 1);
 
