@@ -24,6 +24,7 @@ import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.attendance.Attendance;
 import seedu.address.model.person.Person;
 import seedu.address.storage.XmlSerializableAddressBook;
 
@@ -34,8 +35,11 @@ public class PersonListPanelTest extends GuiUnitTest {
     private static final ObservableList<Assignment> TYPICAL_ASSIGNMENT =
             FXCollections.observableList(new ArrayList<>());
 
+    private static final ObservableList<Attendance> TYPICAL_ATTENDANCE =
+            FXCollections.observableList(new ArrayList<>());
+
     private static final MoreDetailsPanel MORE_DETAILS_PANEL =
-            new MoreDetailsPanel(TYPICAL_PERSONS, TYPICAL_ASSIGNMENT);
+            new MoreDetailsPanel(TYPICAL_PERSONS, TYPICAL_ASSIGNMENT, TYPICAL_ATTENDANCE);
 
     private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PERSON);
 
