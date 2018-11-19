@@ -13,10 +13,10 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
 import seedu.address.model.attendance.Attendance;
 import seedu.address.model.attendance.AttendanceMark;
 import seedu.address.model.common.EditPersonDescriptor;
-import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
