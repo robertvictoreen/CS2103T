@@ -249,7 +249,7 @@ Format: `addLesson n/NAME d/DATE`
 
 ****
 * Adds a lesson to all students in the class (i.e the students is the address book),
-with the name of the lesson, NAME and when the session was held, DATE. 
+with the name of the lesson, NAME and when the session was held, DATE.
 * `NAME` should be a String.
 * `DATE` should follow the format DD/MM/YYYY.
 * Cannot be undone/redone.

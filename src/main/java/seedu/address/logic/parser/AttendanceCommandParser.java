@@ -23,28 +23,28 @@ public class AttendanceCommandParser implements Parser<AttendanceCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AttendanceCommand parse(String args) throws ParseException {
-            ArgumentMultimap argMultimap =
-                    ArgumentTokenizer.tokenize(args, PREFIX_ID, PREFIX_ATTENDANCE);
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_ID, PREFIX_ATTENDANCE);
 
-            if (!arePrefixesPresent(argMultimap, PREFIX_ID, PREFIX_ATTENDANCE)
-                    || argMultimap.getPreamble().isEmpty()) {
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, AttendanceCommand.MESSAGE_USAGE)
-                );
-            }
-
-            Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
-            Index attendanceIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_ID).get());
-            AttendanceMark attendanceMark = ParserUtil.parseAttendanceMark(
-                    argMultimap.getValue(PREFIX_ATTENDANCE).get());
-
-            return new AttendanceCommand(index, attendanceIndex, attendanceMark);
+        if (!arePrefixesPresent(argMultimap, PREFIX_ID, PREFIX_ATTENDANCE)
+                || argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AttendanceCommand.MESSAGE_USAGE)
+            );
         }
 
-        /**
-         * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-         * {@code ArgumentMultimap}.
-         */
+        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        Index attendanceIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_ID).get());
+        AttendanceMark attendanceMark = ParserUtil.parseAttendanceMark(
+                argMultimap.getValue(PREFIX_ATTENDANCE).get());
+
+        return new AttendanceCommand(index, attendanceIndex, attendanceMark);
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }

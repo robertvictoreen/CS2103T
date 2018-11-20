@@ -11,7 +11,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.attendance.Attendance;
 import seedu.address.model.attendance.AttendanceMark;
 import seedu.address.model.common.Mark;
 import seedu.address.model.tag.Tag;

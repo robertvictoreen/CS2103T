@@ -1,18 +1,20 @@
 package seedu.address.logic.parser;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditLessonCommand;
-import seedu.address.logic.commands.EditLessonCommand.EditLessonDescriptor;
-import seedu.address.logic.parser.exceptions.ParseException;
-
-import java.util.stream.Stream;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
+import java.util.stream.Stream;
+
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.EditLessonCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+
+/**
+ * Parses input arguments and creates a new EditCommand object
+ */
 public class EditLessonCommandParser {
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
@@ -22,7 +24,7 @@ public class EditLessonCommandParser {
     public EditLessonCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args,PREFIX_ID, PREFIX_NAME, PREFIX_DATE);
+                ArgumentTokenizer.tokenize(args, PREFIX_ID, PREFIX_NAME, PREFIX_DATE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_ID)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -39,7 +41,7 @@ public class EditLessonCommandParser {
             );
         }
 
-        EditLessonDescriptor editLessonDescriptor = new EditLessonDescriptor();
+        EditLessonCommand.EditLessonDescriptor editLessonDescriptor = new EditLessonCommand.EditLessonDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editLessonDescriptor.setName(ParserUtil.parseSession(argMultimap.getValue(PREFIX_NAME).get()));
         }

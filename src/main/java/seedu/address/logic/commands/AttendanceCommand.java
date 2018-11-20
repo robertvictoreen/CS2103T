@@ -5,7 +5,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ATTENDANCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -15,12 +17,10 @@ import seedu.address.model.Model;
 import seedu.address.model.attendance.Attendance;
 import seedu.address.model.attendance.AttendanceMark;
 import seedu.address.model.common.EditPersonDescriptor;
-import seedu.address.model.common.Mark;
-import seedu.address.model.person.*;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.person.Person;
 
 /**
- * Marks a student as present.
+ * Marks a student as present or absent.
  */
 public class AttendanceCommand extends Command {
     public static final String COMMAND_WORD = "attend";

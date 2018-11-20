@@ -34,7 +34,7 @@ Responsibilities: UI + Deliverables and deadlines
 === Zhen Hao
 
 image::zzsmao.png[width="150", align="left"]
-{empty}[http://github.com/zzsmao[github]]
+{empty}[http://github.com/zzsmao[github]] [<<zzsmao#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI

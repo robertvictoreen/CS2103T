@@ -44,7 +44,7 @@ student.
 ** Justification: This feature will allow tutors to mark and track the attendance of each student, so that marks could
 be given for participation and tutors can direct their attention towards students who have missed their lessons,
 to provide make-up lessons and help if necessary
-** Highlights: 
+** Highlights:
 
 * *Minor enhancement*: added a panel in the GUI for displaying a student's attendance in lessons of a specific module.
 
@@ -78,6 +78,12 @@ documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=attendance]
+
+include::../DeveloperGuide.adoc[tag=editLessonCommand]
+
+include::../DeveloperGuide.adoc[tag=deleteAttendanceCommand]
+
+include::../DeveloperGuide.adoc[tag=addLessonCommand]
 
 === Proposed Enhancement for v2.0
 * Adding features to notify students of upcoming deadlines

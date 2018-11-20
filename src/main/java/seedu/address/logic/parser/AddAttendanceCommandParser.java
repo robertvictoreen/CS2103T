@@ -1,5 +1,11 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+
+import java.util.stream.Stream;
+
 import seedu.address.logic.commands.AddAttendanceCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.attendance.Attendance;
@@ -7,13 +13,9 @@ import seedu.address.model.attendance.Attendance;
 import seedu.address.model.attendance.Session;
 import seedu.address.model.attendance.SessionDate;
 
-
-import java.util.stream.Stream;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
-
-
+/**
+ * Parses input arguments and creates a new AddAttendanceCommand object
+ */
 public class AddAttendanceCommandParser implements Parser<AddAttendanceCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddAssignmentCommand

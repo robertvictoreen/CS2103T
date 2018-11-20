@@ -488,6 +488,62 @@ image::EditAssignmentCommandSequenceDiagram.png[width="800"]
 
 // end::editAssignmentCommand[]
 
+// tag::editLessonCommand[]
+=== Edit Lesson Feature
+
+This is a feature to let users edit the name and date of a lesson.
+
+The following sequence diagram shows how the `editLesson` command works
+
+image::EditLessonUMLSequenceDiagram.png[width="800"]
+
+	1. The user executes the `editLesson id/SESSION_INDEX n/UPDATED_NAME d/UPDATED_DATE` command, with
+     parameters `SESSION_INDEX` and optional parameters `UPDATED_NAME`, `UPDATED_DATE`.
+    2. The `AddressBookParser` class parses the command to create a new `EditLessonCommand` class.
+    3. The `getFilteredAttendanceList` command is executed and handled by the `ModelManager` class.
+    4. A new `Attendance` object is created by `createEditedAttendance` command, using information parsed from parser.
+    5. The new `Attendance` is attached to the `Model` at `SESSION_INDEX`.
+    6. The new lesson information will now stored.
+
+// end::editLessonCommand[]
+
+// tag::deleteAttendanceCommand[]
+=== Delete Attendance Feature
+
+This is a feature to let users remove a lesson from the address book.
+
+The following sequence diagram shows how the `deleteAttendance` command works
+
+image::DeleteAttendanceUMLSequenceDiagram.png[width="800"]
+
+	1. The user executes the `deleteAttendance id/SESSION_INDEX` command, with
+     parameter `SESSION_INDEX`.
+    2. The `AddressBookParser` class parses the command to create a new `deleteAttendanceCommand` class.
+    3. The `getFilteredAttendanceList` command is executed and handled by the `ModelManager` class.
+    4. The target `Attendance` object is removed by `createEditedAttendance` command, using information parsed from parser.
+    5. The target lesson information will now be removed.
+
+// end::deleteAttendanceCommand[]
+
+// tag::addLessonCommand[]
+=== Add Lesson Feature
+
+This is a feature to let users add a lesson to the address book.
+
+The following sequence diagram shows how the `addLesson` command works
+
+image::AddLessonUMLSequenceDiagram.png[width="800"]
+
+	1. The user executes the `addLesson n/NAME d/DATE` command, with
+     parameters `NAME`, `DATE`.
+    2. The `AddressBookParser` class parses the command to create a new `AddAttendanceCommand` class.
+    3. The `getFilteredAttendanceList` command is executed and handled by the `ModelManager` class.
+    4. A new `Attendance` object is created using information parsed from parser.
+    5. The new `Attendance` is attached to the `Model`.
+    6. The new lesson information will now stored.
+
+// end::addLessonCommand[]
+
 // tag::studentDetails[]
 === UI-Model binding of student details
 

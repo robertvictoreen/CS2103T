@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.attendance.Attendance;
 import seedu.address.model.person.Person;
 
 /**
@@ -68,12 +69,37 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void addAttendance(Attendance attendance) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteAttendance(Attendance target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasAttendance(Attendance attendance) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateAttendance(Attendance target, Attendance editedAttendance) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ObservableList<Person> getFilteredPersonList() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public ObservableList<Assignment> getFilteredAssignmentList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Attendance> getFilteredAttendanceList() {
         throw new AssertionError("This method should not be called.");
     }
 
