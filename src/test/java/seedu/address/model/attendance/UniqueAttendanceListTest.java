@@ -166,13 +166,13 @@ public class UniqueAttendanceListTest {
         List<Attendance> personList = Collections.singletonList(ATTENDANCE_B);
         uniqueAttendanceList.setAttendances(personList);
         UniqueAttendanceList expectedUniqueAttendanceList = new UniqueAttendanceList();
-        expectedUniqueAttendanceList.add(ATTENDANCE_A);
+        expectedUniqueAttendanceList.add(ATTENDANCE_B);
         assertEquals(expectedUniqueAttendanceList, uniqueAttendanceList);
     }
 
     @Test
     public void setLessons_listWithDuplicateLessons_throwsDuplicateAttendanceException() {
-        List<Attendance> listWithDuplicateLessons = Arrays.asList(ATTENDANCE_A, ATTENDANCE_B);
+        List<Attendance> listWithDuplicateLessons = Arrays.asList(ATTENDANCE_A, ATTENDANCE_A);
         thrown.expect(DuplicateAttendanceException.class);
         uniqueAttendanceList.setAttendances(listWithDuplicateLessons);
     }
