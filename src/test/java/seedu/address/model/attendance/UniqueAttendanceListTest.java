@@ -7,16 +7,18 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_B;
 import static seedu.address.testutil.TypicalAttendance.ATTENDANCE_A;
 import static seedu.address.testutil.TypicalAttendance.ATTENDANCE_B;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.address.model.attendance.exceptions.AttendanceNotFoundException;
 import seedu.address.model.attendance.exceptions.DuplicateAttendanceException;
 import seedu.address.testutil.AttendanceBuilder;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 public class UniqueAttendanceListTest {
     @Rule

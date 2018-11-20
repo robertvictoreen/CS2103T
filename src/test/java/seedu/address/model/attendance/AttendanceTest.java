@@ -2,7 +2,8 @@ package seedu.address.model.attendance;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_B;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SESSION_B;
 import static seedu.address.testutil.TypicalAttendance.ATTENDANCE_A;
 import static seedu.address.testutil.TypicalAttendance.ATTENDANCE_B;
 
@@ -54,10 +55,5 @@ public class AttendanceTest {
         // different name -> returns false
         Attendance editedA = new AttendanceBuilder(ATTENDANCE_A).withName(VALID_SESSION_B).build();
         assertFalse(ATTENDANCE_A.equals(editedA));
-
-        // different deadline -> returns false
-        editedA = new AttendanceBuilder(ATTENDANCE_A).withDate(VALID_DATE_B).build();
-        assertFalse(ATTENDANCE_A.equals(editedA));
-
     }
 }

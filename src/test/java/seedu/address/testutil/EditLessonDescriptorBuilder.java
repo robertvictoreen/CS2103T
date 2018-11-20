@@ -1,6 +1,5 @@
 package seedu.address.testutil;
 
-
 import seedu.address.logic.commands.EditLessonCommand.EditLessonDescriptor;
 import seedu.address.model.attendance.Attendance;
 import seedu.address.model.attendance.Session;
