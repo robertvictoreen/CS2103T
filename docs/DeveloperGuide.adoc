@@ -542,7 +542,7 @@ image::AddLessonUMLSequenceDiagram.png[width="800"]
     5. The new `Attendance` is attached to the `Model`.
     6. The new lesson information will now stored.
 
-// end::editLessonCommand[]
+// end::addLessonCommand[]
 
 // tag::studentDetails[]
 === UI-Model binding of student details
