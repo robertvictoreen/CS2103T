@@ -79,6 +79,12 @@ documentation and the technical depth of my contributions to the project._
 
 include::../DeveloperGuide.adoc[tag=attendance]
 
+include::../DeveloperGuide.adoc[tag=editLessonCommand]
+
+include::../DeveloperGuide.adoc[tag=deleteAttendanceCommand]
+
+include::../DeveloperGuide.adoc[tag=addLessonCommand]
+
 === Proposed Enhancement for v2.0
 * Adding features to notify students of upcoming deadlines
 * Add tabs feature so that the app can be used for multiple classes
