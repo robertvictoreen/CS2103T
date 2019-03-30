@@ -9,6 +9,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.common.EditPersonDescriptor;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -49,7 +50,6 @@ public class DeleteMarkCommand extends EditCommand {
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    @Override
     protected Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
         Set<Tag> updatedTags = new HashSet<>();
@@ -57,6 +57,6 @@ public class DeleteMarkCommand extends EditCommand {
         editPersonDescriptor.getTags().ifPresent(updatedTags::removeAll);
         editPersonDescriptor.setTags(updatedTags);
 
-        return super.createEditedPerson(personToEdit, editPersonDescriptor);
+        return editPersonDescriptor.createEditedPerson(personToEdit);
     }
 }

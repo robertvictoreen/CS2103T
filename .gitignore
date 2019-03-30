@@ -21,3 +21,9 @@ classes/
 /bin/
 src/main/resources/docs/
 out/
+EzTutor/
+src/sandbox/
+src/main/java/seedu.address.ui.AddStudentWindow.java
+src/main/resources/view/AddStudentWindow.fxml
+src/test/java/guitests/guihandles/AddStudentWindowHandle.java
+src/test/java/seedu/address/ui/AddStudentWindowTest.java
